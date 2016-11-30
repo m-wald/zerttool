@@ -29,11 +29,7 @@ class Db_connection
 		if ($this->conn == NULL) {
 			$this->connect();
 		}
-		$this->$result = $this->conn->query($query);
-		
-		$this->conn->close();
-		
-		return $result;
+		$this->result = $this->conn->query($query);
 	}
 	
 	public function nextRow() {
