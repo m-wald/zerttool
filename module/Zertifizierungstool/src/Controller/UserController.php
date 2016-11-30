@@ -20,10 +20,9 @@ class UserController extends AbstractActionController
 		
 		$user->load('waldma');
 		
-		echo $user->getNachname();
-		
 		return new ViewModel([
 				'benutzer' => array($user),
+				'title' => array("Testanzeige"),
 		]);
 	}
 }
