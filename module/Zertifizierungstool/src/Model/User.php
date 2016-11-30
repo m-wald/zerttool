@@ -26,15 +26,15 @@ class User
 		// Fehler prüfen
 	}
 	
-	public function getBenutzername($param) {
+	public function getBenutzername() {
 		return $this->benutzername;
 	}
 	
-	public function getVorname($param) {
+	public function getVorname() {
 		return $this->vorname;
 	}
 	
-	public function getNachname($param) {
+	public function getNachname() {
 		return $this->nachname;
 	}
 }
