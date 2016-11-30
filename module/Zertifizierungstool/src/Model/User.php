@@ -21,4 +21,16 @@ class User
 		$this->nachname		= $result['nachname'];
 		// Fehler prüfen
 	}
+	
+	public function getBenutzername($param) {
+		return $this->benutzername;
+	}
+	
+	public function getVorname($param) {
+		return $this->vorname;
+	}
+	
+	public function getNachname($param) {
+		return $this->nachname;
+	}
 }
