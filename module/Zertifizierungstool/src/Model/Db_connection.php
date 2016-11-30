@@ -18,11 +18,14 @@ class Db_connection
 		
 		$result = mysqli_query($conn, $query);
 		$return_array = array();
+		print_r($result);
 		
 		if (mysqli_num_rows($result) > 0) {
 			while ($row = mysqli_fetch_assoc($result)) {
 				array_push($return_array, $row);
 			}
+		} else {
+			echo "Kein Ergebnis gefunden.";
 		}
 		
 		return $return_array;
