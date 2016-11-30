@@ -13,7 +13,7 @@ class User
 	public function load($benutzername) {
 		$db = new Db_connection();
 		
-		$query = "SELECT * FROM benutzer WHERE benutzername = " . $benutzername;
+		$query = "SELECT * FROM benutzer";
 		
 		$result = $db->execute($query);
 		
