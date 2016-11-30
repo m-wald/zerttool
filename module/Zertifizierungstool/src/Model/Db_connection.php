@@ -3,7 +3,7 @@ namespace Zertifizierungstool\Model;
 
 class Db_connection
 {
-	private $server    	= "132.231.36.205";
+	private $server    	= "localhost";
 	private $database 	= "zertifizierungstool";
 	private $user 		= "root";
 	private $password 	= "zert4tool";
@@ -18,7 +18,7 @@ class Db_connection
 		
 		if ($this->conn->connect_error)
 		{
-			die("Es konnte keine Verbindung zur Datenbenk hergestellt werden: " . $this->conn->connect_error);	
+			die("Es konnte keine Verbindung zur Datenbank hergestellt werden: " . $this->conn->connect_error);	
 		}
 		
 		return $this->conn;
