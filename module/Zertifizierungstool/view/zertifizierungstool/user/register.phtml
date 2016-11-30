@@ -1,8 +1,11 @@
 <h1>Registrierung</h1>
 
 <?php 
-echo "Benutzername: " 	.$benutzer->getBenutzername() . "<br>";
-echo "Vorname: " 		.$benutzer->getVorname() . "<br>";
-echo "Nachname: " 		.$benutzer->getNachname() . "<br>";
+foreach ($benutzer as $b) {
+	echo "Benutzername: " 	.$b->getBenutzername() . "<br>";
+	echo "Vorname: " 		.$b->getVorname() . "<br>";
+	echo "Nachname: " 		.$b->getNachname() . "<br>";
+}
+
 
 ?>

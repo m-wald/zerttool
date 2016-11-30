@@ -15,10 +15,11 @@ class User
 		
 		$query = "SELECT * FROM benutzer WHERE benutzername = " . $benutzername;
 		
-		$result = $db->execute($query);
-		$this->benutzername = $result['benutzername'];
-		$this->vorname		= $result['vorname'];
-		$this->nachname		= $result['nachname'];
+		$db->execute($query);
+		$row = $db->nextRow();
+		$this->benutzername = $row['benutzername'];
+		$this->vorname		= $row['vorname'];
+		$this->nachname		= $row['nachname'];
 		// Fehler prüfen
 	}
 	

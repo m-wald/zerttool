@@ -9,6 +9,7 @@ class Db_connection
 	private $password 	= "zert4tool";
 	
 	private $conn		= NULL;
+	private $result;
 	
 	public function connect()
 	{
@@ -28,10 +29,14 @@ class Db_connection
 		if ($this->conn == NULL) {
 			$this->connect();
 		}
-		$result = $this->conn->query($query);
+		$this->$result = $this->conn->query($query);
 		
 		$this->conn->close();
 		
 		return $result;
+	}
+	
+	public function nextRow() {
+		return mysqli_fetch_array($this->result);
 	}
 }
