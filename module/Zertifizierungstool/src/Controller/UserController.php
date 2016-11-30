@@ -6,13 +6,22 @@ use Zend\View\Model\ViewModel;
 
 use Zertifizierungstool\Model\User;
 
-/*
- * TODO Dokumentation
+/**
+ * Dokumentation
+ * 
+ * @author martin waldmann
+ *
  */
 class UserController extends AbstractActionController
 {
 	public function registerAction()
 	{
-		return new ViewModel();
+		$user = new User();
+		
+		$user->load('waldma');
+		
+		return new ViewModel([
+				'benutzer' => $user
+		]);
 	}
 }
