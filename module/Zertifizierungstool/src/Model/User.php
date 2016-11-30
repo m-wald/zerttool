@@ -16,6 +16,9 @@ class User
 		$query = "SELECT * FROM benutzer WHERE benutzername = " . $benutzername;
 		
 		$result = $db->execute($query);
+		
+		print_r($result);
+		
 		foreach ($result as $row) {
 			$this->benutzername = $row['benutzername'];
 			$this->vorname		= $row['vorname'];
