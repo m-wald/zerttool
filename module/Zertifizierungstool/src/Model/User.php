@@ -17,7 +17,7 @@ class User
 		
 		$result = $db->execute($query);
 		
-		
+		echo $result;
 		
 		foreach ($result as $row) {
 			print_r($row);
