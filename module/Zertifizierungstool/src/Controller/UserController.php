@@ -23,7 +23,7 @@ class UserController extends AbstractActionController
 		echo $user->getNachname();
 		
 		return new ViewModel([
-				'benutzer' => $user
+				'benutzer' => array($user),
 		]);
 	}
 }
