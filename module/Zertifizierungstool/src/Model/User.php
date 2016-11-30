@@ -17,9 +17,10 @@ class User
 		
 		$result = $db->execute($query);
 		
-		print_r($result);
+		
 		
 		foreach ($result as $row) {
+			print_r($row);
 			$this->benutzername = $row['benutzername'];
 			$this->vorname		= $row['vorname'];
 			$this->nachname		= $row['nachname'];
