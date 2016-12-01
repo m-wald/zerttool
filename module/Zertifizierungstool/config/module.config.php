@@ -8,6 +8,7 @@ return [
 		'controllers' => [
 				'factories' => [
 						Controller\UserController::class => InvokableFactory::class,
+						Controller\KursController::class => InvokableFactory::class,
 				],
 		],
 		
@@ -26,6 +27,19 @@ return [
 												'action'     => 'index',
 										],
 								],
+						'kurs' => [
+								'type'    => Segment::class,
+								'options' => [
+										'route' => '/kurs[/:action]',
+										'constraints' => [
+												'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+										],
+										'defaults' => [
+												'controller' => Controller\KursController::class,
+												'action'     => 'index',
+										],
+								],
+						]
 						],
 				],
 		],
