@@ -16,6 +16,7 @@ class UserController extends AbstractActionController
 {
 	public function registerAction()
 	{
+		
 		$user = new User();
 		
 		$user->load('waldma');
@@ -23,5 +24,21 @@ class UserController extends AbstractActionController
 		return new ViewModel([
 				'benutzer' => array($user),
 		]);
+		
+		
+	}
+	
+	public function loginAction()
+	{
+		$benutzername = Request::getValue("benutzername");
+		
+		$user = new User();
+		if($user->login($benutzername, $passwort) == true){
+			
+		}
+	}
+	
+	public function loeschenAction() {
+		
 	}
 }
