@@ -27,6 +27,7 @@ return [
 												'action'     => 'index',
 										],
 								],
+						],
 						'kurs' => [
 								'type'    => Segment::class,
 								'options' => [
@@ -39,7 +40,6 @@ return [
 												'action'     => 'index',
 										],
 								],
-						]
 						],
 				],
 		],
