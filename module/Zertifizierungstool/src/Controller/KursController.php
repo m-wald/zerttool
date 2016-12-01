@@ -2,10 +2,11 @@
 namespace Zertifizierungstool\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
+use Zend\View\Model\ViewModel;
 
 class KursController extends AbstractActionController
 {
 	public function anlegenAction() {
-		echo "Anlegen Seite";
+		return new ViewModel();
 	}
 }
