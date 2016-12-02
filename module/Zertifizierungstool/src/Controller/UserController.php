@@ -5,6 +5,7 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 
 use Zertifizierungstool\Model\User;
+use Zertifizierungstool\Form\LoginForm;
 
 /**
  * Dokumentation
@@ -27,9 +28,16 @@ class UserController extends AbstractActionController
 		
 		
 	}
+	public function register_testAction()
+	{
+		$user = new User("michi", 123, "Michael", "Moertl", "26.11.", "Nibelungenstrasse", "passau", "mich@mo.bla", 0, 1, 0, 0);
+		
+		$user->register();
+	}
 	
 	public function loginAction()
 	{
+		
 		$benutzername = Request::getValue("benutzername");
 		
 		$user = new User();
