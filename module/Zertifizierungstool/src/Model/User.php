@@ -93,7 +93,7 @@ class User
 				".$this->is_admin.", ".$this->is_zertifizierer.", ".$this->is_teilnehmer.")";
 		
 		$result = $db->execute($query);
-		echo "Registriert";
+	    echo "Registriert";
 		}
 		echo "Fehler";
 	}
