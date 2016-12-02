@@ -5,7 +5,6 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 
 use Zertifizierungstool\Model\User;
-use Zertifizierungstool\Form\LoginForm;
 
 /**
  * Dokumentation
