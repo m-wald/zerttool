@@ -9,6 +9,35 @@ class User
 	private $passwort;
 	private $vorname;
 	private $nachname;
+	private $geburtsdatum;
+	private $strasse;
+	private $plz;
+	private $ort;
+	private $email;
+	private $email_confirmed;
+	private $is_admin;
+	private $is_zertifizierer;
+	private $is_teilnehmer;
+	
+	public function __construct($benutzername, $passwort, $vorname, $nachname, $geburtsdatum, $strasse, $plz, $ort, $email, $email_confirmed, $is_admin, $is_zertifizierer, $is_teilnehmer) {
+		$this->benutzername     = $benutzername;
+		$this->passwort         = $passwort;
+		$this->vorname          = $vorname;
+		$this->nachname         = $nachname;
+		$this->geburtsdatum     = $geburtsdatum;
+		$this->strasse          = $strasse;
+		$this->plz              = $plz;
+		$this->ort              = $ort;
+		$this->email            = $email;
+		$this->email_confirmed  = $email_confirmed;
+		$this->is_admin         = $is_admin;
+		$this->is_zertifizierer = $is_zertifizierer;
+		$this->is_teilnehmer    = $is_teilnehmer;
+	}
+	
+	public function __construct(){
+		
+	}
 	
 	public function load($benutzername) {
 		$db = new Db_connection();
@@ -18,9 +47,18 @@ class User
 		$result = $db->execute($query);
 		
 		foreach ($result as $row) {	
-			$this->benutzername = $row['benutzername'];
-			$this->vorname		= $row['vorname'];
-			$this->nachname		= $row['nachname'];
+			$this->benutzername     = $row['benutzername'];
+			$this->vorname		    = $row['vorname'];
+			$this->nachname		    = $row['nachname'];
+			$this->geburtsdatum     = $row['geburtsdatum'];
+			$this->strasse          = $row['strasse'];
+			$this->plz              = $row['plz'];
+			$this->ort              = $row['ort'];
+			$this->email            = $row['email'];
+			$this->email_confirmed  = $row['email_confirmed'];
+			$this->is_admin         = $row['is_admin'];
+			$this->is_zertifizierer = $row['is_zertifizierer'];
+			$this->is_teilnehmer    = $row['is_teilnehmer'];
 		}
 		
 		// Fehler prüfen
@@ -36,5 +74,26 @@ class User
 	
 	public function getNachname() {
 		return $this->nachname;
+	}
+	
+	public function alreadyExist() {
+		$db = new Db_connection();
+		
+		$query = "Select * from benutzer where benutzername=".$this->benutzername.";";
+		$result = $db->execute($query);
+		return $result;
+	}
+	
+	public function register() {
+		$db = new Db_connection();
+		
+		if ($this->alreadyExist($this->benutzername)==NULL){
+		$query = "insert into benutzer values (".$this->benutzername.", ".$this->passwort.", ".$this->vorname.", ".$this->nachname.", "
+				.$this->geburtsdatum.", ".$this->strasse.", ".$this->plz.", ".$this->ort.", ".$this->email.", ".$this->email_confirmed.", 
+				".$this->is_admin.", ".$this->is_zertifizierer.", ".$this->is_teilnehmer.")";
+		
+		$result = $db->execute($query);
+		}
+		
 	}
 }
