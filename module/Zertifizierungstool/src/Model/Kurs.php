@@ -27,5 +27,6 @@ class Kurs {
         
         $db->execute("SELECT * FROM kurs WHERE benutzername = $1;");       
         
+        
     }
 }
