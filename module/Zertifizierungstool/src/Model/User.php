@@ -55,10 +55,10 @@ class User
 			$this->plz              = $row['plz'];
 			$this->ort              = $row['ort'];
 			$this->email            = $row['email'];
-			$this->email_confirmed  = $row['email_confirmed'];
-			$this->is_admin         = $row['is_admin'];
-			$this->is_zertifizierer = $row['is_zertifizierer'];
-			$this->is_teilnehmer    = $row['is_teilnehmer'];
+			$this->email_confirmed  = $row['email_bestaetigt'];
+			$this->is_admin         = $row['ist_admin'];
+			$this->is_zertifizierer = $row['ist_zertifizierer'];
+			$this->is_teilnehmer    = $row['ist_teilnehmer'];
 		}
 		
 		// Fehler prüfen
@@ -79,7 +79,7 @@ class User
 	public function alreadyExist() {
 		$db = new Db_connection();
 		
-		$query = "Select * from benutzer where benutzername=".$this->benutzername.";";
+		$query = "Select * from benutzer where benutzername='".$this->benutzername."';";
 		$result = $db->execute($query);
 		return $result;
 	}
@@ -87,7 +87,7 @@ class User
 	public function register() {
 		$db = new Db_connection();
 		
-		if ($this->alreadyExist($this->benutzername)==NULL){
+		if ($this->alreadyExist()==NULL){
 		$query = "insert into benutzer values ('".$this->benutzername."', '".$this->passwort."', '".$this->vorname."', '".$this->nachname."', '"
 				.$this->geburtsdatum."', '".$this->strasse."', '".$this->plz."', '".$this->ort."', '".$this->email."', ".$this->email_confirmed.", 
 				".$this->is_admin.", ".$this->is_zertifizierer.", ".$this->is_teilnehmer.")";
