@@ -88,8 +88,8 @@ class User
 		$db = new Db_connection();
 		
 		if ($this->alreadyExist($this->benutzername)==NULL){
-		$query = "insert into benutzer values (".$this->benutzername.", ".$this->passwort.", ".$this->vorname.", ".$this->nachname.", "
-				.$this->geburtsdatum.", ".$this->strasse.", ".$this->plz.", ".$this->ort.", ".$this->email.", ".$this->email_confirmed.", 
+		$query = "insert into benutzer values ('".$this->benutzername."', '".$this->passwort."', '".$this->vorname."', '".$this->nachname."', '"
+				.$this->geburtsdatum."', '".$this->strasse."', '".$this->plz."', '".$this->ort."', '".$this->email."', ".$this->email_confirmed.", 
 				".$this->is_admin.", ".$this->is_zertifizierer.", ".$this->is_teilnehmer.")";
 		
 		$result = $db->execute($query);
