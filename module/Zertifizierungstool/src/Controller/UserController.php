@@ -41,7 +41,12 @@ class UserController extends AbstractActionController
 		$user = new User();
 		$user->load("michi");
 		$result=$user->passwortControll("123");
-		echo $result;
+		if ($result){
+			echo "Erfolgreich";
+		}
+		else {
+			echo "Fehlgeschlagen";
+		}
 	}
 	
 	public function loginAction()
