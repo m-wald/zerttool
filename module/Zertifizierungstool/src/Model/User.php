@@ -81,7 +81,11 @@ class User
 		
 		$query = "Select * from benutzer where benutzername='".$this->benutzername."';";
 		$result = $db->executeinsert($query);
-		return $result;
+		if (mysqli_num_rows($result) == 0) {
+			return false;
+		}else {
+			return true;
+		}
 	}
 	
 	public function register() {
@@ -89,7 +93,7 @@ class User
 		echo $this->benutzername;
 		echo $this->vorname;
 		
-		if (mysqli_num_rows($this->alreadyExist()) == 0){
+		if (!$this->alreadyExist()){
 		$query = "insert into benutzer (benutzername, passwort, vorname, nachname, geburtsdatum, strasse, plz, ort, email, email_bestaetigt, ist_admin, ist_zertifizierer, ist_teilnehmer) values ('"
 				.$this->benutzername."', '".$this->passwort."', '".$this->vorname."', '".$this->nachname."', '"
 				.$this->geburtsdatum."', '".$this->strasse."', '".$this->plz."', '".$this->ort."', '".$this->email."', ".$this->email_confirmed.", "
@@ -99,7 +103,7 @@ class User
 		$result = $db->executeinsert($query);
 	    echo "Registriert";
 		}else {
-		echo "Fehler";
+		echo "Benutzer schon registriert";
 		}
 	}
 }
