@@ -94,6 +94,7 @@ class User
 		
 		$result = $db->execute($query);
 	    echo "Registriert";
+	    echo $result;
 		//}
 		//echo "Fehler";
 	}
