@@ -29,7 +29,7 @@ class UserController extends AbstractActionController
 		
 	}
 	
-	public function register_testAction()
+	public function registertestAction()
 	{
 		$user = new User("michi", "123", "Michael", "Moertl", "26.11.", "Nibelungenstrasse", "passau", "mich@mo.bla", 0, 1, 0, 0);
 	
