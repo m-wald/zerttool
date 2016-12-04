@@ -126,7 +126,7 @@ class User
 		$empfaenger = $this->email;
 		$betreff = "Registrierung Zertifizierungstool";
 		$from = "user@zerttool.tk";
-		$text = "Sehr geehrte Damen und Herren, bitte bestaetigen Sie folgenden Link: zerttool.tk/user/registerbest/benutzer/".$this->benutzername;
+		$text = "Sehr geehrte Damen und Herren, bitte bestaetigen Sie folgenden Link: www.zerttool.tk/user/registerbest?benutzer=".$this->benutzername;
 		$text = wordwrap($text, 70);
 		mail ($empfaenger, $betreff, $text); 
 	}
