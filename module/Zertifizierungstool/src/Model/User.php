@@ -87,14 +87,14 @@ class User
 	public function register() {
 		$db = new Db_connection();
 		
-		if ($this->alreadyExist()==NULL){
+		//if ($this->alreadyExist()==NULL){
 		$query = "insert into benutzer values ('".$this->benutzername."', '".$this->passwort."', '".$this->vorname."', '".$this->nachname."', '"
 				.$this->geburtsdatum."', '".$this->strasse."', '".$this->plz."', '".$this->ort."', '".$this->email."', ".$this->email_confirmed.", 
 				".$this->is_admin.", ".$this->is_zertifizierer.", ".$this->is_teilnehmer.")";
 		
 		$result = $db->execute($query);
 	    echo "Registriert";
-		}
-		echo "Fehler";
+		//}
+		//echo "Fehler";
 	}
 }
