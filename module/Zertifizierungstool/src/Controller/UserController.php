@@ -34,7 +34,6 @@ class UserController extends AbstractActionController
 		$user = new User("michi", "123", "Michael", "Moertl", "1990-11-26", "Nibelungenstrasse", "passau", "mich@mo.bla", 0, 1, 0, 0);
 	
 		$user->register();
-		$test = $user->alreadyExist();
 		return new ViewModel();
 	}
 	
