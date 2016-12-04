@@ -42,7 +42,7 @@ class User
 	public function load($benutzername) {
 		$db = new Db_connection();
 		
-		$query = "SELECT * FROM benutzer where benutzername='".$this->benutzername."';";
+		$query = "SELECT * FROM benutzer where benutzername='".$benutzername."';";
 		
 		$result = $db->execute($query);
 		
