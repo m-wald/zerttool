@@ -79,7 +79,7 @@ class User
 	public function alreadyExist() {
 		$db = new Db_connection();
 		
-		$query = "Select * from benutzer where benutzername='".$this->benutzername."';";
+		$query = "Select * from benutzer where benutzername='waldma';";
 		$result = $db->execute($query);
 		echo count($result);
 		return $result;
@@ -89,9 +89,10 @@ class User
 		$db = new Db_connection();
 		
 		//if ($this->alreadyExist()==NULL){
-		$query = "insert into benutzer (benutzername, passwort, vorname, nachname, geburtsdatum, strasse, plz, ort, email, email_bestaetigt, ist_admin, ist_zertifizierer, ist_teilnehmer) values ('".$this->benutzername."', '".$this->passwort."', '".$this->vorname."', '".$this->nachname."', '"
-				.$this->geburtsdatum."', '".$this->strasse."', '".$this->plz."', '".$this->ort."', '".$this->email."', ".$this->email_confirmed.", 
-				".$this->is_admin.", ".$this->is_zertifizierer.", ".$this->is_teilnehmer.");";
+		$query = "insert into benutzer (benutzername, passwort, vorname, nachname, geburtsdatum, strasse, plz, ort, email, email_bestaetigt, ist_admin, ist_zertifizierer, ist_teilnehmer) values ('"
+				.$this->benutzername."', '".$this->passwort."', '".$this->vorname."', '".$this->nachname."', '"
+				.$this->geburtsdatum."', '".$this->strasse."', '".$this->plz."', '".$this->ort."', '".$this->email."', ".$this->email_confirmed.", "
+				.$this->is_admin.", ".$this->is_zertifizierer.", ".$this->is_teilnehmer.");";
 		
 		$result = $db->execute($query);
 	    echo "Registriert";
