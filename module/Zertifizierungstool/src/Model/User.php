@@ -89,6 +89,7 @@ class User
 		$db = new Db_connection();
 		echo $this->benutzername;
 		echo $this->vorname;
+		echo mysql_error();
 		
 		//if ($this->alreadyExist()==NULL){
 		$query = "insert into benutzer (benutzername, passwort, vorname, nachname, geburtsdatum, strasse, plz, ort, email, email_bestaetigt, ist_admin, ist_zertifizierer, ist_teilnehmer) values ('"
