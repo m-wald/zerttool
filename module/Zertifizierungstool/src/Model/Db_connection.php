@@ -17,7 +17,6 @@ class Db_connection
 		}
 		
 		$result = mysqli_query($conn, $query);
-		echo $result;
 		
 		$return_array = array();
 		
