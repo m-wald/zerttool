@@ -35,7 +35,7 @@ class User
 		$this->is_teilnehmer    = $is_teilnehmer;
 	}
 	
-	public function __construct(){
+	public function __construct1(){
 		
 	}
 	
