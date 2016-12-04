@@ -40,6 +40,8 @@ class UserController extends AbstractActionController
 	{
 		$user = new User();
 		$user->load("michi");
+		echo $user->getBenutzername();
+		echo $user->saltPasswort("123", $user->getBenutzername());
 		$result=$user->passwortControll("123");
 		if ($result){
 			echo "Erfolgreich";
