@@ -34,6 +34,14 @@ class UserController extends AbstractActionController
 		$user = new User("michi", "123", "Michael", "Moertl", "1990-11-26", "Nibelungenstrasse","94032", "passau", "moertl05@gw.uni-passau.de", 0, 1, 0, 0);
 	
 		$user->register();
+		$m = $user->registerMail();
+		if ($m)
+		{
+			echo "erfolg";
+		}
+		else {
+			echo "kein erfolg";
+		}
 		return new ViewModel();
 	}
 	public function anmeldetestAction()
@@ -45,14 +53,7 @@ class UserController extends AbstractActionController
 		$result=$user->passwortControll("123");
 		if ($result){
 			echo "Erfolgreich";
-			$m = $user->registerMail();
-			if ($m)
-			{
-				echo "erfolg";
-			}
-			else {
-				echo "kein erfolg";
-			}
+
 		}
 		else {
 			echo "Fehlgeschlagen";
