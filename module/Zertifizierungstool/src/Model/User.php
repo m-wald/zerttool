@@ -80,8 +80,7 @@ class User
 		$db = new Db_connection();
 		
 		$query = "Select * from benutzer where benutzername='".$this->benutzername."';";
-		$result = $db->execute($query);
-		echo count($result);
+		$result = $db->executeinsert($query);
 		return $result;
 	}
 	
@@ -90,16 +89,16 @@ class User
 		echo $this->benutzername;
 		echo $this->vorname;
 		
-		//if ($this->alreadyExist()==NULL){
+		if (mysqli_num_rows(alreadyExist()) == 0){
 		$query = "insert into benutzer (benutzername, passwort, vorname, nachname, geburtsdatum, strasse, plz, ort, email, email_bestaetigt, ist_admin, ist_zertifizierer, ist_teilnehmer) values ('"
 				.$this->benutzername."', '".$this->passwort."', '".$this->vorname."', '".$this->nachname."', '"
 				.$this->geburtsdatum."', '".$this->strasse."', '".$this->plz."', '".$this->ort."', '".$this->email."', ".$this->email_confirmed.", "
 				.$this->is_admin.", ".$this->is_zertifizierer.", ".$this->is_teilnehmer.");";
 		
 		
-		$result = $db->execute($query);
+		$result = $db->executeinsert($query);
 	    echo "Registriert";
-		//}
-		//echo "Fehler";
+		}
+		echo "Fehler";
 	}
 }

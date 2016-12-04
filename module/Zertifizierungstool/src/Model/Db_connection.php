@@ -17,7 +17,6 @@ class Db_connection
 		}
 		
 		$result = mysqli_query($conn, $query);
-		echo mysqli_error($conn);
 		
 		$return_array = array();
 		
@@ -30,5 +29,17 @@ class Db_connection
 		}
 		
 		return $return_array;
+	}
+	public function executeinsert($query) {
+		$conn = new \mysqli($this->server, $this->user, $this->password, $this->database);
+		
+		if ($conn->connect_error)
+		{
+			die("Es konnte keine Verbindung zur Datenbank hergestellt werden: " . $this->conn->connect_error);
+		}
+		
+		$result = mysqli_query($conn, $query);
+		echo mysqli_error($conn);
+		return $result;
 	}
 }
