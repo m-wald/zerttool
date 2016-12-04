@@ -26,6 +26,7 @@ class Db_connection
 			}
 		} else {
 			echo "Kein Ergebnis gefunden.";
+			echo $result;
 		}
 		
 		return $return_array;
