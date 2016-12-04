@@ -61,7 +61,7 @@ class UserController extends AbstractActionController
 	}
 	public function registerbestAction() {
 		$user = new User();
-		$user->load($this->getRequest()->getParam('benutzer'));
+		$user->load($_GET['benutzer']);
 		$user->registerbest();
 		return new ViewModel();
 	}
