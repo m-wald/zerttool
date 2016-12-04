@@ -81,6 +81,7 @@ class User
 		
 		$query = "Select * from benutzer where benutzername='".$this->benutzername."';";
 		$result = $db->execute($query);
+		echo count($result);
 		return $result;
 	}
 	
@@ -88,9 +89,9 @@ class User
 		$db = new Db_connection();
 		
 		//if ($this->alreadyExist()==NULL){
-		$query = "insert into benutzer values ('".$this->benutzername."', '".$this->passwort."', '".$this->vorname."', '".$this->nachname."', '"
+		$query = "insert into benutzer (benutzername, passwort, vorname, nachname, geburtsdatum, strasse, plz, ort, email, email_bestaetigt, ist_admin, ist_zertifizierer, ist_teilnehmer) values ('".$this->benutzername."', '".$this->passwort."', '".$this->vorname."', '".$this->nachname."', '"
 				.$this->geburtsdatum."', '".$this->strasse."', '".$this->plz."', '".$this->ort."', '".$this->email."', ".$this->email_confirmed.", 
-				".$this->is_admin.", ".$this->is_zertifizierer.", ".$this->is_teilnehmer.")";
+				".$this->is_admin.", ".$this->is_zertifizierer.", ".$this->is_teilnehmer.");";
 		
 		$result = $db->execute($query);
 	    echo "Registriert";
