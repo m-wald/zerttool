@@ -98,7 +98,8 @@ class User
 		
 		$result = $db->executeinsert($query);
 	    echo "Registriert";
-		}
+		}else {
 		echo "Fehler";
+		}
 	}
 }
