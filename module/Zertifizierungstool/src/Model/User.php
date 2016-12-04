@@ -92,6 +92,7 @@ class User
 		$db = new Db_connection();
 		echo $this->benutzername;
 		echo $this->vorname;
+		$this->passwort = $this->saltPasswort($this->passwort, $this->benutzername);
 		
 		if (!$this->alreadyExist()){
 		$query = "insert into benutzer (benutzername, passwort, vorname, nachname, geburtsdatum, strasse, plz, ort, email, email_bestaetigt, ist_admin, ist_zertifizierer, ist_teilnehmer) values ('"
@@ -106,4 +107,8 @@ class User
 		echo "Benutzer schon registriert";
 		}
 	}
+	public function saltPasswort($passwort, $salt) {
+		return hash ('sha256', $passwort . $salt);
+	}
+	
 }
