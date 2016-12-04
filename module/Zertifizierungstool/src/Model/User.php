@@ -89,7 +89,7 @@ class User
 		echo $this->benutzername;
 		echo $this->vorname;
 		
-		if (mysqli_num_rows(alreadyExist()) == 0){
+		if (mysqli_num_rows($this->alreadyExist()) == 0){
 		$query = "insert into benutzer (benutzername, passwort, vorname, nachname, geburtsdatum, strasse, plz, ort, email, email_bestaetigt, ist_admin, ist_zertifizierer, ist_teilnehmer) values ('"
 				.$this->benutzername."', '".$this->passwort."', '".$this->vorname."', '".$this->nachname."', '"
 				.$this->geburtsdatum."', '".$this->strasse."', '".$this->plz."', '".$this->ort."', '".$this->email."', ".$this->email_confirmed.", "
