@@ -79,7 +79,7 @@ class User
 	public function alreadyExist() {
 		$db = new Db_connection();
 		
-		$query = "Select * from benutzer where benutzername='waldma';";
+		$query = "Select * from benutzer where benutzername='".$this->benutzername."';";
 		$result = $db->execute($query);
 		echo count($result);
 		return $result;
@@ -96,7 +96,6 @@ class User
 		
 		$result = $db->execute($query);
 	    echo "Registriert";
-	    echo $result;
 		//}
 		//echo "Fehler";
 	}
