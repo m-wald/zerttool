@@ -110,5 +110,17 @@ class User
 	public function saltPasswort($passwort, $salt) {
 		return hash ('sha256', $passwort . $salt);
 	}
+	public function passwortControll ($passwort) {
+		$db = new Db_connection();
+		$passwort = $this->saltPasswort($passwort, $this->benutzername);
+		$query = "select * from benutzer where benutzername='".$this->benutzername."' and passwort='".$passwort."';";
+		$result = $db->executeinsert($query);
+		if (mysqli_num_rows($result) > 0){
+			return true;
+		}else {
+			return false;
+		}
+				
+	}
 	
 }

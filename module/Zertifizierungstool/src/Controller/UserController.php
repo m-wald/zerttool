@@ -36,6 +36,13 @@ class UserController extends AbstractActionController
 		$user->register();
 		return new ViewModel();
 	}
+	public function anmeldetestAction()
+	{
+		$user = new User();
+		$user->load("michi");
+		$result=$user->passwortControll("123");
+		echo $result;
+	}
 	
 	public function loginAction()
 	{
