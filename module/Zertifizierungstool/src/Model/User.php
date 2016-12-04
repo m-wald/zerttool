@@ -122,5 +122,18 @@ class User
 		}
 				
 	}
+	public function registerMail () {
+		$empfaenger = $this->email;
+		$betreff = "Registrierung Zertifizierungstool";
+		$from = "user@zerttool.tk";
+		$text = "Sehr geehrte Damen und Herren, bitte bestaetigen Sie folgenden Link: zerttool.tk/user/registerbest/benutzer/".$this->benutzername;
+		
+		mail ($empfaenger, $betreff, $text, $from); 
+	}
+	public function registerbest () {
+		$db = new Db_connection();
+		$query = "update benutzer set email_bestaetigt=1 where benutzername='".$this->benutzername."';";
+		$result = $db->executeinsert($query);
+	}
 	
 }

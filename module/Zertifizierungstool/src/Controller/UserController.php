@@ -31,7 +31,7 @@ class UserController extends AbstractActionController
 	
 	public function registertestAction()
 	{
-		$user = new User("michi", "123", "Michael", "Moertl", "1990-11-26", "Nibelungenstrasse","94032", "passau", "mich@mo.bla", 0, 1, 0, 0);
+		$user = new User("michi", "123", "Michael", "Moertl", "1990-11-26", "Nibelungenstrasse","94032", "passau", "moertl05@gw.uni-passau.de", 0, 1, 0, 0);
 	
 		$user->register();
 		return new ViewModel();
@@ -49,6 +49,12 @@ class UserController extends AbstractActionController
 		else {
 			echo "Fehlgeschlagen";
 		}
+	}
+	public function registerbestAction() {
+		$user = new User();
+		$user->load($this->getRequest()->getParam('benutzer'));
+		$user->registerbest();
+		return new ViewModel();
 	}
 	
 	public function loginAction()
