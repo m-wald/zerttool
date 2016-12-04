@@ -45,7 +45,14 @@ class UserController extends AbstractActionController
 		$result=$user->passwortControll("123");
 		if ($result){
 			echo "Erfolgreich";
-			$user->registerMail();
+			$m = $user->registerMail();
+			if ($m)
+			{
+				echo "erfolg";
+			}
+			else {
+				echo "kein erfolg";
+			}
 		}
 		else {
 			echo "Fehlgeschlagen";

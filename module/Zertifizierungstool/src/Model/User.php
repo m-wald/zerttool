@@ -127,8 +127,8 @@ class User
 		$betreff = "Registrierung Zertifizierungstool";
 		$from = "user@zerttool.tk";
 		$text = "Sehr geehrte Damen und Herren, bitte bestaetigen Sie folgenden Link: zerttool.tk/user/registerbest/benutzer/".$this->benutzername;
-		
-		mail ($empfaenger, $betreff, $text, $from); 
+		$text = wordwrap($text, 70);
+		mail ($empfaenger, $betreff, $text); 
 	}
 	public function registerbest () {
 		$db = new Db_connection();
