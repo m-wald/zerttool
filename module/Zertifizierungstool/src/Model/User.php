@@ -111,6 +111,14 @@ class User
 		
 		$result = $db->execute($query);
 	    echo "Registriert";
+	    $m = $user->registerMail();
+	    if ($m)
+	    {
+	    	echo "erfolg";
+	    }
+	    else {
+	    	echo "kein erfolg";
+	    }
 		}else {
 		echo "Benutzer schon registriert";
 		}
