@@ -1,0 +1,22 @@
+<h1>Login</h1>
+
+<form method="POST" action="login">
+
+
+Benutzername: <input type="text" name="benutzername" required> <br>
+Passwort: <input type="password" name="passwort" required> <br>
+
+<input type="submit" value="Jetzt anmelden">
+
+
+</form>
+<br>
+<?php 
+	if (isset ($anmeldestatus) && $anmeldestatus==true){
+		header ("refresh:0; url = www.zerttool.tk/user/home");
+	}
+	elseif (isset ($anmeldestatus) && $anmeldestatus==false) {
+		echo "Benutzername und Passwort stimmen nicht überein!";
+	}
+
+?>

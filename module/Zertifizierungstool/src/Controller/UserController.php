@@ -66,12 +66,24 @@ class UserController extends AbstractActionController
 	public function loginAction()
 	{
 		
-		$benutzername = Request::getValue("benutzername");
-		
-		$user = new User();
-		if($user->login($benutzername, $passwort) == true){
+		if($_SERVER['REQUEST_METHOD'] == 'POST') {
+			$user = new User();
+			$user->load($_POST['benutzername']);
 			
+			$result=$user->passwortControll($_POST['passwort']);
+			if ($result){
+			//hier Session-Management!!
+				
+				return new ViewModel(['anmeldestatus' => true]);
+			}
+			else {
+				return new ViewModel(['anmeldestatus' => false]);
+			}
 		}
+		
+		
+		return new ViewModel();
+
 	}
 	
 	public function loeschenAction() {
