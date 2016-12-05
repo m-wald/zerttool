@@ -1,6 +1,6 @@
 <h1>Registrierung</h1>
 
-
+<?php $error = ""?>
 <form method='post' action='register'>
 
 Benutzername: <input type="text" name="benutzername" required> <br>
@@ -20,3 +20,12 @@ E-Mail: <input type="email" name="email" required> <br>
 <input type = "submit" value="Bestaetigen">
 
 </form>
+
+
+<?php 
+
+if(isset($meldung)){
+	$error = $meldung;
+}
+		
+echo $error;?>

@@ -26,7 +26,7 @@ class UserController extends AbstractActionController
 		$result = $user->register();
 		
 		
-		return new ViewModel(['Meldung' => $result]);
+		return new ViewModel(['meldung' => $result]);
 		}
 		
 		else
