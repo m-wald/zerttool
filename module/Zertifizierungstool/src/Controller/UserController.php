@@ -35,7 +35,6 @@ class UserController extends AbstractActionController
 	
 		$user->register();
 
-		}
 		return new ViewModel();
 	}
 	public function anmeldetestAction()
