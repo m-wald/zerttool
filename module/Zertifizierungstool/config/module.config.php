@@ -20,7 +20,7 @@ return [
 										'route' => '/user[/:action[/:id]]',
 										'constraints' => [
 												'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
-												'id'     => '[0-9]+',
+												'id'     => '[a-zA-Z][a-zA-Z0-9_-]*',
 										],
 										'defaults' => [
 												'controller' => Controller\UserController::class,
