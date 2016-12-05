@@ -45,7 +45,7 @@ class User
 		$query = "SELECT * FROM benutzer where benutzername='".$benutzername."';";
 		
 		$result = $db->execute($query);
-		
+		$return_array = array();
 		if (mysqli_num_rows($result) > 0) {
 			while ($row = mysqli_fetch_assoc($result)) {
 				array_push($return_array, $row);
