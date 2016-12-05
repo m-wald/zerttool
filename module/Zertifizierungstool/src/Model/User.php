@@ -98,8 +98,7 @@ class User
 	
 	public function register() {
 		$db = new Db_connection();
-		echo $this->benutzername;
-		echo $this->vorname;
+		
 		$this->passwort = $this->saltPasswort($this->passwort, $this->benutzername);
 		
 		if (!$this->alreadyExist()){
@@ -110,17 +109,11 @@ class User
 		
 		
 		$result = $db->execute($query);
-	    echo "Registriert";
+	    return "Registriert";
 	    $m = $this->registerMail();
-	    if ($m)
-	    {
-	    	echo "erfolg";
-	    }
-	    else {
-	    	echo "kein erfolg";
-	    }
+	    
 		}else {
-		echo "Benutzer schon registriert";
+		return "Benutzer schon registriert";
 		}
 	}
 	public function saltPasswort($passwort, $salt) {

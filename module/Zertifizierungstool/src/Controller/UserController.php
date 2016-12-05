@@ -17,16 +17,20 @@ class UserController extends AbstractActionController
 {
 	public function registerAction()
 	{
-		
-		$user = new User();
-		
-		$user->load('waldma');
-		
-		return new ViewModel([
-				'benutzer' => array($user),
-		]);
+		if($_SERVER['REQUEST_METHOD'] == 'POST') {
+			
 		
 		
+		$user= new User($_REQUEST["benutzername"], $_REQUEST["passwort"], $_REQUEST["vorname"], $_REQUEST["nachname"], $_REQUEST["geburtsdatum"], $_REQUEST["strasse"], $_REQUEST["plz"], $_REQUEST["ort"], $_REQUEST["email"], $_REQUEST["email_bestaetigt"], $_REQUEST["ist_admin"], $_REQUEST["ist_zertifizierer"], $_REQUEST["ist_teilnehmer"]);
+		
+		$result = $user->register();
+		
+		
+		return new ViewModel(['Meldung' => $result]);
+		}
+		
+		else
+			return new ViewModel;
 	}
 	
 	public function registertestAction()
