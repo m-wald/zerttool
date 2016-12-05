@@ -111,7 +111,7 @@ class User
 		
 		$result = $db->execute($query);
 	    echo "Registriert";
-	    $m = $user->registerMail();
+	    $m = $this->registerMail();
 	    if ($m)
 	    {
 	    	echo "erfolg";
