@@ -37,7 +37,6 @@ class Kurs {
             $this->sichtbarkeit = $row['sichtbarkeit'];
             $this->benutzername = $row['benutzername'];
         }
-         * 
          */
     }
 
