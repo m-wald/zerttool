@@ -13,7 +13,7 @@ Passwort: <input type="password" name="passwort" required> <br>
 <br>
 <?php 
 	if (isset ($anmeldestatus) && $anmeldestatus==true){
-		header ("refresh:0; url = /home");
+		header ("refresh:0; url = /user/home");
 	}
 	elseif (isset ($anmeldestatus) && $anmeldestatus==false) {
 		echo "Benutzername und Passwort stimmen nicht &uuml;berein!";
