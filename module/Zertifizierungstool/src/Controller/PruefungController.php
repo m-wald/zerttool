@@ -47,7 +47,8 @@ class PruefungController extends AbstractActionController {
 				}elseif ($pruefung->getTermin() > date_sub($kurs->getKurs_start(), new \DateInterval("P4D"))) {
 					array_push($errors, "Der Prüfungszeitraum muss spätestens 4 Tage vor Kursende beginnen!");
 				}
-
+			
+			$pruefung->anlegen();
 			// Falls keine Fehler => FrageController->anlegenAction() mit Parameter Prüfungs-Id;
 		}
 		

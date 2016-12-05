@@ -7,14 +7,14 @@
 	}
 }?>
 
-<form method="POST" action="anlegen" id="<?=$pruefung[0]->getId()?>" >	
+<form method="POST">	
 	<table>
 		<tr><td>Prüfungsname</td><td><input type="text"   name="name"     required value="<?=$pruefung[0]->getName()    ?>" ></td></tr>
 		<tr><td>Termin		</td><td><input type="date"   name="termin"   required value="<?=$pruefung[0]->getTermin()  ?>" ></td></tr>
 		<tr><td>Cutscore	</td><td><input type="number" name="cutscore" required value="<?=$pruefung[0]->getCutscore()?>" min="0" max="1"></td></tr>
 	</table>
 
-
+	<input type="hidden" name="id"  	readonly="readonly" value="<?=$pruefung[0]->getId()?>" >
 	<input type="hidden" name="kursid"  readonly="readonly" value="<?=$pruefung[0]->getKursId()?>" >
 	
 	<input type="submit" name="speichern" value="Speichern & weiter zu den Fragen">
