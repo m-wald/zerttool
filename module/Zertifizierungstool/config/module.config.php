@@ -51,7 +51,7 @@ return [
 												'id'     => '[0-9]+',
 										],
 										'defaults' => [
-												'controller' => Controller\KursController::class,
+												'controller' => Controller\PruefungController::class,
 												'action'     => 'anlegen',
 										],
 								],
