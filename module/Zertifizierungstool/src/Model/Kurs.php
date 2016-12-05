@@ -21,23 +21,33 @@ class Kurs {
         $this->sichtbarkeit = $sichtbarkeit;
         $this->benutzername = $benutzername;
     }
+    
+    public function __construct() {
+    }
 
-    public function load($benutzername) {
+    /**
+     * Lädt die Daten des Kurses mit der übergebenen Id
+     * 
+     * @param Id des Kurses $id
+     * 
+     * @return true, falls keine Fehler aufgetreten sind. Sonst false
+     */
+    public function laden($id) {
         $db = new Db_connection();
-
         $result = $db->execute("SELECT * FROM kurs WHERE benutzername = $1;");
         
-        /*
-         * 
-        foreach($result as $row){
-            $this->kurs_id      = $row['kurs_id'];
-            $this->kurs_name    = $row['kurs_name'];
-            $this->kurs_start   = $row['kurs_start'];
-            $this->kurs_ende    = $row['kurs_ende'];
-            $this->sichtbarkeit = $row['sichtbarkeit'];
-            $this->benutzername = $row['benutzername'];
+        while ($row = mysqli_fetch_assoc($result)) {
+        	$this->kurs_id      = $row['kurs_id'];
+        	$this->kurs_name    = $row['kurs_name'];
+        	$this->kurs_start   = $row['kurs_start'];
+        	$this->kurs_ende    = $row['kurs_ende'];
+        	$this->sichtbarkeit = $row['sichtbarkeit'];
+        	$this->benutzername = $row['benutzername'];
+        	
+        	return true;
         }
-         */
+        
+        return false;
     }
 
     public function update($kurs_id) {

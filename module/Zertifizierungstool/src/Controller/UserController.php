@@ -10,7 +10,7 @@ use Zertifizierungstool\Model\User;
 /**
  * Dokumentation
  * 
- * @author martin waldmann
+ * @author
  *
  */
 class UserController extends AbstractActionController
