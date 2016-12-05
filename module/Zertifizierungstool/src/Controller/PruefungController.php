@@ -18,9 +18,9 @@ class PruefungController extends AbstractActionController {
 	function anlegenAction() {
 		// TODO Berechtigungsprüfung
 		
-		$pruefung = new Pruefung($this->params()->fromRoute('id'));
-		
-		
+		if (isset($this->params()->fromRoute('id'))) {
+			$pruefung = new Pruefung($this->params()->fromRoute('id'));
+		}		
 		
 		if ($_REQUEST['speichern']) {
 			// Array, das eventuelle Fehlermeldungen enthält
