@@ -109,8 +109,9 @@ class User
 		
 		
 		$result = $db->execute($query);
-	    return "Registriert";
-	    $m = $this->registerMail();
+		$m = $this->registerMail();
+		return "Registriert";
+	    
 	    
 		}else {
 		return "Benutzer schon registriert";
