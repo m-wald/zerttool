@@ -14,12 +14,12 @@ class User
 	private $plz;
 	private $ort;
 	private $email;
-	private $email_confirmed;
-	private $is_admin;
-	private $is_zertifizierer;
-	private $is_teilnehmer;
+	private $email_bestaetigt;
+	private $ist_admin;
+	private $ist_zertifizierer;
+	private $ist_teilnehmer;
 	
-	public function __construct($benutzername, $passwort, $vorname, $nachname, $geburtsdatum, $strasse, $plz, $ort, $email, $email_confirmed, $is_admin, $is_zertifizierer, $is_teilnehmer) {
+	public function __construct($benutzername, $passwort, $vorname, $nachname, $geburtsdatum, $strasse, $plz, $ort, $email, $email_bestaetigt, $ist_admin, $ist_zertifizierer, $ist_teilnehmer) {
 		$this->benutzername     = $benutzername;
 		$this->passwort         = $passwort;
 		$this->vorname          = $vorname;
@@ -29,10 +29,10 @@ class User
 		$this->plz              = $plz;
 		$this->ort              = $ort;
 		$this->email            = $email;
-		$this->email_confirmed  = $email_confirmed;
-		$this->is_admin         = $is_admin;
-		$this->is_zertifizierer = $is_zertifizierer;
-		$this->is_teilnehmer    = $is_teilnehmer;
+		$this->email_confirmed  = $email_bestaetigt;
+		$this->is_admin         = $ist_admin;
+		$this->is_zertifizierer = $ist_zertifizierer;
+		$this->is_teilnehmer    = $ist_teilnehmer;
 	}
 	
 	public function __construct1(){
@@ -63,10 +63,10 @@ class User
 			$this->plz              = $row['plz'];
 			$this->ort              = $row['ort'];
 			$this->email            = $row['email'];
-			$this->email_confirmed  = $row['email_bestaetigt'];
-			$this->is_admin         = $row['ist_admin'];
-			$this->is_zertifizierer = $row['ist_zertifizierer'];
-			$this->is_teilnehmer    = $row['ist_teilnehmer'];
+			$this->$email_bestaetigt  = $row['email_bestaetigt'];
+			$this->ist_admin         = $row['ist_admin'];
+			$this->ist_zertifizierer = $row['ist_zertifizierer'];
+			$this->ist_teilnehmer    = $row['ist_teilnehmer'];
 		}
 		
 		// Fehler prüfen
@@ -105,8 +105,8 @@ class User
 		if (!$this->alreadyExist()){
 		$query = "insert into benutzer (benutzername, passwort, vorname, nachname, geburtsdatum, strasse, plz, ort, email, email_bestaetigt, ist_admin, ist_zertifizierer, ist_teilnehmer) values ('"
 				.$this->benutzername."', '".$this->passwort."', '".$this->vorname."', '".$this->nachname."', '"
-				.$this->geburtsdatum."', '".$this->strasse."', '".$this->plz."', '".$this->ort."', '".$this->email."', ".$this->email_confirmed.", "
-				.$this->is_admin.", ".$this->is_zertifizierer.", ".$this->is_teilnehmer.");";
+				.$this->geburtsdatum."', '".$this->strasse."', '".$this->plz."', '".$this->ort."', '".$this->email."', ".$this->$email_bestaetigt.", "
+				.$this->ist_admin.", ".$this->ist_zertifizierer.", ".$this->ist_teilnehmer.");";
 		
 		
 		$result = $db->execute($query);
@@ -121,7 +121,7 @@ class User
 	public function passwortControll ($passwort) {
 		$db = new Db_connection();
 		$passwort = $this->saltPasswort($passwort, $this->benutzername);
-		$query = "select * from benutzer where benutzername='".$this->benutzername."' and passwort='".$passwort."';";
+		$query = "select * from benutzer where benutzername='".$this->benutzername."' and passwort='".$passwort."' and email_bestaetigt = 1;";
 		$result = $db->execute($query);
 		if (mysqli_num_rows($result) > 0){
 			return true;
