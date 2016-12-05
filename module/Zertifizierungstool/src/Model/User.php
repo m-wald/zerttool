@@ -29,10 +29,10 @@ class User
 		$this->plz              = $plz;
 		$this->ort              = $ort;
 		$this->email            = $email;
-		$this->email_confirmed  = $email_bestaetigt;
-		$this->is_admin         = $ist_admin;
-		$this->is_zertifizierer = $ist_zertifizierer;
-		$this->is_teilnehmer    = $ist_teilnehmer;
+		$this->email_bestaetigt = $email_bestaetigt;
+		$this->ist_admin         = $ist_admin;
+		$this->ist_zertifizierer = $ist_zertifizierer;
+		$this->ist_teilnehmer    = $ist_teilnehmer;
 	}
 	
 	public function __construct1(){
