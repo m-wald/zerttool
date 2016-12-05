@@ -18,9 +18,11 @@ class PruefungController extends AbstractActionController {
 	function anlegenAction() {
 		// TODO Berechtigungsprüfung
 		
-		if (isset($this->params()->fromRoute('id'))) {
-			$pruefung = new Pruefung($this->params()->fromRoute('id'));
-		}		
+		echo $this->params()->fromRoute('id');
+		/*
+		$pruefung = new Pruefung($this->params()->fromRoute('id'));
+		
+		
 		
 		if ($_REQUEST['speichern']) {
 			// Array, das eventuelle Fehlermeldungen enthält
@@ -51,10 +53,10 @@ class PruefungController extends AbstractActionController {
 			$pruefung->anlegen();
 			// Falls keine Fehler => FrageController->anlegenAction() mit Parameter Prüfungs-Id;
 		}
-		
+		*/
 		return new ViewModel([
 				'pruefung' => array($pruefung),
-				'errors'   => $errors
+				//'errors'   => $errors
 		]);
 	}
 }
