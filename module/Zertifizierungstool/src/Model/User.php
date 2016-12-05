@@ -46,7 +46,15 @@ class User
 		
 		$result = $db->execute($query);
 		
-		foreach ($result as $row) {	
+		if (mysqli_num_rows($result) > 0) {
+			while ($row = mysqli_fetch_assoc($result)) {
+				array_push($return_array, $row);
+			}
+		} else {
+			echo "Kein Ergebnis gefunden.";
+		}
+		
+		foreach ($return_array as $row) {	
 			$this->benutzername     = $row['benutzername'];
 			$this->vorname		    = $row['vorname'];
 			$this->nachname		    = $row['nachname'];
@@ -80,7 +88,7 @@ class User
 		$db = new Db_connection();
 		
 		$query = "Select * from benutzer where benutzername='".$this->benutzername."';";
-		$result = $db->executeinsert($query);
+		$result = $db->execute($query);
 		if (mysqli_num_rows($result) == 0) {
 			return false;
 		}else {
@@ -101,7 +109,7 @@ class User
 				.$this->is_admin.", ".$this->is_zertifizierer.", ".$this->is_teilnehmer.");";
 		
 		
-		$result = $db->executeinsert($query);
+		$result = $db->execute($query);
 	    echo "Registriert";
 		}else {
 		echo "Benutzer schon registriert";
@@ -114,7 +122,7 @@ class User
 		$db = new Db_connection();
 		$passwort = $this->saltPasswort($passwort, $this->benutzername);
 		$query = "select * from benutzer where benutzername='".$this->benutzername."' and passwort='".$passwort."';";
-		$result = $db->executeinsert($query);
+		$result = $db->execute($query);
 		if (mysqli_num_rows($result) > 0){
 			return true;
 		}else {
@@ -133,7 +141,7 @@ class User
 	public function registerbest () {
 		$db = new Db_connection();
 		$query = "update benutzer set email_bestaetigt=1 where benutzername='".$this->benutzername."';";
-		$result = $db->executeinsert($query);
+		$result = $db->execute($query);
 	}
 	
 }
