@@ -19,6 +19,8 @@ class PruefungController extends AbstractActionController {
 		// TODO Berechtigungsprüfung
 		
 		echo $this->params()->fromRoute('id');
+		
+		$pruefung = new Pruefung(3);
 		/*
 		$pruefung = new Pruefung($this->params()->fromRoute('id'));
 		
@@ -54,6 +56,7 @@ class PruefungController extends AbstractActionController {
 			// Falls keine Fehler => FrageController->anlegenAction() mit Parameter Prüfungs-Id;
 		}
 		*/
+		
 		return new ViewModel([
 				'pruefung' => array($pruefung),
 				//'errors'   => $errors
