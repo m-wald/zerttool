@@ -18,12 +18,10 @@ class PruefungController extends AbstractActionController {
 	function anlegenAction() {
 		// TODO Berechtigungsprüfung
 		
-		echo $this->params()->fromRoute('id');
+
 		
-		$pruefung = new Pruefung(3);
-		/*
 		$pruefung = new Pruefung($this->params()->fromRoute('id'));
-		
+		print_r($_REQUEST);
 		
 		
 		if ($_REQUEST['speichern']) {
@@ -37,6 +35,7 @@ class PruefungController extends AbstractActionController {
 			$pruefung->setCutscore($_REQUEST["cutscore"]);
 			$pruefung->setKursId($_REQUEST["kursid"]);
 			
+			/*
 			// Termin der Prüfung muss nach Kursbeginn liegen und mindestens 4 Tage vor Kursende
 				// Kurs laden, zu dem die Prüfung gehört	
 				$kurs = new Kurs();
@@ -51,11 +50,13 @@ class PruefungController extends AbstractActionController {
 				}elseif ($pruefung->getTermin() > date_sub($kurs->getKurs_start(), new \DateInterval("P4D"))) {
 					array_push($errors, "Der Prüfungszeitraum muss spätestens 4 Tage vor Kursende beginnen!");
 				}
+				*/
 			
-			$pruefung->anlegen();
+				
+				$pruefung->anlegen();
 			// Falls keine Fehler => FrageController->anlegenAction() mit Parameter Prüfungs-Id;
 		}
-		*/
+		
 		
 		return new ViewModel([
 				'pruefung' => array($pruefung),
