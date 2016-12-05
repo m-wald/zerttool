@@ -14,7 +14,6 @@
 		<tr><td>Cutscore	</td><td><input type="number" name="cutscore" required value="<?=$pruefung[0]->getCutscore()?>" min="0" max="1"></td></tr>
 	</table>
 
-	<input type="hidden" name="id"  	readonly="readonly" value="<?=$pruefung[0]->getId()?>" >
 	<input type="hidden" name="kursid"  readonly="readonly" value="<?=$pruefung[0]->getKursId()?>" >
 	
 	<input type="submit" name="speichern" value="Speichern & weiter zu den Fragen">

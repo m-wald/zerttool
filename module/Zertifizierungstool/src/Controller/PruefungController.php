@@ -17,19 +17,14 @@ class PruefungController extends AbstractActionController {
 	
 	function anlegenAction() {
 		// TODO Berechtigungsprüfung
-		
-
-		
-		$pruefung = new Pruefung($this->params()->fromRoute('id'));
-		print_r($_REQUEST);
-		
+				
+		$pruefung = new Pruefung($this->params()->fromRoute('id'));		
 		
 		if ($_REQUEST['speichern']) {
 			// Array, das eventuelle Fehlermeldungen enthält
 			$errors = array();
 			
 			// Pruefung-Objekt mit Daten aus Request-Array füllen
-			$pruefung->setId($_REQUEST["id"]);
 			$pruefung->setName($_REQUEST["name"]);
 			$pruefung->setTermin($_REQUEST["termin"]);
 			$pruefung->setCutscore($_REQUEST["cutscore"]);

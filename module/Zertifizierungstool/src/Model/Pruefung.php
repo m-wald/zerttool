@@ -21,13 +21,11 @@ class Pruefung {
 	public function anlegen() {
 		$db = new Db_connection();
 		
-		$query = "INSERT INTO pruefung (pruefung_id, pruefung_name, pruefung_ab, kurs_id, cutscore) VALUES (".
-					$this->id 		. ", ";
-					$this->name 	. ", ";
-					$this->termin 	. ", ";
-					$this->kurs_id 	. ", ";
-					$this->cutscore . ")" ;
-					
+		$query = "INSERT INTO pruefung (pruefung_name, pruefung_ab, kurs_id, cutscore) VALUES ('"
+					.$this->name	. "', '"
+					.$this->termin 	. "', "
+					.$this->kurs_id . ", "
+					.$this->cutscore . ")" ;
 		$result = $db->execute($query);
 	}
 	
