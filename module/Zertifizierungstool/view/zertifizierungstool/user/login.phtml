@@ -1,16 +1,5 @@
 <h1>Login</h1>
 
-<form method="POST" action="login">
-
-
-Benutzername: <input type="text" name="benutzername" required> <br>
-Passwort: <input type="password" name="passwort" required> <br>
-
-<input type="submit" value="Jetzt anmelden">
-
-
-</form>
-<br>
 <?php 
 	if (isset ($anmeldestatus) && $anmeldestatus==true){
 		header ("refresh:0; url = /user/home");
@@ -20,3 +9,18 @@ Passwort: <input type="password" name="passwort" required> <br>
 	}
 
 ?>
+
+<br><br>
+
+<form method="POST" action="login">
+
+<table>
+<tr><td>Benutzername:</td><td> <input type="text" name="benutzername" required></td></tr>
+<tr><td>Passwort:</td><td> <input type="password" name="passwort" required> </td></tr>
+</table><br><br>
+<input type="submit" value="Jetzt anmelden">
+
+
+</form>
+<br>
+
