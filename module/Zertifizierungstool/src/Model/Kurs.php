@@ -22,21 +22,32 @@ class Kurs {
         $this->benutzername = $benutzername;
     }
     
-    public function __construct() {
+    public function __construct1() {
     }
 
     /**
-     * Lädt die Daten des Kurses mit der übergebenen Id
+     * Lï¿½dt die Daten des Kurses mit der ï¿½bergebenen Id
      * 
      * @param Id des Kurses $id
      * 
      * @return true, falls keine Fehler aufgetreten sind. Sonst false
      */
-    public function laden($id) {
+    public function load($id) {
         $db = new Db_connection();
-        $result = $db->execute("SELECT * FROM kurs WHERE benutzername = $1;");
+        $query = "SELECT * FROM kurs WHERE kursid = $1;";
+        $result = $db->execute($query);
         
-        while ($row = mysqli_fetch_assoc($result)) {
+        $return_array = array();
+        
+        if(mysqli_num_rows($result) > 0){
+            while ($row = mysqli_fetch_assoc($result)) {
+		array_push($return_array, $row);
+            }
+        }else{
+            echo "Kein Ergebnis gefunden!";
+        }
+        
+        foreach($row as $return_array) {
         	$this->kurs_id      = $row['kurs_id'];
         	$this->kurs_name    = $row['kurs_name'];
         	$this->kurs_start   = $row['kurs_start'];
@@ -47,11 +58,16 @@ class Kurs {
         	return true;
         }
         
+        //Wenn die Methode hier ankommt, dann konnte das Objekt nicht erzeugt werden
         return false;
     }
 
     public function update($kurs_id) {
+        $db = new Db_connection();
+        $query = "SELECT * FROM kurs WHERE kursid = $1;";
+        $result = $db->execute($query);
         
+        //
     }
 
     function getKurs_id() {
