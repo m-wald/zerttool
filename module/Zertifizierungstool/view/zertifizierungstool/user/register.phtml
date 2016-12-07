@@ -1,31 +1,45 @@
 <h1>Registrierung</h1>
 
-<?php $error = ""?>
+<?php
+
+if(isset($meldung)){
+	$error = $meldung;
+	echo $error;
+}
+if ($error == "Daten wurden erfolgreich gespeichert. Sie erhalten in K&uuml;rze eine E-Mail. Bitte folgen Sie dem darin enthaltenen Link, um Ihre Registrierung abzuschlie&szlig;en.") {
+	header("refresh:2; url=/user/login");
+}
+else {
+		
+?>
+
+<table>
 <form method='post' action='register'>
 
-Benutzername: <input type="text" name="benutzername" required> <br>
-Passwort: <input type="text" name="passwort" required> <br>
-Vorname: <input type="text" name="vorname" required> <br>
-Nachname: <input type="text" name="nachname" required> <br>
-Geburtsdatum: <input type="date" name="geburtsdatum" required> <br>
-Strasse: <input type="text" name="strasse" required> <br>
-Postleitzahl: <input type="text" name="plz" required> <br>
-Ort: <input type="text" name="ort" required> <br>
-E-Mail: <input type="email" name="email" required> <br>
+<tr><td>Benutzername:</td><td> <input type="text" name="benutzername" required></td></tr>
+<tr><td>Passwort:</td><td> <input type="text" name="passwort" required></td></tr>
+<tr><td>Vorname:</td><td> <input type="text" name="vorname" required> </td></tr>
+<tr><td>Nachname:</td><td> <input type="text" name="nachname" required></td></tr>
+<tr><td>Geburtsdatum:</td><td> <input type="date" name="geburtsdatum" required></td></tr>
+<tr><td>Strasse:</td><td> <input type="text" name="strasse" required></td></tr>
+<tr><td>Postleitzahl:</td><td> <input type="text" name="plz" required></td></tr>
+<tr><td>Ort:</td><td> <input type="text" name="ort" required></td></tr>
+<tr><td>E-Mail:</td><td> <input type="email" name="email" required></td></tr>
 <input type="hidden" value = 0 name="email_bestaetigt">
+
+
+<!--  Hier kommt später noch ein if-Block hin. Anhand der Session wird geprüft ob hier ein Admin (besitzt Session) oder ein Teilnehmer eine Registrierung durchführt (besitzt natürlich keine Session)
+      Admin verfügt über Auswahlmenü und kann entscheiden, welche Rolle er registrieren will -->
+      
 <input type="hidden" value = 0 name="ist_admin">
-<input type="hidden" value = 0 name="ist_zertifizierer"> <br>
+<input type="hidden" value = 0 name="ist_zertifizierer"> 
 <input type="hidden" value = 1 name="ist_teilnehmer"> <br> <br>
 
 <input type = "submit" value="Bestaetigen">
 
 </form>
-
+</table>
 
 <?php 
-
-if(isset($meldung)){
-	$error = $meldung;
 }
-		
-echo $error;?>
+?>

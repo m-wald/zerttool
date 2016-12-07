@@ -156,11 +156,11 @@ class User
 		
 		$result = $db->execute($query);
 		$m = $this->registerMail();
-		return "Registriert";
+		return "Daten wurden erfolgreich gespeichert. Sie erhalten in K&uuml;rze eine E-Mail. Bitte folgen Sie dem darin enthaltenen Link, um Ihre Registrierung abzuschlie&szlig;en.";
 	    
 	    
 		}else {
-		return "Benutzer schon registriert";
+		return "Benutzername ist bereits vergeben! Bitte anderen Namen ausw&auml;hlen!";
 		}
 	}
 	/**

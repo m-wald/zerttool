@@ -30,7 +30,7 @@ class UserController extends AbstractActionController
 		}
 		
 		else
-			return new ViewModel;
+			return new ViewModel();
 	}
 	
 	public function registertestAction()
