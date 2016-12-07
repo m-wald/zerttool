@@ -145,7 +145,7 @@ class User
 	public function register() {
 		$db = new Db_connection();
 		
-		$this->passwort = $this->saltPasswort($this->passwort, $this->benutzername);
+		$this->passwort = $this->saltPasswort($this->passwort);
 		
 		if (!$this->alreadyExist()){
 		$query = "insert into benutzer (benutzername, passwort, vorname, nachname, geburtsdatum, strasse, plz, ort, email, email_bestaetigt, ist_admin, ist_zertifizierer, ist_teilnehmer) values ('"
@@ -169,8 +169,8 @@ class User
 	 * @param zusätzlicher Saltwert, eigentlich unnötig, da Password_hash selbs salted
 	 * @return Verschlüsselter Hashwert des Passworts
 	 */
-	public function saltPasswort($passwort, $salt) {
-		return password_hash ($passwort . $salt, PASSWORD_DEFAULT);
+	public function saltPasswort($passwort) {
+		return password_hash ($passwort, PASSWORD_DEFAULT);
 	}
 	/**
 	 * Überprüft ob der in der DB gespeicherte Hash des Passworts mit dem Übergebenen
@@ -180,13 +180,17 @@ class User
 	 */
 	public function passwortControll ($passwort) {
 		$db = new Db_connection();
-		$passwort = $this->saltPasswort($passwort, $this->benutzername);
-		$query = "select * from benutzer where benutzername='".$this->benutzername."' and passwort='".$passwort."' and email_bestaetigt = 1;";
+		$query = "select passwort from benutzer where benutzername='".$this->benutzername."' and email_bestaetigt = 1;";
 		$result = $db->execute($query);
-		if (mysqli_num_rows($result) > 0){
-			return true;
-		}else {
+		if (mysqli_num_rows($result) == 0){
 			return false;
+		}else {
+			$row = mysqli_fetch_assoc($result);
+			$pruef = password_verify($passwort, $row['passwort']);
+			if ($pruef)
+				return true;
+			else
+				return false;
 		}
 				
 	}
