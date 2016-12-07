@@ -1,3 +1,20 @@
 <h1>Kurs anlegen</h1>
 
 <a href="<?= $this->url('user', ['action' => 'register'])?>">User registrieren</a>
+
+<form action="anlegen" method="POST">
+    <table>
+        <tr><td><lable for="kursname"> Kursname:</lable></td>
+            <td><input name='kursname' size="40" maxlength="250" type='text' required></td></tr>
+        <tr><td><lable for="kursstart"> Kursstart:</lable></td>
+            <td><input name='kursstart' size="40" maxlength="250" type='date' required></td></tr>
+        <tr><td><lable for="kursende"> Kursende:</label></td>
+            <td><input name='kursende' size="40" maxlength="250" type='date' required></td></tr>
+        <tr><td><lable for="sichtbarkeit"> Sichtbarkeit:</label></td>
+            <td><select name="sichtbarkeit">
+			<option value="ja">sichtbar</option>
+			<option value="nein" selected>nicht sichtbar</option>
+                </select></td></tr>
+    </table>
+    <input type = "submit" value="Bestätigen">
+</form>
