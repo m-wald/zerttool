@@ -8,5 +8,7 @@ use Zertifizierungstool\Model\User;
 
 class KursController extends AbstractActionController
 {
-
+    public function anlegenAction(){
+        //if($_SERVER['REQUEST_METHOD'] == 'POST') {
+    }
 }
