@@ -3,6 +3,10 @@ namespace Zertifizierungstool\Model;
 
 use Zertifizierungstool\Model\Db_connection;
 
+/**
+ * @author Michael
+ *
+ */
 class User
 {
 	private $benutzername;
@@ -38,7 +42,11 @@ class User
 	public function __construct1(){
 		
 	}
-	
+	/**
+	 * Lädt die Daten des Benutzers des übergebenen Benutzernamens
+	 * @param Benutzername des zu ladenden Benutzers
+	 * 
+	 */
 	public function load($benutzername) {
 		$db = new Db_connection();
 		
@@ -84,6 +92,38 @@ class User
 		return $this->nachname;
 	}
 	
+	public function istAdmin() {
+		if ($this->ist_admin==1){
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
+	
+	public function istZertifizierer() {
+		if ($this->ist_zertifizierer==1){
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
+	
+	public function istTeilnehmer() {
+		if ($this->ist_teilnehmer==1){
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
+	
+	/**
+	 * Prüft ob ein Benutzer mit dem Nutzernamen dieses Objektes in der Datenbank schon
+	 * existiert.
+	 * @return Gibt true zurück falls er existiert und false falls nicht.
+	 */
 	public function alreadyExist() {
 		$db = new Db_connection();
 		
@@ -95,7 +135,13 @@ class User
 			return true;
 		}
 	}
-	
+	/**
+	 * Schreibt einen neuen Datensatz eines Benutzers in die Datenbank. Dabei wird
+	 * vorab geprüft, ob ein Datensatz mit dem Benutzernamen dieses Objektes schon 
+	 * existiert.
+	 * @return Bei Erfolg oder nicht Erfolg wird ein entsprechender String zurückgeliefert,
+	 * der an die View übergeben werden kann.
+	 */
 	public function register() {
 		$db = new Db_connection();
 		
@@ -117,9 +163,21 @@ class User
 		return "Benutzer schon registriert";
 		}
 	}
+	/**
+	 * Verschlüsselt ein Passwort mit bcrypt Algorithmus
+	 * @param Passwort in clearform
+	 * @param zusätzlicher Saltwert, eigentlich unnötig, da Password_hash selbs salted
+	 * @return Verschlüsselter Hashwert des Passworts
+	 */
 	public function saltPasswort($passwort, $salt) {
-		return hash ('sha256', $passwort . $salt);
+		return password_hash ($passwort . $salt, PASSWORD_DEFAULT);
 	}
+	/**
+	 * Überprüft ob der in der DB gespeicherte Hash des Passworts mit dem Übergebenen
+	 * Passwort übereinstimmt. 
+	 * @param Eingegebenes Passwort in cleartext
+	 * @return Bei übereinstimmung true ansonsten false
+	 */
 	public function passwortControll ($passwort) {
 		$db = new Db_connection();
 		$passwort = $this->saltPasswort($passwort, $this->benutzername);
@@ -132,6 +190,11 @@ class User
 		}
 				
 	}
+	/**
+	 * Versendet an die Mailadresse des Objektes eine Mail, zum bestätigen des Accounts
+	 * Dazu wird ein Link mit der Route der entsprechenden Action mit zusätzlichem Parameter
+	 * des Benutzernames dieses Objektes
+	 */
 	public function registerMail () {
 		$empfaenger = $this->email;
 		$betreff = "Registrierung Zertifizierungstool";
@@ -140,6 +203,9 @@ class User
 		$text = wordwrap($text, 70);
 		mail ($empfaenger, $betreff, $text); 
 	}
+	/**
+	 * Setzt den boolschen Wert email_bestaetigt in der DB von 0 auf 1
+	 */
 	public function registerbest () {
 		$db = new Db_connection();
 		$query = "update benutzer set email_bestaetigt=1 where benutzername='".$this->benutzername."';";
