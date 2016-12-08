@@ -19,7 +19,8 @@ class PruefungController extends AbstractActionController {
 	public function createAction() {
 		// Berechtigungsprüfung
 		if (!User::currentUser()->istAdmin() && !User::currentUser()->istZertifizierer()) {
-			return "Keine Berechtigung!";
+			echo "Keine Berechtigung!";
+			return;
 		}
 
 		// Erzeugung des Prüfungs-Objekts mit Übergabe der zugehörigen Kurs-Id
