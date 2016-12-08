@@ -56,6 +56,10 @@ echo "<br>Ist Admin?: " . User::currentUser()->istAdmin();?>
                         	 	<li class="active"><a href="http://132.231.36.205/user/logout">Logout</a></li>
                         		
                         <?php	
+                        	}else { ?>
+                        		<li class="active"><a href="http://132.231.36.205/user/login">Login</a></li>
+                        		<li class="active"><a href="http://132.231.36.205/user/register">Registrieren</a></li>
+                        <?php 		
                         	}
                         ?>
                        
