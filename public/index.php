@@ -9,15 +9,9 @@ use Zertifizierungstool\Model\User;
 session_start();
 
 // Den aktuellen Benutzer in der Session speichern bzw ein neues User-Objekt
-$_SESSION["currentUser"] = serialize(User::currentUser());
+//$_SESSION["currentUser"] = serialize(User::currentUser());
 
-
-User::setCurrentUser($_SESSION["currentUser"]);
-
-
-setLocale(LC_ALL, 'German_Germany.1252');
-
- 
+//User::setCurrentUser($_SESSION["currentUser"]);
 
 /**
  * This makes our life easier when dealing with paths. Everything is relative
