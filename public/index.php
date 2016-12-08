@@ -5,16 +5,7 @@ use Zend\Stdlib\ArrayUtils;
 
 use Zertifizierungstool\Model\User;
 
-// Session starten
 session_start();
-
-if (array_key_exists("currentUser", $_SESSION)) {
-	// Benutzer aus Session auslesen
-	$userObj = unserialize($_SESSION["currentUser"]);
-	// ausgelesenen Benutzer als Singleton-Instanz setzen
-	$userObj->setCurrentUser();
-}
-$_SESSION["currentUser"] = serialize(User::currentUser());
 
 /**
  * This makes our life easier when dealing with paths. Everything is relative
@@ -48,6 +39,14 @@ $appConfig = require __DIR__ . '/../config/application.config.php';
 if (file_exists(__DIR__ . '/../config/development.config.php')) {
     $appConfig = ArrayUtils::merge($appConfig, require __DIR__ . '/../config/development.config.php');
 }
+
+if (array_key_exists("currentUser", $_SESSION)) {
+	// Benutzer aus Session auslesen
+	$userObj = unserialize($_SESSION["currentUser"]);
+	// ausgelesenen Benutzer als Singleton-Instanz setzen
+	$userObj->setCurrentUser();
+}
+$_SESSION["currentUser"] = serialize(User::currentUser());
 
 // Run the application!
 Application::init($appConfig)->run();
