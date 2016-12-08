@@ -8,6 +8,14 @@ use Zertifizierungstool\Model\User;
 // Session starten
 session_start();
 
+if (array_key_exists("currentUser", $_SESSION)) {
+	// Benutzer aus Session auslesen
+	$userObj = unserialize($_SESSION["currentUser"]);
+	// ausgelesenen Benutzer als Singleton-Instanz setzen
+	User::setCurrentUser($userObj);
+}
+$_SESSION["currentUser"] = serialize(User::currentUser());
+
 // Den aktuellen Benutzer in der Session speichern bzw ein neues User-Objekt
 //$_SESSION["currentUser"] = serialize(User::currentUser());
 
