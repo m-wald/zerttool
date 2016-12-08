@@ -2,7 +2,9 @@
 
 <?php 
 	if (isset ($anmeldestatus) && $anmeldestatus==true){
-		header ("refresh:0; url = /pruefung/create/4");
+		echo "Aktueller Benutzer: " . User::currentUser()->getBenutzername();
+		echo "<br>Ist Admin?: " . User::currentUser()->istAdmin();
+		//header ("refresh:0; url = /pruefung/create/4");
 	}
 	elseif (isset ($anmeldestatus) && $anmeldestatus==false) {
 		echo "Benutzername und Passwort stimmen nicht &uuml;berein!";
