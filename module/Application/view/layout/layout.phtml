@@ -46,15 +46,19 @@ echo "<br>Ist Admin?: " . User::currentUser()->istAdmin();?>
                         	if (User::currentUser()->istAdmin()) { ?>
                         		<li class="active"><a href="http://132.231.36.205/user/register">Benutzer anlegen</a></li>
                         		<li class="active"><a href="http://132.231.36.205/pruefung/create">Pruefung anlegen (voruebergehend)</a></li>
+                        		<li class="active"><a href="http://132.231.36.205/user/logout">Logout</a></li>
                         <?php	
                         	}elseif(User::currentUser()->istZertifizierer()) { ?>
+                        	 	<li class="active"><a href="http://132.231.36.205/user/logout">Logout</a></li>
                         		
                         <?php	
                         	}elseif (User::currentUser()->istTeilnehmer()) { ?>
+                        	 	<li class="active"><a href="http://132.231.36.205/user/logout">Logout</a></li>
                         		
                         <?php	
                         	}
                         ?>
+                       
                     </ul>
                 </div>
             </div>
