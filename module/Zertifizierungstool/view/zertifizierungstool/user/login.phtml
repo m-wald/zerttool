@@ -2,7 +2,7 @@
 
 <?php 
 	if (isset ($anmeldestatus) && $anmeldestatus==true){
-		header ("refresh:0; url = 132.231.36.205");
+		header ("refresh:0; url = user/home");				//hier muss eine Weiterleitung auf die jeweilige "Homeseite" des Nutzers erfolgen! --> dazu homeAction ?? 
 	}
 	elseif (isset ($anmeldestatus) && $anmeldestatus==false) {
 		echo "Benutzername und Passwort stimmen nicht &uuml;berein!";
