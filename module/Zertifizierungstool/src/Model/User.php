@@ -42,7 +42,7 @@ class User
 	 * @param $user User-Objekt
 	 */
 	public static function setCurrentUser($user) {
-		self::$currentUser = $user;
+		self::$currentUser = $this;
 	}
 	
 	public function __construct($benutzername, $passwort, $vorname, $nachname, $geburtsdatum, $strasse, $plz, $ort, $email, $email_bestaetigt, $ist_admin, $ist_zertifizierer, $ist_teilnehmer) {

@@ -12,14 +12,9 @@ if (array_key_exists("currentUser", $_SESSION)) {
 	// Benutzer aus Session auslesen
 	$userObj = unserialize($_SESSION["currentUser"]);
 	// ausgelesenen Benutzer als Singleton-Instanz setzen
-	User::setCurrentUser($userObj);
+	$userObj->setCurrentUser();
 }
 $_SESSION["currentUser"] = serialize(User::currentUser());
-
-// Den aktuellen Benutzer in der Session speichern bzw ein neues User-Objekt
-//$_SESSION["currentUser"] = serialize(User::currentUser());
-
-//User::setCurrentUser($_SESSION["currentUser"]);
 
 /**
  * This makes our life easier when dealing with paths. Everything is relative
