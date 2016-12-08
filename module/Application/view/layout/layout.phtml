@@ -1,7 +1,7 @@
 <?php use Zertifizierungstool\Model\User; 
 
-echo User::currentUser()->getBenutzername();
-echo User::currentUser()->istAdmin();?>
+echo "Aktueller Benutzer: " . User::currentUser()->getBenutzername();
+echo "<br>Ist Admin?: " . User::currentUser()->istAdmin();?>
 
 <?= $this->doctype() ?>
 
