@@ -31,7 +31,12 @@ class User
 	 */
 	public static function currentUser() {
 		if (!isset(self::$currentUser)) {
-			self::$currentUser = new User();
+			if (isset($_SESSION["currentUser"])) {
+				self::$currentUser = $_SESSION["currentUser"];
+			}else {
+				self::$currentUser = new User();
+			}
+			
 		}
 		return self::$currentUser;	
 	}
