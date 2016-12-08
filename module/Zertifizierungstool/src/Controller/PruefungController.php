@@ -7,6 +7,7 @@ use Zend\View\Model\ViewModel;
 
 use Zertifizierungstool\Model\Pruefung;
 use Zertifizierungstool\Model\Kurs;
+use Zertifizierungstool\Model\User;
 
 /**
  * TODO Dokumentation
@@ -15,47 +16,68 @@ use Zertifizierungstool\Model\Kurs;
  */
 class PruefungController extends AbstractActionController {
 	
-	function anlegenAction() {
-		// TODO Berechtigungsprüfung
-				
-		$pruefung = new Pruefung($this->params()->fromRoute('id'));		
+	public function createAction() {
+		// Berechtigungsprüfung
+		if (!User::currentUser()->istAdmin() && !User::currentUser()->istZertifizierer()) {
+			return "Keine Berechtigung!";
+		}
+
+		// Erzeugung des Prüfungs-Objekts mit Übergabe der zugehörigen Kurs-Id
+		$pruefung = new Pruefung($kursid = $this->params()->fromRoute('id'));		
 		
 		if ($_REQUEST['speichern']) {
 			// Array, das eventuelle Fehlermeldungen enthält
 			$errors = array();
 			
-			// Pruefung-Objekt mit Daten aus Request-Array füllen
-			$pruefung->setName($_REQUEST["name"]);
-			$pruefung->setTermin($_REQUEST["termin"]);
-			$pruefung->setCutscore($_REQUEST["cutscore"]);
-			$pruefung->setKursId($_REQUEST["kursid"]);
+			$pruefung = new Pruefung("", 
+					$_REQUEST["name"],
+					$_REQUEST["termin"], 
+					$_REQUEST["kursid"], 
+					$_REQUEST["cutscore"] );
 			
-			/*
-			// Termin der Prüfung muss nach Kursbeginn liegen und mindestens 4 Tage vor Kursende
-				// Kurs laden, zu dem die Prüfung gehört	
-				$kurs = new Kurs();
-				if (!$kurs->laden($pruefung->getKursId())) {
-					// Fehlermeldung: Der Kurs wurde nicht in der Datenbank gefunden
-				}
-				
-				// Termin überprüfen
-				if ($pruefung->getTermin() < $kurs->getKurs_start()) {
-					array_push($errors, "Der Prüfungszeitraum kann erst nach Kursbeginn beginnen!");
-					
-				}elseif ($pruefung->getTermin() > date_sub($kurs->getKurs_start(), new \DateInterval("P4D"))) {
-					array_push($errors, "Der Prüfungszeitraum muss spätestens 4 Tage vor Kursende beginnen!");
-				}
-				*/
+			// TODO Format des Prüfungstermins überprüfen
+			// Prüfungstermin validieren
+			//array_push($errors, $this->checkDate($pruefung));
 			
-				
-				$pruefung->anlegen();
-			// Falls keine Fehler => FrageController->anlegenAction() mit Parameter Prüfungs-Id;
+			if (empty($errors)) {
+				if (!$pruefung->saveNew()) {
+					array_push($errors, "Fehler beim Speichern der Prüfung. Bitte erneut versuchen!");
+				}else {
+					// FrageController->anlegenAction() mit Parameter Prüfungs-Id;
+					// oder hier createQuestionAction()
+				}
+			}
 		}
-		
-		
+			
 		return new ViewModel([
 				'pruefung' => array($pruefung),
-				//'errors'   => $errors
+				'errors'   => $errors
 		]);
+	}
+	
+	/**
+	 * Überprüft den Prüfungstermin nach folgenden Kriterien:
+	 *  - nach Kursbeginn
+	 *  - mindestens 4 Tage vor Kursende
+	 *  
+	 * @param Die zu überprüfende Prüfung $pruefung
+	 * @return Eventuelle Fehlermeldung
+	 */
+	private function checkDate($pruefung) {
+		$error;
+		$kurs = new Kurs();
+		
+		if ($kurs->laden($pruefung->getKursId())) {
+			if ($pruefung->getTermin() < $kurs->getKurs_start()) {
+				$error= "Der Prüfungszeitraum kann erst nach Kursbeginn beginnen!";
+			
+			}elseif ($pruefung->getTermin() > date_sub($kurs->getKurs_start(), new \DateInterval("P4D"))) {
+				$error = "Der Prüfungszeitraum muss spätestens 4 Tage vor Kursende beginnen!";
+			}
+		}else {
+			$error = "Der Kurs wurde nicht in der Datenbank gefunden!";
+		}
+		
+		return $error;
 	}
 }

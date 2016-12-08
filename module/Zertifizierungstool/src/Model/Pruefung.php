@@ -11,14 +11,15 @@ class Pruefung {
 	private $kurs_id;
 	private $cutscore;
 	
-	public function __construct($kursid) {
-		$this->name		= "";
-		$this->termin	= "";
+	public function __construct($id = "", $name = "", $termin = "", $kursid = "", $cutscore = "") {
+		$this->id		= $id;
+		$this->name		= $name;
+		$this->termin	= $termin;
 		$this->kurs_id  = $kursid;
-		$this->cutscore = 0.5;
+		$this->cutscore = $cutscore;
 	}
 	
-	public function anlegen() {
+	public function saveNew() {
 		$db = new Db_connection();
 		
 		$query = "INSERT INTO pruefung (pruefung_name, pruefung_ab, kurs_id, cutscore) VALUES ('"
@@ -27,6 +28,8 @@ class Pruefung {
 					.$this->kurs_id . ", "
 					.$this->cutscore . ")" ;
 		$result = $db->execute($query);
+		
+		// TODO fehler
 	}
 	
 	

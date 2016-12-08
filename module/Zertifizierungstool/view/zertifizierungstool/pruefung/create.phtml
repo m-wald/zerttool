@@ -9,9 +9,9 @@
 
 <form method="POST">	
 	<table>
-		<tr><td>Prüfungsname</td><td><input type="text"   name="name"     required value="<?=$pruefung[0]->getName()    ?>" ></td></tr>
-		<tr><td>Termin		</td><td><input type="date"   name="termin"   required value="<?=$pruefung[0]->getTermin()  ?>" ></td></tr>
-		<tr><td>Cutscore	</td><td><input type="number" name="cutscore" required value="<?=$pruefung[0]->getCutscore()?>" min="0" max="1"></td></tr>
+		<tr><td>Pruefungsname</td><td><input type="text"   name="name"     required value="<?=$pruefung[0]->getName()    ?>" ></td></tr>
+		<tr><td>Termin		 </td><td><input type="date"   name="termin"   required value="<?=$pruefung[0]->getTermin()  ?>" ></td></tr>
+		<tr><td>Cutscore (%) </td><td><input type="number" name="cutscore" required value="<?=$pruefung[0]->getCutscore()?>" min="0" max="100"></td></tr>
 	</table>
 
 	<input type="hidden" name="kursid"  readonly="readonly" value="<?=$pruefung[0]->getKursId()?>" >

@@ -3,6 +3,22 @@
 use Zend\Mvc\Application;
 use Zend\Stdlib\ArrayUtils;
 
+use Zertifizierungstool\Model\User;
+
+// Session starten
+session_start();
+
+// Den aktuellen Benutzer in der Session speichern bzw ein neues User-Objekt
+$_SESSION["currentUser"] = serialize(User::currentUser());
+
+
+User::setCurrentUser($_SESSION["currentUser"]);
+
+
+setLocale(LC_ALL, 'German_Germany.1252');
+
+ 
+
 /**
  * This makes our life easier when dealing with paths. Everything is relative
  * to the application root now.

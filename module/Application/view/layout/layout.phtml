@@ -1,3 +1,5 @@
+<?php use Zertifizierungstool\Model\User; ?>
+
 <?= $this->doctype() ?>
 
 <html lang="en">
@@ -36,7 +38,21 @@
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav">
                         <li class="active"><a href="<?= $this->url('home') ?>">Home</a></li>
-                        <li class="active"><a href="http://132.231.36.205/user/register">Registrieren</a></li>
+                        
+                        <?php 
+                        	if (User::currentUser()->istAdmin()) { ?>
+                        		<li class="active"><a href="http://132.231.36.205/user/register">Benutzer anlegen</a></li>
+                        		<li class="active"><a href="http://132.231.36.205/pruefung/create">Pruefung anlegen (voruebergehend)</a></li>
+                        <?php	
+                        	}elseif(User::currentUser()->istZertifizierer()) { ?>
+                        		
+                        <?php	
+                        	}elseif (User::currentUser()->istTeilnehmer()) { ?>
+                        		
+                        <?php	
+                        	}
+                        ?>
+                        <li class="active"><a href="http://132.231.36.205/user/logout">Logout</a></li>
                     </ul>
                 </div>
             </div>

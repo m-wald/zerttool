@@ -23,6 +23,28 @@ class User
 	private $ist_zertifizierer;
 	private $ist_teilnehmer;
 	
+	/** Singleton-Instanz, repräsentiert den aktuellen Benutzer */
+	private static $currentUser;
+	
+	/**
+	 * Liefert den aktuellen Benutzer der Seite zurück
+	 */
+	public static function currentUser() {
+		if (!isset(self::$currentUser)) {
+			self::$currentUser = new User();
+		}
+		return self::$currentUser;	
+	}
+	
+	/**
+	 * Setzt das übergebene User-Objekt als aktuellen Benutzer
+	 * 
+	 * @param $user User-Objekt
+	 */
+	public static function setCurrentUser($user) {
+		self::$currentUser = $user;
+	}
+	
 	public function __construct($benutzername, $passwort, $vorname, $nachname, $geburtsdatum, $strasse, $plz, $ort, $email, $email_bestaetigt, $ist_admin, $ist_zertifizierer, $ist_teilnehmer) {
 		$this->benutzername     = $benutzername;
 		$this->passwort         = $passwort;

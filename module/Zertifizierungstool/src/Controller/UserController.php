@@ -65,15 +65,17 @@ class UserController extends AbstractActionController
 	
 	public function loginAction()
 	{
+		$user = User::currentUser();
 		
 		if($_SERVER['REQUEST_METHOD'] == 'POST') {
-			$user = new User();
+			
+			// Vielleicht zuerst die Login-Daten prüfen bevor man alle Daten des Benutzers lädt?
+			// Also im Model ne Methode login($benutzername, $passwort), die zuerst die Daten
+			// prüft und dann alle Felder befüllt oder load() aufruft
 			$user->load($_POST['benutzername']);
 			
 			$result=$user->passwortControll($_POST['passwort']);
 			if ($result){
-			//hier Session-Management!!
-				
 				return new ViewModel(['anmeldestatus' => true]);
 			}
 			else {
