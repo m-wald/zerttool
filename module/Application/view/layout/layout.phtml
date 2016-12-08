@@ -1,6 +1,7 @@
 <?php use Zertifizierungstool\Model\User; 
 
-print_r($_SESSION, true)?>
+echo User::currentUser()->getBenutzername();
+echo User::currentUser()->istAdmin();?>
 
 <?= $this->doctype() ?>
 

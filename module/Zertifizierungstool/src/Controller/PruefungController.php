@@ -17,9 +17,12 @@ use Zertifizierungstool\Model\User;
 class PruefungController extends AbstractActionController {
 	
 	public function createAction() {
+		// Array, das eventuelle Fehlermeldungen enthält
+		$errors = array();
+		
 		// Berechtigungsprüfung
 		if (!User::currentUser()->istAdmin() && !User::currentUser()->istZertifizierer()) {
-			echo "Keine Berechtigung!";
+			array_push($errors, "Keine Berechtigung!");
 			return;
 		}
 
@@ -27,8 +30,6 @@ class PruefungController extends AbstractActionController {
 		$pruefung = new Pruefung($kursid = $this->params()->fromRoute('id'));		
 		
 		if ($_REQUEST['speichern']) {
-			// Array, das eventuelle Fehlermeldungen enthält
-			$errors = array();
 			
 			$pruefung = new Pruefung("", 
 					$_REQUEST["name"],
