@@ -90,7 +90,7 @@ class UserController extends AbstractActionController
 	}
 	
 	
-	/*public function logoutAction() {
+	public function logoutAction() {
 		
 		if (ini_get("session.use_cookies")) {
 			$params = session_get_cookie_params();
@@ -100,7 +100,7 @@ class UserController extends AbstractActionController
 		}
 		
 		session_destroy();
-	}*/
+	}
 	
 	
 	
