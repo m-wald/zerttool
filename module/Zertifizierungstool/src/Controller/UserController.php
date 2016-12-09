@@ -18,16 +18,17 @@ use Zertifizierungstool\Auth;
 class UserController extends AbstractActionController
 {
 	
-	public function loginAction() {
+	/*public function loginAction() {
 		// Daten aus Request holen
 		$benutzername = "waldma";
-		$passwort	  = "12345";
+		$passwort	  = "12345"; 
 		
 		
-		$result = Auth::authenticate($benutzername, $passwort);
-		
-		
-	}
+		$result = Auth::authenticate($benutzername, $passwort); 
+				
+	} */
+	
+	
 	public function registerAction()
 	{
 		if($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -76,7 +77,7 @@ class UserController extends AbstractActionController
 		return new ViewModel();
 	}
 	
-	/* public function loginAction()
+	 public function loginAction()
 	{
 		
 		
@@ -101,7 +102,7 @@ class UserController extends AbstractActionController
 		return new ViewModel();
 
 	}
-	*/
+	
 	
 	
 	/** löscht vorhandene Cookies und beendet anschließend die aktuelle Session */
