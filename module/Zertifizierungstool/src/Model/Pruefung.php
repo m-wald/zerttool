@@ -11,7 +11,7 @@ class Pruefung {
 	private $kurs_id;
 	private $cutscore;
 	
-	public function __construct($id = "", $name = "", $termin = "", $kursid = "", $cutscore = "") {
+	public function __construct($id = "", $name = "", $termin = "", $kursid, $cutscore = "") {
 		$this->id		= $id;
 		$this->name		= $name;
 		$this->termin	= $termin;
