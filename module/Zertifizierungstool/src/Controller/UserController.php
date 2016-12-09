@@ -90,6 +90,8 @@ class UserController extends AbstractActionController
 	}
 	
 	
+	/** löscht vorhandene Cookies und beendet anschließend die aktuelle Session */
+	
 	public function logoutAction() {
 		
 		
@@ -104,7 +106,14 @@ class UserController extends AbstractActionController
 		
 	}
 	
+	/** leitet nach erfolgreichem Login auf eine benutzerspezifische Startseite weiter */
 	
+	public function homeAction() {
+		
+		return new ViewModel(); 
+		
+			
+	}
 	
 	public function loeschenAction() {
 		
