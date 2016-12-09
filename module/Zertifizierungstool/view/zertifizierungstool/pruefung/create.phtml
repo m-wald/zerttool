@@ -4,7 +4,11 @@
 <?php
 	// Falls die Prüfung erfolgreich gespeichert wurde, wird auf die Maske zur Erstellung der Prüfungsfragen weitergeleitet
 	if (isset($result[0]) && $result[0] = true) {
-		header ("refresh:0; url = /frage/create/" . $pruefung[0]->getId());
+		echo "Prüfung wurde erfolgreich gespeichert! <br>";
+	?>
+		<a href="<?= $this->url('frage', ['action' => 'create', 'id' => $pruefung[0]->getId()]) ?>"><button>Fragen zur Pruefung erstellen</button></a>
+	<?php
+		//header ("refresh:0; url = /frage/create/" . $pruefung[0]->getId());
 	}
 	
 	if (isset($errors)) {
