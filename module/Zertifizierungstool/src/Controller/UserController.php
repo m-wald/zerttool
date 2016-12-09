@@ -6,6 +6,8 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 
 use Zertifizierungstool\Model\User;
+use Zertifizierungstool\Auth;
+
 
 /**
  * Dokumentation
@@ -15,6 +17,17 @@ use Zertifizierungstool\Model\User;
  */
 class UserController extends AbstractActionController
 {
+	
+	public function login() {
+		// Daten aus Request holen
+		$benutzername = "waldma";
+		$passwort	  = "12345";
+		
+		
+		$result = Auth::authenticate($benutzername, $passwort);
+		
+		
+	}
 	public function registerAction()
 	{
 		if($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -63,7 +76,7 @@ class UserController extends AbstractActionController
 		return new ViewModel();
 	}
 	
-	public function loginAction()
+	/* public function loginAction()
 	{
 		
 		
@@ -83,11 +96,12 @@ class UserController extends AbstractActionController
 				return new ViewModel(['anmeldestatus' => false]);
 			}
 		}
-		
+		 
 		
 		return new ViewModel();
 
 	}
+	*/
 	
 	
 	/** löscht vorhandene Cookies und beendet anschließend die aktuelle Session */
