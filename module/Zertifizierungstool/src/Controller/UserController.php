@@ -110,7 +110,7 @@ class UserController extends AbstractActionController
 	
 	public function homeAction() {
 		
-		return new ViewModel(); 
+		return new ViewModel(['benutzername' => User::currentUser()->getBenutzername()]); 
 		
 			
 	}
