@@ -10,6 +10,7 @@ return [
 						Controller\UserController::class => InvokableFactory::class,
 						Controller\KursController::class => InvokableFactory::class,
 						Controller\PruefungController::class => InvokableFactory::class,
+						Controller\FrageController::class => InvokableFactory::class,
 				],
 		],
 		
@@ -52,7 +53,21 @@ return [
 										],
 										'defaults' => [
 												'controller' => Controller\PruefungController::class,
-												'action'     => 'anlegen',
+												'action'     => 'create',
+										],
+								],
+						],
+						'frage' => [
+								'type'    => Segment::class,
+								'options' => [
+										'route' => '/frage[/:action[/:id]]',
+										'constraints' => [
+												'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+												'id'     => '[0-9]+',
+										],
+										'defaults' => [
+												'controller' => Controller\FrageController::class,
+												'action'     => 'create',
 										],
 								],
 						],

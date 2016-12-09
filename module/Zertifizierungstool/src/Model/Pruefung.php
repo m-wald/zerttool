@@ -29,6 +29,8 @@ class Pruefung {
 					.$this->cutscore . ")" ;
 		$result = $db->execute($query);
 		
+		print_r($result, true);
+		
 		// TODO fehler
 	}
 	
