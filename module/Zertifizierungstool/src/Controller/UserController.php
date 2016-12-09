@@ -129,6 +129,23 @@ class UserController extends AbstractActionController
 			
 	}
 	
+	
+	/** liest aktuelle Benutzerdaten aus und übergibt diese an ein Formular. Darin können die Daten dann geändert werden und in der Datenbank aktualisiert werden. */
+	
+	public function changedataAction() {
+		
+		if($_SERVER['REQUEST_METHOD'] == 'POST') {
+			
+			User::currentUser()->update($_REQUEST["vorname"], $_REQUEST["nachname"], $_REQUEST["geburtsdatum"], $_REQUEST["strasse"], $_REQUEST["plz"], $_REQUEST["ort"], $_REQUEST["email"]);
+		}
+		else {
+				return new ViewModel(['benutzerdaten' => array(User::currentUser()->getBenutzername(),User::currentUser()->getVorname(), User::currentUser()->getNachname(), User::currentUser()->getGeburtsdatum(), User::currentUser()->getStrasse(), User::currentUser()->getPLZ(), User::currentUser()->getOrt(), User::currentUser()->getEmail())]);
+		}
+	
+	}
+	
+	
+	
 	public function loeschenAction() {
 		
 	}

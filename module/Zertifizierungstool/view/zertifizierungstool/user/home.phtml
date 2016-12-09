@@ -6,5 +6,7 @@
 <h2>Herzlich willkommen, <?php echo $benutzername; ?> !</h2>
 
 
+<?php $user= unserialize($_SESSION["currentUser"]);
 
+echo $user->getBenutzername(); ?>
 

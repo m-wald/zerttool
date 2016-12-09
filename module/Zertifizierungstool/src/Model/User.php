@@ -31,11 +31,12 @@ class User
 	 */
 	public static function currentUser() {
 		if (!isset(self::$currentUser)) {
-/* 			if (isset($_SESSION["currentUser"])) {
-				self::$currentUser = $_SESSION["currentUser"];
+			if (isset($_SESSION["currentUser"])) {
+				self::$currentUser = unserialize($_SESSION["currentUser"]);
 			}else {
- */				self::$currentUser = new User();
-//			}
+ 				self::$currentUser = new User();
+				
+			}
 			
 		}
 		return self::$currentUser;	
@@ -118,6 +119,27 @@ class User
 	public function getNachname() {
 		return $this->nachname;
 	}
+	
+	public function getGeburtsdatum() {
+		return $this->geburtsdatum; 
+	}
+	
+	public function getStrasse() {
+		return $this->strasse;
+	}
+	
+	public function getPLZ() {
+		return $this->plz;
+	}
+	
+	public function getOrt() {
+		return $this->ort;
+	}
+	
+	public function getEmail() {
+		return $this->email;
+	}
+	
 	
 	public function istAdmin() {
 		if ($this->ist_admin==1){
@@ -241,6 +263,20 @@ class User
 		$db = new Db_connection();
 		$query = "update benutzer set email_bestaetigt=1 where benutzername='".$this->benutzername."';";
 		$result = $db->execute($query);
+	}
+	public function update($vorname, $nachname, $geburtsdatum, $strasse, $plz, $ort, $email) {
+		$db = new Db_connection();
+		$query = "update benutzer set
+				vorname='".$vorname."',
+				nachname='".$nachname."',
+				geburtsdatum='".$geburtsdatum."',
+				strasse='".$strasse."',
+				plz='".$plz."',
+				ort='".$ort."',
+				email='".$email."' where benutzername='".$this->benutzername."';";
+	
+		$result=$db->execute($query);
+		return $result;
 	}
 	
 }
