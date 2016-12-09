@@ -28,13 +28,18 @@ class PruefungController extends AbstractActionController {
 
 		// Erzeugung des Prüfungs-Objekts mit Übergabe der zugehörigen Kurs-Id
 		//if (isset($this->params()->fromRoute('id'))) {
-			$pruefung = new Pruefung($kursid = $this->params()->fromRoute('id'));
+		//	$pruefung = new Pruefung($kursid = $this->params()->fromRoute('id'));
 		//} else {
 		//	array_push($errors, "Es konnte kein Kurs zugeordnet werden!");
 		//}
 		
-		$kursid = $this->params()->fromRoute('id');
-		$pruefung->setKursId($kursId);
+		$newKursid = $_REQUEST["kursid"];
+		
+		if (!empty($kursid)) {
+			$newKursid = $this->params()->fromRoute('id');
+		}
+		
+		$pruefung = new Pruefung($kursid = $newKursid);
 				
 		
 		if ($_REQUEST['speichern']) {
