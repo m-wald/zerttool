@@ -40,7 +40,7 @@ class PruefungController extends AbstractActionController {
 					$_REQUEST["name"],
 					$_REQUEST["termin"], 
 					$_REQUEST["kursid"], 
-					$_REQUEST["cutscore"] );
+					$_REQUEST["cutscore"] / 100 );
 			
 			// TODO Format des Prüfungstermins überprüfen
 			// Prüfungstermin validieren
