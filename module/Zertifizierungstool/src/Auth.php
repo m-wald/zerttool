@@ -17,7 +17,7 @@ class Auth {
 				'database' =>'localhost/zertifizierungstool'
 		));
 		
-		$authAdapter = new CredentialTreatmentAdapter($dbAdapter, $this->table, $this->identityColumn, $this->credentialColumn, $this->credentialTreatment);
+		$authAdapter = new CredentialTreatmentAdapter($dbAdapter, "benutzer", "benutzername", "passwort", "Password_hash()");
 		
 		$authAdapter->setIdentity($benutzername);
 		$authAdapter->setCredential($passwort);
