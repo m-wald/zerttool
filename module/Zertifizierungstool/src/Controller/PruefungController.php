@@ -33,7 +33,8 @@ class PruefungController extends AbstractActionController {
 		//	array_push($errors, "Es konnte kein Kurs zugeordnet werden!");
 		//}
 		
-		echo $this->params()->fromRoute('id');
+		$kursid = $this->params()->fromRoute('id');
+		$pruefung->setKursId($kursId);
 				
 		
 		if ($_REQUEST['speichern']) {
