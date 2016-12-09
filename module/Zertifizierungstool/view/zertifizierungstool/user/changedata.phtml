@@ -1,6 +1,15 @@
 <h1>Benutzerdaten &auml;ndern</h1>
 
+<?php 
+if($status == "erfolgreich") { ?>
+	
+<a>Benutzerdaten wurden erfolgreich ge&auml;ndert</a>
 
+<?php 
+
+header("refresh:2; url = /user/home");}
+
+else {?>
 
 <form method="post" action="changedata">
 <table>
@@ -17,3 +26,4 @@
 <input type = "submit" value="Benutzerdaten jetzt &auml;ndern!"> 
 </form>
 
+<?php }?>
