@@ -2,11 +2,11 @@
 <h2>Kopfdaten der Pruefung</h2>
 
 <?php
-	/*
+	// Falls die Prüfung erfolgreich gespeichert wurde, wird auf die Maske zur Erstellung der Prüfungsfragen weitergeleitet
 	if (isset($result[0]) && $result[0] = true) {
 		header ("refresh:0; url = /frage/create/" . $pruefung[0]->getId());
 	}
-	*/
+	
 	if (isset($errors)) {
 		foreach ($errors as $err) {
 			echo "Fehler: " . $err . "<br>";
