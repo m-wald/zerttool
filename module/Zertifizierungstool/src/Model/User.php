@@ -31,12 +31,12 @@ class User
 	 */
 	public static function currentUser() {
 		if (!isset(self::$currentUser)) {
-/* 			if (isset($_SESSION["currentUser"])) {
-				self::$currentUser = $_SESSION["currentUser"];
+			if (isset($_SESSION["currentUser"])) {
+				self::$currentUser = unserialize($_SESSION["currentUser"]);
 			}else {
- */				self::$currentUser = new User("michi", "123", "Michael", "Moertl", "1990-11-26", "Nibelungenstrasse","94032", "passau", "moertl05@gw.uni-passau.de", 0, 0, 0, 1);
+ 				self::$currentUser = new User();
 				
-//			}
+			}
 			
 		}
 		return self::$currentUser;	
