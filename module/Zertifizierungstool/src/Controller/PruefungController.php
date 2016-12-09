@@ -19,6 +19,7 @@ class PruefungController extends AbstractActionController {
 	public function createAction() {
 		// Array, das eventuelle Fehlermeldungen enthält
 		$errors = array();
+		$result = false;
 		
 		// Berechtigungsprüfung
 		if (!User::currentUser()->istAdmin() && !User::currentUser()->istZertifizierer()) {
@@ -52,14 +53,15 @@ class PruefungController extends AbstractActionController {
 					// FrageController->anlegenAction() mit Parameter Prüfungs-Id;
 					// oder hier createQuestionAction()
 					// Prüfung neu laden, damit Id gesetzt wird
-					
+					$result = true;
 				}
 			}
 		}
 			
 		return new ViewModel([
 				'pruefung' => array($pruefung),
-				'errors'   => $errors
+				'errors'   => $errors,
+				'result'   => $result	
 		]);
 	}
 	
