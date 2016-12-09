@@ -63,7 +63,7 @@ class PruefungController extends AbstractActionController {
 		return new ViewModel([
 				'pruefung' => array($pruefung),
 				'errors'   => $errors,
-				'result'   => $result	
+				'result'   => array($result)	
 		]);
 	}
 	
