@@ -39,7 +39,10 @@ class PruefungController extends AbstractActionController {
 			$newKursid = $this->params()->fromRoute('id');
 		}
 		
-		$pruefung = new Pruefung($kursid = $newKursid);
+		$pruefung = new Pruefung();
+		$pruefung->setKursId($newKursid);
+		
+		print_r($pruefung, true);
 				
 		
 		if ($_REQUEST['speichern']) {
