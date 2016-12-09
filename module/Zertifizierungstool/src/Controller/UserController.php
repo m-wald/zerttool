@@ -18,7 +18,7 @@ use Zertifizierungstool\Auth;
 class UserController extends AbstractActionController
 {
 	
-	public function login() {
+	public function loginAction() {
 		// Daten aus Request holen
 		$benutzername = "waldma";
 		$passwort	  = "12345";
