@@ -35,7 +35,7 @@ class PruefungController extends AbstractActionController {
 		
 		$newKursid = $_REQUEST["kursid"];
 		
-		if (empty($kursid)) {
+		if (empty($newKursid)) {
 			$newKursid = $this->params()->fromRoute('id');
 		}
 		
