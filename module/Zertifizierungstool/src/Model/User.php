@@ -34,7 +34,8 @@ class User
 /* 			if (isset($_SESSION["currentUser"])) {
 				self::$currentUser = $_SESSION["currentUser"];
 			}else {
- */				self::$currentUser = new User();
+ */				self::$currentUser = new User("michi", "123", "Michael", "Moertl", "1990-11-26", "Nibelungenstrasse","94032", "passau", "moertl05@gw.uni-passau.de", 0, 0, 0, 1);
+				
 //			}
 			
 		}
