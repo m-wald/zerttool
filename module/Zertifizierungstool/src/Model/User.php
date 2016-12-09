@@ -119,6 +119,27 @@ class User
 		return $this->nachname;
 	}
 	
+	public function getGeburtsdatum() {
+		return $this->geburtsdatum; 
+	}
+	
+	public function getStrasse() {
+		return $this->strasse;
+	}
+	
+	public function getPLZ() {
+		return $this->plz;
+	}
+	
+	public function getOrt() {
+		return $this->ort;
+	}
+	
+	public function getEmail() {
+		return $this->email;
+	}
+	
+	
 	public function istAdmin() {
 		if ($this->ist_admin==1){
 			return true;
