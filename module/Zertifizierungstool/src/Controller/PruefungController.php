@@ -29,11 +29,11 @@ class PruefungController extends AbstractActionController {
 		*/
 
 		// Erzeugung des Prüfungs-Objekts mit Übergabe der zugehörigen Kurs-Id
-		if (isset($this->params()->fromRoute('id'))) {
+		//if (isset($this->params()->fromRoute('id'))) {
 			$pruefung = new Pruefung($kursid = $this->params()->fromRoute('id'));
-		} else {
-			array_push($errors, "Es konnte kein Kurs zugeordnet werden!");
-		}
+		//} else {
+		//	array_push($errors, "Es konnte kein Kurs zugeordnet werden!");
+		//}
 				
 		
 		if ($_REQUEST['speichern']) {
