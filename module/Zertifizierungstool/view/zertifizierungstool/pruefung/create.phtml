@@ -2,8 +2,8 @@
 <h2>Kopfdaten der Pruefung</h2>
 
 <?php
-	if (isset($result) && $result = true) {
-		header ("refresh:0; url = /frage/create/" . $pruefung->getId());
+	if (isset($result[0]) && $result[0] = true) {
+		header ("refresh:0; url = /frage/create/" . $pruefung[0]->getId());
 	}
 	if (isset($errors)) {
 		foreach ($errors as $err) {
