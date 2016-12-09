@@ -1,7 +1,17 @@
 <h1> Logout</h1>
 
+<?php 
+	if(isset($_SESSION["currentUser"])) { 
+
+?>
+	
+	
 <h2><font color = "red"> Sie wurden erfolgreich ausgeloggt.</font></h2>
 
 <?php 
-header("refresh:2; url = /user/login");
+
+header("refresh:2; url = /user/login"); }
+
+else {
+		header("refresh:0; url = /user/login"); }
 ?>
