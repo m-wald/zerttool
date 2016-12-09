@@ -30,7 +30,7 @@ class Auth {
 			print_r($result->getMessages());
 		}else {
 			echo $result->getIdentity();
-			print_r($authAdapter->getResultRowObject());
+			echo "Objekt: " . print_r($authAdapter->getResultRowObject());
 		}
 	}
 	
