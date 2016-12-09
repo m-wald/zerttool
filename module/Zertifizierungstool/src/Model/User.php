@@ -263,5 +263,19 @@ class User
 		$query = "update benutzer set email_bestaetigt=1 where benutzername='".$this->benutzername."';";
 		$result = $db->execute($query);
 	}
+	public function update($vorname, $nachname, $geburtsdatum, $strasse, $plz, $ort, $email) {
+		$db = new Db_connection();
+		$query = "update benutzer set
+				vorname='".$vorname."',
+				nachname='".$nachname."',
+				geburtsdatum='".$geburtsdatum."',
+				strasse='".$strasse."',
+				plz='".$plz."',
+				ort='".$ort."',
+				email='".$email."' where benutzername='".$this->benutzername."';";
+	
+		$result=$db->execute($query);
+		return $result;
+	}
 	
 }
