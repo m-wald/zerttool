@@ -2,14 +2,15 @@
 
 <?php
 
-    if(!isset($message)){
-        echo "Daten konnten nicht gespeichert werden!";
-    }
-    else {
+    if(isset($message)){
+        echo "Daten konnten erfolgreich gespeichert werden!";
         header("url = /user/home");
-        echo "Die Speicherung der Daten war erfolgreich!";
-        
     }
+    else if (isset($error)){
+        echo "Die Speicherung der Daten war erfolgreich!";
+        header("url = /user/home");
+    }       
+    
 		
 ?>
 
