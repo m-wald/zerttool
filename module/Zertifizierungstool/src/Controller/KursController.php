@@ -9,6 +9,23 @@ use Zertifizierungstool\Model\User;
 class KursController extends AbstractActionController
 {
     public function anlegenAction(){
-        //if($_SERVER['REQUEST_METHOD'] == 'POST') {
+        
+        if($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $kurs = new Kurs(
+                    $_REQUEST["kursname"], 
+                    $_REQUEST["kursstart"], 
+                    $_REQUEST["kursende"], 
+                    $_REQUEST["sichtbarkeit"],
+                    User::currentUser());
+            
+            $createkurs = $kurs->save();
+            
+            return new ViewModel(['message' => $createkurs]);
+	}
+		
+	else
+            return new ViewModel();
+        
     }
 }
+
