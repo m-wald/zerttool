@@ -72,17 +72,8 @@ class Kurs {
             '".$this->sichtbarkeit."',
             '".$this->benutzername."',)";
         
-        unset($result);
 	$result = $db->execute($query);
-        
-        if(isset($result)){
-            return "Kurs konnte erfolgreich angelegt werden!";
-        }
-        else {
-            return "Es trat ein Fehler bei der Anlage des Kurses auf!";
-        }
-        
-        
+               
     }
 
     public function update($kurs_id) {
