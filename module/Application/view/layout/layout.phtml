@@ -77,6 +77,8 @@
         				<?php }
         				if (User::currentUser()->getBenutzername()==NULL) { ?>
       				 	<li><a href="http://132.231.36.205/user/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+      				 	<?php } else {?>
+      				 	<li><a href="http://132.231.36.205/user/login"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
       				 	<?php }?>
       				</ul>
                 </div>
