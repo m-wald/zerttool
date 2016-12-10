@@ -14,17 +14,15 @@ class Kurs {
     private $benutzername;
 
     public function __construct($kurs_id, $kurs_name, $kurs_start, $kurs_ende, $sichtbarkeit, $benutzername) {
-        $this->kurs_id      = $kurs_id;
-        $this->kurs_name    = $kurs_name;
-        $this->kurs_start   = $kurs_start;
-        $this->kurs_ende    = $kurs_ende;
+        $this->kurs_id = $kurs_id;
+        $this->kurs_name = $kurs_name;
+        $this->kurs_start = $kurs_start;
+        $this->kurs_ende = $kurs_ende;
         $this->sichtbarkeit = $sichtbarkeit;
         $this->benutzername = $benutzername;
     }
-    
-    public function __construct1() {
-    }
 
+    
     /**
      * L�dt die Daten des Kurses mit der �bergebenen Id
      * 
@@ -36,37 +34,53 @@ class Kurs {
         $db = new Db_connection();
         $query = "SELECT * FROM kurs WHERE kursid = $1;";
         $result = $db->execute($query);
-        
+
         $return_array = array();
-        
-        if(mysqli_num_rows($result) > 0){
+
+        if (mysqli_num_rows($result) > 0) {
             while ($row = mysqli_fetch_assoc($result)) {
-		array_push($return_array, $row);
+                array_push($return_array, $row);
             }
-        }else{
+        } else {
             echo "Kein Ergebnis gefunden!";
         }
-        
-        foreach($row as $return_array) {
-        	$this->kurs_id      = $row['kurs_id'];
-        	$this->kurs_name    = $row['kurs_name'];
-        	$this->kurs_start   = $row['kurs_start'];
-        	$this->kurs_ende    = $row['kurs_ende'];
-        	$this->sichtbarkeit = $row['sichtbarkeit'];
-        	$this->benutzername = $row['benutzername'];
-        	
-        	return true;
+
+        foreach ($row as $return_array) {
+            $this->kurs_id = $row['kurs_id'];
+            $this->kurs_name = $row['kurs_name'];
+            $this->kurs_start = $row['kurs_start'];
+            $this->kurs_ende = $row['kurs_ende'];
+            $this->sichtbarkeit = $row['sichtbarkeit'];
+            $this->benutzername = $row['benutzername'];
+
+            return true;
         }
-        
+
         //Wenn die Methode hier ankommt, dann konnte das Objekt nicht erzeugt werden
         return false;
+    }
+    
+    /**
+     * Schreibt den aktuellen Kurs in die Datenbank
+     */
+    public function save(){
+        $db = new Db_connection();
+	$query = "INSERT INTO kurs (kurs_name, kurs_start, kurs_ende, sichtbarkeit, benutzername) VALUES (
+            '".$this->kurs_name."',
+            '".$this->kurs_start."', 
+            '".$this->kurs_ende."',
+            '".$this->sichtbarkeit."',
+            '".$this->benutzername."',)";
+        
+	$result = $db->execute($query);
+               
     }
 
     public function update($kurs_id) {
         $db = new Db_connection();
         $query = "SELECT * FROM kurs WHERE kursid = $1;";
         $result = $db->execute($query);
-        
+
         //
     }
 
@@ -117,5 +131,30 @@ class Kurs {
     function setBenutzername($benutzername) {
         $this->benutzername = $benutzername;
     }
+    
+    
+    /**
+     * Vergibt die 
+     */
+    /*
+    public function nextKurs_Id() {
+        $db = new Db_connection();
+        $query = "SELECT coalesce(max(kurs_id)+1, 1) from KURS";
 
+        $result = $db->execute($query);
+
+        $count = pg_num_rows($result);
+
+        if ($count == 1) {
+            while($row = pg_fetch_row($result) {
+                $kursid = $row[0];
+            }
+            return $kursid;
+        } else {
+            echo "Fehler bei der Abfrage aufgetreten!";
+            mysqli_close($db);
+            return 0;
+        }
+    }
+    */
 }

@@ -1,16 +1,30 @@
 <h1>Kurs anlegen</h1>
 
-<a href="<?= $this->url('user', ['action' => 'register'])?>">User registrieren</a>
+<?php
+
+    if(isset($message)){
+        header("refresh:4; url = /user/home");
+        echo "Daten konnten erfolgreich gespeichert werden. <br> 
+              Sie werden auf die Home-Seite weiterverbunden.";
+    }
+    elseif ($error == 'falsedate'){
+        echo "Kursende wurde vor dem Kursbeginn erfasst!";
+    }      
+    
+		
+?>
+<br>
+
 
 <form action="anlegen" method="POST">
     <table>
-        <tr><td><lable for="kursname"> Kursname:</lable></td>
+        <tr><td> Kursname:</td>
             <td><input name='kursname' size="40" maxlength="250" type='text' required></td></tr>
-        <tr><td><lable for="kursstart"> Kursstart:</lable></td>
+        <tr><td> Kursstart:</td>
             <td><input name='kursstart' size="40" maxlength="250" type='date' required></td></tr>
-        <tr><td><lable for="kursende"> Kursende:</label></td>
+        <tr><td> Kursende:</td>
             <td><input name='kursende' size="40" maxlength="250" type='date' required></td></tr>
-        <tr><td><lable for="sichtbarkeit"> Sichtbarkeit:</label></td>
+        <tr><td> Sichtbarkeit:</td>
             <td><select name="sichtbarkeit">
 			<option value="ja">sichtbar</option>
 			<option value="nein" selected>nicht sichtbar</option>

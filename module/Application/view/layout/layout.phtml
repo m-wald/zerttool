@@ -46,24 +46,41 @@
                         	if (User::currentUser()->istAdmin()) { ?>
                         		<li class="active"><a href="http://132.231.36.205/user/register">Benutzer anlegen</a></li>
                         		<li class="active"><a href="http://132.231.36.205/pruefung/create">Pruefung anlegen (voruebergehend)</a></li>
-                        		<li class="active"><a href="http://132.231.36.205/user/logout">Logout</a></li>
+
                         <?php	
                         	}elseif(User::currentUser()->istZertifizierer()) { ?>
-                        	 	<li class="active"><a href="http://132.231.36.205/user/logout">Logout</a></li>
+ 
                         		
                         <?php	
                         	}elseif (User::currentUser()->istTeilnehmer()) { ?>
-                        	 	<li class="active"><a href="http://132.231.36.205/user/logout">Logout</a></li>
+
                         		
                         <?php	
                         	}else { ?>
-                        		<li class="active"><a href="http://132.231.36.205/user/login">Login</a></li>
-                        		<li class="active"><a href="http://132.231.36.205/user/register">Registrieren</a></li>
+
                         <?php 		
                         	}
                         ?>
                        
                     </ul>
+                     <ul class="nav navbar-nav navbar-right">
+                     	<?php if (User::currentUser()->getBenutzername()==NULL) {?>
+        					<li><a href="http://132.231.36.205/user/register"><span class="glyphicon glyphicon-user"></span> Registrieren</a></li>
+        				<?php }else {?>
+        					<li class="dropdown">
+          					<a class="dropdown-toggle" data-toggle="dropdown" href="#"><?php echo User::currentUser()->getBenutzername()." ";?><span class="glyphicon glyphicon-user"></span></a>
+          					<ul class="dropdown-menu">
+        						<li><a href="http://132.231.36.205/user/changedata">Benutzerdaten &auml;ndern</a></li>
+        						<li><a href="http://132.231.36.205/user/changepassword">Passwort &auml;ndern</a></li>
+        					</ul>
+        					</li>
+        				<?php }
+        				if (User::currentUser()->getBenutzername()==NULL) { ?>
+      				 	<li><a href="http://132.231.36.205/user/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+      				 	<?php } else {?>
+      				 	<li><a href="http://132.231.36.205/user/logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+      				 	<?php }?>
+      				</ul>
                 </div>
             </div>
         </nav>

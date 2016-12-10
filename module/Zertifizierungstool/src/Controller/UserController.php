@@ -33,18 +33,41 @@ class UserController extends AbstractActionController
 	{
 		if($_SERVER['REQUEST_METHOD'] == 'POST') {
 			
+			if (User::currentUser()->istAdmin()) {
+				
+				if ($_REQUEST['rolle']=='a') {
+				$user= new User($_REQUEST["benutzername"], $_REQUEST["passwort"], $_REQUEST["vorname"], $_REQUEST["nachname"], $_REQUEST["geburtsdatum"], $_REQUEST["strasse"], $_REQUEST["plz"], $_REQUEST["ort"], $_REQUEST["email"], $_REQUEST["email_bestaetigt"], 1,0,0);
+				}
+				
+				if ($_REQUEST['rolle']=='z') {
+					$user= new User($_REQUEST["benutzername"], $_REQUEST["passwort"], $_REQUEST["vorname"], $_REQUEST["nachname"], $_REQUEST["geburtsdatum"], $_REQUEST["strasse"], $_REQUEST["plz"], $_REQUEST["ort"], $_REQUEST["email"], $_REQUEST["email_bestaetigt"], 0,1,0);
+				}
+				
+				if ($_REQUEST['rolle']=='t') {
+					$user= new User($_REQUEST["benutzername"], $_REQUEST["passwort"], $_REQUEST["vorname"], $_REQUEST["nachname"], $_REQUEST["geburtsdatum"], $_REQUEST["strasse"], $_REQUEST["plz"], $_REQUEST["ort"], $_REQUEST["email"], $_REQUEST["email_bestaetigt"], 0,0,1);
+				}
+				
+				
+			} else {
 		
-		
-		$user= new User($_REQUEST["benutzername"], $_REQUEST["passwort"], $_REQUEST["vorname"], $_REQUEST["nachname"], $_REQUEST["geburtsdatum"], $_REQUEST["strasse"], $_REQUEST["plz"], $_REQUEST["ort"], $_REQUEST["email"], $_REQUEST["email_bestaetigt"], $_REQUEST["ist_admin"], $_REQUEST["ist_zertifizierer"], $_REQUEST["ist_teilnehmer"]);
-		
-		$result = $user->register();
-		
-		
-		return new ViewModel(['meldung' => $result]);
+				$user= new User($_REQUEST["benutzername"], $_REQUEST["passwort"], $_REQUEST["vorname"], $_REQUEST["nachname"], $_REQUEST["geburtsdatum"], $_REQUEST["strasse"], $_REQUEST["plz"], $_REQUEST["ort"], $_REQUEST["email"], $_REQUEST["email_bestaetigt"], $_REQUEST["ist_admin"], $_REQUEST["ist_zertifizierer"], $_REQUEST["ist_teilnehmer"]);
+			
+			}
+			
+			$result = $user->register();
+			
+			
+			return new ViewModel(['meldung' => $result]);
 		}
 		
-		else
-			return new ViewModel();
+		else {
+			if (User::currentUser()->istAdmin()) {
+				return new ViewModel(['status' => 'admin']);
+			} else {
+							
+				return new ViewModel();
+			}
+		}
 	}
 	
 	public function registertestAction()
@@ -139,7 +162,8 @@ class UserController extends AbstractActionController
 		if($_SERVER['REQUEST_METHOD'] == 'POST') {
 			
 			User::currentUser()->update($_REQUEST["vorname"], $_REQUEST["nachname"], $_REQUEST["geburtsdatum"], $_REQUEST["strasse"], $_REQUEST["plz"], $_REQUEST["ort"], $_REQUEST["email"]);
-			
+			User::currentUser()->load(User::currentUser()->getBenutzername());
+			$_SESSION["currentUser"] = serialize(User::currentUser());			
 			return new ViewModel(['status' => "erfolgreich"]);
 		}
 		else {
@@ -148,7 +172,68 @@ class UserController extends AbstractActionController
 	
 	}
 	
+	public function changepasswordAction() {
+		
+		if($_SERVER['REQUEST_METHOD'] == 'POST') {
+			if ($_REQUEST['newPasswort1'] == $_REQUEST['newPasswort2']) {
+				$result = User::currentUser()->passwortControll($_REQUEST['passwort']);
+				if ($result) {
+					$resultUpdate = User::currentUser()->updatePassword($_REQUEST['newPasswort1']);
+					if ($resultUpdate) {
+						return new ViewModel(['status' => 'erfolgreich']);
+					}
+					else {
+						return new ViewModel (['status' => 'datenbankfehler']);
+					}
+				}
+				else {
+					return new ViewModel (['status' => 'altes passwort falsch']);
+				}
+			} else {
+				return new ViewModel (['status' => 'ungleiche passwoerter']);
+			}
+		}else {
+			
+			return new ViewModel();
+			
+		}
+		
+	}
 	
+	public function passwordforgottenAction() {
+		
+		if (isset($_GET['benutzer'])) {
+			
+			return new ViewModel(['benutzer' => $_GET['benutzer']]);
+			
+		} else if (isset($_POST['benutzermail'])){
+			
+			$user = new User();
+			$user->load($_POST['benutzermail']);
+			$user->passwordForgottenMail();
+			return new ViewModel(['status' => 'mail']);
+			
+		} else if (isset($_POST['newPasswort1'])) {
+			
+			if ($_POST['newPasswort1']==$_POST['newPasswort2']) {
+				$user = new User();
+				$user->load($_POST['benutzer']);
+				$user->updatePassword($_POST['newPasswort1']);
+				return new ViewModel(['status'=>'erfolgreich']);
+			}
+			else {
+				return new ViewModel(['status'=>'ungleiche passwoerter', 'benutzer'=>$_POST['benutzer']]);
+			}
+			
+		} else {
+			
+			return new ViewModel();
+			
+		}
+		
+
+		
+	}
 	
 	public function loeschenAction() {
 		
