@@ -19,6 +19,7 @@ class Db_connection
 		
 		$result = mysqli_query($conn, $query);
 		echo mysqli_error($conn);
+		echo "<br>" . $query;
 		return $result;
 	}
 }

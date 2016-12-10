@@ -1,20 +1,31 @@
 <h1>Neue Pruefung anlegen</h1>
 <h2>Kopfdaten der Pruefung</h2>
 
-<?php if (isset($errors)) {
-	foreach ($errors as $err) {
-		echo "Fehler: " . $err . "<br>";
+<?php
+	// Falls die Prüfung erfolgreich gespeichert wurde, wird auf die Maske zur Erstellung der Prüfungsfragen weitergeleitet
+	if (isset($result[0]) && $result[0] == true) {
+		echo "Prüfung wurde erfolgreich gespeichert! <br>";
+	?>
+		<a href="<?= $this->url('frage', ['action' => 'create', 'id' => $pruefung[0]->getId()]) ?>"><button>Fragen zur Pruefung erstellen</button></a>
+	<?php
+		//header ("refresh:0; url = /frage/create/" . $pruefung[0]->getId());
 	}
-}?>
+	
+	if (isset($errors)) {
+		foreach ($errors as $err) {
+			echo "Fehler: " . $err . "<br>";
+		}
+	}
+?>
 
 <form method="POST">	
 	<table>
 		<tr><td>Pruefungsname</td><td><input type="text"   name="name"     required value="<?=$pruefung[0]->getName()    ?>" ></td></tr>
 		<tr><td>Termin		 </td><td><input type="date"   name="termin"   required value="<?=$pruefung[0]->getTermin()  ?>" ></td></tr>
-		<tr><td>Cutscore (%) </td><td><input type="number" name="cutscore" required value="<?=$pruefung[0]->getCutscore()?>" min="0" max="100"></td></tr>
+		<tr><td>Cutscore (%) </td><td><input type="number" name="cutscore" required value="<?=$pruefung[0]->getCutscore() * 100?>" min="0" max="100"></td></tr>
 	</table>
 
-	<input type="hidden" name="kursid"  readonly="readonly" value="<?=$pruefung[0]->getKursId()?>" >
+	<input name="kursid"  readonly="readonly" value="<?=$pruefung[0]->getKursId()?>" >
 	
 	<input type="submit" name="speichern" value="Speichern & weiter zu den Fragen">
 </form>

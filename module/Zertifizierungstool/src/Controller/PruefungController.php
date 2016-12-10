@@ -19,6 +19,7 @@ class PruefungController extends AbstractActionController {
 	public function createAction() {
 		// Array, das eventuelle Fehlermeldungen enthält
 		$errors = array();
+		$result = false;
 		
 		// Berechtigungsprüfung
 		if (!User::currentUser()->istAdmin() && !User::currentUser()->istZertifizierer()) {
@@ -26,7 +27,23 @@ class PruefungController extends AbstractActionController {
 		}
 
 		// Erzeugung des Prüfungs-Objekts mit Übergabe der zugehörigen Kurs-Id
-		$pruefung = new Pruefung($kursid = $this->params()->fromRoute('id'));		
+		//if (isset($this->params()->fromRoute('id'))) {
+		//	$pruefung = new Pruefung($kursid = $this->params()->fromRoute('id'));
+		//} else {
+		//	array_push($errors, "Es konnte kein Kurs zugeordnet werden!");
+		//}
+		
+		$newKursid = $_REQUEST["kursid"];
+		
+		if (empty($newKursid)) {
+			$newKursid = $this->params()->fromRoute('id');
+		}
+		
+		$pruefung = new Pruefung();
+		$pruefung->setKursId($newKursid);
+		
+		print_r($pruefung, true);
+				
 		
 		if ($_REQUEST['speichern']) {
 			
@@ -34,7 +51,7 @@ class PruefungController extends AbstractActionController {
 					$_REQUEST["name"],
 					$_REQUEST["termin"], 
 					$_REQUEST["kursid"], 
-					$_REQUEST["cutscore"] );
+					$_REQUEST["cutscore"] / 100 );
 			
 			// TODO Format des Prüfungstermins überprüfen
 			// Prüfungstermin validieren
@@ -46,13 +63,16 @@ class PruefungController extends AbstractActionController {
 				}else {
 					// FrageController->anlegenAction() mit Parameter Prüfungs-Id;
 					// oder hier createQuestionAction()
+					// Prüfung neu laden, damit Id gesetzt wird
+					$result = true;
 				}
 			}
 		}
 			
 		return new ViewModel([
 				'pruefung' => array($pruefung),
-				'errors'   => $errors
+				'errors'   => $errors,
+				'result'   => array($result)	
 		]);
 	}
 	

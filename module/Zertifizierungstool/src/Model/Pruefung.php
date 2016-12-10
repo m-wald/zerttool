@@ -25,9 +25,11 @@ class Pruefung {
 		$query = "INSERT INTO pruefung (pruefung_name, pruefung_ab, kurs_id, cutscore) VALUES ('"
 					.$this->name	. "', '"
 					.$this->termin 	. "', "
-					.$this->kurs_id . ", "
-					.$this->cutscore . ")" ;
+					.$this->kurs_id . ", '"
+					.$this->cutscore . "')" ;
 		$result = $db->execute($query);
+		
+		print_r($result, true);
 		
 		// TODO fehler
 	}
@@ -51,7 +53,7 @@ class Pruefung {
 	}
 	
 	public function getCutscore() {
-		$this->cutscore;
+		return $this->cutscore;
 	}
 	
 	// Setter methods
