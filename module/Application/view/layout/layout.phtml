@@ -69,7 +69,7 @@
         					<li><a href="http://132.231.36.205/user/register"><span class="glyphicon glyphicon-user"></span> Registrieren</a></li>
         				<?php }else {?>
         					<li class="dropdown">
-          					<a class="dropdown-toggle" data-toggle="dropdown" href="#"><?php echo User::currentUser()->getBenutzername();?><span class="glyphicon glyphicon-user"></span></a>
+          					<a class="dropdown-toggle" data-toggle="dropdown" href="#"><?php echo User::currentUser()->getBenutzername()." ";?><span class="glyphicon glyphicon-user"></span></a>
           					<ul class="dropdown-menu">
         						<li><a href="http://132.231.36.205/user/changedata">Benutzerdaten aendern</a></li>
         					</ul>
