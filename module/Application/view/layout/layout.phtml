@@ -65,7 +65,7 @@
                        
                     </ul>
                      <ul class="nav navbar-nav navbar-right">
-                     	<?php if (isset($_SESSION["currentUser"])) {?>
+                     	<?php if ($_SESSION["currentUser"]==NULL) {?>
         					<li><a href="http://132.231.36.205/user/register"><span class="glyphicon glyphicon-user"></span> Registrieren</a></li>
         				<?php }else {?>
         					<li class="dropdown">
@@ -75,7 +75,7 @@
         					</ul>
         					</li>
         				<?php }
-        				if (!isset($_SESSION["currentUser"])) { ?>
+        				if ($_SESSION["currentUser"]!=NULL) { ?>
       				 	<li><a href="http://132.231.36.205/user/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
       				 	<?php }?>
       				</ul>
