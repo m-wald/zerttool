@@ -1,6 +1,5 @@
 <h1>Kurs anlegen</h1>
 
-
 <?php
 
     if(!isset($message)){
@@ -14,15 +13,16 @@
 		
 ?>
 
+
 <form action="anlegen" method="POST">
     <table>
-        <tr><td> for="kursname"> Kursname:</td>
+        <tr><td> Kursname:</td>
             <td><input name='kursname' size="40" maxlength="250" type='text' required></td></tr>
-        <tr><td> for="kursstart"> Kursstart:</td>
+        <tr><td> Kursstart:</td>
             <td><input name='kursstart' size="40" maxlength="250" type='date' required></td></tr>
-        <tr><td> for="kursende"> Kursende:</td>
+        <tr><td> Kursende:</td>
             <td><input name='kursende' size="40" maxlength="250" type='date' required></td></tr>
-        <tr><td> for="sichtbarkeit"> Sichtbarkeit:</td>
+        <tr><td> Sichtbarkeit:</td>
             <td><select name="sichtbarkeit">
 			<option value="ja">sichtbar</option>
 			<option value="nein" selected>nicht sichtbar</option>
