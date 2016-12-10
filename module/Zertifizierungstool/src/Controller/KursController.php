@@ -18,7 +18,6 @@ class KursController extends AbstractActionController
                 return new ViewModel(['error' => $error]);
             }
             
-            
             //todo Enddatum in der Zukunft abprüfen?
             
             
