@@ -35,10 +35,21 @@ else {
 
 <!--  Hier kommt später noch ein if-Block hin. Anhand der Session wird geprüft ob hier ein Admin (besitzt Session) oder ein Teilnehmer eine Registrierung durchführt (besitzt natürlich keine Session)
       Admin verfügt über Auswahlmenü und kann entscheiden, welche Rolle er registrieren will -->
+ <?php if ($status == 'admin') {?>
+ 
+<tr><td>Rolle:</td><td><select name="rolle" size="3">
+					   <option value='a'>Administrator</option>
+					   <option value='z'>Zertifizierer</option>
+					   <option value='t'>Teilnehmer</option></select>
+</td></tr>
+
+<?php } else {?>
       
 <input type="hidden" value = 0 name="ist_admin">
 <input type="hidden" value = 0 name="ist_zertifizierer"> 
 <input type="hidden" value = 1 name="ist_teilnehmer"> <br> <br>
+
+<?php }?>
 
 <input type = "submit" value="Bestaetigen">
 
