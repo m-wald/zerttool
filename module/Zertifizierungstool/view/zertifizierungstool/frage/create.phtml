@@ -4,9 +4,9 @@ use Zertifizierungstool\Model\Frage;
 <h1>Neue Pr&uuml;fung anlegen</h1>
 <h2>Kopfdaten der Pr&uuml;fung</h2>
 	<table>
-		<tr><td>Pr&uuml;fungsname</td><td><?=$pruefung[0]->getName()    ?>" ></td></tr>
-		<tr><td>Termin		 	 </td><td><?=$pruefung[0]->getTermin()  ?>" ></td></tr>
-		<tr><td>Cutscore (%) 	 </td><td><?=$pruefung[0]->getCutscore() * 100?>" min="0" max="100"></td></tr>
+		<tr><td>Pr&uuml;fungsname</td><td><?=$pruefung[0]->getName()    ?></td></tr>
+		<tr><td>Termin		 	 </td><td><?=$pruefung[0]->getTermin()  ?></td></tr>
+		<tr><td>Cutscore (%) 	 </td><td><?=$pruefung[0]->getCutscore() * 100?></td></tr>
 	</table>
 	
 <h2>Prüfungsfragen erstellen</h2>
@@ -14,13 +14,13 @@ use Zertifizierungstool\Model\Frage;
 <script type="text/javascript">
 	var formStart = 
 		'<form method="POST">' + '<table>' + 
-			'<tr><td>Frage</td><td><input type="text"   name="frage_text" required value="<?=$frage->getText()?>" ></td></tr>' +
-			'<tr><td>Frage</td><td><input type="text"   name="punkte"     required value="<?=$frage->getPunkte()?>"></td></tr>';
+			'<tr><td>Frage</td><td><input type="text"   name="frage_text" required></td></tr>' +
+			'<tr><td>Frage</td><td><input type="text"   name="punkte"     required></td></tr>';
 
 	var formEnd = 
 		'</table>' +
-		'<input type="hidden" name="id" 		 readonly="readonly" value="<?=$frage->getId()?>" >' +
-		'<input type="hidden" name="pruefung_id" readonly="readonly" value="<?=$frage->getPruefungId()?>" >' +
+		'<input type="hidden" name="id" 		 readonly="readonly">' +
+		'<input type="hidden" name="pruefung_id" readonly="readonly">' +
 		'<input type="submit" name="speichern" value="Speichern">' +
 		'<input type="reset" value="Felder zurücksetzen">' +
 		'</form>';
@@ -35,12 +35,10 @@ use Zertifizierungstool\Model\Frage;
 		+ formEnd;
 	
 	function showFormMC() {
-		<?php $frage = new Frage()?>
 		document.getElementById("formular").innerHTML = formMC;
 	}
 
 	function showFormTF() {
-		<?php $frage = new Frage()?>
 		document.getElementById("formular").innerHTML = formTF;
 	}
 
