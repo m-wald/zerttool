@@ -21,7 +21,14 @@ class Kurs {
         $this->sichtbarkeit = $sichtbarkeit;
         $this->benutzername = $benutzername;
     }
-
+    
+    public function __construct1($kurs_name, $kurs_start, $kurs_ende, $sichtbarkeit, $benutzername) {
+        $this->kurs_name = $kurs_name;
+        $this->kurs_start = $kurs_start;
+        $this->kurs_ende = $kurs_ende;
+        $this->sichtbarkeit = $sichtbarkeit;
+        $this->benutzername = $benutzername;
+    }
     
     /**
      * L�dt die Daten des Kurses mit der �bergebenen Id
