@@ -47,14 +47,12 @@ class Pruefung {
 		
 		$query = "SELECT * FROM pruefung WHERE pruefung_id = " .$this->id;
 		
-		$result = mysqli_query($db->getConnection(), $query);
+		$result = $db->execute($query);
 		
 		if(!$result || !mysqli_num_rows($result) > 0) {
 			// Fehler bei der Datenbankabfrage oder keine Prüfung mit der Id gefunden
 			return false;
 		}
-
-		$row = mysqli_fetch_assoc($result);
 			
 		$this->id		= $id;
 		/*
