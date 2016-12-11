@@ -45,7 +45,7 @@ class Pruefung {
 	public function load($id) {
 		$db = new Db_connection();
 		
-		$query = "SELECT * FROM pruefung WHERE pruefung_id = " .$this->id;
+		$query = "SELECT * FROM pruefung WHERE pruefung_id = " .$id;
 		
 		$result = $db->execute($query);
 		
