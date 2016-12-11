@@ -77,7 +77,7 @@ class Kurs {
             '".$this->kurs_start."', 
             '".$this->kurs_ende."',
             '".$this->sichtbarkeit."',
-            '".$this->benutzername."',)";
+            '".$this->benutzername."')";
         
 	$result = $db->execute($query);
                
@@ -138,7 +138,6 @@ class Kurs {
     function setBenutzername($benutzername) {
         $this->benutzername = $benutzername;
     }
-    
     
     /**
      * Vergibt die 
