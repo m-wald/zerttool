@@ -19,8 +19,7 @@ class KursController extends AbstractActionController
             $endtimestamp   = strtotime($end);
             
             if($starttimestamp > $endtimestamp){
-                $error = "Das Kursendedatum liegt vor dem Kursstartdatum!";
-                return new ViewModel(['error' => $error]);
+                return new ViewModel(['error' => 'falsedate']);
             }
             
             //todo Enddatum in der Zukunft abprüfen?
