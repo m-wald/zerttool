@@ -149,7 +149,7 @@ class UserController extends AbstractActionController
 	
 	}
 	
-	public function changepassword() {
+	public function changepasswordAction() {
 		
 		if($_SERVER['REQUEST_METHOD'] == 'POST') {
 			
