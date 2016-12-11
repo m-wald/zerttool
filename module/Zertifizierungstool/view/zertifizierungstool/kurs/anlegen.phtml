@@ -6,7 +6,7 @@
         echo "Daten konnten erfolgreich gespeichert werden!";
         header("url = /user/home");
     }
-    else if (isset($error)){
+    elseif (isset($error)){
         echo "Die Speicherung der Daten war erfolgreich!";
         header("url = /user/home");
     }       
