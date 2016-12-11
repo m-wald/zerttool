@@ -290,7 +290,7 @@ class User
 			return $result;
 		}
 		else {
-			return -1;
+			return "falsch";
 		}
 
 			

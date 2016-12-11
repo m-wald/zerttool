@@ -162,7 +162,7 @@ class UserController extends AbstractActionController
 				elseif ($resultUpdate == false) {
 					return new ViewModel (['status' => 'datenbankfehler']);
 				}
-				elseif ($resultUpdate == -1) {
+				elseif ($resultUpdate == "falsch") {
 					return new ViewModel (['status' => 'ungleiche passwoerter']);
 				}
 			}
