@@ -12,7 +12,7 @@ if (isset($errors)) {
 ?>
 <h1>Neue Pr&uuml;fung anlegen</h1>
 
-<div id="KopfdatenPruefung">
+<div class="KopfdatenPruefung">
 <h2>Kopfdaten der Pr&uuml;fung</h2>
 	<table>
 		<tr><td>Pr&uuml;fungsname</td><td><?php printf($pruefung[0]->getName()); 	      ?></td></tr>
@@ -65,7 +65,7 @@ if (isset($errors)) {
 	}
 </script>
 
-<div id="FragenListe">
+<div class="FragenListe">
 	<h3>Bereits angelegte Pr&uuml;fungsfragen</h3>
 	<table>
 	<?php
@@ -85,6 +85,6 @@ if (isset($errors)) {
 
 </div>
 
-<div id="Frage">
+<div class="Frage">
 	<p id="formular">W&auml;hlen Sie links den gew&uuml;nschten Frage-Typ (MC / TF) aus, um die Eingabemaske anzuzeigen.</p>
 </div>
