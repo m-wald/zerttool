@@ -211,6 +211,7 @@ class UserController extends AbstractActionController
 			$user = new User();
 			$user->load($_POST['benutzermail']);
 			$user->passwordForgottenMail();
+			return new ViewModel(['status' => 'mail']);
 			
 		} else if (isset($_POST['newPasswort1'])) {
 			
