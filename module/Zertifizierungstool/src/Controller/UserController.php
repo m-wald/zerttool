@@ -209,7 +209,7 @@ class UserController extends AbstractActionController
 		} else if (isset($_POST['benutzer'])){
 			
 			$user = new User();
-			$user->load($_POST['benutzer']);
+			$user->load($_POST['benutzermail']);
 			$user->passwordForgottenMail();
 			
 		} else if (isset($_POST['newPasswort1'])) {
