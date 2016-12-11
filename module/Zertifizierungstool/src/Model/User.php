@@ -257,6 +257,17 @@ class User
 		$text = wordwrap($text, 70);
 		mail ($empfaenger, $betreff, $text); 
 	}
+	
+	public function passwordForgottenMail() {
+		
+		$empfaenger = $this->email;
+		$betreff = "Neues Passwort angefordert für Zertifizierungstool";
+		$from = "user@zerttool.tk";
+		$text = "Hallo ".$this->vorname." ".$this->nachname.",\n\n wenn Sie ein neues Passwort angefordert haben, folgenden Sie bitte diesem Link:\n\n www.zerttool.tk/user/passwordforgotten?benutzer=".$this->benutzername;
+		$text = wordwrap($text, 70);
+		mail ($empfaenger, $betreff, $text);
+				
+	}
 	/**
 	 * Setzt den boolschen Wert email_bestaetigt in der DB von 0 auf 1
 	 */

@@ -200,6 +200,40 @@ class UserController extends AbstractActionController
 		
 	}
 	
+	public function passwordforgottenAction() {
+		
+		if (isset($_GET['benutzer'])) {
+			
+			return new ViewModel(['benutzer' => $_GET['benutzer']]);
+			
+		} else if (isset($_POST['benutzer'])){
+			
+			$user = new User();
+			$user->load($_POST['benutzer']);
+			$user->passwordForgottenMail();
+			
+		} else if (isset($_POST['newPasswort1'])) {
+			
+			if ($_POST['newPasswort1']==$_POST['newPasswort2']) {
+				$user = new User();
+				$user->load($_POST['benutzer']);
+				$user->updatePassword($_POST['passwort']);
+				return new ViewModel(['status'=>'erfolgreich']);
+			}
+			else {
+				return new ViewModel(['status'=>'ungleiche passwoerter', 'benutzer'=>$_POST['benutzer']]);
+			}
+			
+		} else {
+			
+			return new ViewModel();
+			
+		}
+		
+
+		
+	}
+	
 	public function loeschenAction() {
 		
 	}
