@@ -139,7 +139,6 @@ class Kurs {
         $this->benutzername = $benutzername;
     }
     
-    
     /**
      * Vergibt die 
      */
