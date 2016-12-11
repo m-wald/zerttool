@@ -31,3 +31,25 @@ div.container a.navbar-brand > img {
     margin-right: 4px;
     margin-top: -2px;
 }
+
+#KopfdatenPruefung {
+	position: relative;
+	border: 10px;
+	width: 100%;
+}
+
+#FragenListe {
+	position: relative;
+	margin-top: 200px;
+	border: 10px;
+	width: 30%;
+}
+
+#Frage {
+	position: relative;
+	margin-top: 200px;
+	margin-left: 100px;
+	border: 10px;
+	width: 70%;
+	
+}

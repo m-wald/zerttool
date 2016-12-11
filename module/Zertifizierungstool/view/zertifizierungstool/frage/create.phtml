@@ -11,14 +11,19 @@ if (isset($errors)) {
 }
 ?>
 <h1>Neue Pr&uuml;fung anlegen</h1>
+
+<div id="KopfdatenPruefung">
 <h2>Kopfdaten der Pr&uuml;fung</h2>
 	<table>
 		<tr><td>Pr&uuml;fungsname</td><td><?php printf($pruefung[0]->getName()); 	      ?></td></tr>
 		<tr><td>Termin		 	 </td><td><?php printf($pruefung[0]->getTermin());  	  ?></td></tr>
 		<tr><td>Cutscore (%) 	 </td><td><?php printf($pruefung[0]->getCutscore() * 100) ?></td></tr>
 	</table>
-	
+</div>
+
 <h2>Pr&uuml;fungsfragen erstellen</h2>
+
+
 
 <script type="text/javascript">
 	var formStart = 
@@ -40,7 +45,11 @@ if (isset($errors)) {
 		+ formEnd;
 		
 	var formTF = 
-		'True / False - Frage: <br>' + formStart
+		'True / False - Frage: <br>' + formStart + 
+
+		'<input type="radio" name="tf" value="true" checked> Wahr<br>' +
+		'<input type="radio" name="tf" value="false"> Falsch' +
+		
 		+ formEnd;
 	
 	function showFormMC() {
@@ -57,7 +66,7 @@ if (isset($errors)) {
 	}
 </script>
 
-<div>
+<div id="FragenListe">
 	<h3>Bereits angelegte Pr&uuml;fungsfragen</h3>
 	<table>
 	<?php
@@ -75,15 +84,8 @@ if (isset($errors)) {
 	<h3>Neue Frage anlegen</h3>
 	<table><tr><td><button type="button" onclick="showFormMC()">MC</button></td><td><button type="button" onclick="showFormTF()">TF</button></td></tr></table>
 
-
-<?php 
-	// Bei Bearbeiten ist die Frage-Id gesetzt -> die entsprechende Frage aus dem Array holen
-/*	
-$i = 0;
-	while ($fragen[$i]->getId() != $frage_id[0]) {
-		$frage = $fragen[$i+1];
-	}
-	*/
-?>
 </div>
-<p id="formular">W&auml;hlen Sie links den gew&uuml;nschten Frage-Typ (MC / TF) aus, um die Eingabemaske anzuzeigen.</p>
+
+<div id="Frage">
+	<p id="formular">W&auml;hlen Sie links den gew&uuml;nschten Frage-Typ (MC / TF) aus, um die Eingabemaske anzuzeigen.</p>
+</div>
