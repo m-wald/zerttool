@@ -4,6 +4,27 @@
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
 /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
+#KopfdatenPruefung {
+	position: relative;
+	border: 10px;
+	width: 100%;
+}
+
+#FragenListe {
+	position: relative;
+	margin-top: 200px;
+	border: 10px;
+	width: 30%;
+}
+
+#Frage {
+	position: relative;
+	margin-top: 200px;
+	margin-left: 100px;
+	border: 10px;
+	width: 70%;
+}
+
 html {
   font-family: sans-serif;
   -webkit-text-size-adjust: 100%;
