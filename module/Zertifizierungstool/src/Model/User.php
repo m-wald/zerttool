@@ -282,7 +282,7 @@ class User
 	
 	public function  updatePassword($passwort1, $passwort2) {
 		
-		if ($passwort1 == $passwort2) {
+		if ($passwort1 === $passwort2) {
 			$passwort1 = $this->saltPasswort($passwort1);
 			$db = new Db_connection();
 			$query = "update benutzer set passwort = '".$passwort1."' where benutzername ='".$this->benutzername."';";
