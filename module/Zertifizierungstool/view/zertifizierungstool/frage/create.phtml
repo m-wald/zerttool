@@ -12,7 +12,7 @@ if (isset($errors)) {
 ?>
 
 <style>
-	#KopfdatenPruefung {
+#KopfdatenPruefung {
 	position: relative;
 	border: 10pt;
 	border-color: black;
@@ -20,6 +20,13 @@ if (isset($errors)) {
 	width: 100%;
 		}
 
+#Fragen {
+	position: relative;
+	border: 10pt;
+	border-color: black;
+	border-style: solid;
+	width: 100%;
+}
 #FragenListe {
 	position: relative;
 	border: 10pt;
@@ -90,7 +97,7 @@ if (isset($errors)) {
 	</table>
 </div>
 
-
+<div id="Fragen">
 <h2>Pr&uuml;fungsfragen erstellen</h2>
 
 <div id="FragenListe">
@@ -114,4 +121,5 @@ if (isset($errors)) {
 
 <div id="Frage">
 	<p id="formular">W&auml;hlen Sie links den gew&uuml;nschten Frage-Typ (MC / TF) aus, um die Eingabemaske anzuzeigen.</p>
+</div>
 </div>
