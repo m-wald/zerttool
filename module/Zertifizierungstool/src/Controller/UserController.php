@@ -152,28 +152,25 @@ class UserController extends AbstractActionController
 	public function changepasswordAction() {
 		
 		if($_SERVER['REQUEST_METHOD'] == 'POST') {
-			
-			$result = User::currentUser()->passwortControll($_REQUEST['passwort']);
-			if ($result) {
-				$resultUpdate = User::currentUser()->updatePassword($_REQUEST['newPasswort1'], $_REQUEST['newPasswort2']);
-				if ($resultUpdate == true) {
-					return new ViewModel(['status' => 'erfolgreich']);
+			if ($_REQUEST['newPasswort1'] == $_REQUEST['newPasswort2']) {
+				$result = User::currentUser()->passwortControll($_REQUEST['passwort']);
+				if ($result) {
+					$resultUpdate = User::currentUser()->updatePassword($_REQUEST['newPasswort1']);
+					if ($resultUpdate) {
+						return new ViewModel(['status' => 'erfolgreich']);
+					}
+					else {
+						return new ViewModel (['status' => 'datenbankfehler']);
+					}
 				}
-				elseif ($resultUpdate == false) {
-					return new ViewModel (['status' => 'datenbankfehler']);
+				else {
+					return new ViewModel (['status' => 'altes passwort falsch']);
 				}
-				elseif ($resultUpdate == "falsch") {
-					return new ViewModel (['status' => 'ungleiche passwoerter']);
-				}
+			} else {
+				return new ViewModel (['status' => 'ungleiche passwoerter']);
 			}
-			else {
-				return new ViewModel (['status' => 'altes passwort falsch']);
-			}
-			
 		}
-		else {
-			return new ViewModel();
-		}
+		return new ViewModel();
 		
 	}
 	

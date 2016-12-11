@@ -280,18 +280,13 @@ class User
 		return $result;
 	}
 	
-	public function  updatePassword($passwort1, $passwort2) {
+	public function  updatePassword($passwort) {
 		
-		if ($passwort1 === $passwort2) {
-			$passwort1 = $this->saltPasswort($passwort1);
+			$passwort1 = $this->saltPasswort($passwort);
 			$db = new Db_connection();
-			$query = "update benutzer set passwort = '".$passwort1."' where benutzername ='".$this->benutzername."';";
+			$query = "update benutzer set passwort = '".$passwort."' where benutzername ='".$this->benutzername."';";
 			$result = $db->execute($query);
 			return $result;
-		}
-		else {
-			return "falsch";
-		}
 
 			
 	
