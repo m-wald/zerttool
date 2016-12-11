@@ -14,40 +14,29 @@ if (isset($errors)) {
 <style>
 	#KopfdatenPruefung {
 	position: relative;
-	border: 10px;
+	border: 10pt;
+	border-color: black;
+	border-style: solid;
 	width: 100%;
 		}
 
 #FragenListe {
 	position: relative;
-	margin-top: 200px;
-	border: 10px;
+	border: 10pt;
+	border-color: black;
+	border-style: solid;
 	width: 30%;
 	}
 
 #Frage {
 	position: relative;
-	margin-top: 200px;
 	margin-left: 100px;
-	border: 10px;
+	border: 10pt;
+	border-color: black;
+	border-style: solid;
 	width: 70%;
 	}
 </style>
-
-<h1>Neue Pr&uuml;fung anlegen</h1>
-
-<div id="KopfdatenPruefung">
-<h2>Kopfdaten der Pr&uuml;fung</h2>
-	<table>
-		<tr><td>Pr&uuml;fungsname</td><td><?php printf($pruefung[0]->getName()); 	      ?></td></tr>
-		<tr><td>Termin		 	 </td><td><?php printf($pruefung[0]->getTermin());  	  ?></td></tr>
-		<tr><td>Cutscore (%) 	 </td><td><?php printf($pruefung[0]->getCutscore() * 100) ?></td></tr>
-	</table>
-</div>
-
-<h2>Pr&uuml;fungsfragen erstellen</h2>
-
-
 
 <script type="text/javascript">
 	var formStart = 
@@ -89,6 +78,21 @@ if (isset($errors)) {
 	}
 </script>
 
+
+<h1>Neue Pr&uuml;fung anlegen</h1>
+
+<div id="KopfdatenPruefung">
+<h2>Kopfdaten der Pr&uuml;fung</h2>
+	<table>
+		<tr><td>Pr&uuml;fungsname</td><td><?php printf($pruefung[0]->getName()); 	      ?></td></tr>
+		<tr><td>Termin		 	 </td><td><?php printf($pruefung[0]->getTermin());  	  ?></td></tr>
+		<tr><td>Cutscore (%) 	 </td><td><?php printf($pruefung[0]->getCutscore() * 100) ?></td></tr>
+	</table>
+</div>
+
+
+<h2>Pr&uuml;fungsfragen erstellen</h2>
+
 <div id="FragenListe">
 	<h3>Bereits angelegte Pr&uuml;fungsfragen</h3>
 	<table>
@@ -106,7 +110,6 @@ if (isset($errors)) {
 	
 	<h3>Neue Frage anlegen</h3>
 	<table><tr><td><button type="button" onclick="showFormMC()">MC</button></td><td><button type="button" onclick="showFormTF()">TF</button></td></tr></table>
-
 </div>
 
 <div id="Frage">
