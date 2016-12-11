@@ -8,32 +8,30 @@ class Db_connection
 	private $user 		= "root";
 	private $password 	= "zert4tool";
 	
-	private $conn;
-	
-	public function __construct() {
-		$this->conn = new \mysqli($this->server, $this->user, $this->password, $this->database);
-		
-		if ($conn->connect_error)
-		{
-			die("Es konnte keine Verbindung zur Datenbank hergestellt werden: " . $this->conn->connect_error);
-		}
-	}
-	
-
-	public function execute($query) {
-		/*
+	public function getConnection() {
 		$conn = new \mysqli($this->server, $this->user, $this->password, $this->database);
 		
 		if ($conn->connect_error)
 		{
 			die("Es konnte keine Verbindung zur Datenbank hergestellt werden: " . $this->conn->connect_error);
 		}
-		*/
 		
-		$result = mysqli_query($this->$conn, $query);
+		return $conn;
+	}
+	
+
+	public function execute($query) {
+		$conn = new \mysqli($this->server, $this->user, $this->password, $this->database);
 		
-		if (!empty(mysqli_error($this->$conn))) {
-			echo mysqli_error($this->$conn);
+		if ($conn->connect_error)
+		{
+			die("Es konnte keine Verbindung zur Datenbank hergestellt werden: " . $this->conn->connect_error);
+		}
+
+		$result = mysqli_query($conn, $query);
+		
+		if (!empty(mysqli_error($conn))) {
+			echo mysqli_error($conn);
 			echo "<br>" . $query;
 			
 			return false;
@@ -41,8 +39,5 @@ class Db_connection
 		
 		return $result;
 	}
-	
-	public function getConnection() {
-		return $this->conn;
-	}
+
 }

@@ -21,6 +21,7 @@ class Pruefung {
 	
 	public function saveNew() {
 		$db = new Db_connection();
+		$conn = $db->getConnection();
 		
 		$query = "INSERT INTO pruefung (pruefung_name, pruefung_ab, kurs_id, cutscore) VALUES ('"
 					.$this->name	. "', '"
@@ -28,7 +29,7 @@ class Pruefung {
 					.$this->kurs_id . ", '"
 					.$this->cutscore . "')" ;
 		
-		$result = $db->execute($query); //mysqli_query($db->getConnection(), $query);
+		$result = mysqli_query($conn, $query);
 				
 		if(!$result) {
 			// Fehler bei der Datenbankabfrage
@@ -36,7 +37,7 @@ class Pruefung {
 			
 		} else {
 			// Id des eben eingefügten Datensatzes auslesen und im Objekt setzen
-			$this->id = mysqli_insert_id($db->getConnection());
+			$this->id = mysqli_insert_id($conn);
 			return true;
 		}
 	}
