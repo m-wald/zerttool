@@ -3,6 +3,12 @@ use Zertifizierungstool\Model\Frage;
 use Zertifizierungstool\Model\Pruefung;
 
 print_r($pruefung, true);
+
+if (isset($errors)) {
+	foreach ($errors as $err) {
+		echo "Fehler: " . $err . "<br>";
+	}
+}
 ?>
 <h1>Neue Pr&uuml;fung anlegen</h1>
 <h2>Kopfdaten der Pr&uuml;fung</h2>

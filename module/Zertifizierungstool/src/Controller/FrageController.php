@@ -37,7 +37,8 @@ class FrageController extends AbstractActionController {
 		
 		return new ViewModel([
 				'pruefung' => array($pruefung),
-				'fragen'   => $fragen
+				'fragen'   => $fragen,
+				'errors'   => $errors
 		]);
 		
 	}
