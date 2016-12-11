@@ -282,7 +282,7 @@ class User
 	
 	public function  updatePassword($passwort) {
 		
-			$passwort1 = $this->saltPasswort($passwort);
+			$passwort = $this->saltPasswort($passwort);
 			$db = new Db_connection();
 			$query = "update benutzer set passwort = '".$passwort."' where benutzername ='".$this->benutzername."';";
 			$result = $db->execute($query);

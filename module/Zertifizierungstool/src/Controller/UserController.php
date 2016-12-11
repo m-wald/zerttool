@@ -169,8 +169,11 @@ class UserController extends AbstractActionController
 			} else {
 				return new ViewModel (['status' => 'ungleiche passwoerter']);
 			}
+		}else {
+			
+			return new ViewModel();
+			
 		}
-		return new ViewModel();
 		
 	}
 	
