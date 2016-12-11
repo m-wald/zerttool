@@ -41,5 +41,14 @@ class KursController extends AbstractActionController
             return new ViewModel();
         
     }
+    
+    public function anlegentestAction()
+    {
+	$kurs = new Kurs("", "ITM", "01.12.2016", "31.12.2016", 0, "aaa");
+	
+	$kurs->save();
+
+	return new ViewModel();
+    }
 }
 
