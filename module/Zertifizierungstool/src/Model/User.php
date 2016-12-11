@@ -168,6 +168,7 @@ class User
 		}
 	}
 	
+
 	/**
 	 * Prüft ob ein Benutzer mit dem Nutzernamen dieses Objektes in der Datenbank schon
 	 * existiert.
@@ -277,6 +278,23 @@ class User
 	
 		$result=$db->execute($query);
 		return $result;
+	}
+	
+	public function  updatePassword($passwort1, $passwort2) {
+		
+		if ($passwort1 == $passwort2) {
+			$passwort1 = $this->saltPasswort($passwort1);
+			$db = new Db_connection();
+			$query = "update benutzer set passwort = '".$passwort1."' where benutzername ='".$this->benutzername."';";
+			$result = $db->execute($query);
+			return $result;
+		}
+		else {
+			return -1;
+		}
+
+			
+	
 	}
 	
 }
