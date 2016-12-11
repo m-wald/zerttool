@@ -57,10 +57,16 @@ class Pruefung {
 		$row = mysqli_fetch_assoc($result);
 			
 		$this->id		= $id;
+		/*
 		$this->name 	= $row["pruefung_name"];
 		$this->termin   = $row["pruefung_ab"];
 		$this->kurs_id  = $row["kurs_id"];
 		$this->cutscore = $row["cutscore"];
+		*/
+		$this->name 	= "Frage test";
+		$this->termin   = "Test_Termin";
+		$this->kurs_id  = 4;
+		$this->cutscore = 50;
 		
 		return true;
 	}
