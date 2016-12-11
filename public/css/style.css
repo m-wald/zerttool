@@ -52,4 +52,8 @@ div.container a.navbar-brand > img {
 	border: 10px;
 	width: 70%;
 	
+h1 {
+	font-size: 80px;
+}
+	
 }

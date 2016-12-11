@@ -27,12 +27,11 @@ if (isset($errors)) {
 
 <script type="text/javascript">
 	var formStart = 
-		'<form method="POST">' + '<table>' + 
-			'<tr><td>Frage</td><td><input type="text"   name="frage_text" required></td></tr>' +
-			'<tr><td>Punkte</td><td><input type="number"   name="punkte"    required></td></tr>';
+		'<form method="POST">' + 
+			'Frage: <input type="text"   name="frage_text" required>' +
+			'Punkte: <input type="number"   name="punkte"    required>';
 
 	var formEnd = 
-		'</table>' +
 		'<input type="hidden" name="id" 		 readonly="readonly">' +
 		'<input type="hidden" name="pruefung_id" readonly="readonly">' +
 		'<input type="submit" name="speichern" value="Speichern">' +
@@ -46,7 +45,7 @@ if (isset($errors)) {
 		
 	var formTF = 
 		'True / False - Frage: <br>' + formStart + 
-
+		
 		'<input type="radio" name="tf" value="true" checked> Wahr<br>' +
 		'<input type="radio" name="tf" value="false"> Falsch' +
 		
