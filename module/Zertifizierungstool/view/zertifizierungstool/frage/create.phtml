@@ -1,0 +1,84 @@
+<?php
+use Zertifizierungstool\Model\Frage;
+?>
+<h1>Neue Pr&uuml;fung anlegen</h1>
+<h2>Kopfdaten der Pr&uuml;fung</h2>
+	<table>
+		<tr><td>Pr&uuml;fungsname</td><td><?=$pruefung[0]->getName()    ?>" ></td></tr>
+		<tr><td>Termin		 	 </td><td><?=$pruefung[0]->getTermin()  ?>" ></td></tr>
+		<tr><td>Cutscore (%) 	 </td><td><?=$pruefung[0]->getCutscore() * 100?>" min="0" max="100"></td></tr>
+	</table>
+	
+<h2>Prüfungsfragen erstellen</h2>
+
+<script type="text/javascript">
+	var formStart = 
+		'<form method="POST">' + '<table>' + 
+			'<tr><td>Frage</td><td><input type="text"   name="frage_text" required value="<?=$frage->getText()?>" ></td></tr>' +
+			'<tr><td>Frage</td><td><input type="text"   name="punkte"     required value="<?=$frage->getPunkte()?>"></td></tr>';
+
+	var formEnd = 
+		'</table>' +
+		'<input type="hidden" name="id" 		 readonly="readonly" value="<?=$frage->getId()?>" >' +
+		'<input type="hidden" name="pruefung_id" readonly="readonly" value="<?=$frage->getPruefungId()?>" >' +
+		'<input type="submit" name="speichern" value="Speichern">' +
+		'<input type="reset" value="Felder zurücksetzen">' +
+		'</form>';
+
+	var formMC = 
+		'Multiple Choice - Frage: <br>' + formStart
+
+		+ formEnd;
+		
+	var formTF = 
+		'True / False - Frage: <br>' + formStart
+		+ formEnd;
+	
+	function showFormMC() {
+		<?php $frage = new Frage()?>
+		document.getElementById("formular").innerHTML = formMC;
+	}
+
+	function showFormTF() {
+		<?php $frage = new Frage()?>
+		document.getElementById("formular").innerHTML = formTF;
+	}
+
+	// Für Später
+	function edit(typ) {
+		// if typ = mc...
+	}
+</script>
+
+<input type="radio" name="">
+
+<div>
+	<h3>Bereits angelegte Pr&uuml;fungsfragen</h3>
+	<table>
+	<?php
+		if (empty($fragen)) {
+			echo "<tr><td>(leer)</tr></td>";
+		} else {
+		foreach ($fragen as $frage) { ?>
+			<tr><td><?=$frage->getText()?><td><td><button type="button" onclick="edit()">Bearbeiten</button><td><td>Löschen<td></tr>			
+	<?php
+		}}
+	?>
+		
+	</table>
+	
+	<h3>Neue Frage anlegen</h3>
+	<table><tr><td><button type="button" onclick="showFormMC()">MC</button></td><td><button type="button" onclick="showFormTF()">TF</button></td></tr></table>
+
+
+<?php 
+	// Bei Bearbeiten ist die Frage-Id gesetzt -> die entsprechende Frage aus dem Array holen
+/*	
+$i = 0;
+	while ($fragen[$i]->getId() != $frage_id[0]) {
+		$frage = $fragen[$i+1];
+	}
+	*/
+?>
+</div>
+<p id="formular">Wählen Sie links den gewünschten Frage-Typ (MC / TF) aus, um die Eingabemaske anzuzeigen.</p>

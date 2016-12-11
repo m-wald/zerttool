@@ -21,17 +21,48 @@ class Pruefung {
 	
 	public function saveNew() {
 		$db = new Db_connection();
+		$conn = $db->getConnection();
 		
 		$query = "INSERT INTO pruefung (pruefung_name, pruefung_ab, kurs_id, cutscore) VALUES ('"
 					.$this->name	. "', '"
 					.$this->termin 	. "', "
 					.$this->kurs_id . ", '"
 					.$this->cutscore . "')" ;
-		$result = $db->execute($query);
 		
-		print_r($result, true);
+		$result = mysqli_query($conn, $query);
+				
+		if(!$result) {
+			// Fehler bei der Datenbankabfrage
+			return false;
+			
+		} else {
+			// Id des eben eingefügten Datensatzes auslesen und im Objekt setzen
+			$this->id = mysqli_insert_id($conn);
+			return true;
+		}
+	}
+	
+	public function load($id) {
+		$db = new Db_connection();
 		
-		// TODO fehler
+		$query = "SELECT * FROM pruefung WHERE pruefung_id = " .$this->id;
+		
+		$result = mysqli_query($db->getConnection(), $query);
+		
+		if(!$result || !mysqli_num_rows($result) > 0) {
+			// Fehler bei der Datenbankabfrage oder keine Prüfung mit der Id gefunden
+			return false;
+		}
+
+		$row = mysqli_fetch_assoc($result);
+			
+		$this->id		= $id;
+		$this->name 	= $row["pruefung_name"];
+		$this->termin   = $row["pruefung_ab"];
+		$this->kurs_id  = $row["kurs_id"];
+		$this->cutscore = $row["cutscore"];
+		
+		return true;
 	}
 	
 	
