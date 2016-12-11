@@ -2,7 +2,6 @@
 
 <br><br>
 <?php
-
 if(isset($meldung)){
 	$error = $meldung;
 	echo $error;
@@ -33,8 +32,7 @@ else {
 <input type="hidden" value = 0 name="email_bestaetigt">
 
 
-<!--  Hier kommt später noch ein if-Block hin. Anhand der Session wird geprüft ob hier ein Admin (besitzt Session) oder ein Teilnehmer eine Registrierung durchführt (besitzt natürlich keine Session)
-      Admin verfügt über Auswahlmenü und kann entscheiden, welche Rolle er registrieren will -->
+
  <?php if ($status == 'admin') {?>
  
 <tr><td>Rolle:</td><td><select name="rolle">
