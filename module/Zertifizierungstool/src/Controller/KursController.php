@@ -13,7 +13,12 @@ class KursController extends AbstractActionController
         if($_SERVER['REQUEST_METHOD'] == 'POST') {
             
             //Prüfung, ob Kursstartdatum vor -enddatum
-            if($_REQUEST("kursstart") > $_REQUEST("kursende")){
+            $start  = $_REQUEST("kursstart");
+            $end    = $_REQUEST("kursende");
+            $starttimestamp = strtotime($start);
+            $endtimestamp   = strtotime($end);
+            
+            if($starttimestamp > $endtimestamp){
                 $error = "Das Kursendedatum liegt vor dem Kursstartdatum!";
                 return new ViewModel(['error' => $error]);
             }
