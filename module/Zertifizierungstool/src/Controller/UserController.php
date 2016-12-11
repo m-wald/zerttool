@@ -206,7 +206,7 @@ class UserController extends AbstractActionController
 			
 			return new ViewModel(['benutzer' => $_GET['benutzer']]);
 			
-		} else if (isset($_POST['benutzer'])){
+		} else if (isset($_POST['benutzermail'])){
 			
 			$user = new User();
 			$user->load($_POST['benutzermail']);
