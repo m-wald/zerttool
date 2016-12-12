@@ -23,6 +23,7 @@ class Kurs {
     }
     
     public function __construct1($kurs_name, $kurs_start, $kurs_ende, $sichtbarkeit, $benutzername) {
+        $this->kurs_id = "";
         $this->kurs_name = $kurs_name;
         $this->kurs_start = $kurs_start;
         $this->kurs_ende = $kurs_ende;
