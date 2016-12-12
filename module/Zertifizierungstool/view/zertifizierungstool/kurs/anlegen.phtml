@@ -3,16 +3,16 @@
 <?php
 
     if ($message == 'erfolgt'){
-        header("refresh:4; url = /user/home");
         echo "Daten konnten erfolgreich gespeichert werden. <br> 
               Sie werden auf die Home-Seite weiterverbunden. <br>";
+        header("refresh:4; url = /user/home");
     }
     elseif ($error == 'falsedate'){
         echo "Kursende wurde vor dem Kursbeginn erfasst! <br>";
     }elseif ($error == 'nichterfolgt'){
     	echo "Daten konnten nicht gespeichert werden. <br>";
     }elseif ($error == 'nosubmit'){
-    	echo "Fehler bei der Übermittlung. <br>";     
+    	echo "Fehler bei der ï¿½bermittlung. <br>";     
     }
 		
 ?>
