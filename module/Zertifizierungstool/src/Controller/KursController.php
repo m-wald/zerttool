@@ -36,7 +36,7 @@ class KursController extends AbstractActionController
              * 
              */
             $user = new User();
-            $user -> load();
+            $user -> currentUser();
             
             $kurs = new Kurs(
                     $_REQUEST["kursname"], 

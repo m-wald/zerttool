@@ -14,7 +14,6 @@ class Kurs {
     private $benutzername;
     
     /*
->>>>>>> branch 'master' of https://github.com/m-wald/zerttool.git
     public function __construct($kurs_id, $kurs_name, $kurs_start, $kurs_ende, $sichtbarkeit, $benutzername) {
         $this->kurs_id = $kurs_id;
         $this->kurs_name = $kurs_name;
