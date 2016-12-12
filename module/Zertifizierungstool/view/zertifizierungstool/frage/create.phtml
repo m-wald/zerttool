@@ -51,7 +51,6 @@ if (isset($errors)) {
 	var formStart = 
 		'<form method="POST">' + 
 			'Punkte: <input type="number"   name="punkte"    required>' +
-			'<br>'
 			'Frage: <input type="text"   name="frage_text" required>' + 
 			'<br>';
 
@@ -66,7 +65,7 @@ if (isset($errors)) {
 	var formMC = 
 		'Multiple Choice - Frage: <br>' + formStart +
 
-		'<input type="text"   name="antwort_text0" required>' + 
+		'Antwortmöglichkeit 1: <input type="text"   name="antwort_text0" required>' + 
 		'<p id="ant1"></p>' +
 
 		'<button type="button" onclick="newAntwort()">Neue Antwort</button>' +		
@@ -91,12 +90,11 @@ if (isset($errors)) {
 
 	function newAntwort() {
 		var inputString = 
-			'<br>' +
-			'<input type="text"   name="antwort_text"' + AntwortAnzahl +  ' required>';
+			'<input type="text"   name="antwort_text' + AntwortAnzahl +  '" required>';
 
 		AntwortAnzahl = AntwortAnzahl + 1;
 
-		inputString = inputString + '<p id="ant"' + AntwortAnzahl +'></p>';
+		inputString = inputString + '<p id="ant' + AntwortAnzahl +'"></p>';
 
 		var stelle = AntwortAnzahl - 1;
 		
