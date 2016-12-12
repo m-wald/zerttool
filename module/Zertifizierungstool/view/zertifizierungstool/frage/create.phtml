@@ -46,7 +46,7 @@ if (isset($errors)) {
 </style>
 
 <script type="text/javascript">
-	var AntwortAnzahl = 1;
+	var AntwortAnzahl;
 	
 	var formStart = 
 		'<form method="POST">' + 
@@ -66,7 +66,8 @@ if (isset($errors)) {
 	var formMC = 
 		'Multiple Choice - Frage: <br>' + formStart +
 
-		'Antwortmöglichkeit 1: <input type="text"   name="antwort_text1" required>' + 
+		'Antwortm&ouml;glichkeit 1: <input type="text"   name="antwort_text1" required>' + 
+		'<input type="checkbox" name="antwort_checked0">' +
 		'<p id="ant2"></p>' +
 
 		'<button type="button" onclick="newAntwort()">Neue Antwort</button>' +		
@@ -82,6 +83,7 @@ if (isset($errors)) {
 		+ formEnd;
 	
 	function showFormMC() {
+		AntwortAnzahl = 1;
 		document.getElementById("formular").innerHTML = formMC;
 	}
 
@@ -97,17 +99,11 @@ if (isset($errors)) {
 		var aktStelle = AntwortAnzahl;
 		var neuStelle = AntwortAnzahl + 1;
 		
-		var inputString = 
-			'Antwortmöglichkeit ' + AntwortAnzahl + ': ' + 
-			'<input type="text"   name="antwort_text' + AntwortAnzahl +  '" required>';
-
-
-		inputString = inputString + '<p id="ant' + neuStelle +'"></p>';
-
-		
-		document.getElementById("ant" + aktStelle).innerHTML = inputString;
-
-		
+		document.getElementById("ant" + aktStelle).innerHTML =
+			'Antwortm&ouml;glichkeit ' + AntwortAnzahl + ': ' +
+			'<input type="text"   name="antwort_text' + AntwortAnzahl +  '" required>' +
+			'<input type="checkbox" name="antwort_checked' + AntwortAnzahl + '">' +
+			'<p id="ant' + neuStelle +'"></p>';
 	}
 
 	// Für Später
