@@ -2,8 +2,6 @@
 use Zertifizierungstool\Model\Frage;
 use Zertifizierungstool\Model\Pruefung;
 
-print_r($pruefung, true);
-
 if (isset($errors)) {
 	foreach ($errors as $err) {
 		echo "Fehler: " . $err . "<br>";
@@ -14,69 +12,91 @@ if (isset($errors)) {
 <style>
 #KopfdatenPruefung {
 	position: relative;
-	border: 10pt;
+	border: 5pt;
 	border-color: black;
 	border-style: solid;
 	width: 100%;
-		}
+	padding: 2em;
+	}
 
-#Fragen {
-	position: relative;
-	border: 10pt;
-	border-color: black;
-	border-style: solid;
-	width: 100%;
-}
+
 #FragenListe {
-	position: relative;
-	border: 10pt;
+	float:left;
+	border: 5pt;
 	border-color: black;
 	border-style: solid;
-	width: 30%;
+	width: 30em;
+	padding: 2em;
 	}
 
 #Frage {
-	position: relative;
-	margin-left: 100px;
-	border: 10pt;
+	padding: 2em;
+	margin-left: 30em;
+	border: 5pt;
+	border-left: 0pt;
 	border-color: black;
 	border-style: solid;
-	width: 70%;
+	width: 50em;
 	}
 </style>
 
+
+
 <script type="text/javascript">
+	var AntwortAnzahl;
+	
 	var formStart = 
-		'<form method="POST">' + 
-			'Frage: <input type="text"   name="frage_text" required>' +
-			'Punkte: <input type="number"   name="punkte"    required>';
+		'<form method="POST" id="frageForm">' + 
+			'Punkte: <input type="number" name="punkte"     size="5"  required> <br>';
 
 	var formEnd = 
 		'<input type="hidden" name="id" 		 readonly="readonly">' +
 		'<input type="hidden" name="pruefung_id" readonly="readonly">' +
 		'<input type="submit" name="speichern" value="Speichern">' +
-		'<input type="reset" value="Felder zurücksetzen">' +
-		'</form>';
+		'<input type="reset" value="Felder zur&uuml;cksetzen">' +
+		'</form> <br>' + 
+		'Frage: <textarea rows="4" cols="50" name="frage_text" form="usrform">Enter text here...</textarea>';
 
 	var formMC = 
-		'Multiple Choice - Frage: <br>' + formStart
+		'Multiple Choice - Frage: <br>' + formStart +
 
-		+ formEnd;
+		'Antwortm&ouml;glichkeit 1: ' +
+		'<input type="text"     name="antwort_text1" required>' + ' ' +
+		'<input type="checkbox" name="antwort_checked1">' +
+		'<p id="ant2"></p>' +
+
+		'<button type="button" onclick="newAntwort()">Neue Antwort</button>' +		
+
+		formEnd;
 		
 	var formTF = 
-		'True / False - Frage: <br>' + formStart + 
+		'True / False - Frage: <br>' + formStart +
 		
 		'<input type="radio" name="tf" value="true" checked> Wahr<br>' +
-		'<input type="radio" name="tf" value="false"> Falsch' +
+		'<input type="radio" name="tf" value="false"> Falsch<br>' +
 		
-		+ formEnd;
+		formEnd;
 	
 	function showFormMC() {
+		AntwortAnzahl = 1;
 		document.getElementById("formular").innerHTML = formMC;
 	}
 
 	function showFormTF() {
 		document.getElementById("formular").innerHTML = formTF;
+	}
+
+	function newAntwort() {
+		AntwortAnzahl = AntwortAnzahl + 1;
+		
+		var aktStelle = AntwortAnzahl;
+		var neuStelle = AntwortAnzahl + 1;
+		
+		document.getElementById("ant" + aktStelle).innerHTML =
+			'Antwortm&ouml;glichkeit ' + AntwortAnzahl + ': ' +
+			'<input type="text"     name="antwort_text'    + AntwortAnzahl + '" required>' +
+			'<input type="checkbox" name="antwort_checked' + AntwortAnzahl + '">' +
+			'<p id="ant' + neuStelle +'"></p>';
 	}
 
 	// Für Später
@@ -97,7 +117,7 @@ if (isset($errors)) {
 	</table>
 </div>
 
-<div id="Fragen">
+
 <h2>Pr&uuml;fungsfragen erstellen</h2>
 
 <div id="FragenListe">
@@ -114,12 +134,10 @@ if (isset($errors)) {
 	?>
 		
 	</table>
-	
-	<h3>Neue Frage anlegen</h3>
-	<table><tr><td><button type="button" onclick="showFormMC()">MC</button></td><td><button type="button" onclick="showFormTF()">TF</button></td></tr></table>
 </div>
 
 <div id="Frage">
-	<p id="formular">W&auml;hlen Sie links den gew&uuml;nschten Frage-Typ (MC / TF) aus, um die Eingabemaske anzuzeigen.</p>
-</div>
+<h3>Neue Frage anlegen</h3>
+	<table><tr><td><button type="button" onclick="showFormMC()">Multiple Choice</button></td><td><button type="button" onclick="showFormTF()">True / False</button></td></tr></table>
+	<p id="formular">W&auml;hlen Sie einen Frage-Typ aus, um die Eingabemaske anzuzeigen.</p>
 </div>

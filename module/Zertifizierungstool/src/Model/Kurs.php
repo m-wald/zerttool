@@ -12,7 +12,8 @@ class Kurs {
     private $kurs_ende;
     private $sichtbarkeit;
     private $benutzername;
-
+    
+    /*
     public function __construct($kurs_id, $kurs_name, $kurs_start, $kurs_ende, $sichtbarkeit, $benutzername) {
         $this->kurs_id = $kurs_id;
         $this->kurs_name = $kurs_name;
@@ -21,8 +22,10 @@ class Kurs {
         $this->sichtbarkeit = $sichtbarkeit;
         $this->benutzername = $benutzername;
     }
+     * 
+     */
     
-    public function __construct1($kurs_name, $kurs_start, $kurs_ende, $sichtbarkeit, $benutzername) {
+    public function __construct($kurs_name, $kurs_start, $kurs_ende, $sichtbarkeit, $benutzername) {
         $this->kurs_id = "";
         $this->kurs_name = $kurs_name;
         $this->kurs_start = $kurs_start;
