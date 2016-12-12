@@ -14,7 +14,7 @@ if (isset($errors)) {
 <style>
 #KopfdatenPruefung {
 	position: relative;
-	border: 10pt;
+	border: 5pt;
 	border-color: black;
 	border-style: solid;
 	width: 100%;
@@ -22,14 +22,14 @@ if (isset($errors)) {
 
 #Fragen {
 	position: relative;
-	border: 10pt;
+	border: 5pt;
 	border-color: black;
 	border-style: solid;
 	width: 100%;
 }
 #FragenListe {
 	position: relative;
-	border: 10pt;
+	border: 5pt;
 	border-color: black;
 	border-style: solid;
 	width: 30%;
@@ -38,7 +38,7 @@ if (isset($errors)) {
 #Frage {
 	position: relative;
 	margin-left: 100px;
-	border: 10pt;
+	border: 5pt;
 	border-color: black;
 	border-style: solid;
 	width: 70%;
@@ -46,10 +46,14 @@ if (isset($errors)) {
 </style>
 
 <script type="text/javascript">
+	var AntwortAnzahl = 1;
+	
 	var formStart = 
 		'<form method="POST">' + 
-			'Frage: <input type="text"   name="frage_text" required>' +
-			'Punkte: <input type="number"   name="punkte"    required>';
+			'Punkte: <input type="number"   name="punkte"    required>' +
+			'<br>'
+			'Frage: <input type="text"   name="frage_text" required>' + 
+			'<br>';
 
 	var formEnd = 
 		'<input type="hidden" name="id" 		 readonly="readonly">' +
@@ -59,12 +63,17 @@ if (isset($errors)) {
 		'</form>';
 
 	var formMC = 
-		'Multiple Choice - Frage: <br>' + formStart
+		'Multiple Choice - Frage: <br>' + formStart +
+
+		'<input type="text"   name="antwort_text0" required>' + 
+		'<p id="ant1"></p>' +
+
+		'<button type="button" onclick="newAntwort()">Neue Antwort</button>' +		
 
 		+ formEnd;
 		
 	var formTF = 
-		'True / False - Frage: <br>' + formStart + 
+		'True / False - Frage: <br>' + formStart +
 		
 		'<input type="radio" name="tf" value="true" checked> Wahr<br>' +
 		'<input type="radio" name="tf" value="false"> Falsch' +
@@ -77,6 +86,14 @@ if (isset($errors)) {
 
 	function showFormTF() {
 		document.getElementById("formular").innerHTML = formTF;
+	}
+
+	function newAntwort() {
+		document.getElementById("ant" + AntwortAnzahl).innerHTML = 
+			'<br>' +
+			'<input type="text"   name="antwort_text"' + AntwortAnzahl +  ' required>';
+
+		AntwortAnzahl = AntwortAnzahl + 1;
 	}
 
 	// Für Später
