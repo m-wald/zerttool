@@ -31,8 +31,9 @@ if (isset($errors)) {
 
 #Frage {
 	padding: 2em;
-	margin-left: 35em;
+	margin-left: 30em;
 	border: 5pt;
+	border-left: 0pt;
 	border-color: black;
 	border-style: solid;
 	width: 50em;
@@ -45,8 +46,7 @@ if (isset($errors)) {
 	var formStart = 
 		'<form method="POST">' + 
 			'Punkte: <input type="number" name="punkte"     required> <br>' +
-			'Frage:  <input type="text"   name="frage_text" required>' + 
-			'<br>';
+			'Frage:  <input type="text"   name="frage_text" required> <br>';
 
 	var formEnd = 
 		'<input type="hidden" name="id" 		 readonly="readonly">' +
@@ -65,7 +65,7 @@ if (isset($errors)) {
 
 		'<button type="button" onclick="newAntwort()">Neue Antwort</button>' +		
 
-		+ formEnd;
+		formEnd;
 		
 	var formTF = 
 		'True / False - Frage: <br>' + formStart +
@@ -73,7 +73,7 @@ if (isset($errors)) {
 		'<input type="radio" name="tf" value="true" checked> Wahr<br>' +
 		'<input type="radio" name="tf" value="false"> Falsch<br>' +
 		
-		+ formEnd;
+		formEnd;
 	
 	function showFormMC() {
 		AntwortAnzahl = 1;
@@ -132,11 +132,13 @@ if (isset($errors)) {
 	?>
 		
 	</table>
-	
-	<h3>Neue Frage anlegen</h3>
-	<table><tr><td><button type="button" onclick="showFormMC()">Multiple Choice</button></td><td><button type="button" onclick="showFormTF()">True / False</button></td></tr></table>
 </div>
 
+	
+
 <div id="Frage">
+<h3>Neue Frage anlegen</h3>
+	<table><tr><td><button type="button" onclick="showFormMC()">Multiple Choice</button></td><td><button type="button" onclick="showFormTF()">True / False</button></td></tr></table>
+
 	<p id="formular">W&auml;hlen Sie links den gew&uuml;nschten Frage-Typ aus, um die Eingabemaske anzuzeigen.</p>
 </div>
