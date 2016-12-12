@@ -56,9 +56,9 @@ class KursController extends AbstractActionController
             
 	}
 		
-	else{
-            return new ViewModel();
-        }
+		else{
+	            return new ViewModel(['error' => 'nosubmit']);
+	        }
         
     }
     
