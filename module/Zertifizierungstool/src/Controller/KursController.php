@@ -27,7 +27,7 @@ class KursController extends AbstractActionController
             
             
             
-            //todo Admi legt Kurs an -> Admin ist kein Kursleiter
+            //todo Admin legt Kurs an -> Admin ist kein Kursleiter
             /*
             if(User::currentUser()->istAdmin()){
                 
@@ -35,6 +35,8 @@ class KursController extends AbstractActionController
             
              * 
              */
+            $user = new User();
+            $user -> load();
             
             $kurs = new Kurs(
                     $_REQUEST["kursname"], 
