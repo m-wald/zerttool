@@ -55,41 +55,23 @@ class Pruefung {
 		}
 			
 		$this->id		= $id;
-		/*
+
 		$this->name 	= $row["pruefung_name"];
 		$this->termin   = $row["pruefung_ab"];
 		$this->kurs_id  = $row["kurs_id"];
 		$this->cutscore = $row["cutscore"];
-		*/
-		$this->name 	= "Frage test";
-		$this->termin   = "Test_Termin";
-		$this->kurs_id  = 4;
-		$this->cutscore = 50;
 		
 		return true;
 	}
 	
 	
 	// Getter methods
-	public function getId() {
-		return $this->id;
-	}
+	public function getId() 	  {return $this->id;}	
+	public function getName() 	  {return $this->name;}
+	public function getTermin()   {return $this->termin;}
+	public function getKursId()   {return $this->kurs_id;}
+	public function getCutscore() {return $this->cutscore;}
 	
-	public function getName() {
-		return $this->name;
-	}
-	
-	public function getTermin() {
-		return $this->termin;
-	}
-	
-	public function getKursId() {
-		return $this->kurs_id;
-	}
-	
-	public function getCutscore() {
-		return $this->cutscore;
-	}
 	
 	// Setter methods
 	public function setId($id) {

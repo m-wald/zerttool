@@ -16,7 +16,7 @@ if (isset($errors)) {
 	border-color: black;
 	border-style: solid;
 	width: 100%;
-	padding-bottom: 10em;
+	padding: 2em;
 	}
 
 
@@ -26,11 +26,12 @@ if (isset($errors)) {
 	border-color: black;
 	border-style: solid;
 	width: 30em;
+	padding: 2em;
 	}
 
 #Frage {
-	padding: 20px 10px 20px 20px;
-	margin-left: 40em;
+	padding: 2em;
+	margin-left: 35em;
 	border: 5pt;
 	border-color: black;
 	border-style: solid;
@@ -48,7 +49,6 @@ if (isset($errors)) {
 			'<br>';
 
 	var formEnd = 
-		'<br>' +
 		'<input type="hidden" name="id" 		 readonly="readonly">' +
 		'<input type="hidden" name="pruefung_id" readonly="readonly">' +
 		'<input type="submit" name="speichern" value="Speichern">' +
@@ -59,7 +59,7 @@ if (isset($errors)) {
 		'Multiple Choice - Frage: <br>' + formStart +
 
 		'Antwortm&ouml;glichkeit 1: ' +
-		'<input type="text"     name="antwort_text1" required>' + 
+		'<input type="text"     name="antwort_text1" required>' + ' ' +
 		'<input type="checkbox" name="antwort_checked1">' +
 		'<p id="ant2"></p>' +
 
@@ -134,9 +134,9 @@ if (isset($errors)) {
 	</table>
 	
 	<h3>Neue Frage anlegen</h3>
-	<table><tr><td><button type="button" onclick="showFormMC()">MC</button></td><td><button type="button" onclick="showFormTF()">TF</button></td></tr></table>
+	<table><tr><td><button type="button" onclick="showFormMC()">Multiple Choice</button></td><td><button type="button" onclick="showFormTF()">True / False</button></td></tr></table>
 </div>
 
 <div id="Frage">
-	<p id="formular">W&auml;hlen Sie links den gew&uuml;nschten Frage-Typ (MC / TF) aus, um die Eingabemaske anzuzeigen.</p>
+	<p id="formular">W&auml;hlen Sie links den gew&uuml;nschten Frage-Typ aus, um die Eingabemaske anzuzeigen.</p>
 </div>
