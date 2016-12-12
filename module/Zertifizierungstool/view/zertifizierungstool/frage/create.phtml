@@ -66,8 +66,8 @@ if (isset($errors)) {
 	var formMC = 
 		'Multiple Choice - Frage: <br>' + formStart +
 
-		'Antwortmöglichkeit 1: <input type="text"   name="antwort_text0" required>' + 
-		'<p id="ant1"></p>' +
+		'Antwortmöglichkeit 1: <input type="text"   name="antwort_text1" required>' + 
+		'<p id="ant2"></p>' +
 
 		'<button type="button" onclick="newAntwort()">Neue Antwort</button>' +		
 
@@ -90,17 +90,22 @@ if (isset($errors)) {
 	}
 
 	function newAntwort() {
+		
+		
+		AntwortAnzahl = AntwortAnzahl + 1;
+
+		var aktStelle = AntwortAnzahl;
+		var neuStelle = AntwortAnzahl + 1;
+		
 		var inputString = 
 			'Antwortmöglichkeit ' + AntwortAnzahl + ': ' + 
 			'<input type="text"   name="antwort_text' + AntwortAnzahl +  '" required>';
 
-		AntwortAnzahl = AntwortAnzahl + 1;
 
-		inputString = inputString + '<p id="ant' + AntwortAnzahl +'"></p>';
+		inputString = inputString + '<p id="ant' + neuStelle +'"></p>';
 
-		var stelle = AntwortAnzahl - 1;
 		
-		document.getElementById("ant" + stelle).innerHTML = inputString;
+		document.getElementById("ant" + aktStelle).innerHTML = inputString;
 
 		
 	}
