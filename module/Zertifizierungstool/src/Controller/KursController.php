@@ -50,7 +50,7 @@ class KursController extends AbstractActionController
             
             if(isset($createkurs))
             	return new ViewModel(['message' => 'erfolgt']);
-           	else 
+            else 
             	return new ViewModel(['error' => 'nichtangelegt']);
             
             
