@@ -13,29 +13,56 @@ class KursController extends AbstractActionController
         if($_SERVER['REQUEST_METHOD'] == 'POST') {
             
             //Prüfung, ob Kursstartdatum vor -enddatum
-            if($_REQUEST("kursstart") > $_REQUEST("kursende")){
-                $error = "Das Kursendedatum liegt vor dem Kursstartdatum!";
-                return new ViewModel(['error' => $error]);
+            $start  = $_REQUEST["kursstart"];
+            $end    = $_REQUEST["kursende"];
+            $starttimestamp = strtotime($start);
+            $endtimestamp   = strtotime($end);
+            
+            if($starttimestamp > $endtimestamp){
+                return new ViewModel(['error' => 'falsedate']);
             }
+
             
             //todo Enddatum in der Zukunft abprüfen?
             
+            
+            
+            //todo Admin legt Kurs an -> Admin ist kein Kursleiter
+            /*
+            if(User::currentUser()->istAdmin()){
+                
+            }
+            
+             * 
+             */
+            $user = new User();
+            $user -> load();
             
             $kurs = new Kurs(
                     $_REQUEST["kursname"], 
                     $_REQUEST["kursstart"], 
                     $_REQUEST["kursende"], 
                     $_REQUEST["sichtbarkeit"],
-                    User::currentUser());
+                    User::currentUser()->getBenutzername());
             
             $createkurs = $kurs->save();
             
             return new ViewModel(['message' => $createkurs]);
 	}
 		
-	else
+	else{
             return new ViewModel();
+        }
         
+    }
+    
+    public function anlegentestAction()
+    {
+	$kurs = new Kurs("ITM", "01.12.2016", "31.12.2016", 0, "aaa");
+	
+	$kurs->save();
+
+	return new ViewModel();
     }
 }
 

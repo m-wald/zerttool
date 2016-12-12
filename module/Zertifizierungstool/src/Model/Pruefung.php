@@ -21,40 +21,57 @@ class Pruefung {
 	
 	public function saveNew() {
 		$db = new Db_connection();
+		$conn = $db->getConnection();
 		
 		$query = "INSERT INTO pruefung (pruefung_name, pruefung_ab, kurs_id, cutscore) VALUES ('"
 					.$this->name	. "', '"
 					.$this->termin 	. "', "
 					.$this->kurs_id . ", '"
 					.$this->cutscore . "')" ;
+		
+		$result = mysqli_query($conn, $query);
+				
+		if(!$result) {
+			// Fehler bei der Datenbankabfrage
+			return false;
+			
+		} else {
+			// Id des eben eingefügten Datensatzes auslesen und im Objekt setzen
+			$this->id = mysqli_insert_id($conn);
+			return true;
+		}
+	}
+	
+	public function load($id) {
+		$db = new Db_connection();
+		
+		$query = "SELECT * FROM pruefung WHERE pruefung_id = " .$id;
+		
 		$result = $db->execute($query);
 		
-		print_r($result, true);
+		if(!$result || !mysqli_num_rows($result) > 0) {
+			// Fehler bei der Datenbankabfrage oder keine Prüfung mit der Id gefunden
+			return false;
+		}
+			
+		$this->id		= $id;
+
+		$this->name 	= $row["pruefung_name"];
+		$this->termin   = $row["pruefung_ab"];
+		$this->kurs_id  = $row["kurs_id"];
+		$this->cutscore = $row["cutscore"];
 		
-		// TODO fehler
+		return true;
 	}
 	
 	
 	// Getter methods
-	public function getId() {
-		return $this->id;
-	}
+	public function getId() 	  {return $this->id;}	
+	public function getName() 	  {return $this->name;}
+	public function getTermin()   {return $this->termin;}
+	public function getKursId()   {return $this->kurs_id;}
+	public function getCutscore() {return $this->cutscore;}
 	
-	public function getName() {
-		return $this->name;
-	}
-	
-	public function getTermin() {
-		return $this->termin;
-	}
-	
-	public function getKursId() {
-		return $this->kurs_id;
-	}
-	
-	public function getCutscore() {
-		return $this->cutscore;
-	}
 	
 	// Setter methods
 	public function setId($id) {

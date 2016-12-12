@@ -13,8 +13,8 @@ class Kurs {
     private $sichtbarkeit;
     private $benutzername;
     
-    
-
+    /*
+>>>>>>> branch 'master' of https://github.com/m-wald/zerttool.git
     public function __construct($kurs_id, $kurs_name, $kurs_start, $kurs_ende, $sichtbarkeit, $benutzername) {
         $this->kurs_id = $kurs_id;
         $this->kurs_name = $kurs_name;
@@ -23,7 +23,17 @@ class Kurs {
         $this->sichtbarkeit = $sichtbarkeit;
         $this->benutzername = $benutzername;
     }
-
+     * 
+     */
+    
+    public function __construct($kurs_name, $kurs_start, $kurs_ende, $sichtbarkeit, $benutzername) {
+        $this->kurs_id = "";
+        $this->kurs_name = $kurs_name;
+        $this->kurs_start = $kurs_start;
+        $this->kurs_ende = $kurs_ende;
+        $this->sichtbarkeit = $sichtbarkeit;
+        $this->benutzername = $benutzername;
+    }
     
     /**
      * L�dt die Daten des Kurses mit der �bergebenen Id
@@ -67,12 +77,7 @@ class Kurs {
      */
     public function save(){
         $db = new Db_connection();
-	$query = "INSERT INTO kurs (kurs_name, kurs_start, kurs_ende, sichtbarkeit, benutzername) VALUES (
-            '".$this->kurs_name."',
-            '".$this->kurs_start."', 
-            '".$this->kurs_ende."',
-            '".$this->sichtbarkeit."',
-            '".$this->benutzername."',)";
+	$query = "INSERT INTO kurs (kurs_name, kurs_start, kurs_ende, sichtbarkeit, benutzername) VALUES ('".$this->kurs_name."','".$this->kurs_start."', '".$this->kurs_ende."', '".$this->sichtbarkeit."', '".$this->benutzername."')";
         
 	$result = $db->execute($query);
                
@@ -133,7 +138,6 @@ class Kurs {
     function setBenutzername($benutzername) {
         $this->benutzername = $benutzername;
     }
-    
     
     /**
      * Vergibt die 

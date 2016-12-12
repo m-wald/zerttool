@@ -20,19 +20,13 @@ class PruefungController extends AbstractActionController {
 		// Array, das eventuelle Fehlermeldungen enthält
 		$errors = array();
 		$result = false;
+		$fragen = array();
 		
 		// Berechtigungsprüfung
 		if (!User::currentUser()->istAdmin() && !User::currentUser()->istZertifizierer()) {
 			array_push($errors, "Keine Berechtigung!");
 		}
 
-		// Erzeugung des Prüfungs-Objekts mit Übergabe der zugehörigen Kurs-Id
-		//if (isset($this->params()->fromRoute('id'))) {
-		//	$pruefung = new Pruefung($kursid = $this->params()->fromRoute('id'));
-		//} else {
-		//	array_push($errors, "Es konnte kein Kurs zugeordnet werden!");
-		//}
-		
 		$newKursid = $_REQUEST["kursid"];
 		
 		if (empty($newKursid)) {
@@ -41,8 +35,6 @@ class PruefungController extends AbstractActionController {
 		
 		$pruefung = new Pruefung();
 		$pruefung->setKursId($newKursid);
-		
-		print_r($pruefung, true);
 				
 		
 		if ($_REQUEST['speichern']) {
@@ -59,11 +51,8 @@ class PruefungController extends AbstractActionController {
 			
 			if (empty($errors)) {
 				if (!$pruefung->saveNew()) {
-					array_push($errors, "Fehler beim Speichern der Prüfung. Bitte erneut versuchen!");
+					array_push($errors, "Fehler beim Speichern der Pr&uuml;fung. Bitte erneut versuchen!");
 				}else {
-					// FrageController->anlegenAction() mit Parameter Prüfungs-Id;
-					// oder hier createQuestionAction()
-					// Prüfung neu laden, damit Id gesetzt wird
 					$result = true;
 				}
 			}
@@ -72,7 +61,8 @@ class PruefungController extends AbstractActionController {
 		return new ViewModel([
 				'pruefung' => array($pruefung),
 				'errors'   => $errors,
-				'result'   => array($result)	
+				'result'   => array($result),
+				'fragen'   => $fragen
 		]);
 	}
 	
@@ -90,10 +80,10 @@ class PruefungController extends AbstractActionController {
 		
 		if ($kurs->laden($pruefung->getKursId())) {
 			if ($pruefung->getTermin() < $kurs->getKurs_start()) {
-				$error= "Der Prüfungszeitraum kann erst nach Kursbeginn beginnen!";
+				$error= "Der Pr&uuml;fungszeitraum kann erst nach Kursbeginn beginnen!";
 			
 			}elseif ($pruefung->getTermin() > date_sub($kurs->getKurs_start(), new \DateInterval("P4D"))) {
-				$error = "Der Prüfungszeitraum muss spätestens 4 Tage vor Kursende beginnen!";
+				$error = "Der Pr&uuml;fungszeitraum muss spätestens 4 Tage vor Kursende beginnen!";
 			}
 		}else {
 			$error = "Der Kurs wurde nicht in der Datenbank gefunden!";
