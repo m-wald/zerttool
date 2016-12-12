@@ -21,7 +21,14 @@ class Kurs {
         $this->sichtbarkeit = $sichtbarkeit;
         $this->benutzername = $benutzername;
     }
-
+    
+    public function __construct1($kurs_name, $kurs_start, $kurs_ende, $sichtbarkeit, $benutzername) {
+        $this->kurs_name = $kurs_name;
+        $this->kurs_start = $kurs_start;
+        $this->kurs_ende = $kurs_ende;
+        $this->sichtbarkeit = $sichtbarkeit;
+        $this->benutzername = $benutzername;
+    }
     
     /**
      * L�dt die Daten des Kurses mit der �bergebenen Id
@@ -65,24 +72,15 @@ class Kurs {
      */
     public function save(){
         $db = new Db_connection();
-	$query = "INSERT INTO kurs (kurs_name, kurs_start, kurs_ende, sichtbarkeit, benutzername) VALUES (
-            '".$this->kurs_name."',
-            '".$this->kurs_start."', 
-            '".$this->kurs_ende."',
-            '".$this->sichtbarkeit."',
-            '".$this->benutzername."',)";
+	$query = "INSERT INTO kurs (kurs_name, kurs_start, kurs_ende, sichtbarkeit, benutzername) VALUES ('".
+                $this->kurs_name."', '".
+                $this->kurs_start."', '".
+                $this->kurs_ende."', '".
+                $this->sichtbarkeit."', '".
+                $this->benutzername."')";
         
-        unset($result);
 	$result = $db->execute($query);
-        
-        if(isset($result)){
-            return "Kurs konnte erfolgreich angelegt werden!";
-        }
-        else {
-            return "Es trat ein Fehler bei der Anlage des Kurses auf!";
-        }
-        
-        
+               
     }
 
     public function update($kurs_id) {
@@ -140,7 +138,6 @@ class Kurs {
     function setBenutzername($benutzername) {
         $this->benutzername = $benutzername;
     }
-    
     
     /**
      * Vergibt die 

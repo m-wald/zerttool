@@ -168,6 +168,7 @@ class User
 		}
 	}
 	
+
 	/**
 	 * Prüft ob ein Benutzer mit dem Nutzernamen dieses Objektes in der Datenbank schon
 	 * existiert.
@@ -252,9 +253,20 @@ class User
 		$empfaenger = $this->email;
 		$betreff = "Registrierung Zertifizierungstool";
 		$from = "user@zerttool.tk";
-		$text = "Sehr geehrte Damen und Herren, bitte bestaetigen Sie folgenden Link: www.zerttool.tk/user/registerbest?benutzer=".$this->benutzername;
+		$text = "Hallo ".$this->vorname." ".$this->nachname.",\n\n bitte bestaetigen Sie folgenden Link:\n\n www.zerttool.tk/user/registerbest?benutzer=".$this->benutzername;
 		$text = wordwrap($text, 70);
 		mail ($empfaenger, $betreff, $text); 
+	}
+	
+	public function passwordForgottenMail() {
+		
+		$empfaenger = $this->email;
+		$betreff = "Neues Passwort angefordert für Zertifizierungstool";
+		$from = "user@zerttool.tk";
+		$text = "Hallo ".$this->vorname." ".$this->nachname.",\n\n wenn Sie ein neues Passwort angefordert haben, folgenden Sie bitte diesem Link:\n\n www.zerttool.tk/user/passwordforgotten?benutzer=".$this->benutzername;
+		$text = wordwrap($text, 70);
+		mail ($empfaenger, $betreff, $text);
+				
 	}
 	/**
 	 * Setzt den boolschen Wert email_bestaetigt in der DB von 0 auf 1
@@ -277,6 +289,18 @@ class User
 	
 		$result=$db->execute($query);
 		return $result;
+	}
+	
+	public function  updatePassword($passwort) {
+		
+			$passwort = $this->saltPasswort($passwort);
+			$db = new Db_connection();
+			$query = "update benutzer set passwort = '".$passwort."' where benutzername ='".$this->benutzername."';";
+			$result = $db->execute($query);
+			return $result;
+
+			
+	
 	}
 	
 }

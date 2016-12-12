@@ -2,16 +2,18 @@
 
 <?php
 
-    if(!isset($message)){
-        echo "Daten konnten nicht gespeichert werden!";
+    if(isset($message)){
+        header("refresh:4; url = /user/home");
+        echo "Daten konnten erfolgreich gespeichert werden. <br> 
+              Sie werden auf die Home-Seite weiterverbunden.";
     }
-    else {
-        header("url = /user/home");
-        echo "Die Speicherung der Daten war erfolgreich!";
-        
-    }
+    elseif ($error == 'falsedate'){
+        echo "Kursende wurde vor dem Kursbeginn erfasst!";
+    }      
+    
 		
 ?>
+<br>
 
 
 <form action="anlegen" method="POST">

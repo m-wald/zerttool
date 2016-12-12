@@ -1,0 +1,125 @@
+<?php
+use Zertifizierungstool\Model\Frage;
+use Zertifizierungstool\Model\Pruefung;
+
+print_r($pruefung, true);
+
+if (isset($errors)) {
+	foreach ($errors as $err) {
+		echo "Fehler: " . $err . "<br>";
+	}
+}
+?>
+
+<style>
+#KopfdatenPruefung {
+	position: relative;
+	border: 10pt;
+	border-color: black;
+	border-style: solid;
+	width: 100%;
+		}
+
+#Fragen {
+	position: relative;
+	border: 10pt;
+	border-color: black;
+	border-style: solid;
+	width: 100%;
+}
+#FragenListe {
+	position: relative;
+	border: 10pt;
+	border-color: black;
+	border-style: solid;
+	width: 30%;
+	}
+
+#Frage {
+	position: relative;
+	margin-left: 100px;
+	border: 10pt;
+	border-color: black;
+	border-style: solid;
+	width: 70%;
+	}
+</style>
+
+<script type="text/javascript">
+	var formStart = 
+		'<form method="POST">' + 
+			'Frage: <input type="text"   name="frage_text" required>' +
+			'Punkte: <input type="number"   name="punkte"    required>';
+
+	var formEnd = 
+		'<input type="hidden" name="id" 		 readonly="readonly">' +
+		'<input type="hidden" name="pruefung_id" readonly="readonly">' +
+		'<input type="submit" name="speichern" value="Speichern">' +
+		'<input type="reset" value="Felder zurücksetzen">' +
+		'</form>';
+
+	var formMC = 
+		'Multiple Choice - Frage: <br>' + formStart
+
+		+ formEnd;
+		
+	var formTF = 
+		'True / False - Frage: <br>' + formStart + 
+		
+		'<input type="radio" name="tf" value="true" checked> Wahr<br>' +
+		'<input type="radio" name="tf" value="false"> Falsch' +
+		
+		+ formEnd;
+	
+	function showFormMC() {
+		document.getElementById("formular").innerHTML = formMC;
+	}
+
+	function showFormTF() {
+		document.getElementById("formular").innerHTML = formTF;
+	}
+
+	// Für Später
+	function edit(typ) {
+		// if typ = mc...
+	}
+</script>
+
+
+<h1>Neue Pr&uuml;fung anlegen</h1>
+
+<div id="KopfdatenPruefung">
+<h2>Kopfdaten der Pr&uuml;fung</h2>
+	<table>
+		<tr><td>Pr&uuml;fungsname</td><td><?php printf($pruefung[0]->getName()); 	      ?></td></tr>
+		<tr><td>Termin		 	 </td><td><?php printf($pruefung[0]->getTermin());  	  ?></td></tr>
+		<tr><td>Cutscore (%) 	 </td><td><?php printf($pruefung[0]->getCutscore() * 100) ?></td></tr>
+	</table>
+</div>
+
+<div id="Fragen">
+<h2>Pr&uuml;fungsfragen erstellen</h2>
+
+<div id="FragenListe">
+	<h3>Bereits angelegte Pr&uuml;fungsfragen</h3>
+	<table>
+	<?php
+		if (empty($fragen)) {
+			echo "<tr><td>(leer)</tr></td>";
+		} else {
+		foreach ($fragen as $frage) { ?>
+			<tr><td><?=$frage->getText()?><td><td><button type="button" onclick="edit()">Bearbeiten</button><td><td>Löschen<td></tr>			
+	<?php
+		}}
+	?>
+		
+	</table>
+	
+	<h3>Neue Frage anlegen</h3>
+	<table><tr><td><button type="button" onclick="showFormMC()">MC</button></td><td><button type="button" onclick="showFormTF()">TF</button></td></tr></table>
+</div>
+
+<div id="Frage">
+	<p id="formular">W&auml;hlen Sie links den gew&uuml;nschten Frage-Typ (MC / TF) aus, um die Eingabemaske anzuzeigen.</p>
+</div>
+</div>

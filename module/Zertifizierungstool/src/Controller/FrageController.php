@@ -20,10 +20,26 @@ class FrageController extends AbstractActionController {
 		}
 		
 		// Erzeugung des Frage-Objekts mit Übergabe der zugehörigen Prüfungs-Id
-		if (isset($this->params()->fromRoute('id'))) {
-			$pruefung = new Pruefung($kursid = $this->params()->fromRoute('id'));
-		} else {
-			array_push($errors, "Der Frage konnte keine Prüfung zugeordnet werden!");
+		$pruefungid = $_REQUEST["pruefung_id"];
+		
+		if (empty($pruefungid)) {
+			$pruefungid = $this->params()->fromRoute('id');
 		}
+		
+		$pruefung = new Pruefung();
+		
+		if (!$pruefung->load($pruefungid)) {
+			array_push($errors, "Fehler beim Laden der Prüfung!");
+		}
+		
+		$fragen = array();
+		
+		
+		return new ViewModel([
+				'pruefung' => array($pruefung),
+				'fragen'   => $fragen,
+				'errors'   => $errors
+		]);
+		
 	}
 }
