@@ -19,8 +19,7 @@ class Antwort {
 	public function saveNew() {
 		$db = new Db_connection();
 		
-		$query = "INSERT INTO antwort (antwort_id, antwort_text, frage_id, status) VALUES ("
-				.$this->id	. ", '"
+		$query = "INSERT INTO antwort (antwort_text, frage_id, status) VALUES ("
 				.$this->text 	. "', "
 				.$this->frage_id . ", "
 				.$this->status . ") ";

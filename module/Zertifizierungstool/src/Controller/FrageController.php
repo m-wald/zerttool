@@ -7,6 +7,7 @@ use Zend\View\Model\ViewModel;
 
 use Zertifizierungstool\Model\Pruefung;
 use Zertifizierungstool\Model\User;
+use Zertifizierungstool\Model\Frage;
 
 class FrageController extends AbstractActionController {
 	
@@ -32,7 +33,27 @@ class FrageController extends AbstractActionController {
 			array_push($errors, "Fehler beim Laden der Prüfung!");
 		}
 		
-		$fragen = array();
+		// Alle bereits angelegten Fragen zu dieser Prüfung laden
+		$fragen = Frage::loadList($pruefungid);
+		
+		if ($fragen == false) {
+			array_push($errors, "Fehler beim Laden der Prüfungsfragen!");
+		}
+		
+		if ($_REQUEST['speichern']) {
+			
+			$frage = new Frage("",
+					$_REQUEST["frage_text"],
+					$_REQUEST["punkte"],
+					$_REQUEST["pruefung_id"],
+					$_REQUEST["frage_typ"]);
+			
+			if (empty($errors)) {
+				if (!$frage->saveNew()) {
+					array_push($errors, "Fehler beim Speichern der Frage. Bitte erneut versuchen!");
+				}
+			}
+		}
 		
 		
 		return new ViewModel([

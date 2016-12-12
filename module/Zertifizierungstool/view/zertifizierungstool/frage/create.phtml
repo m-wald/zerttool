@@ -38,6 +38,10 @@ if (isset($errors)) {
 	border-style: solid;
 	width: 50em;
 	}
+	
+input[type=number]{
+	width: 4em;
+}
 </style>
 
 
@@ -45,21 +49,23 @@ if (isset($errors)) {
 <script type="text/javascript">
 	var AntwortAnzahl;
 	
-	var formStart = 
+	var formStart =
+		'Frage: <br> <textarea rows="3" cols="50" name="frage_text" form="frageForm" required</textarea>' +
 		'<form method="POST" id="frageForm">' + 
-			'Punkte: <input type="number" name="punkte"     size="5"  required> <br>';
+			'Punkte: <input type="number" name="punkte" required> <br>';
 
 	var formEnd = 
 		'<input type="hidden" name="id" 		 readonly="readonly">' +
-		'<input type="hidden" name="pruefung_id" readonly="readonly">' +
+		'<input type="hidden" name="pruefung_id" readonly="readonly" value="<?=$pruefung[0]->getId()?>">' +
 		'<input type="submit" name="speichern" value="Speichern">' +
 		'<input type="reset" value="Felder zur&uuml;cksetzen">' +
-		'</form> <br>' + 
-		'Frage: <textarea rows="4" cols="50" name="frage_text" form="usrform">Enter text here...</textarea>';
+		'</form> <br>';
 
 	var formMC = 
 		'Multiple Choice - Frage: <br>' + formStart +
 
+		'<input type="hidden" name="frage_typ" readonly="readonly" value="MC">' +
+		
 		'Antwortm&ouml;glichkeit 1: ' +
 		'<input type="text"     name="antwort_text1" required>' + ' ' +
 		'<input type="checkbox" name="antwort_checked1">' +
@@ -71,6 +77,8 @@ if (isset($errors)) {
 		
 	var formTF = 
 		'True / False - Frage: <br>' + formStart +
+
+		'<input type="hidden" name="frage_typ" readonly="readonly" value="TF">' +
 		
 		'<input type="radio" name="tf" value="true" checked> Wahr<br>' +
 		'<input type="radio" name="tf" value="false"> Falsch<br>' +
