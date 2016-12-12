@@ -97,8 +97,8 @@ if (isset($errors)) {
 		AntwortAnzahl = AntwortAnzahl + 1;
 
 		inputString = inputString + '<p id="ant"' + AntwortAnzahl +'></p>';
-		document.getElementById("ant" + AntwortAnzahl).innerHTML = inputString;
-			;
+		
+		document.getElementById("ant" + AntwortAnzahl-1).innerHTML = inputString;
 
 		
 	}
