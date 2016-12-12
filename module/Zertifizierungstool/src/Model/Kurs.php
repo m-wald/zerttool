@@ -12,6 +12,7 @@ class Kurs {
     private $kurs_ende;
     private $sichtbarkeit;
     private $benutzername;
+    
 
     public function __construct($kurs_id, $kurs_name, $kurs_start, $kurs_ende, $sichtbarkeit, $benutzername) {
         $this->kurs_id = $kurs_id;
