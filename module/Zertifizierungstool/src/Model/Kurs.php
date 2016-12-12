@@ -23,6 +23,7 @@ class Kurs {
     }
     
     public function __construct1($kurs_name, $kurs_start, $kurs_ende, $sichtbarkeit, $benutzername) {
+        $this->kurs_id = "";
         $this->kurs_name = $kurs_name;
         $this->kurs_start = $kurs_start;
         $this->kurs_ende = $kurs_ende;
@@ -72,12 +73,7 @@ class Kurs {
      */
     public function save(){
         $db = new Db_connection();
-	$query = "INSERT INTO kurs (kurs_name, kurs_start, kurs_ende, sichtbarkeit, benutzername) VALUES ('".
-                $this->kurs_name."', '".
-                $this->kurs_start."', '".
-                $this->kurs_ende."', '".
-                $this->sichtbarkeit."', '".
-                $this->benutzername."')";
+	$query = "INSERT INTO kurs (kurs_name, kurs_start, kurs_ende, sichtbarkeit, benutzername) VALUES ('".$this->kurs_name."','".$this->kurs_start."', '".$this->kurs_ende."', '".$this->sichtbarkeit."', '".$this->benutzername."')";
         
 	$result = $db->execute($query);
                

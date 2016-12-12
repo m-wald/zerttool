@@ -21,24 +21,38 @@ class KursController extends AbstractActionController
             if($starttimestamp > $endtimestamp){
                 return new ViewModel(['error' => 'falsedate']);
             }
+
             
             //todo Enddatum in der Zukunft abprüfen?
             
+            
+            
+            //todo Admin legt Kurs an -> Admin ist kein Kursleiter
+            /*
+            if(User::currentUser()->istAdmin()){
+                
+            }
+            
+             * 
+             */
+            $user = new User();
+            $user -> load();
             
             $kurs = new Kurs(
                     $_REQUEST["kursname"], 
                     $_REQUEST["kursstart"], 
                     $_REQUEST["kursende"], 
                     $_REQUEST["sichtbarkeit"],
-                    User::currentUser());
+                    User::currentUser()->getBenutzername());
             
             $createkurs = $kurs->save();
             
             return new ViewModel(['message' => $createkurs]);
 	}
 		
-	else
+	else{
             return new ViewModel();
+        }
         
     }
     
