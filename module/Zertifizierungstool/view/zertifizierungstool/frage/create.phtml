@@ -54,8 +54,8 @@ if (isset($errors)) {
 		'<input type="hidden" name="pruefung_id" readonly="readonly">' +
 		'<input type="submit" name="speichern" value="Speichern">' +
 		'<input type="reset" value="Felder zur&uuml;cksetzen">' +
-		'</form>'+ 
-		'<textarea name="frage_text" form="frageForm">Geben Sie hier die Frage ein.</textarea>';
+		'</form> <br>' + 
+		'Frage: <textarea rows="4" cols="50" name="frage_text" form="usrform">Enter text here...</textarea>';
 
 	var formMC = 
 		'Multiple Choice - Frage: <br>' + formStart +
@@ -136,11 +136,8 @@ if (isset($errors)) {
 	</table>
 </div>
 
-<input type="text" size="100">
-
 <div id="Frage">
 <h3>Neue Frage anlegen</h3>
 	<table><tr><td><button type="button" onclick="showFormMC()">Multiple Choice</button></td><td><button type="button" onclick="showFormTF()">True / False</button></td></tr></table>
-	<br>
 	<p id="formular">W&auml;hlen Sie einen Frage-Typ aus, um die Eingabemaske anzuzeigen.</p>
 </div>
