@@ -40,19 +40,21 @@ if (isset($errors)) {
 	}
 </style>
 
+
+
 <script type="text/javascript">
 	var AntwortAnzahl;
 	
 	var formStart = 
-		'<form method="POST">' + 
-			'Punkte: <input type="number" name="punkte"     required> <br>' +
-			'Frage:  <input type="text"   name="frage_text" required> <br>';
+		'<form method="POST" id="frageForm">' + 
+			'Punkte: <input type="number" name="punkte"     size="5"  required> <br>' +
 
 	var formEnd = 
 		'<input type="hidden" name="id" 		 readonly="readonly">' +
 		'<input type="hidden" name="pruefung_id" readonly="readonly">' +
 		'<input type="submit" name="speichern" value="Speichern">' +
-		'<input type="reset" value="Felder zurücksetzen">' +
+		'<input type="reset" value="Felder zur&uuml;cksetzen">' +
+		'<textarea name="frage_text" form="frageForm">Geben Sie hier die Frage ein.</textarea>' +
 		'</form>';
 
 	var formMC = 
@@ -134,11 +136,11 @@ if (isset($errors)) {
 	</table>
 </div>
 
-	
+<input type="text" size="100">
 
 <div id="Frage">
 <h3>Neue Frage anlegen</h3>
 	<table><tr><td><button type="button" onclick="showFormMC()">Multiple Choice</button></td><td><button type="button" onclick="showFormTF()">True / False</button></td></tr></table>
-
-	<p id="formular">W&auml;hlen Sie links den gew&uuml;nschten Frage-Typ aus, um die Eingabemaske anzuzeigen.</p>
+	<br>
+	<p id="formular">W&auml;hlen Sie einen Frage-Typ aus, um die Eingabemaske anzuzeigen.</p>
 </div>
