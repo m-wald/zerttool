@@ -37,8 +37,9 @@ class KursController extends AbstractActionController
             return new ViewModel(['message' => $createkurs]);
 	}
 		
-	else
+	else{
             return new ViewModel();
+        }
         
     }
     
