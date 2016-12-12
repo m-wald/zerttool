@@ -51,6 +51,7 @@ if (isset($errors)) {
 	var formStart = 
 		'<form method="POST">' + 
 			'Punkte: <input type="number"   name="punkte"    required>' +
+			'<br>' +
 			'Frage: <input type="text"   name="frage_text" required>' + 
 			'<br>';
 
@@ -90,6 +91,7 @@ if (isset($errors)) {
 
 	function newAntwort() {
 		var inputString = 
+			'Antwortmöglichkeit ' + AntwortAnzahl + ': ' + 
 			'<input type="text"   name="antwort_text' + AntwortAnzahl +  '" required>';
 
 		AntwortAnzahl = AntwortAnzahl + 1;
