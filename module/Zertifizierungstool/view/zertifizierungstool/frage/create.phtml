@@ -2,8 +2,6 @@
 use Zertifizierungstool\Model\Frage;
 use Zertifizierungstool\Model\Pruefung;
 
-print_r($pruefung, true);
-
 if (isset($errors)) {
 	foreach ($errors as $err) {
 		echo "Fehler: " . $err . "<br>";
@@ -37,7 +35,7 @@ if (isset($errors)) {
 
 #Frage {
 	position: relative;
-	margin-left: 100px;
+	margin-left: 500px;
 	border: 5pt;
 	border-color: black;
 	border-style: solid;
@@ -50,9 +48,8 @@ if (isset($errors)) {
 	
 	var formStart = 
 		'<form method="POST">' + 
-			'Punkte: <input type="number"   name="punkte"    required>' +
-			'<br>' +
-			'Frage: <input type="text"   name="frage_text" required>' + 
+			'Punkte: <input type="number" name="punkte"     required> <br>' +
+			'Frage:  <input type="text"   name="frage_text" required>' + 
 			'<br>';
 
 	var formEnd = 
@@ -66,8 +63,9 @@ if (isset($errors)) {
 	var formMC = 
 		'Multiple Choice - Frage: <br>' + formStart +
 
-		'Antwortm&ouml;glichkeit 1: <input type="text"   name="antwort_text1" required>' + 
-		'<input type="checkbox" name="antwort_checked0">' +
+		'Antwortm&ouml;glichkeit 1: ' +
+		'<input type="text"     name="antwort_text1" required>' + 
+		'<input type="checkbox" name="antwort_checked1">' +
 		'<p id="ant2"></p>' +
 
 		'<button type="button" onclick="newAntwort()">Neue Antwort</button>' +		
@@ -92,16 +90,14 @@ if (isset($errors)) {
 	}
 
 	function newAntwort() {
-		
-		
 		AntwortAnzahl = AntwortAnzahl + 1;
-
+		
 		var aktStelle = AntwortAnzahl;
 		var neuStelle = AntwortAnzahl + 1;
 		
 		document.getElementById("ant" + aktStelle).innerHTML =
 			'Antwortm&ouml;glichkeit ' + AntwortAnzahl + ': ' +
-			'<input type="text"   name="antwort_text' + AntwortAnzahl +  '" required>' +
+			'<input type="text"     name="antwort_text'    + AntwortAnzahl + '" required>' +
 			'<input type="checkbox" name="antwort_checked' + AntwortAnzahl + '">' +
 			'<p id="ant' + neuStelle +'"></p>';
 	}
