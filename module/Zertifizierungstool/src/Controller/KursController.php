@@ -36,7 +36,7 @@ class KursController extends AbstractActionController
              * 
              */
             $user = new User();
-            $user -> load();
+            $user -> currentUser();
             
             $kurs = new Kurs(
                     $_REQUEST["kursname"], 
@@ -45,14 +45,20 @@ class KursController extends AbstractActionController
                     $_REQUEST["sichtbarkeit"],
                     User::currentUser()->getBenutzername());
             
+            unset($createkurs);
             $createkurs = $kurs->save();
             
-            return new ViewModel(['message' => $createkurs]);
+            if(isset($createkurs))
+            	return new ViewModel(['message' => 'erfolgt']);
+            else 
+            	return new ViewModel(['error' => 'nichtangelegt']);
+            
+            
 	}
 		
-	else{
-            return new ViewModel();
-        }
+		
+	return new ViewModel();
+	      
         
     }
     
