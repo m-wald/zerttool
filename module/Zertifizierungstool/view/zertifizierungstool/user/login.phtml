@@ -6,7 +6,7 @@
 	}
 	else{
 		
-		if ($anmeldestatus==false) {
+		if (isset($anmeldestatus) && $anmeldestatus==false) {
 			echo "<b>Benutzername und Passwort stimmen nicht &uuml;berein!</b>";
 		}
 	
