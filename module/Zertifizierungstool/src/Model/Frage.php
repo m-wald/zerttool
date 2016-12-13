@@ -43,14 +43,16 @@ class Frage {
 	
 	public static function loadList($pruefung_id) {
 		$db = new Db_connection();
+		$conn = $db->getConnection();
 		
 		$query = "SELECT * FROM frage WHERE pruefung_id = " .$pruefung_id;
 		
-		$result = $db->execute($query);
+		$result = mysqli_query($conn, $query);
 		
-		if($result == false) {
+		if(!$result) {
 			// Fehler bei der Datenbankabfrage
 			return false;
+		
 		} else {
 			$return_array = array();
 			//frage_id, frage_text, punkte, pruefung_id, frage_typ

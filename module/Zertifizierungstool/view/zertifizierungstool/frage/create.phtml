@@ -136,7 +136,7 @@ input[type=number]{
 			echo "<tr><td>(leer)</tr></td>";
 		} else {
 		foreach ($fragen as $frage) { ?>
-			<tr><td><?=$frage->getText()?><td><td><button type="button" onclick="edit()">Bearbeiten</button><td><td>Löschen<td></tr>			
+			<tr><td><?=$frage->getText()?></td><td><?=$frage->getTyp()?></td><td><button type="button" onclick="edit()">Bearbeiten</button></td><td>Löschen</td></tr>			
 	<?php
 		}}
 	?>
