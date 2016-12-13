@@ -31,6 +31,13 @@ class UserController extends AbstractActionController
 	
 	public function registerAction()
 	{
+		
+		if(isset($_SESSION["currentUser"]) && User::currentUser()->istZertifizierer()){
+			header("Location: /user/login");
+		}
+		
+		
+		
 		if($_SERVER['REQUEST_METHOD'] == 'POST') {
 			
 			if (User::currentUser()->istAdmin()) {
@@ -70,29 +77,7 @@ class UserController extends AbstractActionController
 		}
 	}
 	
-	public function registertestAction()
-	{
-		$user = new User("michi", "123", "Michael", "Moertl", "1990-11-26", "Nibelungenstrasse","94032", "passau", "moertl05@gw.uni-passau.de", 0, 1, 0, 0);
 	
-		$user->register();
-
-		return new ViewModel();
-	}
-	public function anmeldetestAction()
-	{
-		$user = new User();
-		$user->load("michi");
-		echo $user->getBenutzername();
-		echo $user->saltPasswort("123", $user->getBenutzername());
-		$result=$user->passwortControll("123");
-		if ($result){
-			echo "Erfolgreich";
-
-		}
-		else {
-			echo "Fehlgeschlagen";
-		}
-	}
 	public function registerbestAction() {
 		$user = new User();
 		$user->load($_GET['benutzer']);
@@ -100,16 +85,20 @@ class UserController extends AbstractActionController
 		return new ViewModel();
 	}
 	
+	
+	/** Nutzerdaten werden überprüft, bei Richtigkeit wird ein "currentUser" mit den Benutzerdaten befüllt und 
+	 * eine Session erstellt  */
+	
 	 public function loginAction()
 	{
 		
+		if(isset($_SESSION["currentUser"])){
+			header("Location: /user/home");
+		}
+		
 		
 		if($_SERVER['REQUEST_METHOD'] == 'POST') {
-			
-			// Vielleicht zuerst die Login-Daten prüfen bevor man alle Daten des Benutzers lädt?
-			// Also im Model ne Methode login($benutzername, $passwort), die zuerst die Daten
-			// prüft und dann alle Felder befüllt oder load() aufruft
-			
+						
 			$user = new User();
 			
 			$user->load($_POST['benutzername']);
@@ -136,7 +125,11 @@ class UserController extends AbstractActionController
 	
 	public function logoutAction() {
 		
-		
+		if(!isset($_SESSION["currentUser"])){
+			header("Location: /user/login");
+		}
+			
+			
 		if (ini_get("session.use_cookies")) {
 			$params = session_get_cookie_params();
 			setcookie(session_name(), '', time() - 42000, $params["path"],
@@ -152,7 +145,9 @@ class UserController extends AbstractActionController
 	
 	public function homeAction() {
 		
-		
+		if(!isset($_SESSION["currentUser"])){
+			header("Location: /user/login");
+		}
 		return new ViewModel(['benutzername' => User::currentUser()->getBenutzername()]); 
 		
 			
@@ -162,6 +157,11 @@ class UserController extends AbstractActionController
 	/** liest aktuelle Benutzerdaten aus und übergibt diese an ein Formular. Darin können die Daten dann geändert werden und in der Datenbank aktualisiert werden. */
 	
 	public function changedataAction() {
+		
+		if(!isset($_SESSION["currentUser"])){
+			header("Location: /user/login");
+		}
+		
 		
 		if($_SERVER['REQUEST_METHOD'] == 'POST') {
 			
@@ -177,6 +177,10 @@ class UserController extends AbstractActionController
 	}
 	
 	public function changepasswordAction() {
+		
+		if(!isset($_SESSION["currentUser"])){
+			header("Location: /user/login");
+		}
 		
 		if($_SERVER['REQUEST_METHOD'] == 'POST') {
 			if ($_REQUEST['newPasswort1'] == $_REQUEST['newPasswort2']) {
@@ -239,7 +243,5 @@ class UserController extends AbstractActionController
 		
 	}
 	
-	public function loeschenAction() {
-		
-	}
+	
 }
