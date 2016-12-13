@@ -8,6 +8,7 @@ use Zend\View\Model\ViewModel;
 use Zertifizierungstool\Model\Pruefung;
 use Zertifizierungstool\Model\User;
 use Zertifizierungstool\Model\Frage;
+use Zertifizierungstool\Model\Antwort;
 
 class FrageController extends AbstractActionController {
 	
@@ -56,6 +57,33 @@ class FrageController extends AbstractActionController {
 					array_push($errors, "Fehler beim Speichern der Frage. Bitte erneut versuchen!");
 				}
 			}
+			
+			switch ($_REQUEST["frage_typ"]) {
+				case "TF":
+					$status;
+					if ($_REQUEST["tf"] == "true") {
+						$status = 1;
+					} else {
+						$status = 0;
+					}
+					$antwort = new Antwort("", "", $frage->getId(), $status);
+					
+					if (empty($errors)) {
+						if (!$antwort->saveNew()) {
+							array_push($errors, "Fehler beim Speichern der Antwort. Bitte erneut versuchen!");
+						}
+					}
+					break;
+				
+				case "MC":
+					// TODO
+					
+				default:
+					;
+				break;
+			}
+			
+			
 		}
 		
 		

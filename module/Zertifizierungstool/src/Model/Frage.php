@@ -20,6 +20,7 @@ class Frage {
 	}
 	public function saveNew() {
 		$db = new Db_connection();
+		$conn = $db->getConnection();
 		
 		$query = "INSERT INTO frage (frage_text, punkte, pruefung_id, frage_typ) VALUES ('"
 				.$this->text 	. "', "
@@ -27,7 +28,7 @@ class Frage {
 				.$this->pruefung_id . ", '"
 				.$this->typ . "')" ;
 		
-		$result = $db->execute($query);
+		$result = mysqli_query($conn, $query);
 		
 		if(!$result) {
 			// Fehler bei der Datenbankabfrage
@@ -35,7 +36,7 @@ class Frage {
 				
 		} else {
 			// Id des eben eingefügten Datensatzes auslesen und im Objekt setzen
-			$this->id = mysqli_insert_id($db->getConnection());
+			$this->id = mysqli_insert_id($conn);
 			return true;
 		}
 	}
