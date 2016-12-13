@@ -33,9 +33,9 @@ class UserController extends AbstractActionController
 	{
 		
 		if(User::currentUser()->getBenutzername()!=NULL && User::currentUser()->istZertifizierer()){
-			header("Location: /user/login");
+			header("refresh:0; url= /user/home");
 		}
-		
+		else{
 		
 		
 		if($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -65,6 +65,7 @@ class UserController extends AbstractActionController
 			
 			
 			return new ViewModel(['meldung' => $result]);
+			
 		}
 		
 		else {
@@ -74,6 +75,7 @@ class UserController extends AbstractActionController
 							
 				return new ViewModel();
 			}
+		}
 		}
 	}
 	
@@ -93,9 +95,9 @@ class UserController extends AbstractActionController
 	{
 		
 		if(User::currentUser()->getBenutzername()!=NULL){
-			header("Location: /user/home");
+			header("refresh:0; url= /user/home");
 		}
-		
+		else{
 		
 		if($_SERVER['REQUEST_METHOD'] == 'POST') {
 						
@@ -116,6 +118,7 @@ class UserController extends AbstractActionController
 		 
 		
 		return new ViewModel();
+		}
 
 	}
 	
@@ -126,9 +129,10 @@ class UserController extends AbstractActionController
 	public function logoutAction() {
 		
 		if(User::currentUser()->getBenutzername()==NULL){
-			header("Location: /user/login");
+			header("refresh:0; url= /user/login");
 		
 		}
+		else {
 			
 			
 		if (ini_get("session.use_cookies")) {
@@ -139,7 +143,7 @@ class UserController extends AbstractActionController
 		}
 		
 		session_destroy();
-		
+		}
 	}
 	
 	/** leitet nach erfolgreichem Login auf eine benutzerspezifische Startseite weiter */
@@ -147,11 +151,12 @@ class UserController extends AbstractActionController
 	public function homeAction() {
 		
 		if(User::currentUser()->getBenutzername()==NULL){
-			header("Location: /user/login");
+			header("refresh:0 url= /user/login");
 		}
+		else{
 		return new ViewModel(['benutzername' => User::currentUser()->getBenutzername()]); 
 		
-			
+		}
 	}
 	
 	
@@ -182,8 +187,9 @@ class UserController extends AbstractActionController
 	public function changepasswordAction() {
 		
 		if(User::currentUser()->getBenutzername()==NULL){
-			header("Location: /user/login");
+			header("refresh:0; url= /user/login");
 		}
+		else{
 		
 		if($_SERVER['REQUEST_METHOD'] == 'POST') {
 			if ($_REQUEST['newPasswort1'] == $_REQUEST['newPasswort2']) {
@@ -208,7 +214,7 @@ class UserController extends AbstractActionController
 			return new ViewModel();
 			
 		}
-		
+		}
 	}
 	
 	public function passwordforgottenAction() {
