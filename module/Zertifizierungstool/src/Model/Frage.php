@@ -47,7 +47,7 @@ class Frage {
 		
 		$result = $db->execute($query);
 		
-		if(!$result) {
+		if($result == false) {
 			// Fehler bei der Datenbankabfrage
 			return false;
 		} else {
