@@ -105,6 +105,7 @@ class UserController extends AbstractActionController
 				
 			$result = $user->passwortControll($_POST['passwort']);
 			if ($result){
+				session_start();
 				User::currentUser()->load($_POST['benutzername']);
 				$_SESSION["currentUser"] = serialize(User::currentUser());
 				return new ViewModel(['anmeldestatus' => true]);
@@ -157,9 +158,8 @@ class UserController extends AbstractActionController
 	/** liest aktuelle Benutzerdaten aus und übergibt diese an ein Formular. Darin können die Daten dann geändert werden und in der Datenbank aktualisiert werden. */
 	
 	public function changedataAction() {
+		session_start();
 		
-		$test = unserialize($_SESSION["currentuser"]);
-		echo $test;
 		if(!isset($_SESSION["currentUser"])){
 			header("refresh:0; url= /user/login");
 		}
