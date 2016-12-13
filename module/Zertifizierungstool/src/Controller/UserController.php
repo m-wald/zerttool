@@ -130,6 +130,7 @@ class UserController extends AbstractActionController
 		
 		if(User::currentUser()->getBenutzername()==NULL){
 			header("refresh:0; url= /user/login");
+			exit;
 		
 		}
 		else {
