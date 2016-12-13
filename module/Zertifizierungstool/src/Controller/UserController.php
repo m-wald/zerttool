@@ -32,7 +32,7 @@ class UserController extends AbstractActionController
 	public function registerAction()
 	{
 		
-		if(isset($_SESSION["currentUser"]) && User::currentUser()->istZertifizierer()){
+		if(User::currentUser()->getBenutzername()!=NULL && User::currentUser()->istZertifizierer()){
 			header("Location: /user/login");
 		}
 		
@@ -92,7 +92,7 @@ class UserController extends AbstractActionController
 	 public function loginAction()
 	{
 		
-		if(isset($_SESSION["currentUser"])){
+		if(User::currentUser()->getBenutzername()!=NULL){
 			header("Location: /user/home");
 		}
 		
@@ -105,7 +105,6 @@ class UserController extends AbstractActionController
 				
 			$result = $user->passwortControll($_POST['passwort']);
 			if ($result){
-				session_start();
 				User::currentUser()->load($_POST['benutzername']);
 				$_SESSION["currentUser"] = serialize(User::currentUser());
 				return new ViewModel(['anmeldestatus' => true]);
@@ -126,8 +125,9 @@ class UserController extends AbstractActionController
 	
 	public function logoutAction() {
 		
-		if(!isset($_SESSION["currentUser"])){
+		if(User::currentUser()->getBenutzername()==NULL){
 			header("Location: /user/login");
+		
 		}
 			
 			
@@ -146,7 +146,7 @@ class UserController extends AbstractActionController
 	
 	public function homeAction() {
 		
-		if(!isset($_SESSION["currentUser"])){
+		if(User::currentUser()->getBenutzername()==NULL){
 			header("Location: /user/login");
 		}
 		return new ViewModel(['benutzername' => User::currentUser()->getBenutzername()]); 
@@ -181,7 +181,7 @@ class UserController extends AbstractActionController
 	
 	public function changepasswordAction() {
 		
-		if(!isset($_SESSION["currentUser"])){
+		if(User::currentUser()->getBenutzername()==NULL){
 			header("Location: /user/login");
 		}
 		
