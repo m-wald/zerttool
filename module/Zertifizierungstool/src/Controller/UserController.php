@@ -160,7 +160,7 @@ class UserController extends AbstractActionController
 	public function changedataAction() {
 		
 		if(User::currentUser()->getBenutzername()==NULL){
-			header("Location: /user/login");
+			header("refresh: url= /user/login");
 		}
 		
 		
