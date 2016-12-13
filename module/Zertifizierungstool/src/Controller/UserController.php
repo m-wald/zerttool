@@ -34,6 +34,7 @@ class UserController extends AbstractActionController
 		
 		if(User::currentUser()->getBenutzername()!=NULL && User::currentUser()->istZertifizierer()){
 			header("refresh:0; url= /user/home");
+			exit;
 		}
 		else{
 		
@@ -96,6 +97,7 @@ class UserController extends AbstractActionController
 		
 		if(User::currentUser()->getBenutzername()!=NULL){
 			header("refresh:0; url= /user/home");
+			exit;
 		}
 		else{
 		
@@ -153,6 +155,7 @@ class UserController extends AbstractActionController
 		
 		if(User::currentUser()->getBenutzername()==NULL){
 			header("refresh:0 url= /user/login");
+			exit;
 		}
 		else{
 		return new ViewModel(['benutzername' => User::currentUser()->getBenutzername()]); 
@@ -167,6 +170,7 @@ class UserController extends AbstractActionController
 		
 		if(User::currentUser()->getBenutzername()==NULL){
 			header("refresh:0; url= /user/login");
+			exit;
 		}
 		
 		
@@ -189,6 +193,7 @@ class UserController extends AbstractActionController
 		
 		if(User::currentUser()->getBenutzername()==NULL){
 			header("refresh:0; url= /user/login");
+			exit;
 		}
 		else{
 		
