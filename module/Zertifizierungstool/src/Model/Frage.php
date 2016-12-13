@@ -36,7 +36,7 @@ class Frage {
 				
 		} else {
 			// Id des eben eingefügten Datensatzes auslesen und im Objekt setzen
-			$this->id = mysqli_insert_id($db->getConnection());
+			$this->id = mysqli_insert_id($conn);
 			return true;
 		}
 	}
