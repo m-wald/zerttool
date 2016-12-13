@@ -162,7 +162,7 @@ class UserController extends AbstractActionController
 			header("Location: /user/login");
 		}
 		
-		
+		else {
 		if($_SERVER['REQUEST_METHOD'] == 'POST') {
 			
 			User::currentUser()->update($_REQUEST["vorname"], $_REQUEST["nachname"], $_REQUEST["geburtsdatum"], $_REQUEST["strasse"], $_REQUEST["plz"], $_REQUEST["ort"], $_REQUEST["email"]);
@@ -172,6 +172,7 @@ class UserController extends AbstractActionController
 		}
 		else {
 				return new ViewModel(['benutzerdaten' => array(User::currentUser()->getBenutzername(),User::currentUser()->getVorname(), User::currentUser()->getNachname(), User::currentUser()->getGeburtsdatum(), User::currentUser()->getStrasse(), User::currentUser()->getPLZ(), User::currentUser()->getOrt(), User::currentUser()->getEmail())]);
+		}
 		}
 	
 	}
