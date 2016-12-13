@@ -33,12 +33,15 @@ class FrageController extends AbstractActionController {
 			array_push($errors, "Fehler beim Laden der Prüfung!");
 		}
 		
+		/*
 		// Alle bereits angelegten Fragen zu dieser Prüfung laden
 		$fragen = Frage::loadList($pruefungid);
 		
 		if ($fragen == false) {
 			array_push($errors, "Fehler beim Laden der Prüfungsfragen!");
 		}
+		*/
+		$fragen = array();
 		
 		if ($_REQUEST['speichern']) {
 			
