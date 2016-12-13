@@ -158,9 +158,8 @@ class UserController extends AbstractActionController
 	/** liest aktuelle Benutzerdaten aus und übergibt diese an ein Formular. Darin können die Daten dann geändert werden und in der Datenbank aktualisiert werden. */
 	
 	public function changedataAction() {
-		session_start();
 		
-		if(!isset($_SESSION["currentUser"])){
+		if(User::currentUser()->getBenutzername()==NULL){
 			header("refresh:0; url= /user/login");
 		}
 		
