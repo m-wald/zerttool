@@ -158,9 +158,12 @@ class UserController extends AbstractActionController
 	
 	public function changedataAction() {
 		
+		$test = unserialize($_SESSION["currentuser"]);
+		echo $test;
 		if(!isset($_SESSION["currentUser"])){
 			header("refresh:0; url= /user/login");
 		}
+		
 		
 		else {
 		if($_SERVER['REQUEST_METHOD'] == 'POST') {
