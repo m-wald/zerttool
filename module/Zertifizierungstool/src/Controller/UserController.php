@@ -116,7 +116,7 @@ class UserController extends AbstractActionController
 				
 			$result = $user->passwortControll($_POST['passwort']);
 			if ($result){
-				User::currentUser()=$user;
+				User::currentUser()->load($_POST['benutzername']);
 				$_SESSION["currentUser"] = serialize(User::currentUser());
 				return new ViewModel(['anmeldestatus' => true]);
 			}
