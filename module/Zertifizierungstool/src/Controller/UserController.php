@@ -159,7 +159,7 @@ class UserController extends AbstractActionController
 	public function changedataAction() {
 		
 		if(!isset($_SESSION["currentUser"])){
-			header("Location: /user/login");
+			header("refresh:0; url= /user/login");
 		}
 		
 		else {
