@@ -26,6 +26,12 @@ class Antwort {
 	
 		$result = $db->execute($query);
 		
-		// TODO fehler
+		if($result == false) {
+			// Fehler bei der Datenbankabfrage
+			return false;
+		
+		} else {
+			return true;
+		}
 	}
 }

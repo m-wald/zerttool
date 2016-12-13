@@ -57,30 +57,46 @@ class FrageController extends AbstractActionController {
 					array_push($errors, "Fehler beim Speichern der Frage. Bitte erneut versuchen!");
 				}
 			}
-			
+			if (empty($errors)) {
 			switch ($_REQUEST["frage_typ"]) {
 				case "TF":
-					$status;
+					$status = 0;
 					if ($_REQUEST["tf"] == "true") {
 						$status = 1;
-					} else {
-						$status = 0;
 					}
+					
 					$antwort = new Antwort("", "", $frage->getId(), $status);
 					
-					if (empty($errors)) {
+					
 						if (!$antwort->saveNew()) {
 							array_push($errors, "Fehler beim Speichern der Antwort. Bitte erneut versuchen!");
 						}
-					}
+					
 					break;
 				
 				case "MC":
-					// TODO
+					$antworten = array();
+					$index = 1;
+					while (!empty($_REQUEST["antwort_text" .$index])) {
+						$status = 0;
+						if ($_REQUEST["antwort_checked" .$index]) {
+							$status = 1;
+						}
+						
+						$antwort = new Antwort("",
+								$_REQUEST["antwort_text" .$index],
+								$frage->getId(),
+								$status);
+						
+						array_push($antworten, $antwort);
+						
+						$index++;
+					}
 					
 				default:
 					;
 				break;
+			}
 			}
 			
 			
