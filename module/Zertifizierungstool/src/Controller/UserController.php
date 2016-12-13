@@ -109,10 +109,14 @@ class UserController extends AbstractActionController
 			// Vielleicht zuerst die Login-Daten prüfen bevor man alle Daten des Benutzers lädt?
 			// Also im Model ne Methode login($benutzername, $passwort), die zuerst die Daten
 			// prüft und dann alle Felder befüllt oder load() aufruft
-			User::currentUser()->load($_POST['benutzername']);
 			
-			$result = User::currentUser()->passwortControll($_POST['passwort']);
+			$user = new User();
+			
+			$user->load($_POST['benutzername']);
+				
+			$result = $user->passwortControll($_POST['passwort']);
 			if ($result){
+				User::currentUser()=$user;
 				$_SESSION["currentUser"] = serialize(User::currentUser());
 				return new ViewModel(['anmeldestatus' => true]);
 			}
