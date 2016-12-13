@@ -21,7 +21,7 @@ class Frage {
 	public function saveNew() {
 		$db = new Db_connection();
 		
-		$query = "INSERT INTO frage (frage_text, punkte, pruefung_id, frage_typ) VALUES ("
+		$query = "INSERT INTO frage (frage_text, punkte, pruefung_id, frage_typ) VALUES ('"
 				.$this->text 	. "', "
 				.$this->punkte . ", "
 				.$this->pruefung_id . ", '"
