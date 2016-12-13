@@ -105,6 +105,7 @@ class UserController extends AbstractActionController
 				
 			$result = $user->passwortControll($_POST['passwort']);
 			if ($result){
+				session_start();
 				User::currentUser()->load($_POST['benutzername']);
 				$_SESSION["currentUser"] = serialize(User::currentUser());
 				return new ViewModel(['anmeldestatus' => true]);
@@ -158,9 +159,7 @@ class UserController extends AbstractActionController
 	
 	public function changedataAction() {
 		
-		$test = unserialize($_SESSION["currentuser"]);
-		echo $test;
-		if(!isset($_SESSION["currentUser"])){
+		if(User::currentUser()->getBenutzername()==NULL){
 			header("refresh:0; url= /user/login");
 		}
 		
