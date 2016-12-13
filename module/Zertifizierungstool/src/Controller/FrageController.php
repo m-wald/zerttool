@@ -75,7 +75,6 @@ class FrageController extends AbstractActionController {
 					break;
 				
 				case "MC":
-					$antworten = array();
 					$index = 1;
 					while (!empty($_REQUEST["antwort_text" .$index])) {
 						$status = 0;
@@ -88,7 +87,9 @@ class FrageController extends AbstractActionController {
 								$frage->getId(),
 								$status);
 						
-						array_push($antworten, $antwort);
+						if (!$antwort->saveNew()) {
+							array_push($errors, "Fehler beim Speichern der Antworten. Bitte erneut versuchen!");
+						}
 						
 						$index++;
 					}
