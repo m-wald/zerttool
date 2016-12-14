@@ -16,7 +16,7 @@ use Zertifizierungstool\Model\User;
  */
 class PruefungController extends AbstractActionController {
 	
-	const pathToHtml	 = __DIR__ . '/../../view/zertifizierungstool/pruefung/pruefung.phtml';
+	const pathToHtml	 = 'zertifizierungstool/pruefung/pruefung';
 	
 	const createPruefung = "Pruefung anlegen";
 	const editPruefung   = "Pruefung bearbeiten";
@@ -73,9 +73,9 @@ class PruefungController extends AbstractActionController {
 				'mode'	   => array(PruefungController::createPruefung)
 		]);
 		
-		echo $viewModel->getTemplate();
-		//$viewModel->setTemplate(PruefungController::pathToHtml);
-		//return $viewModel;
+
+		$viewModel->setTemplate(PruefungController::pathToHtml);
+		return $viewModel;
 		
 	}
 	
