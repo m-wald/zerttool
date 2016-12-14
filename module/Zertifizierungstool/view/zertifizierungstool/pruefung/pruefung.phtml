@@ -123,11 +123,11 @@ switch ($mode[0]) {
 		$pruefSaveButton = "hidden";
 		break;
 	case PruefungController::createPruefung:
-		$frageDisabled = "disabled";
+		$frageDisabled = 'disabled "disabled"';
 		$pruefSaveButton = "submit";
 		break;
 	case PruefungController::editPruefung:
-		$frageDisabled = "disabled";
+		$frageDisabled = 'disabled "disabled"';
 		$pruefSaveButton = "submit";
 		break;
 }
@@ -137,12 +137,12 @@ switch ($mode[0]) {
 
 
 <div id="KopfdatenPruefung">
-<h2>Kopfdaten der Pr&uuml;fung</h2>
+<h2>Kopfdaten</h2>
 <form method="POST">	
 	<table>
-		<tr><td>Pr&uuml;fungsname</td><td><input type="text"   name="name"     <?=$pruefReadonly?>" required value="<?=$pruefung[0]->getName()    ?>" ></td></tr>
-		<tr><td>Termin		 	 </td><td><input type="date"   name="termin"   <?=$pruefReadonly?>" required value="<?=$pruefung[0]->getTermin()  ?>" ></td></tr>
-		<tr><td>Cutscore (%) 	 </td><td><input type="number" name="cutscore" <?=$pruefReadonly?>" required value="<?=$pruefung[0]->getCutscore() * 100?>" min="0" max="100"></td></tr>
+		<tr><td>Pr&uuml;fungsname</td><td><input type="text"   name="name"     <?=$pruefReadonly?> required value="<?=$pruefung[0]->getName()    ?>" ></td></tr>
+		<tr><td>Termin		 	 </td><td><input type="date"   name="termin"   <?=$pruefReadonly?> required value="<?=$pruefung[0]->getTermin()  ?>" ></td></tr>
+		<tr><td>Cutscore (%) 	 </td><td><input type="number" name="cutscore" <?=$pruefReadonly?> required value="<?=$pruefung[0]->getCutscore() * 100?>" min="0" max="100"></td></tr>
 	</table>
 	<input type="hidden" name="kursid"  readonly="readonly" value="<?=$pruefung[0]->getKursId()?>" >
 	
@@ -153,14 +153,14 @@ switch ($mode[0]) {
 
 
 <div id="FragenListe">
-	<h3>Bereits angelegte Pr&uuml;fungsfragen</h3>
+	<h3>Angelegte Fragen</h3>
 	<table>
 	<?php
 		if (empty($fragen)) {
 			echo "<tr><td>(leer)</tr></td>";
 		} else {
 		foreach ($fragen as $frage) { ?>
-			<tr><td><?=$frage->getText()?></td><td><?=$frage->getTyp()?></td><td><a href="<?= $this->url('frage', ['action' => 'edit', 'id' => $frage->getId()]) ?>"><button disabled="<?=$frageDisabled?>">Bearbeiten</button></a></td><td><a href="<?= $this->url('frage', ['action' => 'remove', 'id' => $frage->getId()]) ?>"><button disabled="<?=$frageDisabled?>">L&ouml;schen</button></a></td>			
+			<tr><td><?=$frage->getText()?></td><td><?=$frage->getTyp()?></td><td><a href="<?= $this->url('frage', ['action' => 'edit', 'id' => $frage->getId()]) ?>"><button <?=$frageDisabled?>>Bearbeiten</button></a></td><td><a href="<?= $this->url('frage', ['action' => 'remove', 'id' => $frage->getId()]) ?>"><button <?=$frageDisabled?>>L&ouml;schen</button></a></td>			
 	<?php
 		}}
 	?>
@@ -170,7 +170,7 @@ switch ($mode[0]) {
 
 <div id="Frage">
 <h3>Frage anlegen/bearbeiten</h3>
-	<table><tr><td><button  disabled="<?=$frageDisabled?>" type="button" onclick="showFormMC()">Multiple Choice</button></td><td><button disabled="<?=$frageDisabled?>" type="button" onclick="showFormTF()">True / False</button></td></tr></table>
+	<table><tr><td><button  <?=$frageDisabled?> type="button" onclick="showFormMC()">Multiple Choice</button></td><td><button <?=$frageDisabled?> type="button" onclick="showFormTF()">True / False</button></td></tr></table>
 	<p id="formular">W&auml;hlen Sie einen Frage-Typ aus, um die Eingabemaske anzuzeigen.</p>
 </div>
 
