@@ -87,10 +87,12 @@ class Kurs {
     		while ($row = mysqli_fetch_assoc($result)) {
     			array_push($return_array, $row);
     		}
+    	return $return_array;
     	} else {
     		echo "Kein Ergebnis gefunden!";
     	}
     	
+    	/*
     	$courseloaded = false;
     	
     	foreach ($row as $return_array) {
@@ -104,11 +106,11 @@ class Kurs {
     		$courseloaded = true;
     	}
     	
-    	if($courseloaded){
+    	if(!$courseloaded){
     		return true;
     	}else{
 	  		return false;
-    	}
+    	}*/
     }
     
     /**
