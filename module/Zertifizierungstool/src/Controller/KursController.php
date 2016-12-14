@@ -96,7 +96,7 @@ class KursController extends AbstractActionController
    	if($_SERVER['REQUEST_METHOD'] == 'POST') {
    		
    		//Upload-Verzeichnis
-   		echo getcwd();
+   		echo dirname(__FILE__);
    		/*$upload_folder= '/zerttool/data/uploadsCSV';
    		$filename=pathinfo($_FILES['datei']['name'],PATHINFO_FILENAME);
    		$extension=strtolower(pathinfo($_FILES['datei']['name'], PATHINFO_EXTENSION));
