@@ -87,7 +87,38 @@ class KursController extends AbstractActionController
    }
    
    public function uebersichtAction(){
-       
+       if(User::currentUser()->getBenutzername()==NULL){
+	header("refresh:0; url= /user/login");
+	exit;
+    }
+
+    else{
+            User::currentUser()->load(User::currentUser()->getBenutzername());
+            $_SESSION["currentUser"] = serialize(User::currentUser());
+
+            $db = new Db_connection();
+
+            $query = "SELECT * FROM kurs WHERE benutzername = ".$_SESSION["currentUser"].";";
+
+            $kurse = $db->execute($query);
+            $return_array = array();
+            if (mysqli_num_rows($kurse) > 0) {
+                    while ($row = mysqli_fetch_assoc($kurse)) {
+                            array_push($return_array, $row);
+                    }
+            } else {
+                    echo "Keine Kurse vorhanden.";
+            }
+
+            foreach ($return_array as $row) {
+                    $this->kurs_name 	= 	$row['kurs_name'];
+                    $this->kurs_start 	= 	$row['kurs_start'];
+                    $this->kurs_ende  	= 	$row['kurs_ende'];
+                    //$this->sichbarkeit 	=	$row['sichtbarkeit'];
+
+            }
+
+    }
    }
    
    
@@ -102,7 +133,7 @@ class KursController extends AbstractActionController
    		$extension=strtolower(pathinfo($_FILES['datei']['name'], PATHINFO_EXTENSION));
    		
    		
-   		//Überprüfung der Dateiendung
+   		//ï¿½berprï¿½fung der Dateiendung
    		
    		$allowed_extensions=array('csv');
    		
@@ -110,7 +141,7 @@ class KursController extends AbstractActionController
    			die("<ausgabe>Ung&uuml;ltige Dateiendung. Nur CSV-Dateien sind erlaubt<!/ausgabe>");
    		} 
    		
-   		//Überprüfung der Dateigröße
+   		//ï¿½berprï¿½fung der Dateigrï¿½ï¿½e
    		
    		$max_size = 1024*1024;                                   //1 MB
    		
@@ -125,7 +156,7 @@ class KursController extends AbstractActionController
    		
    		//Neuer Dateiname falls die Datei bereits existiert
    		
-   		if(file_exists($new_path)) { //Falls Datei existiert, hänge eine Zahl an den Dateinamen
+   		if(file_exists($new_path)) { //Falls Datei existiert, hï¿½nge eine Zahl an den Dateinamen
    			$id = 1;
    			do {
    				$new_path = $upload_folder.$filename.'_'.$id.'.'.$extension;
