@@ -10,31 +10,48 @@ if($status == "erfolgreich") { ?>
 
 header("refresh:2; url = /user/home");}  		// Umleitung zum Kursübersicht
 
-else {?>
+else {
+	
+	?>
 
-<form method="post" action="changedata">
+
 <table>
-<tr><td>Kursbezeichnung:</td><td> <input type="text" name="kurs_name" required value='<?php echo $kursdaten[1]?>'></td></tr>
-<tr><td>Startdatum:</td><td> <input type="text" name="start_datum" required value='<?php echo $kursdaten[2]?>'></td></tr>
-<tr><td>Enddatum:</td><td> <input type="date" name="end_datum" required value='<?php echo $kursdaten[3]?>'></td></tr>
-<tr><td> Sichtbarkeit:</td>
-
+	<tr><td>Kursbezeichnung:</td>
+	<td>Startdatum:</td>
+	<td>Enddatum:</td>
+	<td> Sichtbarkeit:</td>
+	</tr>
+	
 <?php 
-/*if($kursdaten[4]==1) {$select='sichtbar'; $sicht='nicht sichtbar'; $value=1;}
-else {$select='nicht sichtbar'; $sicht='sichtbar'; $value=0;}
-*/?>
+	
+	while($row = $kursarray) 
+	{
+		
+?>
 
+		<tr><td> <name='kurs_name' value='<?php echo $row[1]?>'></td>
+		<td> <name="start_datum" value='<?php echo $row[2]?>'></td>
+		<td> <name="end_datum" value='<?php echo $row[3]?>'></td>
 
-            <td><select name="sichtbarkeit">
-         
-			<option value= '<?php echo $value;?>' ><?php $select?></option>
-			<option value= 0 >nicht sichtbar</option>
-			</td></tr>
+<?php	
+ 
+if($kursdaten[4]==1) {$select='sichtbar';}
+else {$select='nicht sichtbar';}
+?>	
+		<td> <name="sichtbarkeit" value='<?php echo $select ?>'></td>
+		
+				<td>
+				<form method="post" action="changedata">
+				<input type="hidden" value='<?php $row[0] ?>' name="change">
+				<input type="submit" value="change">
+				</form>
+				</td>
+	</tr>
+<?php 
+	}
+?>          
 
 </table>
-<br><br>
-<input type = "submit" value="Kursdaten jetzt &auml;ndern!"> 
-</form>
 
 <?php }?>
 

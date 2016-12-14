@@ -72,7 +72,7 @@ class KursController extends AbstractActionController
     }
     
 	    
-    public function changedataAction() {
+    /*public function changedataAction() {
    			
         if($_SERVER['REQUEST_METHOD'] == 'POST') {
 
@@ -84,42 +84,22 @@ class KursController extends AbstractActionController
         else {
         return new ViewModel(['kursdaten' => array(User::currentKurs()->getBenutzername(),User::currentUser()->getVorname(), User::currentUser()->getNachname(), User::currentUser()->getGeburtsdatum(), User::currentUser()->getStrasse(), User::currentUser()->getPLZ(), User::currentUser()->getOrt(), User::currentUser()->getEmail())]);
         }	
-   }
+   }*/
    
-   public function uebersichtAction(){
-       if(User::currentUser()->getBenutzername()==NULL){
-	header("refresh:0; url= /user/login");
-	exit;
+   public function changedataAction(){
+    if(User::currentUser()->getBenutzername()==NULL){
+		header("refresh:0; url= /user/login");
+		exit;
     }
 
     else{
-            User::currentUser()->load(User::currentUser()->getBenutzername());
-            $_SESSION["currentUser"] = serialize(User::currentUser());
-
-            $db = new Db_connection();
-
-            $query = "SELECT * FROM kurs WHERE benutzername = ".$_SESSION["currentUser"].";";
-
-            $kurse = $db->execute($query);
-            $return_array = array();
-            if (mysqli_num_rows($kurse) > 0) {
-                    while ($row = mysqli_fetch_assoc($kurse)) {
-                            array_push($return_array, $row);
-                    }
-            } else {
-                    echo "Keine Kurse vorhanden.";
-            }
-
-            foreach ($return_array as $row) {
-                    $this->kurs_name 	= 	$row['kurs_name'];
-                    $this->kurs_start 	= 	$row['kurs_start'];
-                    $this->kurs_ende  	= 	$row['kurs_ende'];
-                    //$this->sichbarkeit 	=	$row['sichtbarkeit'];
-
-            }
-
+    		$kursdaten = array();
+         	$kursdaten = loadKurse(User::currentUser()->getBenutzername());
+         	
+        }
+        return new ViewModel(['kursarray' => 'kursdaten']);
     }
-   }
+   
    
    
    public function csvinviteAction(){
