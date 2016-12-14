@@ -72,7 +72,7 @@ class KursController extends AbstractActionController
     }
     
 	    
-    public function changedata_CursAction() {
+    public function changedataAction() {
    			
         if($_SERVER['REQUEST_METHOD'] == 'POST') {
 
