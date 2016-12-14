@@ -89,6 +89,22 @@ class KursController extends AbstractActionController
    public function uebersichtAction(){
        
    }
-    
+   
+   
+   public function csvinvite(){
+   
+   	if($_SERVER['REQUEST_METHOD'] == 'POST') {
+   		
+   		$filename=pathinfo($_FILES['datei']['name'],PATHINFO_FILENAME);
+   		echo $filename;
+   	}
+   	else{
+   		return new ViewModel();
+   	}
+   }
 }
+    
+
+
+	
 
