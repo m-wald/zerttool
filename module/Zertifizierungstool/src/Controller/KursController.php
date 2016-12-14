@@ -95,7 +95,7 @@ class KursController extends AbstractActionController
    
    	if($_SERVER['REQUEST_METHOD'] == 'POST') {
    		
-   		$filename=pathinfo($_FILES['datei']['name'] [ $options = PATHINFO_DIRNAME | PATHINFO_BASENAME | PATHINFO_EXTENSION | PATHINFO_FILENAME ] );
+   		$filename=pathinfo($_FILES['datei']['name'], PATHINFO_DIRNAME );
    		echo $filename;
    	}
    	else{
