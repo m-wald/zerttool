@@ -73,8 +73,10 @@ class PruefungController extends AbstractActionController {
 				'mode'	   => array(PruefungController::createPruefung)
 		]);
 		
-		$viewModel->setTemplate(PruefungController::pathToHtml);
-		return $viewModel;
+		echo $viewModel->getTemplate();
+		//$viewModel->setTemplate(PruefungController::pathToHtml);
+		//return $viewModel;
+		
 	}
 	
 	/**
