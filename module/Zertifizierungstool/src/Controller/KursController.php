@@ -91,7 +91,7 @@ class KursController extends AbstractActionController
    }
    
    
-   public function csvinvite(){
+   public function csvinviteAction(){
    
    	if($_SERVER['REQUEST_METHOD'] == 'POST') {
    		
