@@ -57,57 +57,58 @@ class FrageController extends AbstractActionController {
 				}
 			}
 			if (empty($errors)) {
-			switch ($_REQUEST["frage_typ"]) {
-				case "TF":
-					$status = 0;
-					if ($_REQUEST["tf"] == "true") {
-						$status = 1;
-					}
+				switch ($_REQUEST["frage_typ"]) {
+					case "TF":
+						$status = 0;
+						if ($_REQUEST["tf"] == "true") {
+							$status = 1;
+						}
 					
-					$antwort = new Antwort("", "", $frage->getId(), $status);
-					
-					
+						$antwort = new Antwort("", "", $frage->getId(), $status);
 						if (!$antwort->saveNew()) {
 							array_push($errors, "Fehler beim Speichern der Antwort. Bitte erneut versuchen!");
 						}
 					
-					break;
+						break;
 				
-				case "MC":
-					$index = 1;
-					while (!empty($_REQUEST["antwort_text" .$index])) {
-						$status = 0;
-						if ($_REQUEST["antwort_checked" .$index]) {
-							$status = 1;
+					case "MC":
+						$index = 1;
+						while (!empty($_REQUEST["antwort_text" .$index])) {
+							$status = 0;
+							if ($_REQUEST["antwort_checked" .$index]) {
+								$status = 1;
+							}
+						
+							$antwort = new Antwort("",
+									$_REQUEST["antwort_text" .$index],
+									$frage->getId(),
+									$status);
+						
+							if (!$antwort->saveNew()) {
+								array_push($errors, "Fehler beim Speichern der Antworten. Bitte erneut versuchen!");
+							}
+						
+							$index++;
 						}
-						
-						$antwort = new Antwort("",
-								$_REQUEST["antwort_text" .$index],
-								$frage->getId(),
-								$status);
-						
-						if (!$antwort->saveNew()) {
-							array_push($errors, "Fehler beim Speichern der Antworten. Bitte erneut versuchen!");
-						}
-						
-						$index++;
-					}
+						break;
 					
-				default:
-					;
-				break;
-			}
-			}
-			
-			
+					default: break;
+				}
+			}	
 		}
-		
-		
-		return new ViewModel([
+	
+		$viewModel = new ViewModel([
 				'pruefung' => array($pruefung),
 				'fragen'   => $fragen,
-				'errors'   => $errors
+				'errors'   => $errors,
+				'mode'	   => array(PruefungController::createFragen)
 		]);
+		
+		$viewModel->setTemplate(PruefungController::pathToHtml);
+		return $viewModel;
+	}
+	
+	public function editAction() {
 		
 	}
 }

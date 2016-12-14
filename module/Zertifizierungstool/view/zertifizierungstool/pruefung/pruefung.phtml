@@ -1,0 +1,133 @@
+<style>
+#KopfdatenPruefung {
+	position: relative;
+	border: 5pt;
+	border-color: black;
+	border-style: solid;
+	width: 100%;
+	padding: 2em;
+	}
+
+
+#FragenListe {
+	float:left;
+	border: 5pt;
+	border-color: black;
+	border-style: solid;
+	width: 30em;
+	padding: 2em;
+	}
+
+#Frage {
+	padding: 2em;
+	margin-left: 30em;
+	border: 5pt;
+	border-left: 0pt;
+	border-color: black;
+	border-style: solid;
+	width: 50em;
+	}
+	
+input[type=number]{
+	width: 4em;
+}
+</style>
+
+<?php 
+use Zertifizierungstool\Model\Frage;
+use Zertifizierungstool\Model\Pruefung;
+use Zertifizierungstool\Controller\PruefungController;
+
+// TODO Wenn Berechitgungsfehler -> wegführen
+if (isset($errors)) {
+	foreach ($errors as $err) {
+		echo "Fehler: " . $err . "<br>";
+	}
+}
+
+//Unterscheiden, ob Frage/Prüfung angelegt/bearbeitet
+if (isset($result[0]) && $result[0]) {
+	header ("refresh:0; url = /frage/create/" .$pruefung[0]->getId());
+}
+
+switch ($mode[0]) {
+	case PruefungController::createFragen:
+		$pruefReadonly = "readonly";
+		$pruefSaveButton = "hidden";
+		break;
+	case PruefungController::editFragen:
+		$pruefReadonly = "readonly";
+		$pruefSaveButton = "hidden";
+		break;
+	case PruefungController::createPruefung:
+		$frageDisabled = "disabled";
+		$pruefSaveButton = "submit";
+		break;
+	case PruefungController::editPruefung:
+		$frageDisabled = "disabled";
+		$pruefSaveButton = "submit";
+		break;
+}
+?>
+
+<h1>Pr&uuml;fung bearbeiten</h1>
+
+
+<div id="KopfdatenPruefung">
+<h2>Kopfdaten der Pr&uuml;fung</h2>
+<form method="POST">	
+	<table>
+		<tr><td>Pr&uuml;fungsname</td><td><input type="text"   name="name"     readonly="<?=$pruefReadonly?>" required value="<?=$pruefung[0]->getName()    ?>" ></td></tr>
+		<tr><td>Termin		 	 </td><td><input type="date"   name="termin"   readonly="<?=$pruefReadonly?>" required value="<?=$pruefung[0]->getTermin()  ?>" ></td></tr>
+		<tr><td>Cutscore (%) 	 </td><td><input type="number" name="cutscore" readonly="<?=$pruefReadonly?>" required value="<?=$pruefung[0]->getCutscore() * 100?>" min="0" max="100"></td></tr>
+	</table>
+	<input type="hidden" name="kursid"  readonly="readonly" value="<?=$pruefung[0]->getKursId()?>" >
+	
+	<input type="<?=$pruefSaveButton?>" name="speichern" value="Speichern">
+</form>
+</div>
+
+
+
+<div id="FragenListe">
+	<h3>Bereits angelegte Pr&uuml;fungsfragen</h3>
+	<table>
+	<?php
+		if (empty($fragen)) {
+			echo "<tr><td>(leer)</tr></td>";
+		} else {
+		foreach ($fragen as $frage) { ?>
+			<tr><td><?=$frage->getText()?></td><td><?=$frage->getTyp()?></td><td><a href="<?= $this->url('frage', ['action' => 'edit', 'id' => $frage->getId()]) ?>"><button disabled="<?=$frageDisabled?>">Bearbeiten</button></a></td><td><a href="<?= $this->url('frage', ['action' => 'remove', 'id' => $frage->getId()]) ?>"><button disabled="<?=$frageDisabled?>">L&ouml;schen</button></a></td>			
+	<?php
+		}}
+	?>
+		
+	</table>
+</div>
+
+<div id="Frage">
+<h3>Frage bearbeiten</h3>
+	<table><tr><td><button  disabled="<?=$frageDisabled?>" type="button" onclick="showFormMC()">Multiple Choice</button></td><td><button disabled="<?=$frageDisabled?>" type="button" onclick="showFormTF()">True / False</button></td></tr></table>
+	<p id="formular">W&auml;hlen Sie einen Frage-Typ aus, um die Eingabemaske anzuzeigen.</p>
+</div>
+
+
+
+<a><button>TODO: Fertigstellen</button></a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

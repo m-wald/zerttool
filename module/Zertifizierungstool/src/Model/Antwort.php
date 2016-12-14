@@ -34,4 +34,33 @@ class Antwort {
 			return true;
 		}
 	}
+	
+	public static function loadList($frage_id) {
+		$db = new Db_connection();
+		$conn = $db->getConnection();
+	
+		$query = "SELECT * FROM antowrt WHERE pruefung_id = " .$frage_id;
+	
+		$result = mysqli_query($conn, $query);
+	
+		if(!$result) {
+			// Fehler bei der Datenbankabfrage
+			return false;
+	
+		} else {
+			$return_array = array();
+			//frage_id, frage_text, punkte, pruefung_id, frage_typ
+			while ($row = mysqli_fetch_assoc($result)) {
+				$a = new Antowrt(
+						$row["antwort_id"],
+						$row["antwort_text"],
+						$row["frage_id"],
+						$row["status"]);
+	
+				array_push($return_array, $a);
+			}
+				
+			return $return_array;
+		}
+	}
 }
