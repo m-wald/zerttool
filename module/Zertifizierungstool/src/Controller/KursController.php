@@ -12,7 +12,7 @@ class KursController extends AbstractActionController
         
         if($_SERVER['REQUEST_METHOD'] == 'POST') {
             
-            //Prüfung, ob Kursstartdatum vor -enddatum
+            //Prï¿½fung, ob Kursstartdatum vor -enddatum
             $start  = $_REQUEST["kursstart"];
             $end    = $_REQUEST["kursende"];
             $starttimestamp = strtotime($start);
@@ -62,29 +62,32 @@ class KursController extends AbstractActionController
         
     }
     
-	    public function anlegentestAction()
-	    {
-			$kurs = new Kurs("ITM", "01.12.2016", "31.12.2016", 0, "aaa");
-			
-			$kurs->save();
+    public function anlegentestAction()
+    {
+	$kurs = new Kurs("ITM", "01.12.2016", "31.12.2016", 0, "aaa");
 		
-			return new ViewModel();
-	    }
+	$kurs->save();
+		
+	return new ViewModel();
+    }
     
 	    
-   		public function changedata_CursAction() {
+    public function changedata_CursAction() {
    			
-   			if($_SERVER['REQUEST_METHOD'] == 'POST') {
-   					
-   				//Kurs::currentKurs()->update($_REQUEST["kurs_name"], $_REQUEST["kurs_start"], $_REQUEST["kurs_ende"], $_REQUEST["sichtbarkeit"]);
-   				Kurs::currentKurs()->load(User::currentKurs()->getKurs_id());
-   				$_SESSION["currentKurs"] = serialize(User::currentKurs());
-   				return new ViewModel(['status' => "erfolgreich"]);
-   			}
-   			else {
-   				return new ViewModel(['kursdaten' => array(User::currentKurs()->getBenutzername(),User::currentUser()->getVorname(), User::currentUser()->getNachname(), User::currentUser()->getGeburtsdatum(), User::currentUser()->getStrasse(), User::currentUser()->getPLZ(), User::currentUser()->getOrt(), User::currentUser()->getEmail())]);
-   			}
-   	
+        if($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+        //Kurs::currentKurs()->update($_REQUEST["kurs_name"], $_REQUEST["kurs_start"], $_REQUEST["kurs_ende"], $_REQUEST["sichtbarkeit"]);
+        Kurs::currentKurs()->load(User::currentKurs()->getKurs_id());
+        $_SESSION["currentKurs"] = serialize(User::currentKurs());
+        return new ViewModel(['status' => "erfolgreich"]);
+        }
+        else {
+        return new ViewModel(['kursdaten' => array(User::currentKurs()->getBenutzername(),User::currentUser()->getVorname(), User::currentUser()->getNachname(), User::currentUser()->getGeburtsdatum(), User::currentUser()->getStrasse(), User::currentUser()->getPLZ(), User::currentUser()->getOrt(), User::currentUser()->getEmail())]);
+        }	
+   }
+   
+   public function uebersichtAction(){
+       
    }
     
 }
