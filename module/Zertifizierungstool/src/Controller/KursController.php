@@ -95,14 +95,55 @@ class KursController extends AbstractActionController
    
    	if($_SERVER['REQUEST_METHOD'] == 'POST') {
    		
-   		$filename=pathinfo($_FILES['datei']['name'], PATHINFO_DIRNAME );
-   		echo $filename;
-   	}
+   		//Upload-Verzeichnis
+   		echo getcwd();
+   		/*$upload_folder= '/zerttool/data/uploadsCSV';
+   		$filename=pathinfo($_FILES['datei']['name'],PATHINFO_FILENAME);
+   		$extension=strtolower(pathinfo($_FILES['datei']['name'], PATHINFO_EXTENSION));
+   		
+   		
+   		//Überprüfung der Dateiendung
+   		
+   		$allowed_extensions=array('csv');
+   		
+   		if(!in_array($extension, $allowed_extensions)) {
+   			die("<ausgabe>Ung&uuml;ltige Dateiendung. Nur CSV-Dateien sind erlaubt<!/ausgabe>");
+   		} 
+   		
+   		//Überprüfung der Dateigröße
+   		
+   		$max_size = 1024*1024;                                   //1 MB
+   		
+   		if($_FILES['datei']['size'] > $max_size) {
+   				
+   			die("Bitte keine Dateien groesser 1MB hochladen");
+   		}
+   		
+   		//Pfad zum Upload
+   		
+   		$new_path = $upload_folder.$filename.'.'.$extension;
+   		
+   		//Neuer Dateiname falls die Datei bereits existiert
+   		
+   		if(file_exists($new_path)) { //Falls Datei existiert, hänge eine Zahl an den Dateinamen
+   			$id = 1;
+   			do {
+   				$new_path = $upload_folder.$filename.'_'.$id.'.'.$extension;
+   				$id++;
+   			} while(file_exists($new_path));
+   		}
+   		
+   		//Alles okay, verschiebe Datei an neuen Pfad
+   		
+   		move_uploaded_file($_FILES['datei']['tmp_name'], $new_path); */
+   	} 
    	else{
    		return new ViewModel();
    	}
    }
 }
+   				
+   			
     
 
 
