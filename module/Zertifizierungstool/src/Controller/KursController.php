@@ -96,8 +96,8 @@ class KursController extends AbstractActionController
    	if($_SERVER['REQUEST_METHOD'] == 'POST') {
    		
    		//Upload-Verzeichnis
-   		echo dirname(__FILE__);
-   		/*$upload_folder= '/zerttool/data/uploadsCSV';
+   		
+   		$upload_folder= '/var/www/html/zerttool/data/uploadsCSV';
    		$filename=pathinfo($_FILES['datei']['name'],PATHINFO_FILENAME);
    		$extension=strtolower(pathinfo($_FILES['datei']['name'], PATHINFO_EXTENSION));
    		
@@ -135,7 +135,9 @@ class KursController extends AbstractActionController
    		
    		//Alles okay, verschiebe Datei an neuen Pfad
    		
-   		move_uploaded_file($_FILES['datei']['tmp_name'], $new_path); */
+   		move_uploaded_file($_FILES['datei']['tmp_name'], $new_path); 
+   		
+   		echo "erfolgreich";
    	} 
    	else{
    		return new ViewModel();
