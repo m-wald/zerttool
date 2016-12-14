@@ -115,11 +115,11 @@ if (isset($result[0]) && $result[0]) {
 
 switch ($mode[0]) {
 	case PruefungController::createFragen:
-		$pruefReadonly = "readonly";
+		$pruefReadonly = 'readonly = "readonly"';
 		$pruefSaveButton = "hidden";
 		break;
 	case PruefungController::editFragen:
-		$pruefReadonly = "readonly";
+		$pruefReadonly = 'readonly = "readonly"';
 		$pruefSaveButton = "hidden";
 		break;
 	case PruefungController::createPruefung:
@@ -140,9 +140,9 @@ switch ($mode[0]) {
 <h2>Kopfdaten der Pr&uuml;fung</h2>
 <form method="POST">	
 	<table>
-		<tr><td>Pr&uuml;fungsname</td><td><input type="text"   name="name"     readonly="<?=$pruefReadonly?>" required value="<?=$pruefung[0]->getName()    ?>" ></td></tr>
-		<tr><td>Termin		 	 </td><td><input type="date"   name="termin"   readonly="<?=$pruefReadonly?>" required value="<?=$pruefung[0]->getTermin()  ?>" ></td></tr>
-		<tr><td>Cutscore (%) 	 </td><td><input type="number" name="cutscore" readonly="<?=$pruefReadonly?>" required value="<?=$pruefung[0]->getCutscore() * 100?>" min="0" max="100"></td></tr>
+		<tr><td>Pr&uuml;fungsname</td><td><input type="text"   name="name"     <?=$pruefReadonly?>" required value="<?=$pruefung[0]->getName()    ?>" ></td></tr>
+		<tr><td>Termin		 	 </td><td><input type="date"   name="termin"   <?=$pruefReadonly?>" required value="<?=$pruefung[0]->getTermin()  ?>" ></td></tr>
+		<tr><td>Cutscore (%) 	 </td><td><input type="number" name="cutscore" <?=$pruefReadonly?>" required value="<?=$pruefung[0]->getCutscore() * 100?>" min="0" max="100"></td></tr>
 	</table>
 	<input type="hidden" name="kursid"  readonly="readonly" value="<?=$pruefung[0]->getKursId()?>" >
 	
