@@ -112,7 +112,7 @@ class KursController extends AbstractActionController
    		
    		//Upload-Verzeichnis
    		
-   		$upload_folder= 'data/uploadsCSV';
+   		$upload_folder= 'data/uploadsCSV/';
    		$filename=pathinfo($_FILES['datei']['name'],PATHINFO_FILENAME);
    		$extension=strtolower(pathinfo($_FILES['datei']['name'], PATHINFO_EXTENSION));
    		
