@@ -107,13 +107,12 @@ class KursController extends AbstractActionController
    
    public function csvinviteAction(){
    	
-   	echo getcwd();
    
    	if($_SERVER['REQUEST_METHOD'] == 'POST') {
    		
    		//Upload-Verzeichnis
    		
-   		$upload_folder= '/var/www/html/zerttool/data/uploadsCSV';
+   		$upload_folder= 'data/uploadsCSV';
    		$filename=pathinfo($_FILES['datei']['name'],PATHINFO_FILENAME);
    		$extension=strtolower(pathinfo($_FILES['datei']['name'], PATHINFO_EXTENSION));
    		
