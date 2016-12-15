@@ -49,7 +49,9 @@ class Pruefung {
 		$query = "UPDATE pruefung SET"
 					." pruefung_name = '" .$this->name ."'"
 					." pruefung_ab = '"   .$this->termin ."'"
-					." cutscore = "      .$this->cutscore;
+					." cutscore = "      .$this->cutscore
+		
+				." WHERE pruefung_id = " .$this->id;
 		
 		$result = mysqli_query($conn, $query);
 		
