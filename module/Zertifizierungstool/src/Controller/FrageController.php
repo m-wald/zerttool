@@ -124,7 +124,7 @@ class FrageController extends AbstractActionController {
 		$frage->load($frageid);
 		
 		$pruefung = new Pruefung();		
-		if (!$pruefung->load($pruefungid)) {
+		if (!$pruefung->load($frage->getPruefungId())) {
 			array_push($errors, "Fehler beim Laden der Prüfung!");
 		}		
 		
