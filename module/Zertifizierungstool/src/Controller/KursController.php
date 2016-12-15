@@ -106,6 +106,8 @@ class KursController extends AbstractActionController
    
    
    public function csvinviteAction(){
+   	
+   	echo getcwd();
    
    	if($_SERVER['REQUEST_METHOD'] == 'POST') {
    		
