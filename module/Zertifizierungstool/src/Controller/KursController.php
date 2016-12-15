@@ -153,10 +153,10 @@ class KursController extends AbstractActionController
    		move_uploaded_file($_FILES['datei']['tmp_name'], $new_path); 
    		
    		
-   		if (!is_readable($src))
+   		if (!is_readable($_FILES['datei']['name']))
    			die("Very bad hosting juju. The file was uploaded but I can't read it?!?");
    		
-   			if (!is_writeable($destination_path))
+   			if (!is_writeable($upload_folder))
    				die("As expected, you can't upload a file here. This is a good thing.");
    		
    		
