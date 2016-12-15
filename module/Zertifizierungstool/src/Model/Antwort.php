@@ -61,7 +61,7 @@ class Antwort {
 		$db = new Db_connection();
 		$conn = $db->getConnection();
 	
-		$query = "SELECT * FROM antowrt WHERE pruefung_id = " .$frage_id;
+		$query = "SELECT * FROM antwort WHERE pruefung_id = " .$frage_id;
 	
 		$result = mysqli_query($conn, $query);
 	
