@@ -44,7 +44,7 @@ input[type=number]{
 	var formEnd = 
 		'<input type="hidden" name="id" 		 readonly="readonly">' +
 		'<input type="hidden" name="pruefung_id" readonly="readonly" value="<?=$pruefung[0]->getId()?>">' +
-		'<input type="submit" name="speichern" value="Speichern">' +
+		'<input type="submit" name="speichernFrage" value="Speichern">' +
 		'<input type="reset" value="Felder zur&uuml;cksetzen">' +
 		'</form> <br>';
 
@@ -54,7 +54,7 @@ input[type=number]{
 		'<input type="hidden" name="frage_typ" readonly="readonly" value="MC">' +
 		
 		'Antwortm&ouml;glichkeit 1: ' +
-		'<input type="text"     name="antwort_text1" required>' + ' ' +
+		'<input type="text"     name="antwort_text1" required> ' +
 		'<input type="checkbox" name="antwort_checked1">' +
 		'<p id="ant2"></p>' +
 
@@ -89,15 +89,19 @@ input[type=number]{
 		
 		document.getElementById("ant" + aktStelle).innerHTML =
 			'Antwortm&ouml;glichkeit ' + AntwortAnzahl + ': ' +
-			'<input type="text"     name="antwort_text'    + AntwortAnzahl + '" required>' +
+			'<input type="text"     name="antwort_text'    + AntwortAnzahl + '" required> ' +
 			'<input type="checkbox" name="antwort_checked' + AntwortAnzahl + '">' +
 			'<p id="ant' + neuStelle +'"></p>';
+	}
+
+	function deleteAntwort() {
 	}
 
 </script>
 
 <?php 
 use Zertifizierungstool\Model\Frage;
+use Zertifizierungstool\Model\Antwort;
 use Zertifizierungstool\Model\Pruefung;
 use Zertifizierungstool\Controller\PruefungController;
 
@@ -144,9 +148,11 @@ switch ($mode[0]) {
 		<tr><td>Termin		 	 </td><td><input type="date"   name="termin"   <?=$pruefReadonly?> required value="<?=$pruefung[0]->getTermin()  ?>" ></td></tr>
 		<tr><td>Cutscore (%) 	 </td><td><input type="number" name="cutscore" <?=$pruefReadonly?> required value="<?=$pruefung[0]->getCutscore() * 100?>" min="0" max="100"></td></tr>
 	</table>
-	<input type="hidden" name="kursid"  readonly="readonly" value="<?=$pruefung[0]->getKursId()?>" >
 	
-	<input type="<?=$pruefSaveButton?>" name="speichern" value="Speichern">
+	<input type="hidden" name="pruefid"  readonly="readonly" value="<?=$pruefung[0]->getId()?>" >
+	<input type="hidden" name="kursid"   readonly="readonly" value="<?=$pruefung[0]->getKursId()?>" >
+	
+	<input type="<?=$pruefSaveButton?>" name="speichernPruefung" value="Zu den Fragen">
 </form>
 </div>
 
@@ -166,12 +172,51 @@ switch ($mode[0]) {
 	?>
 		
 	</table>
+	
+	<a href="<?= $this->url('frage', ['action' => 'create', 'id' => $pruefung[0]->getId()]) ?>"><button <?=$frageDisabled?>>Neue Frage Anlegen</button></a>
 </div>
 
 <div id="Frage">
-<h3>Frage anlegen/bearbeiten</h3>
-	<table><tr><td><button  <?=$frageDisabled?> type="button" onclick="showFormMC()">Multiple Choice</button></td><td><button <?=$frageDisabled?> type="button" onclick="showFormTF()">True / False</button></td></tr></table>
+<?php if ($mode[0] == PruefungController::createFragen) { ?>
+
+<h3>Frage anlegen</h3>
+	<table><tr><td><button type="button" onclick="showFormMC()">Multiple Choice</button></td><td><button type="button" onclick="showFormTF()">True / False</button></td></tr></table>
 	<p id="formular">W&auml;hlen Sie einen Frage-Typ aus, um die Eingabemaske anzuzeigen.</p>
+
+<?php } elseif ($mode[0] == PruefungController::editFragen) { ?>
+<h3>Frage bearbeiten</h3>
+	Frage: <br> <textarea rows="3" cols="50" name="frage_text" form="frageForm" required><?=$frageToEdit[0]->getText()?></textarea>
+	<form method="POST" id="frageForm">
+	<table>
+		
+		<tr><td>Punkte<td><input type="number" name="punkte" required value="<?=$frageToEdit[0]->getPunkte()?>"></tr>
+	</table>
+	
+	<?php 
+	$antworten = Antwort::loadList($frageToEdit[0]->getId());
+	
+	if ($frageToEdit[0]->getTyp() == "TF") { ?>
+		<input type="hidden" name="frage_typ" readonly="readonly" value="TF">
+		<input type="radio" name="tf" value="true"  <?php if ($antworten[0]->getStatus() == 1) echo "checked";?>> Wahr<br>
+		<input type="radio" name="tf" value="false" <?php if ($antworten[0]->getStatus() == 0) echo "checked";?>> Falsch<br>
+	
+	<?php } else {
+		$i = 1;
+		foreach ($antworten as $antwort) {
+			//newAntwort()
+		}
+	}
+	?>
+	
+	<input type="hidden" name="id" 		    readonly="readonly" value="<?=$frageToEdit[0]->getId()?>">
+	<input type="hidden" name="pruefung_id" readonly="readonly" value="<?=$frageToEdit[0]->getId()?>">' +
+	<input type="submit" name="speichern" value="Speichern">
+	<input type="reset" value="Felder zur&uuml;cksetzen">
+	</form>
+<?php } ?>
+	
+	
+	
 </div>
 
 

@@ -51,7 +51,7 @@ class Antwort {
 			$return_array = array();
 			//frage_id, frage_text, punkte, pruefung_id, frage_typ
 			while ($row = mysqli_fetch_assoc($result)) {
-				$a = new Antowrt(
+				$a = new Antowort(
 						$row["antwort_id"],
 						$row["antwort_text"],
 						$row["frage_id"],

@@ -43,7 +43,7 @@ class FrageController extends AbstractActionController {
 		}
 
 		
-		if ($_REQUEST['speichern']) {
+		if ($_REQUEST['speichernFrage']) {
 			
 			$frage = new Frage("",
 					$_REQUEST["frage_text"],
