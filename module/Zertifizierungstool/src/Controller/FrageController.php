@@ -201,7 +201,8 @@ class FrageController extends AbstractActionController {
 				'fragen'   => Frage::loadList($pruefung->getId()),
 				'errors'   => $errors,
 				// Fragen laden -> Was bei Fehler?
-				'mode'	   => array(PruefungController::editFragen)
+				'mode'	   => array(PruefungController::editFragen),
+				'frageToEdit' => array($frage)
 		]);
 		
 		$viewModel->setTemplate(PruefungController::pathToHtml);
