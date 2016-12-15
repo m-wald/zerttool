@@ -35,6 +35,28 @@ class Antwort {
 		}
 	}
 	
+	public function update() {
+		$db = new Db_connection();
+		$conn = $db->getConnection();
+	
+		$query = "UPDATE antwort SET"
+				." antwort_text = '" .$this->text ."'"
+				.", frage_id = " .$this->frage_id
+				.", status = "   .$this->status
+	
+				." WHERE antwort_id = " .$this->id;
+	
+		$result = mysqli_query($conn, $query);
+	
+		if (is_bool($result) && $result == false) {
+			echo $query;
+			echo '<br>' .mysqli_error($conn);
+			return false;
+		} else {
+			return true;
+		}
+	}
+	
 	public static function loadList($frage_id) {
 		$db = new Db_connection();
 		$conn = $db->getConnection();

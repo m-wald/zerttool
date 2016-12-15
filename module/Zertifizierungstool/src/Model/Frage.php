@@ -41,6 +41,29 @@ class Frage {
 		}
 	}
 	
+	public function update() {
+		$db = new Db_connection();
+		$conn = $db->getConnection();
+		
+		$query = "UPDATE frage SET"
+				." frage_text = '" .$this->text ."'"
+				.", punkte = "     .$this->termin
+				.", pruefung_id = " .$this->pruefung_id
+				.", frage_typ = "   .$this->typ
+		
+				." WHERE frage_id = " .$this->id;
+		
+		$result = mysqli_query($conn, $query);
+		
+		if (is_bool($result) && $result == false) {
+			echo $query;
+			echo '<br>' .mysqli_error($conn);
+			return false;
+		} else {
+			return true;
+		}
+	}
+	
 	public function load($id) {
 		$db = new Db_connection();
 		

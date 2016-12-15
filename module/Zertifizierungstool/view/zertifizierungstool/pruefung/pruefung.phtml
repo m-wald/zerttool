@@ -14,7 +14,7 @@
 	border: 5pt;
 	border-color: black;
 	border-style: solid;
-	width: 30em;
+	width: 30%;
 	padding: 2em;
 	}
 
@@ -25,7 +25,7 @@
 	border-left: 0pt;
 	border-color: black;
 	border-style: solid;
-	width: 50em;
+	width: 70%em;
 	}
 	
 input[type=number]{
@@ -166,14 +166,14 @@ switch ($mode[0]) {
 			echo "<tr><td>(leer)</tr></td>";
 		} else {
 		foreach ($fragen as $frage) { ?>
-			<tr><td><?=$frage->getText()?></td><td><?=$frage->getTyp()?></td><td><a href="<?= $this->url('frage', ['action' => 'edit', 'id' => $frage->getId()]) ?>"><button <?=$frageDisabled?>>Bearbeiten</button></a></td><td><a href="<?= $this->url('frage', ['action' => 'remove', 'id' => $frage->getId()]) ?>"><button <?=$frageDisabled?>>L&ouml;schen</button></a></td>			
+			<tr><td><?=$frage->getText()?></td><td><?=$frage->getTyp()?></td><td><a href="<?= $this->url('frage', ['action' => 'edit', 'id' => $frage->getId()]) ?>"><button type="button" <?=$frageDisabled?>>Bearbeiten</button></a></td><td><a href="<?= $this->url('frage', ['action' => 'remove', 'id' => $frage->getId()]) ?>"><button type="button" <?=$frageDisabled?>>L&ouml;schen</button></a></td>			
 	<?php
 		}}
 	?>
 		
 	</table>
 	
-	<a href="<?= $this->url('frage', ['action' => 'create', 'id' => $pruefung[0]->getId()]) ?>"><button <?=$frageDisabled?>>Neue Frage Anlegen</button></a>
+	<a href="<?= $this->url('frage', ['action' => 'create', 'id' => $pruefung[0]->getId()]) ?>"><button type="button" <?=$frageDisabled?>>Neue Frage Anlegen</button></a>
 </div>
 
 <div id="Frage">
@@ -221,7 +221,7 @@ switch ($mode[0]) {
 
 
 
-<a><button>TODO: Fertigstellen</button></a>
+<a><button>Zur&uuml;ck zum Kurs</button></a>
 
 
 
