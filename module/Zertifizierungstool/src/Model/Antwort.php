@@ -84,4 +84,9 @@ class Antwort {
 			return $return_array;
 		}
 	}
+	
+	public function getId() 	 {return $this->id;}
+	public function getText() 	 {return $this->text;}
+	public function getFrageId() {return $this->frage_id;}
+	public function getStatus()  {return $this->status;}
 }
