@@ -14,7 +14,7 @@
 	border: 5pt;
 	border-color: black;
 	border-style: solid;
-	width: 30%;
+	width: 40%;
 	padding: 2em;
 	}
 
@@ -22,10 +22,9 @@
 	padding: 2em;
 	margin-left: 30em;
 	border: 5pt;
-	border-left: 0pt;
 	border-color: black;
 	border-style: solid;
-	width: 70%em;
+	width: 60%em;
 	}
 	
 input[type=number]{
@@ -195,10 +194,6 @@ switch ($mode[0]) {
 	<?php 
 	$antworten = Antwort::loadList($frageToEdit[0]->getId());
 	
-	echo "Antworten (test):";
-	echo $frageToEdit[0]->getId();
-	print_r($antworten, true);
-	
 	if ($frageToEdit[0]->getTyp() == "TF") { ?>
 		<input type="hidden" name="frage_typ" readonly="readonly" value="TF">
 		<input type="radio" name="tf" value="true"  <?php if ($antworten[0]->getStatus() == 1) echo "checked";?>> Wahr<br>
@@ -213,7 +208,7 @@ switch ($mode[0]) {
 	?>
 	
 	<input type="hidden" name="id" 		    readonly="readonly" value="<?=$frageToEdit[0]->getId()?>">
-	<input type="hidden" name="pruefung_id" readonly="readonly" value="<?=$frageToEdit[0]->getPruefungId()?>">' +
+	<input type="hidden" name="pruefung_id" readonly="readonly" value="<?=$frageToEdit[0]->getPruefungId()?>">
 	<input type="submit" name="speichernFrage" value="Speichern">
 	<input type="reset" value="Felder zur&uuml;cksetzen">
 	</form>
