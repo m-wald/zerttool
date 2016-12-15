@@ -195,6 +195,10 @@ switch ($mode[0]) {
 	<?php 
 	$antworten = Antwort::loadList($frageToEdit[0]->getId());
 	
+	echo "Antworten (test):";
+	echo $frageToEdit[0]->getId();
+	print_r($antworten, true);
+	
 	if ($frageToEdit[0]->getTyp() == "TF") { ?>
 		<input type="hidden" name="frage_typ" readonly="readonly" value="TF">
 		<input type="radio" name="tf" value="true"  <?php if ($antworten[0]->getStatus() == 1) echo "checked";?>> Wahr<br>
