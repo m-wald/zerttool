@@ -48,8 +48,8 @@ class Pruefung {
 		
 		$query = "UPDATE pruefung SET"
 					." pruefung_name = '" .$this->name ."'"
-					." pruefung_ab = '"   .$this->termin ."'"
-					." cutscore = "      .$this->cutscore
+					.", pruefung_ab = '"   .$this->termin ."'"
+					.", cutscore = "      .$this->cutscore
 		
 				." WHERE pruefung_id = " .$this->id;
 		
