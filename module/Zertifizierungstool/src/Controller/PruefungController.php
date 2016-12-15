@@ -29,6 +29,7 @@ class PruefungController extends AbstractActionController {
 		// Array, das eventuelle Fehlermeldungen enthält
 		$errors = array();
 		$result = false;
+		$fragen = array();
 		
 		// Berechtigungsprüfung
 		if (!User::currentUser()->istAdmin() && !User::currentUser()->istZertifizierer()) {
@@ -70,7 +71,7 @@ class PruefungController extends AbstractActionController {
 				'pruefung' => array($pruefung),
 				'errors'   => $errors,
 				'result'   => array($result),
-				'fragen'   => Frage::loadList($pruefung->getId()),
+				'fragen'   => $fragen,
 				'mode'	   => array(PruefungController::createPruefung)
 		]);
 		
@@ -84,7 +85,6 @@ class PruefungController extends AbstractActionController {
 		// Array, das eventuelle Fehlermeldungen enthält
 		$errors = array();
 		$result = false;
-		$fragen = array();
 		
 		// Berechtigungsprüfung
 		if (!User::currentUser()->istAdmin() && !User::currentUser()->istZertifizierer()) {
@@ -126,7 +126,7 @@ class PruefungController extends AbstractActionController {
 				'pruefung' => array($pruefung),
 				'errors'   => $errors,
 				'result'   => array($result),
-				'fragen'   => $fragen,
+				'fragen'   => Frage::loadList($pruefung->getId()),
 				'mode'	   => array(PruefungController::editPruefung)
 		]);
 		

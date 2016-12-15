@@ -55,7 +55,7 @@ class Pruefung {
 		
 		$result = mysqli_query($conn, $query);
 		
-		if (!$result) {
+		if (is_bool($result) && $result == false) {
 			echo $query;
 			echo '<br>' .mysqli_error($conn);
 			return false;
