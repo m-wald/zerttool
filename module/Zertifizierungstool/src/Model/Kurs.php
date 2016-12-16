@@ -55,7 +55,7 @@ class Kurs {
         } else {
             echo "Kein Ergebnis gefunden!";
         }
-
+        
         foreach ($row as $return_array) {
             $this->kurs_id = $row['kurs_id'];
             $this->kurs_name = $row['kurs_name'];
@@ -71,6 +71,48 @@ class Kurs {
         return false;
     }
     
+    public function loadKurse($benutzername) {
+    	$db = new Db_connection();
+    	$today = date(Y-m-d);
+    	$query = "SELECT * FROM kurs WHERE benutzername = $1 
+    			AND kurs_ende <= '".$today."' 
+    			AND kurs_start >= '".$today."'
+    			;";
+    	
+    	$result = $db->execute($query);
+    
+    	$return_array = array();
+    
+    	if (mysqli_num_rows($result) > 0) {
+    		while ($row = mysqli_fetch_assoc($result)) {
+    			array_push($return_array, $row);
+    		}
+    	return $return_array;
+    	} else {
+    		echo "Kein Ergebnis gefunden!";
+    	}
+    	
+    	/*
+    	$courseloaded = false;
+    	
+    	foreach ($row as $return_array) {
+    		$this->kurs_id = $row['kurs_id'];
+    		$this->kurs_name = $row['kurs_name'];
+    		$this->kurs_start = $row['kurs_start'];
+    		$this->kurs_ende = $row['kurs_ende'];
+    		$this->sichtbarkeit = $row['sichtbarkeit'];
+    		$this->benutzername = $row['benutzername'];
+    		
+    		$courseloaded = true;
+    	}
+    	
+    	if(!$courseloaded){
+    		return true;
+    	}else{
+	  		return false;
+    	}*/
+    }
+    
     /**
      * Schreibt den aktuellen Kurs in die Datenbank
      */
@@ -79,7 +121,8 @@ class Kurs {
 	$query = "INSERT INTO kurs (kurs_name, kurs_start, kurs_ende, sichtbarkeit, benutzername) VALUES ('".$this->kurs_name."','".$this->kurs_start."', '".$this->kurs_ende."', '".$this->sichtbarkeit."', '".$this->benutzername."')";
         
 	$result = $db->execute($query);
-               
+        
+        return $result;               
     }
 
     public function update($kurs_id) {

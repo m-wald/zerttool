@@ -42,6 +42,28 @@ class Pruefung {
 		}
 	}
 	
+	public function update() {
+		$db = new Db_connection();
+		$conn = $db->getConnection();
+		
+		$query = "UPDATE pruefung SET"
+					." pruefung_name = '" .$this->name ."'"
+					.", pruefung_ab = '"   .$this->termin ."'"
+					.", cutscore = "      .$this->cutscore
+		
+				." WHERE pruefung_id = " .$this->id;
+		
+		$result = mysqli_query($conn, $query);
+		
+		if (is_bool($result) && $result == false) {
+			echo $query;
+			echo '<br>' .mysqli_error($conn);
+			return false;
+		} else {
+			return true;
+		}
+	}
+	
 	public function load($id) {
 		$db = new Db_connection();
 		
@@ -54,8 +76,9 @@ class Pruefung {
 			return false;
 		}
 			
+		$row = mysqli_fetch_assoc($result);
+		
 		$this->id		= $id;
-
 		$this->name 	= $row["pruefung_name"];
 		$this->termin   = $row["pruefung_ab"];
 		$this->kurs_id  = $row["kurs_id"];

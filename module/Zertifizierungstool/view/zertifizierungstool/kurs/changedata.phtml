@@ -1,0 +1,60 @@
+<h1>Kursangaben &auml;ndern</h1>
+
+<?php 
+if($status == "erfolgreich") { ?>
+	
+<a>Kursdaten wurden erfolgreich ge&auml;ndert</a>
+
+
+<?php 
+
+header("refresh:2; url = /user/home");}  		// Umleitung zum Kursübersicht
+
+else {
+	
+	?>
+
+
+<table>
+	<tr><td>Kursbezeichnung:</td>
+	<td>Startdatum:</td>
+	<td>Enddatum:</td>
+	<td> Sichtbarkeit:</td>
+	</tr>
+	
+<?php 
+	
+	while($row = $kursarray) 
+	{
+		
+?>
+
+		<tr><td> <name='kurs_name' value='<?php echo $row[1]?>'></td>
+		<td> <name="start_datum" value='<?php echo $row[2]?>'></td>
+		<td> <name="end_datum" value='<?php echo $row[3]?>'></td>
+		
+
+<?php	
+ 
+if($row[4]==1) {$select='sichtbar';}
+else {$select='nicht sichtbar';}
+?>	
+		<td> <name="sichtbarkeit" value='<?php echo $select ?>'></td>
+		
+				<td>
+				<form method="post" action="changedata">
+				<input type="hidden" value='<?php $row[0] ?>' name="change">
+				<input type="submit" value="change">
+				</form>
+				</td>
+	</tr>
+<?php 
+	}
+?>          
+
+</table>
+
+<?php }?>
+
+
+
