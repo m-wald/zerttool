@@ -73,11 +73,9 @@ class Kurs {
     
     public function loadKurse($benutzername) {
     	$db = new Db_connection();
-    	$today = date(Y-m-d);
     	$query = "SELECT * FROM kurs WHERE benutzername = $1 
-    			AND kurs_ende <= '".$today."' 
-    			AND kurs_start >= '".$today."'
-    			;";
+    			AND (CURRENT_DATE BETWEEN kurs_start
+                        AND kurs_ende);";
     	
     	$result = $db->execute($query);
     
