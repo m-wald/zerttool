@@ -115,7 +115,7 @@ class KursController extends AbstractActionController
    		$filename=pathinfo($_FILES['datei']['name'],PATHINFO_FILENAME);
    		$extension=strtolower(pathinfo($_FILES['datei']['name'], PATHINFO_EXTENSION));
    		
-   		
+   		/*
    		//Überprüfung der Dateiendung
    		
    		$allowed_extensions=array('csv');
@@ -154,7 +154,7 @@ class KursController extends AbstractActionController
    			return new ViewModel(['meldung' => 'erfolgreich']);
    			echo $new_path;
    		}
-   			 
+   		*/	 
    	   		
    	}
    		
