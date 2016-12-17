@@ -103,7 +103,7 @@ class KursController extends AbstractActionController
     }
    
     
-    */
+    
    public function csvinviteAction(){
    	
    
@@ -154,7 +154,7 @@ class KursController extends AbstractActionController
    			return new ViewModel(['meldung' => 'erfolgreich']);
    			echo $new_path;
    		}
-   		*/	 
+   		
    	   		
    	}
    		
@@ -163,7 +163,7 @@ class KursController extends AbstractActionController
    	else{
    		return new ViewModel();
    	}
-   }
+   } */
 }
    				
    			
