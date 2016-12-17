@@ -57,6 +57,23 @@ class Antwort {
 		}
 	}
 	
+	public static function delete($id) {
+		$db = new Db_connection();
+		$conn = $db->getConnection();
+		
+		$query = "DELETE FROM antwort WHERE antwort_id = " .$id;
+		
+		$result = mysqli_query($conn, $query);
+		
+		if (is_bool($result) && $result == false) {
+			echo $query;
+			echo '<br>' .mysqli_error($conn);
+			return false;
+		} else {
+			return true;
+		}
+	}
+	
 	public static function loadList($frage_id) {
 		$db = new Db_connection();
 		$conn = $db->getConnection();

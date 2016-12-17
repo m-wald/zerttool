@@ -62,7 +62,8 @@ class PruefungController extends AbstractActionController {
 				if (!$pruefung->saveNew()) {
 					array_push($errors, "Fehler beim Speichern der Pr&uuml;fung. Bitte erneut versuchen!");
 				}else {
-					$result = true;
+					header ("refresh:0; url = /frage/create/" .$pruefung->getId());
+					//$result = true;
 				}
 			}
 		}
@@ -82,12 +83,17 @@ class PruefungController extends AbstractActionController {
 	}
 	
 	public function editAction() {
+		
+		// TODO Prüfen ob Prüfungstermin schon erreicht ist
+		// Die Prüfung kann dann nicht mehr bearbeitet werden
+		
 		// Array, das eventuelle Fehlermeldungen enthält
 		$errors = array();
 		$result = false;
 		
 		// Berechtigungsprüfung
 		if (!User::currentUser()->istAdmin() && !User::currentUser()->istZertifizierer()) {
+			// TODO austesten: return "Keine Berechtigung!";
 			array_push($errors, "Keine Berechtigung!");
 		}
 		
@@ -117,6 +123,7 @@ class PruefungController extends AbstractActionController {
 				if (!$pruefung->update()) {
 					array_push($errors, "Fehler beim Speichern der Pr&uuml;fung. Bitte erneut versuchen!");
 				}else {
+					
 					$result = true;
 				}
 			}
@@ -133,6 +140,11 @@ class PruefungController extends AbstractActionController {
 		
 		$viewModel->setTemplate(PruefungController::pathToHtml);
 		return $viewModel;
+	}
+	
+	//TODO
+	public function deleteAction() {
+		
 	}
 	
 	/**
