@@ -95,6 +95,12 @@ class KursController extends AbstractActionController
                 return new ViewModel(['kursarray' => $kursdaten]);
         }
     }
+    
+    public function ladentestAction(){
+        $kurs = new Kurs();
+        $laden = $kurs->loadKurse(User::currentUser()->getBenutzername());
+        return new ViewModel(['result' => $laden]);
+    }
    
    public function csvinviteAction(){
    	
