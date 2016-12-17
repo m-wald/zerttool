@@ -102,6 +102,8 @@ class KursController extends AbstractActionController
         return new ViewModel(['result' => $laden]);
     }
    
+    
+    
    public function csvinviteAction(){
    	
    
@@ -114,21 +116,21 @@ class KursController extends AbstractActionController
    		$extension=strtolower(pathinfo($_FILES['datei']['name'], PATHINFO_EXTENSION));
    		
    		
-   		//ï¿½berprï¿½fung der Dateiendung
+   		//Überprüfung der Dateiendung
    		
    		$allowed_extensions=array('csv');
    		
    		if(!in_array($extension, $allowed_extensions)) {
-   			die("<ausgabe>Ung&uuml;ltige Dateiendung. Nur CSV-Dateien sind erlaubt<!/ausgabe>");
+   			return new ViewModel(['meldung' => 'datentyp']);
    		} 
    		
-   		//ï¿½berprï¿½fung der Dateigrï¿½ï¿½e
+   		//Überprüfung der Dateigröße
    		
-   		$max_size = 1024*1024;                                   //1 MB
+   		$max_size = 2000000;                                //2 MB (in Byte angegeben)
    		
    		if($_FILES['datei']['size'] > $max_size) {
    				
-   			die("Bitte keine Dateien groesser 1MB hochladen");
+   			return new ViewModel(['meldung' =>'dateigroesse']);
    		}
    		
    		//Pfad zum Upload
@@ -137,7 +139,7 @@ class KursController extends AbstractActionController
    		
    		//Neuer Dateiname falls die Datei bereits existiert
    		
-   		if(file_exists($new_path)) { //Falls Datei existiert, hï¿½nge eine Zahl an den Dateinamen
+   		if(file_exists($new_path)) { //Falls Datei existiert, hänge eine Zahl an den Dateinamen
    			$id = 1;
    			do {
    				$new_path = $upload_folder.$filename.'_'.$id.'.'.$extension;
@@ -147,12 +149,17 @@ class KursController extends AbstractActionController
    		
    		//Alles okay, verschiebe Datei an neuen Pfad
    		
-   		move_uploaded_file($_FILES['datei']['tmp_name'], $new_path); 
+   		if(move_uploaded_file($_FILES['datei']['tmp_name'], $new_path)) {
+   			
+   			return new ViewModel(['meldung' => 'erfolgreich']);
+   			echo $new_path;
+   		}
+   			 
    	   		
+   	}
    		
    		
-   		echo "erfolgreich";
-   	} 
+   	
    	else{
    		return new ViewModel();
    	}
