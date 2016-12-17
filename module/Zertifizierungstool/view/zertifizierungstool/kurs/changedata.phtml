@@ -23,16 +23,16 @@ else { ?>
 <?php //while($row = $kursarray) { ?>
 
 		<tr>
-			<td> <?php echo $row[1]?> </td>
-			<td> <?php echo $row[2]?> </td>
-			<td> <?php echo $row[3]?> </td>		
+			<td> <?php echo $row[1];?> </td>
+			<td> <?php echo $row[2];?> </td>
+			<td> <?php echo $row[3];?> </td>		
 
 <?php	 
 if($row[4]==1) {$select='sichtbar';}
 else {$select='nicht sichtbar';}
 ?>	
 			<td> 
-			<?php echo $select ?> 
+			<?php echo $select; ?> 
 			</td>		
 				<td>
 					<form method="post" action="changedata">
