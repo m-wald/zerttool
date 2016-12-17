@@ -109,6 +109,14 @@ class KursController extends AbstractActionController
         
         
     }
+    
+    public function kurseanzeigenAction(){
+        $kurs = new Kurs();
+        $laden = $kurs->loadKurse(User::currentUser()->getBenutzername());
+        return new ViewModel(['result' => $laden]);
+        
+        
+    }
    
     
     
