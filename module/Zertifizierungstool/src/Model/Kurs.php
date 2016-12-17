@@ -80,7 +80,14 @@ class Kurs {
     	$result = $db->execute($query);
     
     	$return_array = array();
-    
+        
+        if (mysql_num_rows($result) > 0){
+            return $result;
+        }else{
+            return 0;
+        }
+        
+        /*
     	if (mysqli_num_rows($result) > 0) {
     		while ($row = mysqli_fetch_assoc($result)) {
     			array_push($return_array, $row);
@@ -89,7 +96,7 @@ class Kurs {
     	} else {
     		echo "Kein Ergebnis gefunden!";
                 return 0;
-    	}
+    	}*/
     	
     	/*
     	$courseloaded = false;
