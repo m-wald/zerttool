@@ -66,6 +66,12 @@ class KursController extends AbstractActionController
 	$kurs->save();
 		
 	return new ViewModel();
+        /*
+        if($_SERVER['REQUEST_METHOD'] == 'POST') {
+            
+        }
+         * 
+         */
     }
     
 	    
@@ -100,6 +106,8 @@ class KursController extends AbstractActionController
         $kurs = new Kurs();
         $laden = $kurs->loadKurse(User::currentUser()->getBenutzername());
         return new ViewModel(['result' => $laden]);
+        
+        
     }
    
     
