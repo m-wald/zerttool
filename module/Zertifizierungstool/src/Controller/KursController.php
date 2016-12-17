@@ -7,7 +7,7 @@ use Zertifizierungstool\Model\Kurs;
 use Zertifizierungstool\Model\User;
 
 class KursController extends AbstractActionController
-{
+{   /*
     public function anlegenAction(){
         
         if($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -35,7 +35,7 @@ class KursController extends AbstractActionController
             
              * 
              */
-            
+/*            
             $kurs = new Kurs(
                     $_REQUEST["kursname"], 
                     $_REQUEST["kursstart"], 
@@ -57,8 +57,8 @@ class KursController extends AbstractActionController
 	return new ViewModel();
 	      
         
-    }
-    
+    }*/
+    /*
     public function anlegentestAction()
     {
 	$kurs = new Kurs("ITM", "01.12.2016", "31.12.2016", 0, "aaa");
@@ -67,7 +67,7 @@ class KursController extends AbstractActionController
 		
 	return new ViewModel();
     }
-    
+    */
 	    
     /*public function changedataAction() {
    			
@@ -82,7 +82,7 @@ class KursController extends AbstractActionController
         return new ViewModel(['kursdaten' => array(User::currentKurs()->getBenutzername(),User::currentUser()->getVorname(), User::currentUser()->getNachname(), User::currentUser()->getGeburtsdatum(), User::currentUser()->getStrasse(), User::currentUser()->getPLZ(), User::currentUser()->getOrt(), User::currentUser()->getEmail())]);
         }	
    }*/
-   
+   /*
    public function changedataAction(){
     if(User::currentUser()->getBenutzername()==NULL){
 		header("refresh:0; url= /user/login");
@@ -94,8 +94,8 @@ class KursController extends AbstractActionController
          	$kursdaten = loadKurse($user);
                 return new ViewModel(['kursarray' => $kursdaten]);
         }
-    }
-    
+    }*/
+    /*
     public function ladentestAction(){
         $kurs = new Kurs();
         $laden = $kurs->loadKurse(User::currentUser()->getBenutzername());
@@ -103,7 +103,7 @@ class KursController extends AbstractActionController
     }
    
     
-    
+    */
    public function csvinviteAction(){
    	
    
@@ -116,7 +116,7 @@ class KursController extends AbstractActionController
    		$extension=strtolower(pathinfo($_FILES['datei']['name'], PATHINFO_EXTENSION));
    		
    		/*
-   		//Überprüfung der Dateiendung
+   		//ï¿½berprï¿½fung der Dateiendung
    		
    		$allowed_extensions=array('csv');
    		
@@ -124,7 +124,7 @@ class KursController extends AbstractActionController
    			return new ViewModel(['meldung' => 'datentyp']);
    		} 
    		
-   		//Überprüfung der Dateigröße
+   		//ï¿½berprï¿½fung der Dateigrï¿½ï¿½e
    		
    		$max_size = 2000000;                                //2 MB (in Byte angegeben)
    		
@@ -139,7 +139,7 @@ class KursController extends AbstractActionController
    		
    		//Neuer Dateiname falls die Datei bereits existiert
    		
-   		if(file_exists($new_path)) { //Falls Datei existiert, hänge eine Zahl an den Dateinamen
+   		if(file_exists($new_path)) { //Falls Datei existiert, hï¿½nge eine Zahl an den Dateinamen
    			$id = 1;
    			do {
    				$new_path = $upload_folder.$filename.'_'.$id.'.'.$extension;
