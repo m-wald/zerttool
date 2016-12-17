@@ -95,7 +95,6 @@ class KursController extends AbstractActionController
     }
 
     else{
-    		$kursdaten = array();
     		$user= User::currentUser()->getBenutzername();
          	$kursdaten = loadKurse($user);
                 return new ViewModel(['kursarray' => 'kursdaten']);
