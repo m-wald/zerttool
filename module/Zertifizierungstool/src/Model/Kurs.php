@@ -43,7 +43,7 @@ class Kurs {
      */
     public function load($id) {
         $db = new Db_connection();
-        $query = "SELECT * FROM kurs WHERE kursid = $1;";
+        $query = "SELECT * FROM kurs WHERE kursid = '".$id."';";
         $result = $db->execute($query);
 
         $return_array = array();
@@ -73,7 +73,7 @@ class Kurs {
     
     public function loadKurse($benutzername) {
     	$db = new Db_connection();
-    	$query = "SELECT * FROM kurs WHERE benutzername = $1 
+    	$query = "SELECT * FROM kurs WHERE benutzername = '".$benutzername."'
     			AND (CURRENT_DATE BETWEEN kurs_start
                         AND kurs_ende);";
     	
