@@ -1,11 +1,17 @@
 <h1>Kurs</h1>
-
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+    
+    <div class="container">
 <?php
 
 use Zertifizierungstool\Model\Kurs;
 
 echo "Es existieren folgende Mitarbeiterdaten: <br><br>";
-    echo '<table border="1">';
+    echo '<table class="table table-hover" border="1">';
             echo "<tr>";
                     echo "<th> KursID </th>";
                     echo "<th> KursName </th>";
@@ -27,11 +33,14 @@ echo "Es existieren folgende Mitarbeiterdaten: <br><br>";
                             echo "<td>". $row['kurs_ende'] . "</td>";
                             echo "<td>". $row['sichtbarkeit'] . "</td>";
                             echo "<td>". $row['benutzername'] . "</td>";
-                            echo '<td> <form accept-charset="utf-8" method="POST" action="mitarbeiterloeschen.php">',
-                                                    '<input type="hidden" value="'.$row[0].'"name="löschen">',
+                            echo '<td> <form accept-charset="utf-8" method="POST" action="ladentest">',
+                                                    '<input type="hidden" value="'.$row[0].'"name="ändern">',
                                                     '<input size="70" maxlength="250" value="löschen" type="submit"><br>',
                                                     '</form> </td>';
                     echo "</tr>";
             }
 ?>
+
+    </div>
+</body>
 
