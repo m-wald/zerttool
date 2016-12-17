@@ -7,7 +7,7 @@ use Zertifizierungstool\Model\Kurs;
 use Zertifizierungstool\Model\User;
 
 class KursController extends AbstractActionController
-{   /*
+{   
     public function anlegenAction(){
         
         if($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -35,7 +35,7 @@ class KursController extends AbstractActionController
             
              * 
              */
-/*            
+            
             $kurs = new Kurs(
                     $_REQUEST["kursname"], 
                     $_REQUEST["kursstart"], 
@@ -57,8 +57,8 @@ class KursController extends AbstractActionController
 	return new ViewModel();
 	      
         
-    }*/
-    /*
+    }
+    
     public function anlegentestAction()
     {
 	$kurs = new Kurs("ITM", "01.12.2016", "31.12.2016", 0, "aaa");
@@ -67,7 +67,7 @@ class KursController extends AbstractActionController
 		
 	return new ViewModel();
     }
-    */
+    
 	    
     /*public function changedataAction() {
    			
@@ -95,7 +95,7 @@ class KursController extends AbstractActionController
                 return new ViewModel(['kursarray' => $kursdaten]);
         }
     }*/
-    /*
+    
     public function ladentestAction(){
         $kurs = new Kurs();
         $laden = $kurs->loadKurse(User::currentUser()->getBenutzername());
@@ -115,7 +115,7 @@ class KursController extends AbstractActionController
    		$filename=pathinfo($_FILES['datei']['name'],PATHINFO_FILENAME);
    		$extension=strtolower(pathinfo($_FILES['datei']['name'], PATHINFO_EXTENSION));
    		
-   		/*
+   		
    		//�berpr�fung der Dateiendung
    		
    		$allowed_extensions=array('csv');
@@ -163,7 +163,7 @@ class KursController extends AbstractActionController
    	else{
    		return new ViewModel();
    	}
-   } */
+   } 
 }
    				
    			
