@@ -104,7 +104,6 @@ class KursController extends AbstractActionController
     }
    
    
-   
    public function csvinviteAction(){
    	
    
