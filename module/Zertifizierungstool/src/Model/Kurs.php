@@ -81,7 +81,7 @@ class Kurs {
     
     	$return_array = array();
         
-        if (mysql_num_rows($result) > 0){
+        if (mysqli_num_rows($result) > 0){
             return $result;
         }else{
             return 0;
