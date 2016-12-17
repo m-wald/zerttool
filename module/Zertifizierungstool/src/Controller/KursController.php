@@ -102,20 +102,25 @@ class KursController extends AbstractActionController
         }
     }*/
     
+    /*
     public function ladentestAction(){
         $kurs = new Kurs();
         $laden = $kurs->loadKurse(User::currentUser()->getBenutzername());
-        return new ViewModel(['result' => $laden]);
-        
-        
+        return new ViewModel(['result' => $laden]);  
     }
+    */
     
     public function kurseanzeigenAction(){
         $kurs = new Kurs();
         $laden = $kurs->loadKurse(User::currentUser()->getBenutzername());
         return new ViewModel(['result' => $laden]);
         
-        
+    }
+    
+    public function kursauswählenAction(){
+        /*if($_SERVER['REQUEST_METHOD'] == 'POST') {
+            
+        }*/
     }
    
     
