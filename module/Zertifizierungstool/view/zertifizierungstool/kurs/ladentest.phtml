@@ -1,0 +1,39 @@
+<h1>Kurs</h1>
+
+<?php
+use Zertifizierungstool\Model\Kurs;
+
+header("refresh:4; url = /user/home");
+
+
+echo "Es existieren folgende Mitarbeiterdaten: <br><br>";
+    echo '<table border="1">';
+            echo "<tr>";
+                    echo "<th> KursID </th>";
+                    echo "<th> KursName </th>";
+                    echo "<th> KursStart </th>";
+                    echo "<th> KursEnde </th>";
+                    echo "<th> Sichtbarkeit </th>";
+                    echo "<th> Benutzername </th>";
+                    echo "<th width=50> </th>";
+    echo "</tr>";
+            foreach($result as $row){
+                
+                /*}
+                while ($row = pg_fetch_row($result))
+                {*/
+                    echo "<tr>";
+                            echo "<td>". $row['kurs_id'] . "</td>";
+                            echo "<td>". $row['kurs_name'] . "</td>";
+                            echo "<td>". $row['kurs_start'] . "</td>";
+                            echo "<td>". $row['kurs_ende'] . "</td>";
+                            echo "<td>". $row['sichtbarkeit'] . "</td>";
+                            echo "<td>". $row['benutzername'] . "</td>";
+                            echo '<td> <form accept-charset="utf-8" method="POST" action="mitarbeiterloeschen.php">',
+                                                    '<input type="hidden" value="'.$row[0].'"name="löschen">',
+                                                    '<input size="70" maxlength="250" value="löschen" type="submit"><br>',
+                                                    '</form> </td>';
+                    echo "</tr>";
+            }
+?>
+
