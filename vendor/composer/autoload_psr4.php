@@ -6,11 +6,11 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'Zertifizierungstool\\' => array($baseDir . '/module/Zertifizierungstool/src'),
     'Zend\\View\\' => array($vendorDir . '/zendframework/zend-view/src'),
     'Zend\\Validator\\' => array($vendorDir . '/zendframework/zend-validator/src'),
     'Zend\\Uri\\' => array($vendorDir . '/zendframework/zend-uri/src'),
     'Zend\\Stdlib\\' => array($vendorDir . '/zendframework/zend-stdlib/src'),
-    'Zend\\SkeletonInstaller\\' => array($vendorDir . '/zendframework/zend-skeleton-installer/src'),
     'Zend\\Session\\' => array($vendorDir . '/zendframework/zend-session/src'),
     'Zend\\ServiceManager\\' => array($vendorDir . '/zendframework/zend-servicemanager/src'),
     'Zend\\Router\\' => array($vendorDir . '/zendframework/zend-router/src'),
@@ -29,7 +29,9 @@ return array(
     'Zend\\Config\\' => array($vendorDir . '/zendframework/zend-config/src'),
     'Zend\\ComponentInstaller\\' => array($vendorDir . '/zendframework/zend-component-installer/src'),
     'Zend\\Code\\' => array($vendorDir . '/zendframework/zend-code/src'),
+    'Zend\\Authentication\\' => array($vendorDir . '/zendframework/zend-authentication/src'),
     'ZF\\DevelopmentMode\\' => array($vendorDir . '/zfcampus/zf-development-mode/src'),
     'Interop\\Container\\' => array($vendorDir . '/container-interop/container-interop/src/Interop/Container'),
     'Application\\' => array($baseDir . '/module/Application/src'),
+    'ApplicationTest\\' => array($baseDir . '/module/Application/test'),
 );

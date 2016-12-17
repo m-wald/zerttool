@@ -13,11 +13,11 @@ class ComposerStaticInit224b1ccb092d137219cdb01ccdf45102
     public static $prefixLengthsPsr4 = array (
         'Z' => 
         array (
+            'Zertifizierungstool\\' => 20,
             'Zend\\View\\' => 10,
             'Zend\\Validator\\' => 15,
             'Zend\\Uri\\' => 9,
             'Zend\\Stdlib\\' => 12,
-            'Zend\\SkeletonInstaller\\' => 23,
             'Zend\\Session\\' => 13,
             'Zend\\ServiceManager\\' => 20,
             'Zend\\Router\\' => 12,
@@ -36,6 +36,7 @@ class ComposerStaticInit224b1ccb092d137219cdb01ccdf45102
             'Zend\\Config\\' => 12,
             'Zend\\ComponentInstaller\\' => 24,
             'Zend\\Code\\' => 10,
+            'Zend\\Authentication\\' => 20,
             'ZF\\DevelopmentMode\\' => 19,
         ),
         'I' => 
@@ -45,10 +46,15 @@ class ComposerStaticInit224b1ccb092d137219cdb01ccdf45102
         'A' => 
         array (
             'Application\\' => 12,
+            'ApplicationTest\\' => 16,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
+        'Zertifizierungstool\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/module/Zertifizierungstool/src',
+        ),
         'Zend\\View\\' => 
         array (
             0 => __DIR__ . '/..' . '/zendframework/zend-view/src',
@@ -64,10 +70,6 @@ class ComposerStaticInit224b1ccb092d137219cdb01ccdf45102
         'Zend\\Stdlib\\' => 
         array (
             0 => __DIR__ . '/..' . '/zendframework/zend-stdlib/src',
-        ),
-        'Zend\\SkeletonInstaller\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/zendframework/zend-skeleton-installer/src',
         ),
         'Zend\\Session\\' => 
         array (
@@ -141,6 +143,10 @@ class ComposerStaticInit224b1ccb092d137219cdb01ccdf45102
         array (
             0 => __DIR__ . '/..' . '/zendframework/zend-code/src',
         ),
+        'Zend\\Authentication\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/zendframework/zend-authentication/src',
+        ),
         'ZF\\DevelopmentMode\\' => 
         array (
             0 => __DIR__ . '/..' . '/zfcampus/zf-development-mode/src',
@@ -152,6 +158,10 @@ class ComposerStaticInit224b1ccb092d137219cdb01ccdf45102
         'Application\\' => 
         array (
             0 => __DIR__ . '/../..' . '/module/Application/src',
+        ),
+        'ApplicationTest\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/module/Application/test',
         ),
     );
 
