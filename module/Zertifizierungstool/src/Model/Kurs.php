@@ -42,7 +42,7 @@ class Kurs {
      * @return true, falls keine Fehler aufgetreten sind. Sonst false
      */
     
-    /*
+    
     public function load($id) {
         $db = new Db_connection();
         $query = "SELECT * FROM kurs WHERE kursid = '".$id."';";
@@ -122,14 +122,14 @@ class Kurs {
          * 
          *    	}*/
     
-/*    
+    
     }
-*/    
+   
     /**
      * Schreibt den aktuellen Kurs in die Datenbank
      */
     
-/*    
+    
     public function save(){
         $db = new Db_connection();
 	$query = "INSERT INTO kurs (kurs_name, kurs_start, kurs_ende, sichtbarkeit, benutzername) VALUES ('".$this->kurs_name."','".$this->kurs_start."', '".$this->kurs_ende."', '".$this->sichtbarkeit."', '".$this->benutzername."')";
