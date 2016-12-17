@@ -87,9 +87,10 @@ class Kurs {
     		while ($row = mysqli_fetch_assoc($result)) {
     			array_push($return_array, $row);
     		}
-    	return $return_array;
+            return $return_array;
     	} else {
     		echo "Kein Ergebnis gefunden!";
+                return 0;
     	}
     	
     	/*
