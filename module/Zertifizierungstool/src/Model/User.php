@@ -309,7 +309,7 @@ class User
 	
 	}
 	
-	public function  updatePassword_forgotten($passwort, $pruefzahl) {
+	public function  check_pruefzahl($pruefzahl) {
 	
 		$db = new Db_connection();
 		$query = "select * from benutzer where benutzername='".$this->benutzername."' and pruefzahl=".$pruefzahl.";";
@@ -318,16 +318,8 @@ class User
 			return false;
 		}
 		else {
-			
-			$passwort = $this->saltPasswort($passwort);
-			$db = new Db_connection();
-			$query = "update benutzer set passwort = '".$passwort."', pruefzahl=NULL where benutzername ='".$this->benutzername."';";
-			$result = $db->execute($query);
 			return true;
 		}
-		
-			
-	
 	}
 	
 }
