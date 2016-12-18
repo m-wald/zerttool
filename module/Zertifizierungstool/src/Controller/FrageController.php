@@ -229,7 +229,7 @@ class FrageController extends AbstractActionController {
 			// TODO Fehler abfangen
 		}
 		
-		Frage::delete($frage_id_toDelete->getId());
+		Frage::delete($frage_id_toDelete);
 		// TODO Fehler abfangen
 		
 		header ("refresh:0; url = /frage/create/" .$frage->getPruefungId());

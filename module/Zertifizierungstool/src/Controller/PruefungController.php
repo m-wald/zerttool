@@ -33,6 +33,7 @@ class PruefungController extends AbstractActionController {
 		
 		// Berechtigungsprüfung
 		if (!User::currentUser()->istAdmin() && !User::currentUser()->istZertifizierer()) {
+			return "Keine Berechtigung!";
 			array_push($errors, "Keine Berechtigung!");
 		}
 
@@ -159,7 +160,7 @@ class PruefungController extends AbstractActionController {
 		$error;
 		$kurs = new Kurs();
 		
-		if ($kurs->laden($pruefung->getKursId())) {
+		if ($kurs->load($pruefung->getKursId())) {
 			if ($pruefung->getTermin() < $kurs->getKurs_start()) {
 				$error= "Der Pr&uuml;fungszeitraum kann erst nach Kursbeginn beginnen!";
 			

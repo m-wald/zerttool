@@ -95,6 +95,20 @@ input[type=number]{
 			'<p id="ant' + neuStelle +'"></p>';
 	}
 
+	new newAntwortEdit() {
+		AntwortAnzahl = AntwortAnzahl + 1;
+		
+		var aktStelle = AntwortAnzahl;
+		var neuStelle = AntwortAnzahl + 1;
+		
+		document.getElementById("ant" + aktStelle).innerHTML =
+			'Antwortm&ouml;glichkeit ' + AntwortAnzahl + ': ' +
+			'<input type="text"     name="antwort_text     value="<?=$antwort[$i]->getText()?>"'    + AntwortAnzahl + '" required> ' +
+			'<input type="checkbox" name="antwort_checked' <?php if ($antwort[$i]->getStatus == 1) echo "checked"?>     + AntwortAnzahl + '">  ' +
+			'<button type="button" onclick="deleteAntwort(' + AntwortAnzahl + ')"> - </button>' +
+			'<p id="ant' + neuStelle +'"></p>';
+	}
+
 	function deleteAntwort(nummer) {
 		for (i = nummer; i <= AntwortAnzahl; i++) {
 			document.getElementById("ant" + i).innerHTML = document.getElementById("ant" + (i+1)).innerHTML; 
@@ -116,21 +130,13 @@ if (isset($errors)) {
 	}
 }
 
-// TODO entfernen?
-/*
-//Unterscheiden, ob Frage/Prüfung angelegt/bearbeitet
-if (isset($result[0]) && $result[0]) {
-	header ("refresh:0; url = /frage/create/" .$pruefung[0]->getId());
-}
-*/
-
 switch ($mode[0]) {
 	case PruefungController::createFragen:
-		$pruefReadonly = 'readonly = "readonly"';
+		$pruefReadonly = 'readonly = "readonly disabled"';
 		$pruefSaveButton = "hidden";
 		break;
 	case PruefungController::editFragen:
-		$pruefReadonly = 'readonly = "readonly"';
+		$pruefReadonly = 'readonly = "readonly" disabled';
 		$pruefSaveButton = "hidden";
 		break;
 	case PruefungController::createPruefung:
@@ -208,6 +214,7 @@ switch ($mode[0]) {
 		<input type="radio" name="tf" value="false" <?php if ($antworten[0]->getStatus() == 0) echo "checked";?>> Falsch<br>
 	
 	<?php } else {
+		echo '<input type="hidden" name="frage_typ" readonly="readonly" value="MC">';
 		$i = 1;
 		foreach ($antworten as $antwort) {
 			//newAntwort()
