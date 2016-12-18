@@ -118,21 +118,23 @@ class KursController extends AbstractActionController
     }
     
     public function changedataAction(){
-        if($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $kurs = new Kurs();
-            //$id = $_REQUEST("kurs_id");
-            $id = $_REQUEST["kurs_id"];
-            $laden = $kurs->load($id);
-            
-            if(empty($laden)){
-                $status = "leer";
-            } else {
-                $status = "gesetzt";
-            }
-            $viewmodel = new ViewModel(['result' => $laden,
-                    'status' => $status]);            
-            return $viewmodel;
+    	$id = $_REQUEST["kurs_id"];
+    	$kurs = new Kurs();
+    	if(!$kurs->load($id)) $status="Fehler beim Laden des Kurses!";
+    	
+        if($_REQUEST["speichern"]) {
+        	$kurs = new Kurs(
+        		$_REQUEST["kursid"],
+        		$_REQUEST["kursname"],
+        		$_REQUEST["kursstart"],
+        		$_REQUEST["kursende"],
+        		$_REQUEST["sichtbarkeit"]);
+           
         }
+        echo "Kursname: " .$kurs->getKurs_name();
+        return new ViewModel(['kurs' => $kurs,
+        		'status' => $status]);
+        
     }
    
     
