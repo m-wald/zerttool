@@ -46,27 +46,19 @@ class Kurs {
     public function load($id) {
         $db = new Db_connection();
         $query = "SELECT * FROM kurs WHERE kurs_id = ".$id.";";
-        $result = $db->execute($query);
-
-        $return_array = array();
+        $result = $db->execute($query);       
 
         if (mysqli_num_rows($result) > 0) {
-            while ($row = mysqli_fetch_assoc($result)) {
-                array_push($return_array, $row);
-            }
-        } else {
-            echo "Kein Ergebnis gefunden!";
-        }
-        
-        foreach ($row as $return_array) {
-            $this->kurs_id = $row['kurs_id'];
-            $this->kurs_name = $row['kurs_name'];
-            $this->kurs_start = $row['kurs_start'];
-            $this->kurs_ende = $row['kurs_ende'];
-            $this->sichtbarkeit = $row['sichtbarkeit'];
-            $this->benutzername = $row['benutzername'];
-
-            return true;
+            $row = mysqli_fetch_assoc($result);
+       
+                $this->kurs_id = $row['kurs_id'];
+                $this->kurs_name = $row['kurs_name'];
+                $this->kurs_start = $row['kurs_start'];
+                $this->kurs_ende = $row['kurs_ende'];
+                $this->sichtbarkeit = $row['sichtbarkeit'];
+                $this->benutzername = $row['benutzername'];
+                
+                return true;
         }
 
         //Wenn die Methode hier ankommt, dann konnte das Objekt nicht erzeugt werden
