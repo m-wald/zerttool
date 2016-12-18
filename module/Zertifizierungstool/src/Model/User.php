@@ -301,7 +301,7 @@ class User
 		
 			$passwort = $this->saltPasswort($passwort);
 			$db = new Db_connection();
-			$query = "update benutzer set passwort = '".$passwort."' where benutzername ='".$this->benutzername."';";
+			$query = "update benutzer set passwort = '".$passwort."', pruefzahl=NULL where benutzername ='".$this->benutzername."';";
 			$result = $db->execute($query);
 			return $result;
 
