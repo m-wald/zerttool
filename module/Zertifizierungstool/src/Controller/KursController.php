@@ -123,9 +123,10 @@ class KursController extends AbstractActionController
             $id = $_REQUEST("kurs_id");
             $laden = $kurs->load($id);
             if(empty($laden)){
-                return new ViewModel(['result' => $laden]);
+                return new ViewModel(['result' => $laden,
+                    'error' => 'leer']);
             } else {
-                return new ViewModel(['error' => 'leer']);
+                return new ViewModel();
             }
         }
     }
