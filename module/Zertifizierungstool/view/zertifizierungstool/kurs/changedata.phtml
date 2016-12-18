@@ -29,11 +29,19 @@ if($status == "gesetzt") { ?>
     </form>
     
     
-    <form method="post" action="upload">
+    
+
+<?php }
+if($meldung=='datentyp') echo "Datentyp ist falsch!";
+	elseif($meldung=='dateigroesse') echo "Datei ist zu gross!";
+		else {
+?>
+
+<form method="post" action="upload">
      Dokument: <input type='file' name='datei[]' id='datei[]'><br>
     <input type='submit' value='Upload ' name='submit'>
     </form>
 
-<?php }?>
-
-
+    	<?php
+			if($meldung=='erfolgreich') echo"Datei ist erfolgreich uploaded!";		
+		}?>
