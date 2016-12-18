@@ -21,13 +21,19 @@ if($status == "gesetzt") { ?>
                         <?php } else { ?>
                             <option value= 0 selected>nicht sichtbar</option>
                         <?php } ?>
-                </select>'></td></tr>
+                </select></td></tr>
         <tr><td>Benutzername:</td><td> <input type="text" name="benutzername" required value='<?php echo $result[5]?>'></td></tr>
     </table>
     <br><br>
     <input type = "submit" value="Kursdaten ändern!"> 
     </form>
+    
+    
+    <form method="post" action="upload">
+     Dokument: <input type='file' name='datei[]' id='datei[]'><br>
+    <input type='submit' value='Upload ' name='submit'>
+    </form>
 
 <?php }?>
-?>
+
 

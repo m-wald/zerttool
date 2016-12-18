@@ -196,6 +196,70 @@ class KursController extends AbstractActionController
    		return new ViewModel();
    	}
    } 
+
+
+
+
+public function uploadAction(){
+
+	 
+	if($_SERVER['REQUEST_METHOD'] == 'POST') {
+		 
+		//Upload-Verzeichnis
+		 
+		$upload_folder= 'data/uploadsKurse/';
+		$filename=pathinfo($_FILES['datei']['name'],PATHINFO_FILENAME);
+		$extension=strtolower(pathinfo($_FILES['datei']['name'], PATHINFO_EXTENSION));
+		 
+		 
+		//�berpr�fung der Dateiendung
+		 
+		$allowed_extensions=array('pdf','word');
+		 
+		if(!in_array($extension, $allowed_extensions)) {
+			return new ViewModel(['meldung' => 'datentyp']);
+		}
+		 
+		//�berpr�fung der Dateigr��e
+		 
+		$max_size = 2000000;                                //2 MB (in Byte angegeben)
+		 
+		if($_FILES['datei']['size'] > $max_size) {
+				
+			return new ViewModel(['meldung' =>'dateigroesse']);
+		}
+		 
+		//Pfad zum Upload
+		 
+		$new_path = $upload_folder.$filename.'.'.$extension;
+		 
+		//Neuer Dateiname falls die Datei bereits existiert
+		 
+		if(file_exists($new_path)) { //Falls Datei existiert, h�nge eine Zahl an den Dateinamen
+			$id = 1;
+			do {
+				$new_path = $upload_folder.$filename.'_'.$id.'.'.$extension;
+				$id++;
+			} while(file_exists($new_path));
+		}
+		 
+		//Alles okay, verschiebe Datei an neuen Pfad
+		 
+		if(move_uploaded_file($_FILES['datei']['tmp_name'], $new_path)) {
+
+			return new ViewModel(['meldung' => 'erfolgreich']);
+			echo $new_path;
+		}
+		 
+		 
+	}	 
+
+	else{
+		return new ViewModel();
+	}
+  }
+
+
 }
    				
    			
