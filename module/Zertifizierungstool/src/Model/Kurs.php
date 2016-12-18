@@ -133,7 +133,7 @@ class Kurs {
 
     public function update($kurs_id) {
         $db = new Db_connection();
-        $query = "SELECT * FROM kurs WHERE kursid = $1;";
+        //  todo $query = "UPDATE kurs SET  = '".$kurs_id."';";
         $result = $db->execute($query);
 
         //
