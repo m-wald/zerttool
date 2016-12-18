@@ -312,7 +312,7 @@ class User
 	public function  updatePassword_forgotten($passwort, $pruefzahl) {
 	
 		$db = new Db_connection();
-		$query = "select * from benutzer where benutzer='".$this->benutzername."' and pruefzahl=".$pruefzahl.";";
+		$query = "select * from benutzer where benutzername='".$this->benutzername."' and pruefzahl=".$pruefzahl.";";
 		$result = $db->execute($query);
 		if (mysqli_num_rows($result)<1){
 			return false;
