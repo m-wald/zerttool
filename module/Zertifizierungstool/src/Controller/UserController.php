@@ -144,8 +144,9 @@ class UserController extends AbstractActionController
 					$params["domain"], $params["secure"], $params["httponly"]
 					);
 		}
-		
+		session_unset();
 		session_destroy();
+		$_SESSION = array();
 		}
 	}
 	
