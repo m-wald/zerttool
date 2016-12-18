@@ -120,7 +120,8 @@ class KursController extends AbstractActionController
     public function changedataAction(){
         if($_SERVER['REQUEST_METHOD'] == 'POST') {
             $kurs = new Kurs();
-            $id = $_REQUEST("kurs_id");
+            //$id = $_REQUEST("kurs_id");
+            $id = $_REQUEST["kurs_id"];
             $laden = $kurs->load($id);
             
             if(empty($laden)){
