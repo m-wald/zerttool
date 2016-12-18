@@ -94,18 +94,6 @@ input[type=number]{
 			'<p id="ant' + neuStelle +'"></p>';
 	}
 
-	new newAntwortEdit() {
-		AntwortAnzahl = AntwortAnzahl + 1;
-		
-		var aktStelle = AntwortAnzahl;
-		var neuStelle = AntwortAnzahl + 1;
-		
-		document.getElementById("ant" + aktStelle).innerHTML =
-			'<input type="text"     name="antwort_text     value="<?=$antwort[$i]->getText()?>"'    + AntwortAnzahl + '" required> ' +
-			'<input type="checkbox" name="antwort_checked' <?php if ($antwort[$i]->getStatus == 1) echo "checked"?>     + AntwortAnzahl + '">  ' +
-			'<button type="button" onclick="deleteAntwort(' + AntwortAnzahl + ')"> - </button>' +
-			'<p id="ant' + neuStelle +'"></p>';
-	}
 
 	function deleteAntwort(nummer) {
 		for (i = nummer; i <= AntwortAnzahl; i++) {
