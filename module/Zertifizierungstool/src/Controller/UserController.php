@@ -227,7 +227,7 @@ class UserController extends AbstractActionController
 		
 		if (isset($_GET['benutzer'])) {
 			
-			return new ViewModel(['benutzer' => $_GET['benutzer']]);
+			return new ViewModel(['benutzer' => $_GET['benutzer'], 'pruefzahl' => $_GET['pruefzahl']]);
 			
 		} else if (isset($_POST['benutzermail'])){
 			
