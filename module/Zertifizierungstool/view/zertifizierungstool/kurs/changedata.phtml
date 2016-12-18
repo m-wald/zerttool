@@ -29,9 +29,10 @@ if (isset($status)) {
         <tr><td>Benutzername:</td><td> <input type="text" name="benutzername" required value='<?=$kurs->getBenutzername()?>'></td></tr>
     </table>
     <br><br>
+    <input type="hidden" name="kursid" readonly="readonly" value="<?=$kurs->getKurs_id()?>">
     <input type = "submit" value="Kursdaten ändern!"> 
     </form>
-    
+    <br>
     <a href="<?= $this->url('pruefung', ['action' => 'edit', 'id' => $kurs->getKurs_id()]) ?>"><button type="button">Pruefungen bearbeiten</button></a>
 
 
