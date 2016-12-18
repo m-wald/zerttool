@@ -31,9 +31,8 @@ class PruefungController extends AbstractActionController {
 		$result = false;
 		$fragen = array();
 		
-		// Berechtigungsprüfung
+		// Berechtigungsprüfung TODO weiterleitung auf fehlerseite
 		if (!User::currentUser()->istAdmin() && !User::currentUser()->istZertifizierer()) {
-			return "Keine Berechtigung!";
 			array_push($errors, "Keine Berechtigung!");
 		}
 

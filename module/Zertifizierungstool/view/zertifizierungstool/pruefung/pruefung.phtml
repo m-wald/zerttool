@@ -52,7 +52,7 @@ input[type=number]{
 
 		'<input type="hidden" name="frage_typ" readonly="readonly" value="MC">' +
 		
-		'Antwortm&ouml;glichkeit 1: ' +
+		'Antwortm&ouml;glichkeiten:<br>' +
 		'<input type="text"     name="antwort_text1" required> ' +
 		'<input type="checkbox" name="antwort_checked1">' +
 		
@@ -88,7 +88,6 @@ input[type=number]{
 		var neuStelle = AntwortAnzahl + 1;
 		
 		document.getElementById("ant" + aktStelle).innerHTML =
-			'Antwortm&ouml;glichkeit ' + AntwortAnzahl + ': ' +
 			'<input type="text"     name="antwort_text'    + AntwortAnzahl + '" required> ' +
 			'<input type="checkbox" name="antwort_checked' + AntwortAnzahl + '">  ' +
 			'<button type="button" onclick="deleteAntwort(' + AntwortAnzahl + ')"> - </button>' +
@@ -102,7 +101,6 @@ input[type=number]{
 		var neuStelle = AntwortAnzahl + 1;
 		
 		document.getElementById("ant" + aktStelle).innerHTML =
-			'Antwortm&ouml;glichkeit ' + AntwortAnzahl + ': ' +
 			'<input type="text"     name="antwort_text     value="<?=$antwort[$i]->getText()?>"'    + AntwortAnzahl + '" required> ' +
 			'<input type="checkbox" name="antwort_checked' <?php if ($antwort[$i]->getStatus == 1) echo "checked"?>     + AntwortAnzahl + '">  ' +
 			'<button type="button" onclick="deleteAntwort(' + AntwortAnzahl + ')"> - </button>' +
@@ -123,7 +121,6 @@ use Zertifizierungstool\Model\Antwort;
 use Zertifizierungstool\Model\Pruefung;
 use Zertifizierungstool\Controller\PruefungController;
 
-// TODO Wenn Berechitgungsfehler -> wegführen
 if (isset($errors)) {
 	foreach ($errors as $err) {
 		echo "Fehler: " . $err . "<br>";
