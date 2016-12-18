@@ -1,6 +1,6 @@
 <h1>Kursangaben &auml;ndern</h1>
 
-<?php /*
+<?php 
 if($status == "erfolgreich") { ?>
 	
 <a>Kursdaten wurden erfolgreich ge&auml;ndert</a>
@@ -20,7 +20,7 @@ else { ?>
 			<td> Sichtbarkeit:</td>
 		</tr>
 	
-<?php //while($row = $kursarray) { ?>
+<?php while($row = $kursarray) { ?>
 
 		<tr>
 			<td> <?php echo $row[1];?> </td>
@@ -28,8 +28,8 @@ else { ?>
 			<td> <?php echo $row[3];?> </td>		
 
 <?php	 
-if($row[4]==1) {$select='sichtbar';}
-else {$select='nicht sichtbar';}
+if($row[4]==1) $select='sichtbar';
+else $select='nicht sichtbar';
 ?>	
 			<td> 
 			<?php echo $select; ?> 
@@ -41,12 +41,9 @@ else {$select='nicht sichtbar';}
 					</form>
 				</td>
 		</tr>
-<?php //} ?>          
+<?php } ?>          
 
 	</table>
-*/
 
-?>
-
-
+<?php } ?>  
 
