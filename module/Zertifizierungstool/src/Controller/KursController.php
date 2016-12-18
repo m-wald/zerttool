@@ -112,15 +112,22 @@ class KursController extends AbstractActionController
     
     public function kurseanzeigenAction(){
         $kurs = new Kurs();
-        $laden = $kurs->loadKurse(User::currentUser()->getBenutzername());
-        return new ViewModel(['result' => $laden]);
+        $kurseladen = $kurs->loadKurse(User::currentUser()->getBenutzername());
+        return new ViewModel(['result' => $kurseladen]);
         
     }
     
-    public function kursauswählenAction(){
-        /*if($_SERVER['REQUEST_METHOD'] == 'POST') {
-            
-        }*/
+    public function changedataAction(){
+        if($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $kurs = new Kurs();
+            $id = $_REQUEST("kurs_id");
+            $laden = $kurs->load($id);
+            if(empty($laden)){
+                return new ViewModel(['result' => $laden]);
+            } else {
+                return new ViewModel(['error' => 'leer']);
+            }
+        }
     }
    
     
