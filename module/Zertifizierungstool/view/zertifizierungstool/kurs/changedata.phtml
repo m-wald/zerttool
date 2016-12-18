@@ -1,49 +1,34 @@
 <h1>Kursangaben &auml;ndern</h1>
 
 <?php 
-if($status == "erfolgreich") { ?>
+    
+use Zertifizierungstool\Model\Kurs;
+
+
+if($error != "leer") { ?>
 	
-<a>Kursdaten wurden erfolgreich ge&auml;ndert</a>
+    <h5> Passen Sie die Kursdaten entsprechend an.</h5>
 
+    <form method="post" action="changedata">
+    <table>
+        <tr><td>Kursname:</td><td> <input type="text" name="kursname" required value='<?php echo $result[1]?>'></td></tr>
+        <tr><td>Kursstart:</td><td> <input type="date" name="kursstart" required value='<?php echo $result[2]?>'></td></tr>
+        <tr><td>Kursende:</td><td> <input type="date" name="kursende" required value='<?php echo $result[3]?>'></td></tr>
+        <tr><td>Sichtbarkeit:</td><td> 
+                <select name="sichtbarkeit">
+                    <?php
+                        if($result[4] == 1){ ?>
+                            <option value = 1 selected> sichtbar </option>
+                        <?php } else { ?>
+                            <option value= 0 selected>nicht sichtbar</option>
+                        <?php } ?>
+                </select>'></td></tr>
+        <tr><td>Benutzername:</td><td> <input type="text" name="benutzername" required value='<?php echo $result[5]?>'></td></tr>
+    </table>
+    <br><br>
+    <input type = "submit" value="Kursdaten Ã¤ndern!"> 
+    </form>
 
-<?php 
-
-header("refresh:2; url = /user/home");}  		// Umleitung zum Kursübersicht
-
-else { ?>
-
-	<table>
-		<tr>
-			<td>Kursbezeichnung:</td>
-			<td>Startdatum:</td>
-			<td>Enddatum:</td>
-			<td> Sichtbarkeit:</td>
-		</tr>
-	
-<?php while($row = $result) { ?>
-
-		<tr>
-			<td> <?php echo $row[1];?> </td>
-			<td> <?php echo $row[2];?> </td>
-			<td> <?php echo $row[3];?> </td>		
-
-<?php	 
-if($row[4]==1) $select='sichtbar';
-else $select='nicht sichtbar';
-?>	
-			<td> 
-			<?php echo $select; ?> 
-			</td>		
-				<td>
-					<form method="post" action="kurseanzeigen">
-					<input type="hidden" value='<?php $row[0] ?>' name="change">
-					<input type="submit" value="change">
-					</form>
-				</td>
-		</tr>
-<?php } ?>          
-
-	</table>
-
-<?php } ?>  
+<?php }?>
+?>
 
