@@ -4,31 +4,38 @@
     
 use Zertifizierungstool\Model\Kurs;
 
-if($status == "gesetzt") { ?>
+if (isset($status)) {
+	echo $status;
+}
+
+?>
 	
     <h5> Passen Sie die Kursdaten entsprechend an.</h5>
 
     <form method="post" action="changedata">
     <table>
-        <tr><td>Kursname:</td><td> <input type="text" name="kursname" required value='<?php echo $result[1]?>'></td></tr>
-        <tr><td>Kursstart:</td><td> <input type="date" name="kursstart" required value='<?php echo $result[2]?>'></td></tr>
-        <tr><td>Kursende:</td><td> <input type="date" name="kursende" required value='<?php echo $result[3]?>'></td></tr>
+        <tr><td>Kursname:</td><td> <input type="text" name="kursname" required value='<?=$kurs->getKurs_name()?>'></td></tr>
+        <tr><td>Kursstart:</td><td> <input type="date" name="kursstart" required value='<?=$kurs->getKurs_start()?>'></td></tr>
+        <tr><td>Kursende:</td><td> <input type="date" name="kursende" required value='<?=$kurs->getKurs_ende()?>'></td></tr>
         <tr><td>Sichtbarkeit:</td><td> 
                 <select name="sichtbarkeit">
                     <?php
-                        if($result[4] == 1){ ?>
+                        if($kurs->getSichtbarkeit() == 1){ ?>
                             <option value = 1 selected> sichtbar </option>
                         <?php } else { ?>
                             <option value= 0 selected>nicht sichtbar</option>
                         <?php } ?>
                 </select></td></tr>
-        <tr><td>Benutzername:</td><td> <input type="text" name="benutzername" required value='<?php echo $result[5]?>'></td></tr>
+        <tr><td>Benutzername:</td><td> <input type="text" name="benutzername" required value='<?=$kurs->getBenutzername()?>'></td></tr>
     </table>
     <br><br>
     <input type = "submit" value="Kursdaten ändern!"> 
-    </form>     
+    </form>
+    
+    <a href="<?= $this->url('pruefung', ['action' => 'edit', 'id' => $kurs->getKurs_id()]) ?>"><button type="button">Pruefungen bearbeiten</button></a>
 
-<?php } /*
+
+<?php /*
 
 <form method="post" action="upload" enctype="multipart/form-data">
 Dokument: <input type='file' name='datei' id='datei'><br>
@@ -38,5 +45,5 @@ Dokument: <input type='file' name='datei' id='datei'><br>
 if($meldung=='datentyp') echo "Datentyp ist falsch!";
 	elseif($meldung=='dateigroesse') echo "Datei ist zu gross!";
 		elseif($meldung=='erfolgreich') echo"Datei ist erfolgreich uploaded!";	
-*/	
-?>
+	
+*/?>

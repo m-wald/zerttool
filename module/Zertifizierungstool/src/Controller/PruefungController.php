@@ -163,7 +163,7 @@ class PruefungController extends AbstractActionController {
 			if ($pruefung->getTermin() < $kurs->getKurs_start()) {
 				$error= "Der Pr&uuml;fungszeitraum kann erst nach Kursbeginn beginnen!";
 			
-			}elseif ($pruefung->getTermin() > date_sub($kurs->getKurs_start(), new \DateInterval("P4D"))) {
+			}elseif ($pruefung->getTermin() > date_sub($kurs->getKurs_ende(), new \DateInterval("P4D"))) {
 				$error = "Der Pr&uuml;fungszeitraum muss spätestens 4 Tage vor Kursende beginnen!";
 			}
 		}else {
