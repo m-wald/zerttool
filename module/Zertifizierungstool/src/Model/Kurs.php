@@ -45,7 +45,7 @@ class Kurs {
     
     public function load($id) {
         $db = new Db_connection();
-        $query = "SELECT * FROM kurs WHERE kursid = '".$id."';";
+        $query = "SELECT * FROM kurs WHERE kursid = ".$id.";";
         $result = $db->execute($query);
 
         $return_array = array();
