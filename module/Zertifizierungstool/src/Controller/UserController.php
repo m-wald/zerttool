@@ -241,8 +241,13 @@ class UserController extends AbstractActionController
 			if ($_POST['newPasswort1']==$_POST['newPasswort2']) {
 				$user = new User();
 				$user->load($_POST['benutzer']);
-				$user->updatePassword($_POST['newPasswort1']);
-				return new ViewModel(['status'=>'erfolgreich']);
+				$result = $user->updatePassword_forgotten($_POST['newPasswort1']);
+				if ($result){
+					return new ViewModel(['status'=>'erfolgreich']);
+				}else {
+				
+					return new ViewModel(['status'=>'falsche pruefzahl']);
+				}
 			}
 			else {
 				return new ViewModel(['status'=>'ungleiche passwoerter', 'benutzer'=>$_POST['benutzer']]);
