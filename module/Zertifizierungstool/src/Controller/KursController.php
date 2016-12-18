@@ -131,6 +131,7 @@ class KursController extends AbstractActionController
         		$_REQUEST["sichtbarkeit"]);
            
         }
+        echo $kurs->getKurs_name();
         return new ViewModel(['kurs' => $kurs,
         		'status' => $status]);
         
