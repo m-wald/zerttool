@@ -263,7 +263,7 @@ class User
 		$db = new Db_connection();
 		
 		$pruefzahl = mt_rand(0,999999999);
-		$query = "update benutzer set pruefzahl =".$pruefzahl." where benutzer='".$this->benutzername."';";
+		$query = "update benutzer set pruefzahl =".$pruefzahl." where benutzername='".$this->benutzername."';";
 		$result = $db->execute($query);
 		
 		$empfaenger = $this->email;
