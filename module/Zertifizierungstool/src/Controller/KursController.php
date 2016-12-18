@@ -122,8 +122,8 @@ class KursController extends AbstractActionController
     	$kurs = new Kurs();
     	if(!$kurs->load($id)) $status="Fehler beim Laden des Kurses!";
     	
-        if($_SERVER['REQUEST_METHOD'] == 'POST') {
-        	$kurs = new Kurs("",
+        if($_REQUEST["speichern"]) {
+        	$kurs = new Kurs(
         		$_REQUEST["kursid"],
         		$_REQUEST["kursname"],
         		$_REQUEST["kursstart"],
