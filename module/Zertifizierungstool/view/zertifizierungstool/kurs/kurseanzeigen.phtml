@@ -10,28 +10,29 @@
 <body>
     
     <div class="container">
-        <?php
+    	<h3>Ihre Kurse: </h3>";
+            <table class="table table-hover">
         
-        echo "<h3>Ihre Kurse: </h3>";
-            echo '<table class="table table-hover">';
-                    echo "<tr>";
-                            echo "<th> KursID </th>";
-                            echo "<th> KursName </th>";
-                            echo "<th> Benutzername </th>";
-                            echo "<th></th>";
-            echo "</tr>";
-                    foreach($result as $row){
-                        echo "<tr>";
-                                echo "<td>". $row['kurs_id'] . "</td>";
-                                echo "<td>". $row['kurs_name'] . "</td>";
-                                echo "<td>". $row['benutzername'] . "</td>";
-                                echo '<td> <form accept-charset="utf-8" method="POST" action="changedata">',
-                                                        '<input type="hidden" value="'.$row[0].'"name="ändern">',
-                                                        '<input size="70" maxlength="250" value="ändern" type="submit"><br>',
-                                                        '</form> </td>';
-                        echo "</tr>";
-                    }
-        ?>
+        <tr>
+        	<th> KursID </th>
+			<th colspan="3"> KursName </th>
+		</tr>
+		
+		<?php 
+			foreach($result as $row){ ?>
+			<tr>
+				<td><?=$row['kurs_id']?></td>
+				<td><?=$row['kurs_name']?></td>
+				<td><?=$row['benutzername']?></td>
+				<td> <form accept-charset="utf-8" method="POST" action="changedata">
+						<input type="hidden" value="'.$row[0].'"name="kurs_id">
+						<input size="70" maxlength="250" value="ändern" type="submit">
+					</form> </td>
+
+			</tr>
+		<?php }?>
+		
+		</table>
 
     </div>
 </body>
