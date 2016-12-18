@@ -260,10 +260,16 @@ class User
 	
 	public function passwordForgottenMail() {
 		
+		$db = new Db_connection();
+		
+		$pruefzahl = mt_rand(0,999999999);
+		$query = "update benutzer set pruefzahl =".$pruefzahl." where benutzername='".$this->benutzername."';";
+		$result = $db->execute($query);
+		
 		$empfaenger = $this->email;
 		$betreff = "Neues Passwort angefordert für Zertifizierungstool";
 		$from = "user@zerttool.tk";
-		$text = "Hallo ".$this->vorname." ".$this->nachname.",\n\n wenn Sie ein neues Passwort angefordert haben, folgenden Sie bitte diesem Link:\n\n www.zerttool.tk/user/passwordforgotten?benutzer=".$this->benutzername;
+		$text = "Hallo ".$this->vorname." ".$this->nachname.",\n\n wenn Sie ein neues Passwort angefordert haben, folgenden Sie bitte diesem Link:\n\n www.zerttool.tk/user/passwordforgotten?benutzer=".$this->benutzername."&pruefzahl=".$pruefzahl;
 		$text = wordwrap($text, 70);
 		mail ($empfaenger, $betreff, $text);
 				
@@ -301,6 +307,19 @@ class User
 
 			
 	
+	}
+	
+	public function  check_pruefzahl($pruefzahl) {
+	
+		$db = new Db_connection();
+		$query = "select * from benutzer where benutzername='".$this->benutzername."' and pruefzahl=".$pruefzahl.";";
+		$result = $db->execute($query);
+		if (mysqli_num_rows($result)<1){
+			return false;
+		}
+		else {
+			return true;
+		}
 	}
 	
 }

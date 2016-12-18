@@ -227,7 +227,7 @@ class UserController extends AbstractActionController
 		
 		if (isset($_GET['benutzer'])) {
 			
-			return new ViewModel(['benutzer' => $_GET['benutzer']]);
+			return new ViewModel(['benutzer' => $_GET['benutzer'], 'pruefzahl' => $_GET['pruefzahl']]);
 			
 		} else if (isset($_POST['benutzermail'])){
 			
@@ -241,8 +241,15 @@ class UserController extends AbstractActionController
 			if ($_POST['newPasswort1']==$_POST['newPasswort2']) {
 				$user = new User();
 				$user->load($_POST['benutzer']);
-				$user->updatePassword($_POST['newPasswort1']);
-				return new ViewModel(['status'=>'erfolgreich']);
+				
+				$result = $user->check_pruefzahl($_POST['pruefzahl']);
+				if ($result){
+					$user->updatePassword($_POST['newPasswort1']);
+					return new ViewModel(['status'=>'erfolgreich']);
+				}else {
+				
+					return new ViewModel(['status'=>'falsche pruefzahl']);
+				}
 			}
 			else {
 				return new ViewModel(['status'=>'ungleiche passwoerter', 'benutzer'=>$_POST['benutzer']]);
