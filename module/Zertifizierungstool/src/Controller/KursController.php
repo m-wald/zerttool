@@ -157,21 +157,24 @@ class KursController extends AbstractActionController
    		
    		if(move_uploaded_file($_FILES['datei']['tmp_name'], $new_path)) {
    			
-   			$alldata=array();
-   			$i=0;
-   			
+   			$i=0;	
+   			$nomail=array();
    			if (($handle = fopen($new_path, "r")) !== FALSE) {
    				while (($data = fgetcsv($handle, 1000,";")) !== FALSE) {
    					
    				   		$csv = new CSV_invite();
-   				   		$csv->insert_data($data[0], $data[1]);
+   				   		if(($csv->insert_data($data[0], $data[1])) ==false){
+   				   			$nomail[$i]=$data[0];
+   				   			$i++;
+   				   		}
+   				   				
    					}
    				}
    				fclose($handle);
    			}
    			
    			
-   			return new ViewModel(['meldung' => 'erfolgreich']);
+   			return new ViewModel(['meldung' => 'erfolgreich','fehler' =>$nomail]);
    			
    			
    			  		

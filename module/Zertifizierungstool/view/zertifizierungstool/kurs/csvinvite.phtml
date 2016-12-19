@@ -26,17 +26,17 @@ if($meldung=="dateigroesse") {
 if($meldung=="erfolgreich") {
 	echo "<b><font color = 'green'>Upload der Datei war erfolgreich!</font></b>";
 	
-	
-	echo "E-Mail-Adressen: <br>";
-	
-	$i=0;
-	foreach($array as $a) {
 		
-		echo $a[$i];
-		$i++;
-		echo "<br>";
 	}
 	
-	
+if(isset($fehler)) {
+	echo "Es wurde keine Einladung an folgende E-Mail-Adressen versendet, da bereits eine Einladung existiert: <br><br>";
+		
+	foreach($fehler as $f) {
+			
+		echo $f[0];
+	}
+			
+		
 }
 ?>
