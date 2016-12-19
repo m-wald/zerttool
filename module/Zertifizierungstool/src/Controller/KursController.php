@@ -164,7 +164,7 @@ class KursController extends AbstractActionController
    					
    				   		$csv = new CSV_invite();
    				   		if(($csv->insert_data($data[0], $data[1])) ==false){
-   				   			$nomail[$i]=$data[0];
+   				   			$nomail[$i]=$data;
    				   			$i++;
    				   		}
    				   				
@@ -172,21 +172,13 @@ class KursController extends AbstractActionController
    				}
    				fclose($handle);
    			}
-   			if(mysqli_num_rows($nomail)>0){
    			
    			return new ViewModel(['meldung' => 'erfolgreich','fehler' =>$nomail]);
    			}
-   			else {
-   				return new ViewModel(['meldung' => 'erfolgreich']);
-   			}
    			
-   			
-   			  		
+   	  	else{
+   			return new ViewModel();
    		}
-   	
-   	else{
-   		return new ViewModel();
-   	}
    } 
 
 

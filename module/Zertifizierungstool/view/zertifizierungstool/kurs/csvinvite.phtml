@@ -29,12 +29,12 @@ if($meldung=="erfolgreich") {
 		
 	}
 	
-if(isset($fehler)) {
+if(!empty($fehler)) {
 	echo "Es wurde keine Einladung an folgende E-Mail-Adressen versendet, da bereits eine Einladung zum angegebenen Kurs existiert: <br><br>";
 		
 	foreach($fehler as $f) {
 			
-		echo $f;
+		echo "E-Mail: ".$f[0]."   Kurs_Id: ".$f[1];
 		echo "<br>";
 	}
 			
