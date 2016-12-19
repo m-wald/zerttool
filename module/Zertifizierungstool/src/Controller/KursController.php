@@ -186,8 +186,8 @@ class KursController extends AbstractActionController
    		
    		if(move_uploaded_file($_FILES['datei']['tmp_name'], $new_path)) {
    			
-   			return new ViewModel(['meldung' => 'erfolgreich']);
-   			echo $new_path;
+   			return new ViewModel(['meldung' => 'erfolgreich', 'test' => $new_path]);
+   		
    		}
    		
    	   		
