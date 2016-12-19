@@ -104,7 +104,7 @@ class KursController extends AbstractActionController
                     $_REQUEST["sichtbarkeit"]);
             $status = "Erfolgreich geändert."; 
         }
-        //echo "Kursname: " .$kurs->getKurs_name();
+        echo "Kursname: " .$kurs->getKurs_name();
         return new ViewModel(['kurs' => $kurs,
         		'status' => $status]);    
     }
