@@ -1,0 +1,37 @@
+<h1>Kurs</h1>
+<?php
+    use Zertifizierungstool\Model\Kurs;
+?>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+
+    <div class="container">
+    	<h3>Ihre Kurse: </h3>
+    	
+    	 <table>
+        <tr><td>Kursname:</td><td> <input type="text" name="kursname" required value='<?=$kurs->getKurs_name()?>'></td></tr>
+        <tr><td>Kursstart:</td><td> <input type="date" name="kursstart" required value='<?=$kurs->getKurs_start()?>'></td></tr>
+        <tr><td>Kursende:</td><td> <input type="date" name="kursende" required value='<?=$kurs->getKurs_ende()?>'></td></tr>
+        <tr><td>Sichtbarkeit:</td><td> 
+                <select name="sichtbarkeit">
+                    <?php
+                        if($kurs->getSichtbarkeit() == 1){ ?>
+                            <option value = 1 selected> sichtbar </option>
+                        <?php } else { ?>
+                            <option value= 0 selected>nicht sichtbar</option>
+                        <?php } ?>
+                </select></td></tr>
+        <tr><td>Benutzername:</td><td> <input type="text" name="benutzername" required value='<?=$kurs->getBenutzername()?>'></td></tr>
+        
+        <form accept-charset="utf-8" method="POST" action="upload">
+						<input type="hidden" value="<?=$row['kurs_id']?>"name="kurs_id">
+						<input size="70" maxlength="250" value="Datei hinzufügen" type="submit">
+		</form>
+    </table>
+    </div>
+    
+    
