@@ -105,10 +105,16 @@ class KursController extends AbstractActionController
                     $_REQUEST["sichtbarkeit"]);
             $status = "Erfolgreich geändert."; 
         }
-        echo "Kursname: " .$kurs->getKurs_name();
-        return new ViewModel(['kurs' => $kurs,
+              return new ViewModel(['kurs' => $kurs,
         		'status' => $status]);    
     }
+    
+    public function kursviewAction(){
+    	$kurs = new Kurs();
+    	$kursview = $kurs->load(getKurs_id());
+    	return new ViewModel(['result'=>$kursview]);
+    }
+    
     
     public function csvinviteAction(){
    	
