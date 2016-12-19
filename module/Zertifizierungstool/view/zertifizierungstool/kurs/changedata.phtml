@@ -7,7 +7,7 @@ use Zertifizierungstool\Model\Kurs;
 if (isset($status)) {
 	echo $status;
 }
-
+else{
 ?>
 	
     <h5> Passen Sie die Kursdaten entsprechend an.</h5>
@@ -36,3 +36,6 @@ if (isset($status)) {
     </form>
     <br>
     <a href="<?= $this->url('pruefung', ['action' => 'edit', 'id' => $kurs->getKurs_id()]) ?>"><button type="button">Pruefungen bearbeiten</button></a>
+<?php
+}
+?>
