@@ -25,7 +25,17 @@ if($meldung=="dateigroesse") {
 
 if($meldung=="erfolgreich") {
 	echo "<b><font color = 'green'>Upload war erfolgreich!</font></b>";
-	echo $test;
+	
+	
+	echo "E-Mail-Adressen: <br>";
+	
+	$i=0;
+	foreach($array as $a) {
+		
+		echo $a[$i];
+		$i++;
+		echo "<br>";
+	}
 	
 	
 }

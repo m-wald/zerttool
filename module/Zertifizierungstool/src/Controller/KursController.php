@@ -186,14 +186,26 @@ class KursController extends AbstractActionController
    		
    		if(move_uploaded_file($_FILES['datei']['tmp_name'], $new_path)) {
    			
-   			return new ViewModel(['meldung' => 'erfolgreich', 'test' => $new_path]);
-   		
+   			$alldata=array();
+   			$i=0;
+   			
+   			if (($handle = fopen($new_path, "r")) !== FALSE) {
+   				while (($data = fgetcsv($handle, 1000)) !== FALSE) {
+   					
+   					$alldata[$i]=$data;
+   					$i++;
+   					
+   					}
+   				}
+   				fclose($handle);
+   			}
+   			
+   			
+   			return new ViewModel(['meldung' => 'erfolgreich', 'array' => $alldata]);
+   			
+   			
+   			  		
    		}
-   		
-   	   		
-   	}
-   		
-   		
    	
    	else{
    		return new ViewModel();
