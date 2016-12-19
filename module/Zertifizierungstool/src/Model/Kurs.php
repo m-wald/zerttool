@@ -13,18 +13,6 @@ class Kurs {
     private $sichtbarkeit;
     private $benutzername;
     
-    /*
-    public function __construct($kurs_id, $kurs_name, $kurs_start, $kurs_ende, $sichtbarkeit, $benutzername) {
-        $this->kurs_id = $kurs_id;
-        $this->kurs_name = $kurs_name;
-        $this->kurs_start = $kurs_start;
-        $this->kurs_ende = $kurs_ende;
-        $this->sichtbarkeit = $sichtbarkeit;
-        $this->benutzername = $benutzername;
-    }
-     * 
-     */
-    
     public function __construct($kurs_name, $kurs_start, $kurs_ende, $sichtbarkeit, $benutzername) {
         $this->kurs_id = "";
         $this->kurs_name = $kurs_name;
@@ -41,7 +29,6 @@ class Kurs {
      * 
      * @return true, falls keine Fehler aufgetreten sind. Sonst false
      */
-    
     
     public function load($id) {
         $db = new Db_connection();
@@ -65,6 +52,12 @@ class Kurs {
         return false;
     }
     
+    /*
+     * Lädt alle Kurse, die dem übergebenen Benutzernamen zugeordent sind
+     * @param Benutzername des Zertifizierers
+     * @return Array mit allen Kursen, ansonsten 0.
+     */
+    
     public function loadKurse($benutzername) {
     	$db = new Db_connection();
     	$query = "SELECT * FROM kurs WHERE benutzername = '".$benutzername."'
@@ -80,47 +73,12 @@ class Kurs {
         }else{
             return 0;
         }
-        
-        /*
-    	if (mysqli_num_rows($result) > 0) {
-    		while ($row = mysqli_fetch_assoc($result)) {
-    			array_push($return_array, $row);
-    		}
-            return $return_array;
-    	} else {
-    		echo "Kein Ergebnis gefunden!";
-                return 0;
-    	}*/
-    	
-    	/*
-    	$courseloaded = false;
-    	
-    	foreach ($row as $return_array) {
-    		$this->kurs_id = $row['kurs_id'];
-    		$this->kurs_name = $row['kurs_name'];
-    		$this->kurs_start = $row['kurs_start'];
-    		$this->kurs_ende = $row['kurs_ende'];
-    		$this->sichtbarkeit = $row['sichtbarkeit'];
-    		$this->benutzername = $row['benutzername'];
-    		
-    		$courseloaded = true;
-    	}
-    	
-    	if(!$courseloaded){
-    		return true;
-    	}else{
-	  		return false;
- 
-         * 
-         *    	}*/
-    
-    
     }
    
     /**
-     * Schreibt den aktuellen Kurs in die Datenbank
+     * Speichert einen neuen Kurs in die Datenbank
+     * @return führt die Query aus
      */
-    
     
     public function save(){
         $db = new Db_connection();
@@ -130,7 +88,13 @@ class Kurs {
         
         return $result;               
     }
-
+    
+    /*
+     * Speichert die geänderten Kursdaten in der Datenbank ab
+     * @param übergebene Bestandteile des Kurses
+     * @return führt die Query aus
+     */
+    
     public function update($kursid, $kursname, $kursstart, $kursende, $sichtbarkeit) {
         $db = new Db_connection();
         $query = "UPDATE kurs SET 
@@ -189,29 +153,4 @@ class Kurs {
     function setBenutzername($benutzername) {
         $this->benutzername = $benutzername;
     }
-    
-    /**
-     * Vergibt die 
-     */
-    /*
-    public function nextKurs_Id() {
-        $db = new Db_connection();
-        $query = "SELECT coalesce(max(kurs_id)+1, 1) from KURS";
-
-        $result = $db->execute($query);
-
-        $count = pg_num_rows($result);
-
-        if ($count == 1) {
-            while($row = pg_fetch_row($result) {
-                $kursid = $row[0];
-            }
-            return $kursid;
-        } else {
-            echo "Fehler bei der Abfrage aufgetreten!";
-            mysqli_close($db);
-            return 0;
-        }
-    }
-    */
 }
