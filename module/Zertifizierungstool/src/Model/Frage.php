@@ -47,11 +47,11 @@ class Frage {
 		
 		$query = "UPDATE frage SET"
 				." frage_text = '" .$this->text ."'"
-				.", punkte = "     .$this->termin
+				.", punkte = "     .$this->punkte
 				.", pruefung_id = " .$this->pruefung_id
-				.", frage_typ = "   .$this->typ
+				.", frage_typ = '"   .$this->typ
 		
-				." WHERE frage_id = " .$this->id;
+				."' WHERE frage_id = " .$this->id;
 		
 		$result = mysqli_query($conn, $query);
 		
