@@ -201,6 +201,7 @@ switch ($mode[0]) {
 		<input type="hidden" name="frage_typ" readonly="readonly" value="TF">
 		<input type="radio" name="tf" value="true"  <?php if ($antworten[0]->getStatus() == 1) echo "checked";?>> Wahr<br>
 		<input type="radio" name="tf" value="false" <?php if ($antworten[0]->getStatus() == 0) echo "checked";?>> Falsch<br>
+		<input type="hidden"   name="antwort_id" value="<?=$antwort->getId()?>">
 	
 	<?php } else {
 		echo '<input type="hidden" name="frage_typ" readonly="readonly" value="MC"> Antwortm&ouml;glichkeiten:';
@@ -208,6 +209,7 @@ switch ($mode[0]) {
 		foreach ($antworten as $antwort) { echo '<br>' ?>
 		<input type="text"     name="antwort_text<?=$i?>" required value="<?=$antwort->getText()?>">
 		<input type="checkbox" name="antwort_checked<?=$i?>" <?php if ($antworten[0]->getStatus() == 1) echo "checked"?>>
+		<input type="hidden"   name="antwort_id<?=$i?>" value="<?=$antwort->getId()?>"> 
 	<?php 
 		}
 	}
