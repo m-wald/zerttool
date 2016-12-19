@@ -1,0 +1,42 @@
+<h1>Kurs</h1>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+    
+    <div class="container">
+        <?php
+
+        use Zertifizierungstool\Model\Kurs;
+
+        echo "<h3>Ihre Kurse: </h3>";
+            echo '<table class="table table-hover">';
+                    echo "<tr>";
+                            echo "<th> KursID </th>";
+                            echo "<th> KursName </th>";
+                            echo "<th> KursStart </th>";
+                            echo "<th> KursEnde </th>";
+                            echo "<th> Sichtbarkeit </th>";
+                            echo "<th> Benutzername </th>";
+                            echo "<th width=50> </th>";
+            echo "</tr>";
+                    foreach($result as $row){
+                        echo "<tr>";
+                                echo "<td>". $row['kurs_id'] . "</td>";
+                                echo "<td>". $row['kurs_name'] . "</td>";
+                                echo "<td>". $row['kurs_start'] . "</td>";
+                                echo "<td>". $row['kurs_ende'] . "</td>";
+                                echo "<td>". $row['sichtbarkeit'] . "</td>";
+                                echo "<td>". $row['benutzername'] . "</td>";
+                                echo '<td> <form accept-charset="utf-8" method="POST" action="kurseanzeigen">',
+                                                        '<input type="hidden" value="'.$row[0].'"name="ändern">',
+                                                        '<input size="70" maxlength="250" value="ändern" type="submit"><br>',
+                                                        '</form> </td>';
+                        echo "</tr>";
+                    }
+        ?>
+
+    </div>
+</body>
+

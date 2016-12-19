@@ -13,6 +13,9 @@ use Zertifizierungstool\Model\Antwort;
 class FrageController extends AbstractActionController {
 	
 	public function createAction() {
+		// TODO Prüfen ob Prüfungstermin schon erreicht ist
+		// Die Prüfung kann dann nicht mehr bearbeitet werden
+		
 		// Array, das eventuelle Fehlermeldungen enthält
 		$errors = array();
 		
@@ -105,6 +108,9 @@ class FrageController extends AbstractActionController {
 	}
 	
 	public function editAction() {
+		// TODO Prüfen ob Prüfungstermin schon erreicht ist
+		// Die Prüfung kann dann nicht mehr bearbeitet werden
+		
 		// Array, das eventuelle Fehlermeldungen enthält
 		$errors = array();
 		
@@ -207,5 +213,25 @@ class FrageController extends AbstractActionController {
 		
 		$viewModel->setTemplate(PruefungController::pathToHtml);
 		return $viewModel;
+	}
+	
+	public function deleteAction() {
+		// TODO Prüfen ob Prüfungstermin schon erreicht ist
+		// Die Prüfung kann dann nicht mehr bearbeitet werden
+		$frage_id_toDelete = $this->params()->fromRoute('id');
+		$frage = new Frage();
+		$frage->load($frage_id_toDelete);
+		
+		$antwortenToDelete = Antwort::loadList($frage_id_toDelete);
+		
+		foreach ($antwortenToDelete as $antwort) {
+			Antwort::delete($antwort->getId());
+			// TODO Fehler abfangen
+		}
+		
+		Frage::delete($frage_id_toDelete);
+		// TODO Fehler abfangen
+		
+		header ("refresh:0; url = /frage/create/" .$frage->getPruefungId());
 	}
 }

@@ -117,6 +117,23 @@ class Frage {
 		}
 	}
 	
+	public static function delete($id) {
+		$db = new Db_connection();
+		$conn = $db->getConnection();
+		
+		$query = "DELETE FROM frage WHERE frage_id = " .$id;
+		
+		$result = mysqli_query($conn, $query);
+		
+		if (is_bool($result) && $result == false) {
+			echo $query;
+			echo '<br>' .mysqli_error($conn);
+			return false;
+		} else {
+			return true;
+		}
+	}
+	
 	public function getId()   		{return $this->id;}
 	public function getText() 		{return $this->text;}
 	public function getPunkte() 	{return $this->punkte;}

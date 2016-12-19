@@ -144,7 +144,6 @@ class UserController extends AbstractActionController
 					$params["domain"], $params["secure"], $params["httponly"]
 					);
 		}
-		
 		session_destroy();
 		}
 	}
@@ -226,8 +225,19 @@ class UserController extends AbstractActionController
 	public function passwordforgottenAction() {
 		
 		if (isset($_GET['benutzer'])) {
+			$user = new User();
+			$user->load($_GET['benutzer']);
+			$result = $user->check_pruefzahl($_GET['pruefzahl']);
+			if ($result) {
+				
+				return new ViewModel(['benutzer' => $_GET['benutzer'], 'pruefzahl' => $_GET['pruefzahl']]);
+				
+			}
+			else {
 			
-			return new ViewModel(['benutzer' => $_GET['benutzer']]);
+				return new ViewModel(['status'=>'falsche pruefzahl']);
+				
+			}
 			
 		} else if (isset($_POST['benutzermail'])){
 			
@@ -243,6 +253,7 @@ class UserController extends AbstractActionController
 				$user->load($_POST['benutzer']);
 				$user->updatePassword($_POST['newPasswort1']);
 				return new ViewModel(['status'=>'erfolgreich']);
+				
 			}
 			else {
 				return new ViewModel(['status'=>'ungleiche passwoerter', 'benutzer'=>$_POST['benutzer']]);

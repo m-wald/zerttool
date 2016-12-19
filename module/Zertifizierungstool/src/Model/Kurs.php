@@ -41,30 +41,24 @@ class Kurs {
      * 
      * @return true, falls keine Fehler aufgetreten sind. Sonst false
      */
+    
+    
     public function load($id) {
         $db = new Db_connection();
-        $query = "SELECT * FROM kurs WHERE kursid = $1;";
-        $result = $db->execute($query);
-
-        $return_array = array();
+        $query = "SELECT * FROM kurs WHERE kurs_id = ".$id.";";
+        $result = $db->execute($query);       
 
         if (mysqli_num_rows($result) > 0) {
-            while ($row = mysqli_fetch_assoc($result)) {
-                array_push($return_array, $row);
-            }
-        } else {
-            echo "Kein Ergebnis gefunden!";
-        }
-        
-        foreach ($row as $return_array) {
-            $this->kurs_id = $row['kurs_id'];
-            $this->kurs_name = $row['kurs_name'];
-            $this->kurs_start = $row['kurs_start'];
-            $this->kurs_ende = $row['kurs_ende'];
-            $this->sichtbarkeit = $row['sichtbarkeit'];
-            $this->benutzername = $row['benutzername'];
-
-            return true;
+            $row = mysqli_fetch_assoc($result);
+       
+                $this->kurs_id = $row['kurs_id'];
+                $this->kurs_name = $row['kurs_name'];
+                $this->kurs_start = $row['kurs_start'];
+                $this->kurs_ende = $row['kurs_ende'];
+                $this->sichtbarkeit = $row['sichtbarkeit'];
+                $this->benutzername = $row['benutzername'];
+                
+                return true;
         }
 
         //Wenn die Methode hier ankommt, dann konnte das Objekt nicht erzeugt werden
@@ -73,24 +67,30 @@ class Kurs {
     
     public function loadKurse($benutzername) {
     	$db = new Db_connection();
-    	$today = date(Y-m-d);
-    	$query = "SELECT * FROM kurs WHERE benutzername = $1 
-    			AND kurs_ende <= '".$today."' 
-    			AND kurs_start >= '".$today."'
-    			;";
+    	$query = "SELECT * FROM kurs WHERE benutzername = '".$benutzername."'
+    			AND (CURRENT_DATE BETWEEN kurs_start
+                        AND kurs_ende);";
     	
     	$result = $db->execute($query);
     
     	$return_array = array();
-    
+        
+        if (mysqli_num_rows($result) > 0){
+            return $result;
+        }else{
+            return 0;
+        }
+        
+        /*
     	if (mysqli_num_rows($result) > 0) {
     		while ($row = mysqli_fetch_assoc($result)) {
     			array_push($return_array, $row);
     		}
-    	return $return_array;
+            return $return_array;
     	} else {
     		echo "Kein Ergebnis gefunden!";
-    	}
+                return 0;
+    	}*/
     	
     	/*
     	$courseloaded = false;
@@ -110,12 +110,18 @@ class Kurs {
     		return true;
     	}else{
 	  		return false;
-    	}*/
-    }
+ 
+         * 
+         *    	}*/
     
+    
+    }
+   
     /**
      * Schreibt den aktuellen Kurs in die Datenbank
      */
+    
+    
     public function save(){
         $db = new Db_connection();
 	$query = "INSERT INTO kurs (kurs_name, kurs_start, kurs_ende, sichtbarkeit, benutzername) VALUES ('".$this->kurs_name."','".$this->kurs_start."', '".$this->kurs_ende."', '".$this->sichtbarkeit."', '".$this->benutzername."')";
@@ -125,12 +131,15 @@ class Kurs {
         return $result;               
     }
 
-    public function update($kurs_id) {
+    public function update($kursid, $kursname, $kursstart, $kursende, $sichtbarkeit) {
         $db = new Db_connection();
-        $query = "SELECT * FROM kurs WHERE kursid = $1;";
+        $query = "UPDATE kurs SET 
+                    kurs_name = '".$kursname."',
+                    kurs_start = '".$kursstart."',
+                    kurs_ende = '".$kursende."',
+                    sichtbarkeit = '".$sichtbarkeit."' where kurs_id = '".$kursid."';";
         $result = $db->execute($query);
-
-        //
+        return $result;
     }
 
     function getKurs_id() {

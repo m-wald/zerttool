@@ -1,0 +1,10 @@
+
+<form method="post" action="upload" enctype="multipart/form-data">
+Dokument: <input type='file' name='datei' id='datei'><br>
+<input type='submit' value='Upload ' name='submit'>
+</form>
+<?php 
+if($meldung=='datentyp') echo "Datentyp ist falsch!";
+	elseif($meldung=='dateigroesse') echo "Datei ist zu gross!";
+		elseif($meldung=='erfolgreich') echo"Datei ist erfolgreich uploaded!";	
+	

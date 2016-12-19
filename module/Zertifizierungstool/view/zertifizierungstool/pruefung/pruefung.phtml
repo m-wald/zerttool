@@ -52,9 +52,10 @@ input[type=number]{
 
 		'<input type="hidden" name="frage_typ" readonly="readonly" value="MC">' +
 		
-		'Antwortm&ouml;glichkeit 1: ' +
+		'Antwortm&ouml;glichkeiten:<br>' +
 		'<input type="text"     name="antwort_text1" required> ' +
 		'<input type="checkbox" name="antwort_checked1">' +
+		
 		'<p id="ant2"></p>' +
 
 		'<button type="button" onclick="newAntwort()">Neue Antwort</button>' +		
@@ -87,13 +88,17 @@ input[type=number]{
 		var neuStelle = AntwortAnzahl + 1;
 		
 		document.getElementById("ant" + aktStelle).innerHTML =
-			'Antwortm&ouml;glichkeit ' + AntwortAnzahl + ': ' +
 			'<input type="text"     name="antwort_text'    + AntwortAnzahl + '" required> ' +
-			'<input type="checkbox" name="antwort_checked' + AntwortAnzahl + '">' +
+			'<input type="checkbox" name="antwort_checked' + AntwortAnzahl + '">  ' +
+			'<button type="button" onclick="deleteAntwort(' + AntwortAnzahl + ')"> - </button>' +
 			'<p id="ant' + neuStelle +'"></p>';
 	}
 
-	function deleteAntwort() {
+
+	function deleteAntwort(nummer) {
+		for (i = nummer; i <= AntwortAnzahl; i++) {
+			document.getElementById("ant" + i).innerHTML = document.getElementById("ant" + (i+1)).innerHTML; 
+		}
 	}
 
 </script>
@@ -104,25 +109,19 @@ use Zertifizierungstool\Model\Antwort;
 use Zertifizierungstool\Model\Pruefung;
 use Zertifizierungstool\Controller\PruefungController;
 
-// TODO Wenn Berechitgungsfehler -> wegführen
 if (isset($errors)) {
 	foreach ($errors as $err) {
 		echo "Fehler: " . $err . "<br>";
 	}
 }
 
-//Unterscheiden, ob Frage/Prüfung angelegt/bearbeitet
-if (isset($result[0]) && $result[0]) {
-	header ("refresh:0; url = /frage/create/" .$pruefung[0]->getId());
-}
-
 switch ($mode[0]) {
 	case PruefungController::createFragen:
-		$pruefReadonly = 'readonly = "readonly"';
+		$pruefReadonly = 'readonly = "readonly disabled"';
 		$pruefSaveButton = "hidden";
 		break;
 	case PruefungController::editFragen:
-		$pruefReadonly = 'readonly = "readonly"';
+		$pruefReadonly = 'readonly = "readonly" disabled';
 		$pruefSaveButton = "hidden";
 		break;
 	case PruefungController::createPruefung:
@@ -165,7 +164,7 @@ switch ($mode[0]) {
 			echo "<tr><td>(leer)</tr></td>";
 		} else {
 		foreach ($fragen as $frage) { ?>
-			<tr><td><?=$frage->getText()?></td><td><?=$frage->getTyp()?></td><td><a href="<?= $this->url('frage', ['action' => 'edit', 'id' => $frage->getId()]) ?>"><button type="button" <?=$frageDisabled?>>Bearbeiten</button></a></td><td><a href="<?= $this->url('frage', ['action' => 'remove', 'id' => $frage->getId()]) ?>"><button type="button" <?=$frageDisabled?>>L&ouml;schen</button></a></td>			
+			<tr><td><?=$frage->getText()?></td><td><?=$frage->getTyp()?></td><td><a href="<?= $this->url('frage', ['action' => 'edit', 'id' => $frage->getId()]) ?>"><button type="button" <?=$frageDisabled?>>Bearbeiten</button></a></td><td><a href="<?= $this->url('frage', ['action' => 'delete', 'id' => $frage->getId()]) ?>"><button type="button" <?=$frageDisabled?>>L&ouml;schen</button></a></td>			
 	<?php
 		}}
 	?>
@@ -200,6 +199,7 @@ switch ($mode[0]) {
 		<input type="radio" name="tf" value="false" <?php if ($antworten[0]->getStatus() == 0) echo "checked";?>> Falsch<br>
 	
 	<?php } else {
+		echo '<input type="hidden" name="frage_typ" readonly="readonly" value="MC">';
 		$i = 1;
 		foreach ($antworten as $antwort) {
 			//newAntwort()
