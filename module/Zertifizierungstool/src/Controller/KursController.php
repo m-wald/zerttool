@@ -160,7 +160,7 @@ class KursController extends AbstractActionController
    			$i=0;
    			
    			if (($handle = fopen($new_path, "r")) !== FALSE) {
-   				while (($data = fgetcsv($handle, 1000)) !== FALSE) {
+   				while (($data = fgetcsv($handle, 1000,";")) !== FALSE) {
    					
    					$alldata[$i]=$data;
    					$i++;
