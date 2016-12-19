@@ -30,21 +30,7 @@ if (isset($status)) {
     </table>
     <br><br>
     <input type="hidden" name="kursid" readonly="readonly" value="<?=$kurs->getKurs_id()?>">
-    <input type = "submit" value="Kursdaten ändern!"> 
+    <input type = "submit" name="speichern" value="Kursdaten ändern!"> 
     </form>
     <br>
     <a href="<?= $this->url('pruefung', ['action' => 'edit', 'id' => $kurs->getKurs_id()]) ?>"><button type="button">Pruefungen bearbeiten</button></a>
-
-
-<?php /*
-
-<form method="post" action="upload" enctype="multipart/form-data">
-Dokument: <input type='file' name='datei' id='datei'><br>
-<input type='submit' value='Upload ' name='submit'>
-</form>
-<?php 
-if($meldung=='datentyp') echo "Datentyp ist falsch!";
-	elseif($meldung=='dateigroesse') echo "Datei ist zu gross!";
-		elseif($meldung=='erfolgreich') echo"Datei ist erfolgreich uploaded!";	
-	
-*/?>
