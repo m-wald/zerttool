@@ -22,8 +22,10 @@ if (isset($status)) {
                     <?php
                         if($kurs->getSichtbarkeit() == 1){ ?>
                             <option value = 1 selected> sichtbar </option>
+                            <option value= 0 >nicht sichtbar</option>
                         <?php } else { ?>
                             <option value= 0 selected>nicht sichtbar</option>
+                            <option value = 1 > sichtbar </option>
                         <?php } ?>
                 </select></td></tr>
         <tr><td>Benutzername:</td><td> <input type="text" name="benutzername" required value='<?=$kurs->getBenutzername()?>'></td></tr>
