@@ -172,9 +172,13 @@ class KursController extends AbstractActionController
    				}
    				fclose($handle);
    			}
-   			
+   			if(mysqli_num_rows($nomail)>0){
    			
    			return new ViewModel(['meldung' => 'erfolgreich','fehler' =>$nomail]);
+   			}
+   			else {
+   				return new ViewModel(['meldung' => 'erfolgreich']);
+   			}
    			
    			
    			  		
