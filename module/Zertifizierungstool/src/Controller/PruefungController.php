@@ -93,10 +93,11 @@ class PruefungController extends AbstractActionController {
 		
 		// Berechtigungsprüfung
 		if (!User::currentUser()->istAdmin() && !User::currentUser()->istZertifizierer()) {
-			// TODO austesten: return "Keine Berechtigung!";
-			array_push($errors, "Keine Berechtigung!");
+			return "Keine Berechtigung";
+			//array_push($errors, "Keine Berechtigung!");
 		}
 		
+		/*
 		$pruefung_id = $_REQUEST["pruefid"];
 		
 		if (empty($pruefung_id)) {
@@ -106,7 +107,24 @@ class PruefungController extends AbstractActionController {
 		$pruefung = new Pruefung();
 		$pruefung->load($pruefung_id);
 		
-		if ($_REQUEST['speichernPruefung']) {
+		// Überprüfung, ob aktueller Benutzer auch der Kursleiter ist
+		$kurs = new Kurs();
+		$kurs->load($pruefung->getKursId());
+		*/
+		
+		if (!$_REQUEST['speichernPruefung']) {
+			// Formular wurde noch nicht gesendet
+			$pruefung_id = $this->params()->fromRoute('id');
+			$pruefung = new Pruefung();
+			$pruefung->load($pruefung_id);
+			$kurs = new Kurs();
+			$kurs->load($pruefung->getKursId());
+			
+			if (!$kurs->getBenutzername() == User::currentUser()->getBenutzername()) {
+				array_push($errors, "Keine Berechtigung!");
+			}
+			
+		} else {
 				
 			$pruefung = new Pruefung(
 					$_REQUEST["pruefid"],

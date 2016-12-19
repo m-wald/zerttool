@@ -99,6 +99,8 @@ input[type=number]{
 		for (i = nummer; i <= AntwortAnzahl; i++) {
 			document.getElementById("ant" + i).innerHTML = document.getElementById("ant" + (i+1)).innerHTML; 
 		}
+
+		AntwortAnzahl = AntwortAnzahl - 1;
 	}
 
 </script>
@@ -119,18 +121,22 @@ switch ($mode[0]) {
 	case PruefungController::createFragen:
 		$pruefReadonly = 'readonly = "readonly disabled"';
 		$pruefSaveButton = "hidden";
+		$pruefBackground = 'style="background-color: gray;"';
 		break;
 	case PruefungController::editFragen:
 		$pruefReadonly = 'readonly = "readonly" disabled';
 		$pruefSaveButton = "hidden";
+		$pruefBackground = 'style="background-color: gray;"';
 		break;
 	case PruefungController::createPruefung:
 		$frageDisabled = 'disabled "disabled"';
 		$pruefSaveButton = "submit";
+		$pruefBackground = 'style="background-color: blue;"';
 		break;
 	case PruefungController::editPruefung:
 		$frageDisabled = 'disabled "disabled"';
 		$pruefSaveButton = "submit";
+		$pruefBackground = 'style="background-color: blue;"';
 		break;
 }
 ?>
@@ -138,7 +144,7 @@ switch ($mode[0]) {
 <h1>Pr&uuml;fung anlegen/bearbeiten</h1>
 
 
-<div id="KopfdatenPruefung">
+<div id="KopfdatenPruefung" <?=$pruefBackground?>>
 <h2>Kopfdaten</h2>
 <form method="POST">	
 	<table>
@@ -185,10 +191,8 @@ switch ($mode[0]) {
 <h3>Frage bearbeiten</h3>
 	Frage: <br> <textarea rows="3" cols="50" name="frage_text" form="frageForm" required><?=$frageToEdit[0]->getText()?></textarea>
 	<form method="POST" id="frageForm">
-	<table>
-		
-		<tr><td>Punkte<td><input type="number" name="punkte" required value="<?=$frageToEdit[0]->getPunkte()?>"></tr>
-	</table>
+	<br>Punkte <input type="number" name="punkte" required value="<?=$frageToEdit[0]->getPunkte()?>">
+
 	
 	<?php 
 	$antworten = Antwort::loadList($frageToEdit[0]->getId());
@@ -199,10 +203,12 @@ switch ($mode[0]) {
 		<input type="radio" name="tf" value="false" <?php if ($antworten[0]->getStatus() == 0) echo "checked";?>> Falsch<br>
 	
 	<?php } else {
-		echo '<input type="hidden" name="frage_typ" readonly="readonly" value="MC">';
+		echo '<input type="hidden" name="frage_typ" readonly="readonly" value="MC"> Antwortm&ouml;glichkeiten:<br>';
 		$i = 1;
-		foreach ($antworten as $antwort) {
-			//newAntwort()
+		foreach ($antworten as $antwort) { ?>
+		<input type="text"     name="antwort_text<?=$i?>" required value="<?=$antwort->getText()?>">
+		<input type="checkbox" name="antwort_checked<?=$i?>" <?php if ($antworten[0]->getStatus() == 1) echo "checked"?>>
+	<?php 
 		}
 	}
 	?>
@@ -220,7 +226,7 @@ switch ($mode[0]) {
 
 
 
-<a><button>Zur&uuml;ck zum Kurs</button></a>
+<a><button type="button">Zur&uuml;ck zum Kurs</button></a>
 
 
 

@@ -196,9 +196,11 @@ class FrageController extends AbstractActionController {
 							$index++;
 						}
 						break;
-							
-					default: break;
 				}
+			}
+			
+			if (empty($errors)) {
+				header ("refresh:0; url = /frage/create/" .$frage->getPruefungId());
 			}
 		}
 		
