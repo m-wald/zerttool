@@ -67,12 +67,6 @@ class KursController extends AbstractActionController
 	$kurs->save();
 		
 	return new ViewModel();
-        /*
-        if($_SERVER['REQUEST_METHOD'] == 'POST') {
-            
-        }
-         * 
-         */
     }
     
     /*
@@ -83,13 +77,21 @@ class KursController extends AbstractActionController
     }
     */
     
-    public function kurseanzeigenAction(){
+    /*
+     * Lädt Kurse eines Zertifizerers und übergibt diese der View
+     * @return Kurse eines Zertifizierers
+     */
+    public function showkurseAction(){
         $kurs = new Kurs();
         $kurseladen = $kurs->loadKurse(User::currentUser()->getBenutzername());
-        return new ViewModel(['result' => $kurseladen]);
-        
+        return new ViewModel(['result' => $kurseladen]); 
     }
     
+    /*
+     * Überprüft ob Kursänderungen gespeichert werden sollen und ruft die
+     * Query zum Speichern der Kursdaten auf 
+     * @return Status (Fehler/Erfolg) und Kursdaten 
+     */
     public function changedataAction(){
     	$id = $_REQUEST["kurs_id"];
     	$kurs = new Kurs();
