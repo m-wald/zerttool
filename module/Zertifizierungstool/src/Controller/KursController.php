@@ -5,6 +5,7 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Zertifizierungstool\Model\Kurs;
 use Zertifizierungstool\Model\User;
+use Zertifizierungstool\Model\CSV_invite;
 
 class KursController extends AbstractActionController
 {   
@@ -162,16 +163,15 @@ class KursController extends AbstractActionController
    			if (($handle = fopen($new_path, "r")) !== FALSE) {
    				while (($data = fgetcsv($handle, 1000,";")) !== FALSE) {
    					
-   					$alldata[$i]=$data;
-   					$i++;
-   					
+   				   		$csv = new CSV_invite();
+   				   		$csv->insert_data($data[0], $data[1]);
    					}
    				}
    				fclose($handle);
    			}
    			
    			
-   			return new ViewModel(['meldung' => 'erfolgreich', 'array' => $alldata]);
+   			return new ViewModel(['meldung' => 'erfolgreich']);
    			
    			
    			  		
