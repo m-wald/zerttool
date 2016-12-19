@@ -29,6 +29,7 @@ else{
                         <?php } ?>
                 </select></td></tr>
         <tr><td>Benutzername:</td><td> <input type="text" name="benutzername" required value='<?=$kurs->getBenutzername()?>'></td></tr>
+        <tr><td>Beschreibung:</td><td> <input type="text" name="beschreibung" required value='<?=$kurs->getBeschreibung()?>'></td></tr>
     </table>
     <br><br>
     <input type="hidden" name="kursid" readonly="readonly" value="<?=$kurs->getKurs_id()?>">

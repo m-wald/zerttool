@@ -13,13 +13,14 @@ class Kurs {
     private $sichtbarkeit;
     private $benutzername;
     
-    public function __construct($kurs_name, $kurs_start, $kurs_ende, $sichtbarkeit, $benutzername) {
+    public function __construct($kurs_name, $kurs_start, $kurs_ende, $sichtbarkeit, $benutzername, $beschreibung) {
         $this->kurs_id = "";
         $this->kurs_name = $kurs_name;
         $this->kurs_start = $kurs_start;
         $this->kurs_ende = $kurs_ende;
         $this->sichtbarkeit = $sichtbarkeit;
         $this->benutzername = $benutzername;
+        $this->beschreibung = $beschreibung;
     }
     
     /**
@@ -44,6 +45,7 @@ class Kurs {
                 $this->kurs_ende = $row['kurs_ende'];
                 $this->sichtbarkeit = $row['sichtbarkeit'];
                 $this->benutzername = $row['benutzername'];
+                $this->beschreibung = $row['beschreibung'];
                 
                 return true;
         }
@@ -82,7 +84,7 @@ class Kurs {
     
     public function save(){
         $db = new Db_connection();
-	$query = "INSERT INTO kurs (kurs_name, kurs_start, kurs_ende, sichtbarkeit, benutzername) VALUES ('".$this->kurs_name."','".$this->kurs_start."', '".$this->kurs_ende."', '".$this->sichtbarkeit."', '".$this->benutzername."')";
+	$query = "INSERT INTO kurs (kurs_name, kurs_start, kurs_ende, sichtbarkeit, benutzername, beschreibung) VALUES ('".$this->kurs_name."','".$this->kurs_start."', '".$this->kurs_ende."', '".$this->sichtbarkeit."', '".$this->benutzername."', '".$this->beschreibung."')";
         
 	$result = $db->execute($query);
         
@@ -95,13 +97,14 @@ class Kurs {
      * @return führt die Query aus
      */
     
-    public function update($kursid, $kursname, $kursstart, $kursende, $sichtbarkeit) {
+    public function update($kursid, $kursname, $kursstart, $kursende, $sichtbarkeit, $beschreibung) {
         $db = new Db_connection();
         $query = "UPDATE kurs SET 
                     kurs_name = '".$kursname."',
                     kurs_start = '".$kursstart."',
                     kurs_ende = '".$kursende."',
-                    sichtbarkeit = '".$sichtbarkeit."' where kurs_id = '".$kursid."';";
+                    sichtbarkeit = '".$sichtbarkeit."',
+                    beschreibung = '".$beschreibung."' where kurs_id = '".$kursid."';";
         $result = $db->execute($query);
         return $result;
     }
@@ -129,6 +132,10 @@ class Kurs {
     function getBenutzername() {
         return $this->benutzername;
     }
+    
+    function getBeschreibung() {
+        return $this->beschreibung;
+    }
 
     function setKurs_id($kurs_id) {
         $this->kurs_id = $kurs_id;
@@ -152,5 +159,9 @@ class Kurs {
 
     function setBenutzername($benutzername) {
         $this->benutzername = $benutzername;
+    }
+    
+    function setBeschreibung($beschreibung) {
+        $this->beschreibung = $beschreibung;
     }
 }

@@ -42,7 +42,8 @@ class KursController extends AbstractActionController
                     $_REQUEST["kursstart"], 
                     $_REQUEST["kursende"], 
                     $_REQUEST["sichtbarkeit"],
-                    User::currentUser()->getBenutzername());
+                    User::currentUser()->getBenutzername(),
+                    $_REQUEST["beschreibung"]);
             
             unset($createkurs);
             $createkurs = $kurs->save();
@@ -51,18 +52,13 @@ class KursController extends AbstractActionController
             	return new ViewModel(['message' => 'erfolgt']);
             else 
             	return new ViewModel(['error' => 'nichtangelegt']);
-            
-	}
-		
-		
-	return new ViewModel();
-	      
-        
+	}	
+	return new ViewModel();   
     }
     
     public function anlegentestAction()
     {
-	$kurs = new Kurs("ITM", "01.12.2016", "31.12.2016", 0, "aaa");
+	$kurs = new Kurs("ITM", "01.12.2016", "31.12.2016", 0, "aaa", "abcdefg");
 		
 	$kurs->save();
 		
@@ -98,13 +94,14 @@ class KursController extends AbstractActionController
     	if(!$kurs->load($id)) $status="Fehler beim Laden des Kurses!";
     	
         if($_REQUEST["speichern"]) {
-            $kurs->update($_REQUEST["kursid"], $_REQUEST["kursname"], $_REQUEST["kursstart"], $_REQUEST["kursende"], $_REQUEST["sichtbarkeit"]);
+            $kurs->update($_REQUEST["kursid"], $_REQUEST["kursname"], $_REQUEST["kursstart"], $_REQUEST["kursende"], $_REQUEST["sichtbarkeit"], $_REQUEST["beschreibung"]);
             $kurs = new Kurs(
                     $_REQUEST["kursid"],
                     $_REQUEST["kursname"],
                     $_REQUEST["kursstart"],
                     $_REQUEST["kursende"],
-                    $_REQUEST["sichtbarkeit"]); 
+                    $_REQUEST["sichtbarkeit"],
+                    $_REQUEST["beschreibung"]); 
             $status = "Erfolgreich geändert."; 
         }
               return new ViewModel(['kurs' => $kurs,
