@@ -74,34 +74,6 @@ class KursController extends AbstractActionController
          */
     }
     
-	    
-    /*public function changedataAction() {
-   			
-        if($_SERVER['REQUEST_METHOD'] == 'POST') {
-
-        //Kurs::currentKurs()->update($_REQUEST["kurs_name"], $_REQUEST["kurs_start"], $_REQUEST["kurs_ende"], $_REQUEST["sichtbarkeit"]);
-        Kurs::currentKurs()->load(User::currentKurs()->getKurs_id());
-        $_SESSION["currentKurs"] = serialize(User::currentKurs());
-        return new ViewModel(['status' => "erfolgreich"]);
-        }
-        else {
-        return new ViewModel(['kursdaten' => array(User::currentKurs()->getBenutzername(),User::currentUser()->getVorname(), User::currentUser()->getNachname(), User::currentUser()->getGeburtsdatum(), User::currentUser()->getStrasse(), User::currentUser()->getPLZ(), User::currentUser()->getOrt(), User::currentUser()->getEmail())]);
-        }	
-   }*/
-   /*
-   public function changedataAction(){
-    if(User::currentUser()->getBenutzername()==NULL){
-		header("refresh:0; url= /user/login");
-		exit;
-    }
-
-    else{
-    		$user= User::currentUser()->getBenutzername();
-         	$kursdaten = loadKurse($user);
-                return new ViewModel(['kursarray' => $kursdaten]);
-        }
-    }*/
-    
     /*
     public function ladentestAction(){
         $kurs = new Kurs();
@@ -123,21 +95,20 @@ class KursController extends AbstractActionController
     	if(!$kurs->load($id)) $status="Fehler beim Laden des Kurses!";
     	
         if($_REQUEST["speichern"]) {
-        	$kurs = new Kurs(
-        		$_REQUEST["kursid"],
-        		$_REQUEST["kursname"],
-        		$_REQUEST["kursstart"],
-        		$_REQUEST["kursende"],
-        		$_REQUEST["sichtbarkeit"]);
+            $kurs = new Kurs(
+                    $_REQUEST["kursid"],
+                    $_REQUEST["kursname"],
+                    $_REQUEST["kursstart"],
+                    $_REQUEST["kursende"],
+                    $_REQUEST["sichtbarkeit"]);
+            $kurs->update($_REQUEST["kursname"], $_REQUEST["kursstart"], $_REQUEST["kursende"], $_REQUEST["sichtbarkeit"]);
+            $status = "Erfolgreich geändert.";
            
         }
         echo "Kursname: " .$kurs->getKurs_name();
         return new ViewModel(['kurs' => $kurs,
-        		'status' => $status]);
-        
+        		'status' => $status]);    
     }
-    
-    
     
     public function csvinviteAction(){
    	
