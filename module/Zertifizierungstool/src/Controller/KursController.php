@@ -195,12 +195,21 @@ class KursController extends AbstractActionController
 
 public function uploadAction(){
 
+	$id = $_REQUEST["kurs_id"];
+	$kurs = new Kurs();
 	 
 	if($_SERVER['REQUEST_METHOD'] == 'POST') {
 		 
 		//Upload-Verzeichnis
-		 
-		$upload_folder= 'data/uploadsKurse/';
+		//Check ob Verzeichnis mit dem Kurs Id exists
+		//Wenn nein - erstellt neues
+		
+		if(var_damp(is_dir('data/uploadsKurse/'.$id.'')))
+			$upload_folder= 'data/uploadsKurse/'.$id.'';
+		else 
+			$upload_folder = mkdir('data/uploadsKurse/'.$id.'');
+			
+		
 		$filename=pathinfo($_FILES['datei']['name'],PATHINFO_FILENAME);
 		$extension=strtolower(pathinfo($_FILES['datei']['name'], PATHINFO_EXTENSION));
 		 

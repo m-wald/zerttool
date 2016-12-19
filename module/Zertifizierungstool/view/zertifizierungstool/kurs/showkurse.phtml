@@ -27,10 +27,20 @@
 						<input type="hidden" value="<?=$row['kurs_id']?>"name="kurs_id">
 						<input size="70" maxlength="250" value="ändern" type="submit">
 					</form> </td>
-				<td> <form accept-charset="utf-8" method="POST" action="kursview">
+					
+			<td><a href="<?= $this->url('row', ['action' => 'kursview', 'kurs_id' => $row[0]])?>">
+			<button type="button">Anzeigen</button>
+			</a>
+			</td>
+			<?php 
+			
+			
+			/*	<td> <form accept-charset="utf-8" method="POST" action="kursview">
 						<input type="hidden" value="<?=$row['kurs_id']?>"name="kurs_id">
 						<input size="70" maxlength="250" value="anzeigen" type="submit">
 					</form> </td>
+				*/
+			?>
 			</tr>
 		<?php }?>
 		
