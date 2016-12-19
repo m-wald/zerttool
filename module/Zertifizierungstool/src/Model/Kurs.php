@@ -131,13 +131,13 @@ class Kurs {
         return $result;               
     }
 
-    public function update($kursname, $kursstart, $kursende, $sichtbarkeit) {
+    public function update($kursid, $kursname, $kursstart, $kursende, $sichtbarkeit) {
         $db = new Db_connection();
         $query = "UPDATE kurs SET 
                     kurs_name = '".$kursname."',
                     kurs_start = '".$kursstart."',
                     kurs_ende = '".$kursende."',
-                    sichtbarkeit = '".$sichtbarkeit."';";
+                    sichtbarkeit = '".$sichtbarkeit."' where kurs_id = '".$kursid."';";
         $result = $db->execute($query);
         return $result;
     }
