@@ -95,15 +95,14 @@ class KursController extends AbstractActionController
     	if(!$kurs->load($id)) $status="Fehler beim Laden des Kurses!";
     	
         if($_REQUEST["speichern"]) {
+            $kurs->update($_REQUEST["kursid"], $_REQUEST["kursname"], $_REQUEST["kursstart"], $_REQUEST["kursende"], $_REQUEST["sichtbarkeit"]);
             $kurs = new Kurs(
                     $_REQUEST["kursid"],
                     $_REQUEST["kursname"],
                     $_REQUEST["kursstart"],
                     $_REQUEST["kursende"],
                     $_REQUEST["sichtbarkeit"]);
-            $kurs->update($_REQUEST["kursid"], $_REQUEST["kursname"], $_REQUEST["kursstart"], $_REQUEST["kursende"], $_REQUEST["sichtbarkeit"]);
-            $status = "Erfolgreich geändert.";
-            
+            $status = "Erfolgreich geändert."; 
         }
         echo "Kursname: " .$kurs->getKurs_name();
         return new ViewModel(['kurs' => $kurs,
