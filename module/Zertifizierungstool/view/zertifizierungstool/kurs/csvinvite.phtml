@@ -24,7 +24,7 @@ if($meldung=="dateigroesse") {
 }
 
 if($meldung=="erfolgreich") {
-	echo "<b><font color = 'green'>Upload der Datei war erfolgreich!</font></b>";
+	echo "<b><font color = 'green'>Upload der Datei war erfolgreich!</font></b><br>";
 	
 		
 	}
@@ -35,6 +35,7 @@ if(isset($fehler)) {
 	foreach($fehler as $f) {
 			
 		echo $f;
+		echo "<br>";
 	}
 			
 		
