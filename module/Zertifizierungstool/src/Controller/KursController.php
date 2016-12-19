@@ -101,7 +101,7 @@ class KursController extends AbstractActionController
                     $_REQUEST["kursstart"],
                     $_REQUEST["kursende"],
                     $_REQUEST["sichtbarkeit"]);
-            $kurs->update($_REQUEST["kursname"], $_REQUEST["kursstart"], $_REQUEST["kursende"], $_REQUEST["sichtbarkeit"]);
+            $kurs->update($_REQUEST["kursid"], $_REQUEST["kursname"], $_REQUEST["kursstart"], $_REQUEST["kursende"], $_REQUEST["sichtbarkeit"]);
             $status = "Erfolgreich geändert.";
            
         }
