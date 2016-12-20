@@ -219,12 +219,9 @@ class KursController extends AbstractActionController
 
 
 
-public function uploadAction(){
-	
-	
-	
+public function uploadAction(){	
 				 
-	if($_SERVER['REQUEST_METHOD'] == 'POST') {
+	if($_SERVER['REQUEST_METHOD'] == 'POST' && $_POST['thissite']) {
 		
 		$kurs_id = $_REQUEST["kurs_id"];
 		
@@ -325,7 +322,7 @@ public function uploadAction(){
             //$kurs = new Kurs();
             //if(!$kurs->load($id)) $status="Fehler beim Laden der Kursdokumente!";
         //Pfad wo die uploads gespeichert wurden
-        $path = "data/uploadsKurse/'.$id.'/";
+        $path = "data/uploadsKurse/12/";
         
         //Ordner auslesen und in Variable speichern
         $alldocuments = scandir($path);
