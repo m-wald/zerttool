@@ -221,7 +221,7 @@ public function uploadAction(){
 		
 		if(!is_dir($path_new)) mkdir($path_new, 0777);
 		
-		return new ViewModel(['kurs_id' => 'kurs_id']);
+		return new ViewModel(['kurs_id' => $kurs_id]);
 		
 		echo "Directory am Anfang: ".$path_new."<br>";
 	
