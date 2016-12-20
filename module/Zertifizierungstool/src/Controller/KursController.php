@@ -123,7 +123,8 @@ class KursController extends AbstractActionController
     	if(!$kurs->load($id)) $status="Fehler beim Laden des Kurses!";
     	//else {$kursview = $kurs->load($id); $status="Kurs wird gleich geladen...";}
     	//return new ViewModel(['kursview'=>$kursview, 'status' => $status]);
-        return new ViewModel(['status' => $status]);
+        return new ViewModel(['kurs' => $kurs,
+        		'status' => $status]);  
     }
     
     
