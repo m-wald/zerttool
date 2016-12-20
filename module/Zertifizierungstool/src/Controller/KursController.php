@@ -204,10 +204,11 @@ class KursController extends AbstractActionController
 
 public function uploadAction(){
 
-	$kurs_id = $_REQUEST["kurs_id"];
-	$kurs = new Kurs();
-	 
+		 
 	if($_SERVER['REQUEST_METHOD'] == 'POST') {
+		
+		$kurs_id = $_REQUEST["kurs_id"];
+		$kurs = new Kurs();
 		 
 		//Upload-Verzeichnis
 		//Check ob Verzeichnis mit dem Kurs Id exists
