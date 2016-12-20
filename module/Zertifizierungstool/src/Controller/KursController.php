@@ -214,7 +214,7 @@ public function uploadAction(){
 		//Wenn nein - erstellt neues
 		
 		//if(var_damp(is_dir('data/uploadsKurse/'.$id.'')))
-			$upload_folder= 'data/uploadsKurse/'.$id.'';
+			$upload_folder= 'data/uploadsKurse/';
 		/*else 
 			$upload_folder = mkdir('data/uploadsKurse/'.$id.'');*/
 			
