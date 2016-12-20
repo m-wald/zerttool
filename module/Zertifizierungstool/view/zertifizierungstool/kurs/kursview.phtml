@@ -23,19 +23,19 @@
     	 	echo "Kurs: ".$kurs['kurs_name'];*/
     	 	?>
         <table class="table table-hover">
-    	<tr><td>Kursname:</td><td> 	<?=$kurs['kurs_name']?>		</td></tr>
-        <tr><td>Kursstart:</td><td> <?=$kurs['kurs_start']?>	</td></tr>
-        <tr><td>Kursende:</td><td>	<?=$kurs['kurs_ende']?>		</td></tr>
+    	<tr><td>Kursname:</td><td> 	<?=$kurs->getKurs_name()?>		</td></tr>
+        <tr><td>Kursstart:</td><td> <?=$kurs->getKurs_start()?>	</td></tr>
+        <tr><td>Kursende:</td><td>	<?=$kurs->getKurs_ende()?>		</td></tr>
         <tr><td>Sichtbarkeit:</td>
         	<td> 
                      <?php
-                        if($kurs['sichtbarkeit'] == 1)   	echo "öffentlich";
+                        if($kurs->getSichtbarkeit() == 1)   	echo "öffentlich";
                       	else              					echo "privat";
                      ?> 
            </td>
        	</tr>
-        <tr><td>Benutzername:</td><td><?=$kurs['benutzername']?></td></tr>
-        <tr><td>Beschreibung:</td><td><?=$kurs['beschreibung']?></td></tr>
+        <tr><td>Benutzername:</td><td><?=$kurs->getBenutzername()?></td></tr>
+        <tr><td>Beschreibung:</td><td><?=$kurs->getBeschreibung()?></td></tr>
         </table>
         
 		<?php  }    ?>
