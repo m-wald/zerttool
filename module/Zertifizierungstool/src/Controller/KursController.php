@@ -131,7 +131,7 @@ class KursController extends AbstractActionController
     public function csvinviteAction(){
    	
    
-   	if($_SERVER['REQUEST_METHOD'] == 'POST') {
+   	if($_SERVER['REQUEST_METHOD'] == 'POST' && $_SERVER['REQUEST_URI'] == '/csvinvite.phtml') {
    		
    		//Upload-Verzeichnis
    		
