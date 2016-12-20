@@ -309,7 +309,7 @@ public function uploadAction(){
             //$kurs = new Kurs();
             //if(!$kurs->load($id)) $status="Fehler beim Laden der Kursdokumente!";
         //Pfad wo die uploads gespeichert wurden
-        $path = "data/uploadsKurse/'.$id.'";
+        $path = "data/uploadsKurse/'.$id.'/";
         
         //Ordner auslesen und in Variable speichern
         $alldocuments = scandir($path);
