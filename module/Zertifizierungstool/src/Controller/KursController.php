@@ -252,7 +252,7 @@ public function uploadAction(){
 		echo "3: ".$kurs_id."<br>";
 		 
 		//Pfad zum Upload
-	
+		$kurs_id=$_POST["kurs_id"];
 		$new_path = $path.$kurs_id.'/'.$filename.'.'.$extension;
 		echo "Gespeichert in: ".$new_path."<br>";
 		if($path_new!=$new_path) echo "Wieder falsches UploadVerzeichnis!"."<br>";
