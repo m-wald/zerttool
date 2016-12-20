@@ -13,9 +13,11 @@
     <div class="container">
     	<h3>Kurs </h3>
     	
-    	 <table>
+    	
     	 
-    	 <?php foreach($kursview as $kurs) {?>
+    	 <?php foreach($kursview as $kurs) {
+    	 	echo "Kurs".$kursview['kurs_id'];
+    	 	/*?>
     	<tr><td>Kursname:</td><td> 	<?=$kurs['kurs_name']?>		</td></tr>
         <tr><td>Kursstart:</td><td> <?=$kurs['kurs_start']?>	</td></tr>
         <tr><td>Kursende:</td><td>	<?=$kurs['kurs_ende']?>		</td></tr>
@@ -31,7 +33,7 @@
         <tr><td>Beschreibung:</td><td><?=$kurs['beschreibung']?></td></tr>
         </table>
         
-		<?php }
+		<?php */}
 		/*<form accept-charset="utf-8" method="POST" action="upload">
 						<input type="hidden" value="<?=$kurs['kurs_id']?>"name="kurs_id">
 						<input size="70" maxlength="250" value="Datei hinzufügen" type="submit">
