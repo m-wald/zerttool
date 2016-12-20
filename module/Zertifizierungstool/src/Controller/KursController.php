@@ -175,7 +175,7 @@ class KursController extends AbstractActionController
    			$i=0;	
    			$nomail=array();
    			if (($handle = fopen($new_path, "r")) !== FALSE) {
-   				while (($data = fgetcsv($handle, 1000,";")) !== FALSE) {
+   				while (($data = fgetcsv($handle, 1000)) !== FALSE) {
    					
    				   		$csv = new CSV_invite();
    				   		if(($csv->insert_data($data[0], $_POST['kurs_id'])) ==false){
