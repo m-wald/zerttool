@@ -213,12 +213,13 @@ public function uploadAction(){
 		//Check ob Verzeichnis mit dem Kurs Id exists
 		//Wenn nein - erstellt neues
 		$path= 'data/uploadsKurse/';
+		$path_new = $path.'/'.$id;
 		
-		if(var_dump(is_dir($path.'/'.$id)))
-			$upload_folder = $path.'/'.$id;
-		else {
-			$path_new = mkdir($path.'/'.$id);
+		if(var_dump(is_dir($path_new)))
 			$upload_folder = $path_new;
+		else {
+			mkdir($path_new);
+			$upload_folder =  $path_new;
 		}
 		echo $upload_folder;
 			
@@ -237,7 +238,7 @@ public function uploadAction(){
 		 
 		//�berpr�fung der Dateigr��e
 		 
-		$max_size = 1000000;                                //2 MB (in Byte angegeben)
+		$max_size = 5000000;                                //5 MB (in Byte angegeben)
 		 
 		if($_FILES['datei']['size'] > $max_size) {
 				
