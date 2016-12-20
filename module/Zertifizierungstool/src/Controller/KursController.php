@@ -260,8 +260,8 @@ public function uploadAction(){
 		if(file_exists($new_path)) { //Falls Datei existiert, h�nge eine Zahl an den Dateinamen
 			$id = 1;
 			do {
-				
-				if(move_uploaded_file($_FILES['datei']['tmp_name'], $path.$_REQUEST["kurs_id"].'/'.$filename.'_'.$id.'.'.$extension)) {
+				$kurs_id = $_REQUEST["kurs_id"];
+				if(move_uploaded_file($_FILES['datei']['tmp_name'], $path.$kurs_id.'/'.$filename.'_'.$id.'.'.$extension)) {
 						
 					return new ViewModel(['meldung' => 'erfolgreich']);
 				}
@@ -272,7 +272,8 @@ public function uploadAction(){
 		}
 		
 		else {
-			if(move_uploaded_file($_FILES['datei']['tmp_name'], $path.$_REQUEST["kurs_id"].'/'.$filename.'.'.$extension))
+			$kurs_id = $_REQUEST["kurs_id"];
+			if(move_uploaded_file($_FILES['datei']['tmp_name'], $path.$kurs_id.'/'.$filename.'.'.$extension))
 				{
 			
 				return new ViewModel(['meldung' => 'erfolgreich']);
