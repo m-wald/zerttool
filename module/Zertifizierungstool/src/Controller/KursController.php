@@ -216,8 +216,10 @@ public function uploadAction(){
 		
 		if(var_dump(is_dir($path.'/'.$id)))
 			$upload_folder = $path.'/'.$id;
-		else 
-			$upload_folder = mkdir($path.'/'.$id);
+		else {
+			$path_new = mkdir($path.'/'.$id);
+			$upload_folder = $path_new;
+		}
 		echo $upload_folder;
 			
 		
