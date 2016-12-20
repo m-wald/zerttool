@@ -79,7 +79,16 @@ class KursController extends AbstractActionController
      */
     public function showkurseAction(){
         $kurs = new Kurs();
-        $kurseladen = $kurs->loadKurse(User::currentUser()->getBenutzername());
+        /*
+         * Wenn Zertifizierer, dann soll er nur seine Kurse angezeigt bekommen.
+         * Wenn Admin oder Teilnehmer, dann soll NULL als Parameter übergeben werden,
+         * damit in der SQL-Query nicht nach dem Benutzernamen gefiltert wird
+         */
+        if(User::currentUser()->istZertifizierer()){
+            $kurseladen = $kurs->loadKurse(User::currentUser()->getBenutzername());
+        }elseif((User::currentUser()->istTeilnehmer()) || (User::currentUser()->istAdmin())){
+            $kurseladen = $kurs->loadKurse(NULL);
+        }
         return new ViewModel(['result' => $kurseladen]); 
     }
     
