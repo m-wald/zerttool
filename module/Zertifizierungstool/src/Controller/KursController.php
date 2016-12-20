@@ -227,7 +227,8 @@ public function uploadAction(){
 		
 		$filename=pathinfo($_FILES['datei']['name'],PATHINFO_FILENAME);
 		$extension=strtolower(pathinfo($_FILES['datei']['name'], PATHINFO_EXTENSION));
-		 
+		
+		echo "1: ".$kurs_id."<br>";
 		 
 		//�berpr�fung der Dateiendung
 		 
@@ -236,6 +237,8 @@ public function uploadAction(){
 		if(!in_array($extension, $allowed_extensions)) {
 			return new ViewModel(['meldung' => 'datentyp']);
 		}
+		
+		echo "2: ".$kurs_id."<br>";
 		 
 		//�berpr�fung der Dateigr��e
 		 
@@ -245,6 +248,8 @@ public function uploadAction(){
 				
 			return new ViewModel(['meldung' =>'dateigroesse']);
 		}
+		
+		echo "3: ".$kurs_id."<br>";
 		 
 		//Pfad zum Upload
 	/* 	$path= 'data/uploadsKurse/';
@@ -256,7 +261,8 @@ public function uploadAction(){
 		$new_path = $path.$kurs_id.'/'.$filename.'.'.$extension;
 		echo "Gespeichert in: ".$new_path."<br>";
 		if($path_new!=$new_path) echo "Wieder falsches UploadVerzeichnis!"."<br>";
-		echo $kurs_id;
+		if($_REQUEST["kurs_id"]!=NULL) echo $_REQUEST["kurs_id"];
+		else "Kurs_id ist gleich NULL!"
 		 
 		//Neuer Dateiname falls die Datei bereits existiert
 		 
