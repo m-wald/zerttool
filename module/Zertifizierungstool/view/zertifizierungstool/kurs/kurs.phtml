@@ -10,25 +10,25 @@
 <body>
 
     <div class="container">
-    	<h3>Ihre Kurse: </h3>
+    	<h3>Kurs </h3>
     	
     	 <table>
-        <tr><td>Kursname:</td><td> <?=$kurs->getKurs_name()?></td></tr>
-        <tr><td>Kursstart:</td><td> <?=$kurs->getKurs_start()?></td></tr>
-        <tr><td>Kursende:</td><td><?=$kurs->getKurs_ende()?></td></tr>
+    	<tr><td>Kursname:</td><td> 	<?=$kursview->getKurs_name()?></td></tr>
+        <tr><td>Kursstart:</td><td> <?=$kursview->getKurs_start()?></td></tr>
+        <tr><td>Kursende:</td><td>	<?=$kursview->getKurs_ende()?></td></tr>
         <tr><td>Sichtbarkeit:</td>
         	<td> 
                      <?php
-                        if($kurs->getSichtbarkeit() == 1)   echo "sichtbar";
-                      	else              					echo "nicht sichtbar";
+                        if($kursview->getSichtbarkeit() == 1)   echo "sichtbar";
+                      	else              						echo "nicht sichtbar";
                      ?> 
            </td>
        	</tr>
-        <tr><td>Benutzername:</td><td><?=$kurs->getBenutzername()?></td></tr>
-        <tr><td>Beschreibung:</td><td><?=$kurs->getBeschreibung()?></td></tr>
+        <tr><td>Benutzername:</td><td><?=$kursview->getBenutzername()?></td></tr>
+        <tr><td>Beschreibung:</td><td><?=$kursview->getBeschreibung()?></td></tr>
         </table>
         <form accept-charset="utf-8" method="POST" action="upload">
-						<input type="hidden" value="<?=$row['kurs_id']?>"name="kurs_id">
+						<input type="hidden" value="<?=$kursview->getKurs_id()?>"name="kurs_id">
 						<input size="70" maxlength="250" value="Datei hinzufügen" type="submit">
 		</form>
   
