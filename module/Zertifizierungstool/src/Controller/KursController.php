@@ -219,9 +219,7 @@ public function uploadAction(){
 			$upload_folder = $path_new;
 		else {
 			mkdir($path_new);
-			$upload_folder =  $path_new;
 		}
-		$upload_folder =  $path_new;
 		echo $upload_folder;
 			
 		
@@ -248,14 +246,14 @@ public function uploadAction(){
 		 
 		//Pfad zum Upload
 		 
-		$new_path = $upload_folder.$filename.'.'.$extension;
+		$new_path = $path.$id.'/'.$filename.'.'.$extension;
 		 
 		//Neuer Dateiname falls die Datei bereits existiert
 		 
 		if(file_exists($new_path)) { //Falls Datei existiert, h�nge eine Zahl an den Dateinamen
 			$id = 1;
 			do {
-				$new_path = $upload_folder.$filename.'_'.$id.'.'.$extension;
+				$new_path = $path.$id.'/'.$filename.'_'.$id.'.'.$extension;
 				$id++;
 			} while(file_exists($new_path));
 		}
