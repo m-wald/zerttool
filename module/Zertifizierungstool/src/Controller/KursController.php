@@ -218,6 +218,7 @@ public function uploadAction(){
 			$upload_folder = $path.'/'.$id;
 		else 
 			$upload_folder = mkdir($path.'/'.$id);
+		echo $upload_folder;
 			
 		
 		$filename=pathinfo($_FILES['datei']['name'],PATHINFO_FILENAME);
