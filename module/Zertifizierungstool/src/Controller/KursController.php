@@ -132,12 +132,12 @@ class KursController extends AbstractActionController
     public function csvinviteAction(){
     	
     	if(User::currentUser()->getBenutzername()==null) {
-    		header("refresh: url = /user/login");
+    		header("refresh:0; url = /user/login");
     		exit;
     	}
     	
     	if(User::currentUser()->istTeilnehmer()==true){
-    		header("refresh: url = /user/home");
+    		header("refresh:0; url = /user/home");
     		exit;
     	}
     	
