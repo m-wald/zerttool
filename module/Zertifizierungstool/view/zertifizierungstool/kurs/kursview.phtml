@@ -1,7 +1,8 @@
-<h1>Kurs</h1>
 <?php
     use Zertifizierungstool\Model\Kurs;
 ?>
+
+<?php echo "Kurs".$kursview['kurs_id'];?>
 
 <head>
     <meta charset="utf-8">
@@ -11,29 +12,32 @@
 
     <div class="container">
     	<h3>Kurs </h3>
-    	<?php echo "Kurs".$kursview['kurs_id'];?>
+    	
     	 <table>
     	 
     	 <?php foreach($kursview as $kurs) {?>
-    	<tr><td>Kursname:</td><td> 	<?=$kurs['kurs_name']?></td></tr>
-        <tr><td>Kursstart:</td><td> <?=$kurs['kurs_start']?></td></tr>
-        <tr><td>Kursende:</td><td>	<?=$kurs['kurs_ende']?></td></tr>
+    	<tr><td>Kursname:</td><td> 	<?=$kurs['kurs_name']?>		</td></tr>
+        <tr><td>Kursstart:</td><td> <?=$kurs['kurs_start']?>	</td></tr>
+        <tr><td>Kursende:</td><td>	<?=$kurs['kurs_ende']?>		</td></tr>
         <tr><td>Sichtbarkeit:</td>
         	<td> 
                      <?php
-                        if($kurs['sichtbarkeit'] == 1)   echo "offentlich";
-                      	else              						echo "privat";
+                        if($kurs['sichtbarkeit'] == 1)   	echo "offentlich";
+                      	else              					echo "privat";
                      ?> 
            </td>
        	</tr>
         <tr><td>Benutzername:</td><td><?=$kurs['benutzername'];?></td></tr>
         <tr><td>Beschreibung:</td><td><?=$kurs['beschreibung'];?></td></tr>
         </table>
-        <form accept-charset="utf-8" method="POST" action="upload">
+        
+		<?php }
+		/*<form accept-charset="utf-8" method="POST" action="upload">
 						<input type="hidden" value="<?=$kurs['kurs_id']?>"name="kurs_id">
 						<input size="70" maxlength="250" value="Datei hinzufügen" type="submit">
 		</form>
-		<?php }?>
+		*/
+		?>
   
     </div>
     </body>
