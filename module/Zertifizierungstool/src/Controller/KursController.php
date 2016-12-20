@@ -204,11 +204,12 @@ class KursController extends AbstractActionController
 
 public function uploadAction(){
 	
+	$kurs_id = $_REQUEST["kurs_id"];
 	
 				 
 	if($_SERVER['REQUEST_METHOD'] == 'POST') {
 		
-		$kurs_id = $_REQUEST["kurs_id"];
+		//$kurs_id = $_REQUEST["kurs_id"];
 		
 		
 				 
@@ -252,7 +253,7 @@ public function uploadAction(){
 		if(!is_dir($path.$kurs_id.'/')) mkdir('data/uploadsKurse/'.$kurs_id.'/', 0777);
 	*/	
 		//$kurs_id = $_REQUEST["kurs_id"];
-		$new_path = $path.$_REQUEST["kurs_id"].'/'.$filename.'.'.$extension;
+		$new_path = $path.$kurs_id.'/'.$filename.'.'.$extension;
 		echo $new_path;
 		 
 		//Neuer Dateiname falls die Datei bereits existiert
@@ -260,7 +261,7 @@ public function uploadAction(){
 		if(file_exists($new_path)) { //Falls Datei existiert, h�nge eine Zahl an den Dateinamen
 			$id = 1;
 			do {
-				$kurs_id = $_REQUEST["kurs_id"];
+				//$kurs_id = $_REQUEST["kurs_id"];
 				if(move_uploaded_file($_FILES['datei']['tmp_name'], $path.$kurs_id.'/'.$filename.'_'.$id.'.'.$extension)) {
 						
 					return new ViewModel(['meldung' => 'erfolgreich']);
@@ -272,7 +273,7 @@ public function uploadAction(){
 		}
 		
 		else {
-			$kurs_id = $_REQUEST["kurs_id"];
+			//$kurs_id = $_REQUEST["kurs_id"];
 			if(move_uploaded_file($_FILES['datei']['tmp_name'], $path.$kurs_id.'/'.$filename.'.'.$extension))
 				{
 			
