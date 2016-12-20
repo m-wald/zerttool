@@ -221,7 +221,7 @@ public function uploadAction(){
 		
 		if(!is_dir($path_new)) mkdir($path_new, 0777);
 		
-		echo $path_new;
+		echo "Directory am Anfang: ".$path_new."<br>";
 	
 			
 		
@@ -254,7 +254,8 @@ public function uploadAction(){
 	*/	
 		//$kurs_id = $_REQUEST["kurs_id"];
 		$new_path = $path.$kurs_id.'/'.$filename.'.'.$extension;
-		echo $new_path;
+		echo "Gespeichert in: ".$new_path."<br>";
+		if($path_new!=$new_path) echo "Wieder falsches UploadVerzeichnis!"."<br>";
 		 
 		//Neuer Dateiname falls die Datei bereits existiert
 		 
