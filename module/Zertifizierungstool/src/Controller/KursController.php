@@ -252,12 +252,7 @@ public function uploadAction(){
 		echo "3: ".$kurs_id."<br>";
 		 
 		//Pfad zum Upload
-	/* 	$path= 'data/uploadsKurse/';
-		$path_new = $path.$kurs_id.'/';
 	
-		if(!is_dir($path.$kurs_id.'/')) mkdir('data/uploadsKurse/'.$kurs_id.'/', 0777);
-	*/	
-		//$kurs_id = $_REQUEST["kurs_id"];
 		$new_path = $path.$kurs_id.'/'.$filename.'.'.$extension;
 		echo "Gespeichert in: ".$new_path."<br>";
 		if($path_new!=$new_path) echo "Wieder falsches UploadVerzeichnis!"."<br>";
