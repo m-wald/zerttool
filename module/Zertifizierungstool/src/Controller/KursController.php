@@ -130,9 +130,20 @@ class KursController extends AbstractActionController
     
     
     public function csvinviteAction(){
+    	
+    	if(User::currentUser()->getBenutzername()==null) {
+    		header("refresh: url = /user/login");
+    		exit;
+    	}
+    	
+    	if(User::currentUser()->istTeilnehmer()==true){
+    		header("refresh: url = /user/home");
+    		exit;
+    	}
+    	
    	
    
-   	if($_SERVER['REQUEST_METHOD'] == 'POST' && $_POST['thissite']) {
+   	if($_SERVER['REQUEST_METHOD'] == 'POST' && $_POST['site']=='csvinvite') {
    		
    		//Upload-Verzeichnis
    		
