@@ -272,8 +272,8 @@ public function uploadAction(){
   
     public function showdocumentsAction(){
         $id = $_REQUEST["kurs_id"];
-    	$kurs = new Kurs();
-        if(!$kurs->load($id)) $status="Fehler beim Laden der Kursdokumente!";
+            //$kurs = new Kurs();
+            //if(!$kurs->load($id)) $status="Fehler beim Laden der Kursdokumente!";
         //Pfad wo die uploads gespeichert wurden
         $path = "data/uploadsKurse/'.$id.'";
         
