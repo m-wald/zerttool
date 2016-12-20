@@ -247,6 +247,8 @@ public function uploadAction(){
 		}
 		 
 		//Pfad zum Upload
+		$kurs_id = $_REQUEST["kurs_id"];
+		$upload_folder = $path.$kurs_id.'/';
 		 
 		$new_path = $upload_folder.$filename.'.'.$extension;
 		 
@@ -255,6 +257,8 @@ public function uploadAction(){
 		if(file_exists($new_path)) { //Falls Datei existiert, h�nge eine Zahl an den Dateinamen
 			$id = 1;
 			do {
+				$kurs_id = $_REQUEST["kurs_id"];
+				$upload_folder = $path.$kurs_id.'/';
 				$new_path = $upload_folder.$filename.'_'.$id.'.'.$extension;
 				$id++;
 			} while(file_exists($new_path));
