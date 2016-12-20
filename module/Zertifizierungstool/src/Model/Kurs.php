@@ -56,15 +56,27 @@ class Kurs {
     
     /*
      * Lädt alle Kurse, die dem übergebenen Benutzernamen zugeordent sind
-     * @param Benutzername des Zertifizierers
+     * Wenn Zertifizierer, dann sollen alle aktiven Kurse ausgegeben werden für die der Zertifizierer
+     * zuständig ist. Wenn Admin, dann sollen alle aktiven Kurse ausgegeben werden.
+     * Wenn Teilnehmer, dann sollen alle aktiven öffentlichen Kurse ausgegeben werden. 
+     * @param Benutzername. Wenn NULL übergeben wird, dann handelt es sich um einen Admin oder
+     *      Teilnehmer
      * @return Array mit allen Kursen, ansonsten 0.
      */
     
     public function loadKurse($benutzername) {
     	$db = new Db_connection();
-    	$query = "SELECT * FROM kurs WHERE benutzername = '".$benutzername."'
-    			AND (CURRENT_DATE BETWEEN kurs_start
-                        AND kurs_ende);";
+        if(User::currentUser()->istZertifizierer()){
+            $query = "SELECT * FROM kurs WHERE benutzername = '".$benutzername."'
+                            AND (CURRENT_DATE BETWEEN kurs_start
+                            AND kurs_ende);";
+        }elseif((User::currentUser()->istAdmin()) && ($benutzername == NULL)){
+            $query = "SELECT * FROM kurs WHERE (CURRENT_DATE BETWEEN kurs_start
+                            AND kurs_ende);";
+	}elseif((User::currentUser()->istAdmin()) && ($benutzername == NULL)){
+            $query = "SELECT * FROM kurs WHERE (CURRENT_DATE BETWEEN kurs_start
+                            AND kurs_ende) AND sichtbarkeit = 1;";
+	}
     	
     	$result = $db->execute($query);
     
