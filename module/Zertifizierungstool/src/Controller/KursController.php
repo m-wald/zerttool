@@ -215,12 +215,12 @@ public function uploadAction(){
 		$path= 'data/uploadsKurse/';
 		$path_new = $path.$id.'/';
 		
-		/*if(var_dump(is_dir($path_new)))
+		if(is_dir($path_new))
 			$upload_folder = $path_new;
 		else {
 			mkdir($path_new);
 			$upload_folder =  $path_new;
-		}*/
+		}
 		$upload_folder =  $path_new;
 		echo $upload_folder;
 			
