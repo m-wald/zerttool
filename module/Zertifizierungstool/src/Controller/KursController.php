@@ -273,7 +273,7 @@ public function uploadAction(){
     public function showdocumentsAction(){
         $id = $_REQUEST["kurs_id"];
     	$kurs = new Kurs();
-        
+        if(!$kurs->load($id)) $status="Fehler beim Laden der Kursdokumente!";
         //Pfad wo die uploads gespeichert wurden
         $path = "data/uploadsKurse/'.$id.'";
         
@@ -281,7 +281,8 @@ public function uploadAction(){
         $alldocuments = scandir($path);
         
         return new ViewModel(['path' => $path,
-                                'alldocuments' => $alldocuments]); 
+                                'alldocuments' => $alldocuments,
+                                'status' => $status]); 
     }
 }
    				
