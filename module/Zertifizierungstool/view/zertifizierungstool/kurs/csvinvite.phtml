@@ -1,12 +1,17 @@
 <h1>CSV-Einladung</h1>
 
-
 <form method="post" action="csvinvite" enctype="multipart/form-data">
 
 
 CSV-Datei ausw&auml;hlen: <input type="file" name="datei" required> <br><br>
 
+<input type="hidden" value="<?php echo $kurs_id ?>" name='kurs_id'>
+
+<!-- wird übergeben, um der csvinviteAction() mitzuteilen, dass von dieser Seite aus zugegriffen wird -->
+<input type="hidden" value="thissite" name='thissite'>
+
 <input type="submit" value="Datei jetzt ausw&auml;hlen">
+
 
 
 </form>
@@ -35,13 +40,13 @@ if(!empty($fehler)) {
 	
 ?>
 <table>
-<tr><th width=300><b>Email</b></th><th><b>Kurs_Id</b></th></tr>
+<tr><th width="300"><b>Email</b></th></tr>
 <?php 
 
 	foreach($fehler as $f) {
 		?>
 		
-		<tr><td><?php echo $f[0];?></td><td><?php echo $f[1];?></td></tr>
+		<tr><td><?php echo $f[0];?></td></tr>
 		
 	<?php }?>
 	</table>		

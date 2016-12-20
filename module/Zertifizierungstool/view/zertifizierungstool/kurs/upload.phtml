@@ -1,10 +1,20 @@
-
 <form method="post" action="upload" enctype="multipart/form-data">
 Dokument: <input type='file' name='datei' id='datei'><br>
+<?php echo $kurs_id; ?>
+<input type="hidden" value="<?php echo $kurs_id; ?>" name='kurs_id'>
 <input type='submit' value='Upload ' name='submit'>
 </form>
 <?php 
-if($meldung=='datentyp') echo "Datentyp ist falsch!";
-	elseif($meldung=='dateigroesse') echo "Datei ist zu gross!";
-		elseif($meldung=='erfolgreich') echo"Datei ist erfolgreich uploaded!";	
+if(isset($meldung)){
+	if($meldung=='datentyp') echo "<b>Datentyp ist falsch!</b>";
+	elseif($meldung=='dateigroesse') echo "<b>Datei ist zu gross!</b>";
+	elseif($meldung=='erfolgreich') echo"<b>Datei ist erfolgreich uploaded!</b>";
 	
+}
+	
+	/*switch ($meldung){
+	case 'datentyp': 		echo "Datentyp ist falsch!"; 			break;
+	case 'dateigroesse': 	echo "Datei ist zu gross!"; 			break;
+	case 'erfolgreich': 	echo"Datei ist erfolgreich uploaded!"; 	break;*/
+		
+	?>

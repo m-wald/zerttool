@@ -156,7 +156,7 @@ class FrageController extends AbstractActionController {
 							$status = 1;
 						}
 							
-						$antwort = new Antwort("", "", $frage->getId(), $status);
+						$antwort = new Antwort($_REQUEST["id"], "", $frage->getId(), $status);
 						if (empty($_REQUEST["id"])) {
 							if (!$antwort->saveNew()) {
 								array_push($errors, "Fehler beim Speichern der Antwort. Bitte erneut versuchen!");
@@ -178,7 +178,7 @@ class FrageController extends AbstractActionController {
 								$status = 1;
 							}
 		
-							$antwort = new Antwort("",
+							$antwort = new Antwort($_REQUEST["id"],
 									$_REQUEST["antwort_text" .$index],
 									$frage->getId(),
 									$status);
@@ -196,9 +196,11 @@ class FrageController extends AbstractActionController {
 							$index++;
 						}
 						break;
-							
-					default: break;
 				}
+			}
+			
+			if (empty($errors)) {
+				header ("refresh:0; url = /frage/create/" .$frage->getPruefungId());
 			}
 		}
 		

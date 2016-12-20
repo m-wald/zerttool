@@ -40,8 +40,8 @@ class Antwort {
 		$conn = $db->getConnection();
 	
 		$query = "UPDATE antwort SET"
-				." antwort_text = '" .$this->text ."'"
-				.", frage_id = " .$this->frage_id
+				." antwort_text = '" .$this->text
+				."', frage_id = " .$this->frage_id
 				.", status = "   .$this->status
 	
 				." WHERE antwort_id = " .$this->id;
