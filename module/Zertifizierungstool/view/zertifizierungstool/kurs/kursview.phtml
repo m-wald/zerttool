@@ -17,11 +17,6 @@
     <div class="container">
     	<h3>Kurs </h3>
     	
-    	
-    	 
-    	 <?php /*foreach($kursview as $kurs) {
-    	 	echo "Kurs: ".$kurs['kurs_name'];*/
-    	 	?>
         <table class="table table-hover">
     	<tr><td>Kursname:</td><td> 	<?=$kurs->getKurs_name()?>		</td></tr>
         <tr><td>Kursstart:</td><td> <?=$kurs->getKurs_start()?>	</td></tr>
@@ -30,7 +25,7 @@
         	<td> 
                      <?php
                         if($kurs->getSichtbarkeit() == 1)   	echo "öffentlich";
-                      	else              					echo "privat";
+                      	else              						echo "privat";
                      ?> 
            </td>
        	</tr>

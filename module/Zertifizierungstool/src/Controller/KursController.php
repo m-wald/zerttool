@@ -213,10 +213,10 @@ public function uploadAction(){
 		//Check ob Verzeichnis mit dem Kurs Id exists
 		//Wenn nein - erstellt neues
 		
-		if(var_damp(is_dir('data/uploadsKurse/'.$id.'')))
+		//if(var_damp(is_dir('data/uploadsKurse/'.$id.'')))
 			$upload_folder= 'data/uploadsKurse/'.$id.'';
-		else 
-			$upload_folder = mkdir('data/uploadsKurse/'.$id.'');
+		/*else 
+			$upload_folder = mkdir('data/uploadsKurse/'.$id.'');*/
 			
 		
 		$filename=pathinfo($_FILES['datei']['name'],PATHINFO_FILENAME);
