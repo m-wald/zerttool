@@ -212,8 +212,8 @@ public function uploadAction(){
 		//Upload-Verzeichnis
 		//Check ob Verzeichnis mit dem Kurs Id exists
 		//Wenn nein - erstellt neues
-		$path= 'data/uploadsKurse';
-		$path_new = $path.'/'.$id;
+		$path= 'data/uploadsKurse/';
+		$path_new = $path.$id;
 		
 		if(var_dump(is_dir($path_new)))
 			$upload_folder = $path_new;
