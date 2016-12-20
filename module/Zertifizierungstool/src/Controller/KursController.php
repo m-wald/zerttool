@@ -204,12 +204,12 @@ class KursController extends AbstractActionController
 
 public function uploadAction(){
 	
-	$kurs_id = $_REQUEST["kurs_id"];
+	
 	
 				 
 	if($_SERVER['REQUEST_METHOD'] == 'POST') {
 		
-		//$kurs_id = $_REQUEST["kurs_id"];
+		$kurs_id = $_REQUEST["kurs_id"];
 		
 		
 				 
