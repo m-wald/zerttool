@@ -178,7 +178,7 @@ class KursController extends AbstractActionController
    				while (($data = fgetcsv($handle, 1000,";")) !== FALSE) {
    					
    				   		$csv = new CSV_invite();
-   				   		if(($csv->insert_data($data[0], $data[1])) ==false){
+   				   		if(($csv->insert_data($data[0], $_POST['kurs_id'])) ==false){
    				   			$nomail[$i]=$data;
    				   			$i++;
    				   		}
@@ -192,7 +192,7 @@ class KursController extends AbstractActionController
    			}
    			
    	  	else{
-   			return new ViewModel();
+   			return new ViewModel(['kurs_id' => $_REQUEST['kurs_id']]);
    		}
    } 
 

@@ -7,6 +7,7 @@
 CSV-Datei ausw&auml;hlen: <input type="file" name="datei" required> <br><br>
 
 <input type="submit" value="Datei jetzt ausw&auml;hlen">
+<input type="hidden" value='"<?php $kurs_id ?>"'>
 
 
 </form>
@@ -35,13 +36,13 @@ if(!empty($fehler)) {
 	
 ?>
 <table>
-<tr><th width="300"><b>Email</b></th><th><b>Kurs_Id</b></th></tr>
+<tr><th width="300"><b>Email</b></th></tr>
 <?php 
 
 	foreach($fehler as $f) {
 		?>
 		
-		<tr><td><?php echo $f[0];?></td><td><?php echo $f[1];?></td></tr>
+		<tr><td><?php echo $f[0];?></td></tr>
 		
 	<?php }?>
 	</table>		
