@@ -1,0 +1,38 @@
+<h1>Kurs</h1>
+<?php
+    use Zertifizierungstool\Model\Kurs;
+?>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+
+    <div class="container">
+    	<h3>Kurs </h3>
+    	
+    	 <table>
+    	<tr><td>Kursname:</td><td> 	<?=$kursview->getKurs_name()?></td></tr>
+        <tr><td>Kursstart:</td><td> <?=$kursview->getKurs_start()?></td></tr>
+        <tr><td>Kursende:</td><td>	<?=$kursview->getKurs_ende()?></td></tr>
+        <tr><td>Sichtbarkeit:</td>
+        	<td> 
+                     <?php
+                        if($kursview->getSichtbarkeit() == 1)   echo "sichtbar";
+                      	else              						echo "nicht sichtbar";
+                     ?> 
+           </td>
+       	</tr>
+        <tr><td>Benutzername:</td><td><?=$kursview->getBenutzername()?></td></tr>
+        <tr><td>Beschreibung:</td><td><?=$kursview->getBeschreibung()?></td></tr>
+        </table>
+        <form accept-charset="utf-8" method="POST" action="upload">
+						<input type="hidden" value="<?=$kursview->getKurs_id()?>"name="kurs_id">
+						<input size="70" maxlength="250" value="Datei hinzufügen" type="submit">
+		</form>
+  
+    </div>
+    </body>
+    
+    
