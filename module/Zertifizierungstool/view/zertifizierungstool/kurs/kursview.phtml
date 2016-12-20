@@ -2,7 +2,6 @@
     use Zertifizierungstool\Model\Kurs;
 ?>
 
-<?php echo "Kurs".$kursview['kurs_id'];?>
 
 <head>
     <meta charset="utf-8">
@@ -15,8 +14,8 @@
     	
     	
     	 
-    	 <?php // foreach($kursview as $kurs) {
-    	 	echo "Kurs: ".$kursview->getKurs_name();
+    	 <?php foreach($kursview as $kurs) {
+    	 	echo "Kurs: ".$kurs['kurs_name'];
     	 	/*?>
     	<tr><td>Kursname:</td><td> 	<?=$kurs['kurs_name']?>		</td></tr>
         <tr><td>Kursstart:</td><td> <?=$kurs['kurs_start']?>	</td></tr>
@@ -33,7 +32,7 @@
         <tr><td>Beschreibung:</td><td><?=$kurs['beschreibung']?></td></tr>
         </table>
         
-		<?php */
+		<?php */ }
 		/*<form accept-charset="utf-8" method="POST" action="upload">
 						<input type="hidden" value="<?=$kurs['kurs_id']?>"name="kurs_id">
 						<input size="70" maxlength="250" value="Datei hinzufügen" type="submit">
