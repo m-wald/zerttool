@@ -266,8 +266,20 @@ public function uploadAction(){
 		return new ViewModel();
 	}
   }
-
-
+  
+    public function showdocumentsAction(){
+        $id = $_REQUEST["kurs_id"];
+    	$kurs = new Kurs();
+        
+        //Pfad wo die uploads gespeichert wurden
+        $path = "data/uploadsKurse/'.$id.'";
+        
+        //Ordner auslesen und in Variable speichern
+        $alldocuments = scandir($path);
+        
+        return new ViewModel(['path' => $path,
+                                'alldocuments' => $alldocuments]); 
+    }
 }
    				
    			
