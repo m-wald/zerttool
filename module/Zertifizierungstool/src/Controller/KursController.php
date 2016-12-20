@@ -131,6 +131,7 @@ class KursController extends AbstractActionController
     
     public function csvinviteAction(){
     	
+    	// Zugriff auf Action ist nur erlaubt, falls 
     	if(User::currentUser()->getBenutzername()==null) {
     		header("refresh:0; url = /user/login");
     		exit;
@@ -206,9 +207,13 @@ class KursController extends AbstractActionController
    			return new ViewModel(['meldung' => 'erfolgreich','fehler' =>$nomail]);
    			}
    			
-   	  	else{
+   	  	elseif(!empty($_SESSION['kurs_id'])){
+   	  		
    			return new ViewModel(['kurs_id' => $_REQUEST['kurs_id']]);
    		}
+   		//falls direkt auf diese Action zugegriffen wurde, ohne dass ein Kurs ausgewählt wurde!
+   		else header("refresh:0; url = /kurs/showkurse");
+   		exit;
    } 
 
 
