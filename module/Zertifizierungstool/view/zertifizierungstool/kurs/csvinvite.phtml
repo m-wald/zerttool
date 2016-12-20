@@ -1,12 +1,11 @@
 <h1>CSV-Einladung</h1>
 
-
 <form method="post" action="csvinvite" enctype="multipart/form-data">
 
 
 CSV-Datei ausw&auml;hlen: <input type="file" name="datei" required> <br><br>
 
-<input type="hidden" value="<?php $kurs_id ?>" name='kurs_id'>
+<input type="hidden" value="<?php echo $kurs_id ?>" name='kurs_id'>
 <input type="submit" value="Datei jetzt ausw&auml;hlen">
 
 
