@@ -1,0 +1,48 @@
+<h1>Kurs erfolgreich angelegt!</h1>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+    
+    <div class="container">
+    	<h3>Dokumente zum Kurs <?= $kurs->getKurs_name() ?>: </h3>
+            <table class="table table-hover">
+                <tr><th>Dateinname</th><th>Dateiformat</th><th>Dateigröße</th></tr>
+                <td>    
+                        <?php
+                            foreach($alldocuments as $document){
+                                //Dokumentinformationen auslesen
+                                $documentdetail = pathinfo($path."/".$document);
+                                ?>
+                                <a href="<?php echo $documentdetail['dirname']."/".$documentdetail['basename'];?>"><?php echo $documentdetail['filename']; ?></a>
+                            <?php 
+                            
+                            }
+                        ?>
+                    </td>
+                    <td>
+                        <?php
+                            foreach($alldocuments as $document){
+                                //Dokumentinformationen auslesen
+                                $documentdetail = pathinfo($path."/".$document);
+                                echo $documentdetail['extension'];
+                            }
+                        ?>
+                    </td>
+                    <td>
+                        <?php
+                            foreach($alldocuments as $document){
+                                //Dokumentinformationen auslesen
+                                $documentdetail = pathinfo($path."/".$document);
+                                //Größe ermitteln in kbyte, indem durch 1024 geteilt und gerundet wird
+                                $size = ceil(filesize($path."/".$document)/1024);
+                                echo $size;
+                            }
+                        ?>
+                    </td>
+                
+            </table>
+    </div>
+</body>
