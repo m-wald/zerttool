@@ -297,7 +297,7 @@ public function uploadAction(){
 	}	 
 
 	else{
-		return new ViewModel(['kurs_id' => $_REQUEST['kurs_id']]);
+		return new ViewModel(['kurs_id' => $kurs_id]);
 	}
   }
   
