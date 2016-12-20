@@ -18,16 +18,17 @@
     	
     	
     	 
-    	 <?php foreach($kursview as $kurs) {
-    	 	echo "Kurs: ".$kurs['kurs_name'];
-    	 	/*?>
+    	 <?php /*foreach($kursview as $kurs) {
+    	 	echo "Kurs: ".$kurs['kurs_name'];*/
+    	 	?>
+        <table class="table table-hover">
     	<tr><td>Kursname:</td><td> 	<?=$kurs['kurs_name']?>		</td></tr>
         <tr><td>Kursstart:</td><td> <?=$kurs['kurs_start']?>	</td></tr>
         <tr><td>Kursende:</td><td>	<?=$kurs['kurs_ende']?>		</td></tr>
         <tr><td>Sichtbarkeit:</td>
         	<td> 
                      <?php
-                        if($kurs['sichtbarkeit'] == 1)   	echo "offentlich";
+                        if($kurs['sichtbarkeit'] == 1)   	echo "Ã¶ffentlich";
                       	else              					echo "privat";
                      ?> 
            </td>
@@ -36,15 +37,15 @@
         <tr><td>Beschreibung:</td><td><?=$kurs['beschreibung']?></td></tr>
         </table>
         
-		<?php */ }
-		/*<form accept-charset="utf-8" method="POST" action="upload">
+		<?php  }    ?>
+		<form accept-charset="utf-8" method="POST" action="upload">
 						<input type="hidden" value="<?=$kurs['kurs_id']?>"name="kurs_id">
-						<input size="70" maxlength="250" value="Datei hinzufügen" type="submit">
+						<input size="70" maxlength="250" value="Datei hinzufï¿½gen" type="submit">
 		</form>
-		*/
-		?>
+		
+		
   
     </div>
     </body>
     
-    <?php }?>
+    
