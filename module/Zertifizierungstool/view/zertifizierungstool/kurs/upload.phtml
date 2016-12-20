@@ -7,9 +7,9 @@ Dokument: <input type='file' name='datei' id='datei'><br>
 </form>
 <?php 
 if(isset($meldung)){
-	if($meldung=='datentyp') echo "Datentyp ist falsch!";
-	elseif($meldung=='dateigroesse') echo "Datei ist zu gross!";
-	elseif($meldung=='erfolgreich') echo"Datei ist erfolgreich uploaded!";
+	if($meldung=='datentyp') echo "<b>Datentyp ist falsch!</b>";
+	elseif($meldung=='dateigroesse') echo "<b>Datei ist zu gross!</b>";
+	elseif($meldung=='erfolgreich') echo"<b>Datei ist erfolgreich uploaded!</b>";
 	
 	
 	

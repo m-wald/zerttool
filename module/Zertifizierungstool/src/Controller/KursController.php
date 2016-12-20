@@ -212,11 +212,12 @@ public function uploadAction(){
 		//Upload-Verzeichnis
 		//Check ob Verzeichnis mit dem Kurs Id exists
 		//Wenn nein - erstellt neues
+		$path= 'data/uploadsKurse/';
 		
-		//if(var_damp(is_dir('data/uploadsKurse/'.$id.'')))
-			$upload_folder= 'data/uploadsKurse/';
-		/*else 
-			$upload_folder = mkdir('data/uploadsKurse/'.$id.'');*/
+		if(var_dump(is_dir($path.'/'.$id)))
+			$upload_folder = $path.'/'.$id;
+		else 
+			$upload_folder = mkdir($path.'/'.$id);
 			
 		
 		$filename=pathinfo($_FILES['datei']['name'],PATHINFO_FILENAME);
@@ -270,6 +271,7 @@ public function uploadAction(){
 	}
   }
   
+  
     public function showdocumentsAction(){
         $id = $_REQUEST["kurs_id"];
         $name = $_REQUEST["kurs_name"];
@@ -286,7 +288,43 @@ public function uploadAction(){
                                 'status' => $status,
                                 'kursname' => $name]); 
     }
+
+
+/*public function upload_multAction(){
+	
+	$upload = new Zend_File_Transfer_Adapter_Http();
+	$files  = $upload->getFileInfo();
+	$names = $upload->getFileName();
+	$size = $upload->getFileSize();
+	$type = $upload->getMimeType();
+	
+	
+	
+	foreach($files as $file => $fileInfo) {
+		if ($upload->isUploaded($file)) {
+			if ($upload->isValid($file)) {
+				if ($upload->receive($file)) {
+					$info = $upload->getFileInfo($file);
+					$tmp  = $info[$file]['tmp_name'];
+	
+	
+		
+	// Gibt die Dateinamen aller Dateien zurück
+	$names = $upload->getFileName();
+	
+	// Gibt die Größen aller Dateien als Array zurück
+	// wenn mehr als eine Datei hochgeladen wurde
+	$size = $upload->getFileSize();
+	
+	
+	
+	
+}*/
+
+
 }
+
+
    				
    			
     
