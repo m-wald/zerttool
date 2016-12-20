@@ -1,7 +1,11 @@
 <h1>Kursdokumente</h1>
 
 <?php
-use Zertifizierungstool\Model\Kurs;
+    use Zertifizierungstool\Model\Kurs;
+    if (isset($status)) {
+        echo $status;
+    }
+    else{
 ?>
 <head>
     <meta charset="utf-8">
@@ -49,3 +53,5 @@ use Zertifizierungstool\Model\Kurs;
             </table>
     </div>
 </body>
+
+<?php } ?>
