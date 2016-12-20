@@ -118,7 +118,7 @@ class KursController extends AbstractActionController
     }
     
     public function kursviewAction(){
-    	$id = $_GET["kurs_id"];
+    	$id = $_REQUEST["kurs_id"];
     	$kurs = new Kurs();
     	$kursview = $kurs->load($id);
     	return new ViewModel(['kursview'=>$kursview]);
