@@ -219,7 +219,7 @@ public function uploadAction(){
 		if(is_dir($path_new))
 			$upload_folder = $path_new;
 		else {
-			mkdir($path_new);
+			mkdir($path_new, 0777);
 			$upload_folder = $path_new;
 		}
 		echo $upload_folder;
@@ -247,9 +247,7 @@ public function uploadAction(){
 		}
 		 
 		//Pfad zum Upload
-		$kurs_id = $_REQUEST["kurs_id"];
-		$upload_folder = $path.$kurs_id.'/';
-		 
+				 
 		$new_path = $upload_folder.$filename.'.'.$extension;
 		 
 		//Neuer Dateiname falls die Datei bereits existiert
@@ -257,8 +255,6 @@ public function uploadAction(){
 		if(file_exists($new_path)) { //Falls Datei existiert, h�nge eine Zahl an den Dateinamen
 			$id = 1;
 			do {
-				$kurs_id = $_REQUEST["kurs_id"];
-				$upload_folder = $path.$kurs_id.'/';
 				$new_path = $upload_folder.$filename.'_'.$id.'.'.$extension;
 				$id++;
 			} while(file_exists($new_path));
@@ -266,7 +262,7 @@ public function uploadAction(){
 		 
 		//Alles okay, verschiebe Datei an neuen Pfad
 		 
-		if(move_uploaded_file($_FILES['datei']['tmp_name'], $path.$kurs_id.'/'.$filename.'.'.$extension)) {
+		if(move_uploaded_file($_FILES['datei']['tmp_name'], $new_path)) {
 			
 			return new ViewModel(['meldung' => 'erfolgreich']);
 			//echo $new_path;
