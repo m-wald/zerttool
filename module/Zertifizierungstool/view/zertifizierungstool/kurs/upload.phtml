@@ -3,12 +3,12 @@ Dokument: <input type='file' name='datei' id='datei'><br>
 <input type='submit' value='Upload ' name='submit'>
 </form>
 <?php 
-//if(isset($meldung)){
+if(isset($meldung)){
 	if($meldung=='datentyp') echo "<b>Datentyp ist falsch!</b>";
 	elseif($meldung=='dateigroesse') echo "<b>Datei ist zu gross!</b>";
 	elseif($meldung=='erfolgreich') echo"<b>Datei ist erfolgreich uploaded!</b>";
 	
-	
+}
 	
 	/*switch ($meldung){
 	case 'datentyp': 		echo "Datentyp ist falsch!"; 			break;
