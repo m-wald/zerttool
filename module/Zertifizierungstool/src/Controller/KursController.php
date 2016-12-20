@@ -234,7 +234,7 @@ public function uploadAction(){
 		 
 		//�berpr�fung der Dateigr��e
 		 
-		$max_size = 2000000;                                //2 MB (in Byte angegeben)
+		$max_size = 1000000;                                //2 MB (in Byte angegeben)
 		 
 		if($_FILES['datei']['size'] > $max_size) {
 				
@@ -260,7 +260,7 @@ public function uploadAction(){
 		if(move_uploaded_file($_FILES['datei']['tmp_name'], $new_path)) {
 
 			return new ViewModel(['meldung' => 'erfolgreich']);
-			echo $new_path;
+			//echo $new_path;
 		}
 		 
 		 
