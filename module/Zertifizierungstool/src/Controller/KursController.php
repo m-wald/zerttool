@@ -325,7 +325,8 @@ public function uploadAction(){
         $path = "data/uploadsKurse/12/";
         
         //Ordner auslesen und in Variable speichern
-        $alldocuments = scandir($path);
+        //$alldocuments = scandir($path);
+        $alldocuments = array_diff(scandir($path), array('..', '.'));
         
         return new ViewModel(['path' => $path,
                                 'alldocuments' => $alldocuments,
