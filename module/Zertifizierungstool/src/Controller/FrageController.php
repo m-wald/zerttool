@@ -97,10 +97,10 @@ class FrageController extends AbstractActionController {
 		}
 	
 		$viewModel = new ViewModel([
-				'pruefung' => array($pruefung),
+				'pruefung' => $pruefung,
 				'fragen'   => Frage::loadList($pruefung->getId()),
 				'errors'   => $errors,
-				'mode'	   => array(PruefungController::createFragen)
+				'mode'	   => PruefungController::createFragen
 		]);
 		
 		$viewModel->setTemplate(PruefungController::pathToHtml);
@@ -156,7 +156,7 @@ class FrageController extends AbstractActionController {
 							$status = 1;
 						}
 							
-						$antwort = new Antwort($_REQUEST["id"], "", $frage->getId(), $status);
+						$antwort = new Antwort($_REQUEST["antwort_id"], "", $frage->getId(), $status);
 						if (empty($_REQUEST["id"])) {
 							if (!$antwort->saveNew()) {
 								array_push($errors, "Fehler beim Speichern der Antwort. Bitte erneut versuchen!");
@@ -178,7 +178,7 @@ class FrageController extends AbstractActionController {
 								$status = 1;
 							}
 		
-							$antwort = new Antwort($_REQUEST["id"],
+							$antwort = new Antwort($_REQUEST["antwort_id"],
 									$_REQUEST["antwort_text" .$index],
 									$frage->getId(),
 									$status);
@@ -205,11 +205,11 @@ class FrageController extends AbstractActionController {
 		}
 		
 		$viewModel = new ViewModel([
-				'pruefung' => array($pruefung),
+				'pruefung' => $pruefung,
 				'fragen'   => Frage::loadList($pruefung->getId()),
 				'errors'   => $errors,
 				// Fragen laden -> Was bei Fehler?
-				'mode'	   => array(PruefungController::editFragen),
+				'mode'	   => PruefungController::editFragen,
 				'frageToEdit' => array($frage)
 		]);
 		
@@ -234,6 +234,6 @@ class FrageController extends AbstractActionController {
 		Frage::delete($frage_id_toDelete);
 		// TODO Fehler abfangen
 		
-		header ("refresh:0; url = /frage/create/" .$frage->getPruefungId());
+		header ("refresh:5; url = /frage/create/" .$frage->getPruefungId());
 	}
 }
