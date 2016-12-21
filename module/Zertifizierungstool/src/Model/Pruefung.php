@@ -91,7 +91,7 @@ class Pruefung {
 		$db = new Db_connection();
 		$conn = $db->getConnection();
 	
-		$query = "SELECT * FROM pruefung WHERE pruefung_id = " .$kurs_id;
+		$query = "SELECT * FROM pruefung WHERE kurs_id = " .$kurs_id;
 	
 		$result = mysqli_query($conn, $query);
 	
