@@ -333,21 +333,20 @@ public function uploadAction(){
     }
     
     
-    public function delete_docAction(){
+    public function deleteAction(){
     		
     	if($_SERVER['REQUEST_METHOD'] == 'POST' && $_POST['thissite']) {
     		
     		$path		= $_REQUEST["path"];
     		$document	= $_REQUEST["document"];
     		
-    		return new ViewModel(['path'=>$path, 'document'=>$document]);
-    	/*if(is_writeable($path.$document)){
-    			if(unlink(realpath($path."/".$document)))
+    		if(is_writeable($path.$document)){
+    			if(unlink(realpath($path.$document)))
     					return new ViewModel(['message'=>'Document deleted!']);
     			else 	return new ViewModel(['message'=>'Error by deleting the document!']);
-    	//	}
+    		}
     		else		return new ViewModel(['message'=>'Access denied!']);
-    	*/	
+    	
     	}
     }
 

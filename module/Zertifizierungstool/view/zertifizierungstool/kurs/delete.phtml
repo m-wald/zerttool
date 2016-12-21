@@ -3,11 +3,14 @@
 <br><br>
 
 <?php 
-//use Zertifizierungstool\Model\Kurs;
+use Zertifizierungstool\Model\Kurs;
 
 
 	echo $path;
 	echo $document;
-	//header("refresh:2; url = /kurs/showdocuments");
-
+	
+	if(isset($message)) {
+		echo $message;
+		header("refresh:2; url = /kurs/showdocuments");
+	}
  ?>
