@@ -6,14 +6,18 @@
         echo $status;
     }
     else{
-    	print_r($alldocuments);
+    	
 ?>
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-    
+
+<form method="post" action="kursview">
+<input type="submit" value="zur&uuml;ck zur Kurs&uuml;bersicht">
+</form>
+<br> 
     <div class="container">
     	<h3>Dokumente zum Kurs <?php echo $kursname;?>: </h3>
             <table class="table table-hover">
