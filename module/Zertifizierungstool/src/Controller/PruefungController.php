@@ -69,11 +69,10 @@ class PruefungController extends AbstractActionController {
 		}
 			
 		$viewModel = new ViewModel([
-				'pruefung' => array($pruefung),
+				'pruefung' => $pruefung,
 				'errors'   => $errors,
-				'result'   => array($result),
 				'fragen'   => $fragen,
-				'mode'	   => array(PruefungController::createPruefung)
+				'mode'	   => PruefungController::createPruefung
 		]);
 		
 
@@ -141,18 +140,17 @@ class PruefungController extends AbstractActionController {
 				if (!$pruefung->update()) {
 					array_push($errors, "Fehler beim Speichern der Pr&uuml;fung. Bitte erneut versuchen!");
 				}else {
-					
-					$result = true;
+					header ("refresh:0; url = /frage/create/" .$pruefung->getId());
+					//$result = true;
 				}
 			}
 		}
 			
 		$viewModel = new ViewModel([
-				'pruefung' => array($pruefung),
+				'pruefung' => $pruefung,
 				'errors'   => $errors,
-				'result'   => array($result),
 				'fragen'   => Frage::loadList($pruefung->getId()),
-				'mode'	   => array(PruefungController::editPruefung)
+				'mode'	   => PruefungController::editPruefung
 		]);
 		
 		
@@ -163,6 +161,13 @@ class PruefungController extends AbstractActionController {
 	//TODO
 	public function deleteAction() {
 		
+	}
+	
+	/**
+	 * Listet alle Prüfungen auf, die zu einem Kurs gehören
+	 */
+	public function overviewAction() {
+		;
 	}
 	
 	/**
