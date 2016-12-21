@@ -20,7 +20,7 @@ class Benutzer_Kurs {
 		$db=new Db_connection();
 		
 		//Prüfung, ob Benutzer bereits im Kurs ist
-		$query="select * from benutzer_kurs where benutzername='".$benutzer."' and kurs_id=".$_kurs_id.";";
+		$query="select * from benutzer_kurs where benutzername='".$benutzer."' and kurs_id=".$kurs_id.";";
 		
 		$result=$db->execute($query);
 		
