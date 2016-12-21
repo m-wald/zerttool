@@ -1,4 +1,6 @@
-<?php if(isset($message)) {
+<?php 
+use Zertifizierungstool\Model\Kurs;
+if(isset($message)) {
 	echo $message;
 	header("refresh:2; url = /kurs/showdocuments");}
  ?>
