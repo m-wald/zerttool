@@ -314,7 +314,7 @@ public function uploadAction(){
   
   
     public function showdocumentsAction(){
-        $id = $_REQUEST["kurs_id"];
+        $id = $_SESSION['kurs_id'];
        // $id = 12;
         $name = $_REQUEST["kurs_name"];
             //$kurs = new Kurs();
