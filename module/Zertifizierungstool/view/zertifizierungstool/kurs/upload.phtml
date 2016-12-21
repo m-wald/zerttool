@@ -1,7 +1,6 @@
 <form method="post" action="upload" enctype="multipart/form-data">
 Dokument: <input type='file' name='datei' id='datei'><br>
-<?php echo $kurs_id; ?>
-<input type="hidden" value="<?php echo $kurs_id; ?>" name='kurs_id'>
+
 <input type="hidden" value="thissite" name='thissite'>
 <input type='submit' value='Upload ' name='submit'>
 </form>
@@ -13,9 +12,5 @@ if(isset($meldung)){
 	
 }
 	
-	/*switch ($meldung){
-	case 'datentyp': 		echo "Datentyp ist falsch!"; 			break;
-	case 'dateigroesse': 	echo "Datei ist zu gross!"; 			break;
-	case 'erfolgreich': 	echo"Datei ist erfolgreich uploaded!"; 	break;*/
 		
 	?>

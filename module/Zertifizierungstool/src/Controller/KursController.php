@@ -224,28 +224,21 @@ public function uploadAction(){
 	if($_SERVER['REQUEST_METHOD'] == 'POST' && $_POST['thissite']) {
 		
 		$kurs_id = $_SESSION["kurs_id"];
-		echo $kurs_id;
-		
+			
 				 
 		//Upload-Verzeichnis
-		//Check ob Verzeichnis mit dem Kurs Id exists
+		//Check ob Verzeichnis mit dem Kurs Id existiert
 		//Wenn nein - erstellt neues
 		$path= 'data/uploadsKurse/';
 		$path_new = $path.$kurs_id.'/';
 		
 		if(!is_dir($path_new)) mkdir($path_new, 0777);
 		
-		//return new ViewModel(['kurs_id' => $kurs_id]);
-		
-		echo "Directory am Anfang: ".$path_new."<br>";
-	
-			
-		
+				
 		$filename=pathinfo($_FILES['datei']['name'],PATHINFO_FILENAME);
 		$extension=strtolower(pathinfo($_FILES['datei']['name'], PATHINFO_EXTENSION));
 		
-		echo "1: ".$kurs_id."<br>";
-		 
+			 
 		//�berpr�fung der Dateiendung
 		 
 		$allowed_extensions=array('pdf','word');
@@ -254,8 +247,7 @@ public function uploadAction(){
 			return new ViewModel(['meldung' => 'datentyp']);
 		}
 		
-		echo "2: ".$kurs_id."<br>";
-		 
+				 
 		//�berpr�fung der Dateigr��e
 		 
 		$max_size = 5000000;                                //5 MB (in Byte angegeben)
@@ -265,15 +257,11 @@ public function uploadAction(){
 			return new ViewModel(['meldung' =>'dateigroesse']);
 		}
 		
-		echo "3: ".$kurs_id."<br>";
-		 
-		//Pfad zum Upload
+				 
+		//Dateipfad
 		
 		$new_path = $path_new.$filename.'.'.$extension;
-		echo "vorgesehener Pfad: ".$new_path."<br>";
-		
-		
-		 
+				 
 		//Neuer Dateiname falls die Datei bereits existiert
 		 
 		if(file_exists($new_path)) { //Falls Datei existiert, h�nge eine Zahl an den Dateinamen
@@ -301,12 +289,7 @@ public function uploadAction(){
 		 
 		//Alles okay, verschiebe Datei an neuen Pfad
 		 
-		/*if(move_uploaded_file($_FILES['datei']['tmp_name'], $new_path)) {
-			
-			return new ViewModel(['meldung' => 'erfolgreich']);
-			//echo $new_path;
-		}*/
-		 
+			 
 		 
 	}	 
 
