@@ -224,7 +224,7 @@ public function uploadAction(){
 	if($_SERVER['REQUEST_METHOD'] == 'POST' && $_POST['thissite']) {
 		
 		$kurs_id = $_REQUEST["kurs_id"];
-		
+		echo $kurs_id;
 		
 				 
 		//Upload-Verzeichnis

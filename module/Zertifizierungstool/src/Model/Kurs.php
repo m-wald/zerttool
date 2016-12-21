@@ -73,14 +73,14 @@ class Kurs {
         }elseif((User::currentUser()->istAdmin()) && ($benutzername == NULL)){
             $query = "SELECT * FROM kurs WHERE (CURRENT_DATE BETWEEN kurs_start
                             AND kurs_ende);";
-	}elseif((User::currentUser()->istAdmin()) && ($benutzername == NULL)){
+	}elseif((User::currentUser()->istTeilnehmer()) && ($benutzername == NULL)){
             $query = "SELECT * FROM kurs WHERE (CURRENT_DATE BETWEEN kurs_start
                             AND kurs_ende) AND sichtbarkeit = 1;";
 	}
     	
     	$result = $db->execute($query);
     
-    	$return_array = array();
+    	
         
         if (mysqli_num_rows($result) > 0){
             return $result;
