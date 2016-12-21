@@ -19,14 +19,24 @@ class Benutzer_Kurs {
 		
 		$db=new Db_connection();
 		
+		//Prüfung, ob Benutzer bereits im Kurs ist
+		$query="select * from benutzer_kurs where benutzername='".$benutzer."' and kurs_id=".$_kurs_id.";";
 		
-		$query="insert into benutzer_kurs(benutzername,kurs_id) values('".$benutzer."',".$kurs_id.");";
+		$result=$db->execute($query);
 		
-		if($db->execute($query)){
-			return true;
+		if(mysqli_num_rows($result)>0){
+			return -1;
 		}
 		
-		else return false;
+		//Insert der Daten
+		
+		$query1="insert into benutzer_kurs(benutzername,kurs_id) values('".$benutzer."',".$kurs_id.");";
+		
+		if($db->execute($query1)){
+			return 1;
+		}
+		//falls Fehler bei Insert auftritt
+		else return 0;
 		
 		
 	}

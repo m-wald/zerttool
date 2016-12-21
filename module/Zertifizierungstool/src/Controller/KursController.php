@@ -396,9 +396,16 @@ public function uploadAction(){
     if(User::currentUser()->getBenutzername() == $_REQUEST['benutzername']){
     	
     	$benutzer_kurs=new Benutzer_Kurs();
-    	$benutzer_kurs->insert($_REQUEST['benutzername'], $_REQUEST['kurs_id']);
+    	$result= $benutzer_kurs->insert($_REQUEST['benutzername'], $_REQUEST['kurs_id']);
     	
+    	if($result=1)
     	return new ViewModel(['meldung'=> 'erfolgreich']);
+    	
+    	if($result=0)
+    		return new ViewModel(['meldung'=> 'datenbankfehler']);
+    	
+    	if($result=-1)
+    		return new ViewModel(['meldung'=> 'alreadyexists']);
     }
     
     elseif(User::currentUser()->getBenutzername()!= NULL) {
