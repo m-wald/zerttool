@@ -57,8 +57,8 @@
                     			
                     			?>
                     			<form accept-charset="utf-8" method="POST" action="delete_doc">
-                    			<input type="hidden" value="<?php echo $document; 	?>"name="document"> 
-                    			<input type="hidden" value="<?php echo $path; 		?>"name="path">
+                    			<input type="hidden" value="<?=$document	?>"name="document"> 
+                    			<input type="hidden" value="<?=$path	?>"name="path">
                     			<input type="hidden" value="thissite" name='thissite'>
                     			<input size="70" maxlength="250" value="Delete document" type="submit">
                     			</form>

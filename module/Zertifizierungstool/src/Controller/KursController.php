@@ -6,7 +6,6 @@ use Zend\View\Model\ViewModel;
 use Zertifizierungstool\Model\Kurs;
 use Zertifizierungstool\Model\User;
 use Zertifizierungstool\Model\CSV_invite;
-use Zertifizierungstool\Model\Benutzer_Kurs;
 
 class KursController extends AbstractActionController
 {   
@@ -195,8 +194,7 @@ class KursController extends AbstractActionController
    				while (($data = fgetcsv($handle, 1000)) !== FALSE) {
    					
    				   		$csv = new CSV_invite();
-   				   		$csv->inviteMail($data[0], $_SESSION['kurs_id']);
-   				   		if(($csv->insert_data($data[0], $_SESSION['kurs_id'])) ==false){
+   				   		if(($csv->insert_data($data[0], $_POST['kurs_id'])) ==false){
    				   			$nomail[$i]=$data;
    				   			$i++;
    				   		}
@@ -323,7 +321,7 @@ public function uploadAction(){
   
     public function showdocumentsAction(){
         $id = $_REQUEST["kurs_id"];
-        $id = 12;
+       // $id = 12;
         $name = $_REQUEST["kurs_name"];
             //$kurs = new Kurs();
             //if(!$kurs->load($id)) $status="Fehler beim Laden der Kursdokumente!";
@@ -334,10 +332,10 @@ public function uploadAction(){
         //$alldocuments = scandir($path);
         $alldocuments = array_diff(scandir($path), array('..', '.'));
         
-        return new ViewModel(['path' => $path,
-                                'alldocuments' => $alldocuments,
-                                'status' => $status,
-                                'kursname' => $name]); 
+        return new ViewModel([	'path' 			=> $path,
+                                'alldocuments' 	=> $alldocuments,
+                                'status' 		=> $status,
+                                'kursname' 		=> $name]); 
     }
     
     
@@ -348,12 +346,12 @@ public function uploadAction(){
     		$path		= $_REQUEST["path"];
     		$document	= $_REQUEST["document"];
     		
-    		if(is_writeable($path."/".$document)){
+    	//	if(is_writeable($path."/".$document)){
     			if(unlink($path."/".$document))
     					return new ViewModel(['message'=>'Document deleted!']);
     			else 	return new ViewModel(['message'=>'Error by deleting the document!']);
-    		}
-    		else		return new ViewModel(['message'=>'Access denied!']);
+    	//	}
+    	//	else		return new ViewModel(['message'=>'Access denied!']);
     		
     	}
     }
@@ -390,37 +388,6 @@ public function uploadAction(){
 	
 }*/
 
-    
-    public function enterkursAction() {
-    	
-    if(User::currentUser()->getBenutzername() == $_REQUEST['benutzername']){
-    	
-    	$benutzer_kurs=new Benutzer_Kurs();
-    	$result= $benutzer_kurs->insert($_REQUEST['benutzername'], $_REQUEST['kurs_id']);
-    	
-    	if($result==1)
-    	return new ViewModel(['meldung'=> 'erfolgreich']);
-    	
-    	if($result==0)
-    		return new ViewModel(['meldung'=> 'datenbankfehler']);
-    	
-    	if($result==-1)
-    		return new ViewModel(['meldung'=> 'alreadyexists']);
-    }
-    
-    elseif(User::currentUser()->getBenutzername()!= NULL) {
-    	
-    	return new Viewmodel(['meldung'=> 'falseuser']);
-    }
-    
-    else {
-    	$_SESSION['kurs']=$_REQUEST['kurs_id'];
-    	header("refresh:0; url= /user/login?inviteuser=".$_REQUEST['benutzername']);
-    }
-    
-    
-    
-    }
 
 }
 
