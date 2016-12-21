@@ -131,7 +131,7 @@ class KursController extends AbstractActionController
     
     public function csvinviteAction(){
     	
-    	// Zugriff auf Action ist nur erlaubt, falls 
+    	// Zugriff auf Action ist nur erlaubt, falls Zertifizierer oder Admin und Zugang über Button in kursview
     	if(User::currentUser()->getBenutzername()==null) {
     		header("refresh:0; url = /user/login");
     		exit;
@@ -209,7 +209,7 @@ class KursController extends AbstractActionController
    			
    	  	elseif(!empty($_SESSION['kurs_id'])){
    	  		
-   			return new ViewModel(['kurs_id' => $_REQUEST['kurs_id']]);
+   			return new ViewModel();
    		}
    		//falls direkt auf diese Action zugegriffen wurde, ohne dass ein Kurs ausgewählt wurde!
    		else header("refresh:0; url = /kurs/showkurse");
@@ -220,6 +220,21 @@ class KursController extends AbstractActionController
 
 
 public function uploadAction(){	
+	
+	
+	// Zugriff auf Action ist nur erlaubt, falls Zertifizierer oder Admin und Zugang über Button in kursview
+	if(User::currentUser()->getBenutzername()==null) {
+		header("refresh:0; url = /user/login");
+		exit;
+	}
+	 
+	if(User::currentUser()->istTeilnehmer()==true){
+		header("refresh:0; url = /user/home");
+		exit;
+	}
+	
+	
+	
 				 
 	if($_SERVER['REQUEST_METHOD'] == 'POST' && $_POST['thissite']) {
 		
@@ -293,9 +308,14 @@ public function uploadAction(){
 		 
 	}	 
 
-	else{
+	elseif(!empty($_SESSION['kurs_id'])){
+	
 		return new ViewModel();
 	}
+	//falls direkt auf diese Action zugegriffen wurde, ohne dass ein Kurs ausgewählt wurde!
+	else header("refresh:0; url = /kurs/showkurse");
+	exit;
+
   }
   
   
