@@ -218,6 +218,7 @@ class FrageController extends AbstractActionController {
 	}
 	
 	public function deleteAction() {
+		// TODO Berechtigungsprüfungen
 		// TODO Prüfen ob Prüfungstermin schon erreicht ist
 		// Die Prüfung kann dann nicht mehr bearbeitet werden
 		$frage_id_toDelete = $this->params()->fromRoute('id');
@@ -235,5 +236,10 @@ class FrageController extends AbstractActionController {
 		// TODO Fehler abfangen
 		
 		header ("refresh:5; url = /frage/create/" .$frage->getPruefungId());
+	}
+	
+	public function deleteAntwortAction() {
+		Antwort::delete($antwort->getId());
+		header ("refresh:5; url = /frage/create/" .$this->params()->fromRoute('id'));
 	}
 }

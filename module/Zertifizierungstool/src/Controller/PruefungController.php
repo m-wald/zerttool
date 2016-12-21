@@ -167,7 +167,13 @@ class PruefungController extends AbstractActionController {
 	 * Listet alle Prüfungen auf, die zu einem Kurs gehören
 	 */
 	public function overviewAction() {
-		;
+		$pruefungen = Pruefung::loadList($this->params()->fromRoute('id'));
+		
+		if ($pruefungen == false) {
+			// Fehler
+		}
+		
+		return new ViewModel(['pruefungen' => $pruefungen]);
 	}
 	
 	/**

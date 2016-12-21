@@ -87,6 +87,35 @@ class Pruefung {
 		return true;
 	}
 	
+	public static function loadList($kurs_id) {
+		$db = new Db_connection();
+		$conn = $db->getConnection();
+	
+		$query = "SELECT * FROM pruefung WHERE pruefung_id = " .$kurs_id;
+	
+		$result = mysqli_query($conn, $query);
+	
+		if(!$result) {
+			// Fehler bei der Datenbankabfrage
+			return false;
+	
+		} else {
+			$return_array = array();
+			while ($row = mysqli_fetch_assoc($result)) {
+				$p = new Pruefung(
+						$row["pruefung_id"],
+						$row["pruefung_name"],
+						$row["pruefung_ab"],
+						$row["kurs_id"],
+						$row["cutscore"]);
+	
+				array_push($return_array, $p);
+			}
+	
+			return $return_array;
+		}
+	}
+	
 	
 	// Getter methods
 	public function getId() 	  {return $this->id;}	

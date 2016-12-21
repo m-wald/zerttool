@@ -1,0 +1,18 @@
+<table>
+	<tr><th colspan="3">Name<th>Termin<th>Cutscore</tr>
+
+	<?php 
+	foreach ($pruefungen as $pruefung){ ?>
+		<tr>
+		<td><?=$pruefung->getName()?></td>
+		<td><?=$pruefung->getTermin()?></td>
+		<td><?=$pruefung->getCutscore() * 100?></td>
+		
+		<td><a href="<?= $this->url('pruefung', ['action' => 'edit',   'id' => $pruefung->getId()])?>"><button type="button">Bearbeiten</button></a></td>
+		<td><a href="<?= $this->url('pruefung', ['action' => 'delete', 'id' => $pruefung->getId()])?>"><button type="button">L&ouml;schen</button></a></td>
+		</tr>
+	<?php }?>
+</table>
+
+<br>
+<a href="<?= $this->url('pruefung', ['action' => 'delete', 'id' => $pruefung->getKursId()])?>"><button type="button">Neue Pr&uuml;fung anlegen</button></a>

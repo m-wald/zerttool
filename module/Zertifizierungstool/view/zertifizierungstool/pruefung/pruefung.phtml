@@ -122,21 +122,25 @@ switch ($mode) {
 		$pruefReadonly = 'readonly = "readonly" disabled';
 		$pruefSaveButton = "hidden";
 		$pruefBackground = 'style="background-color: gray;"';
+		$frageBackground = 'style="background-color: aqua;"';
 		break;
 	case PruefungController::editFragen:
 		$pruefReadonly = 'readonly = "readonly" disabled';
 		$pruefSaveButton = "hidden";
 		$pruefBackground = 'style="background-color: gray;"';
+		$frageBackground = 'style="background-color: aqua;"';
 		break;
 	case PruefungController::createPruefung:
 		$frageDisabled = 'disabled "disabled"';
 		$pruefSaveButton = "submit";
 		$pruefBackground = 'style="background-color: aqua;"';
+		$frageBackground = 'style="background-color: gray;"';
 		break;
 	case PruefungController::editPruefung:
 		$frageDisabled = 'disabled "disabled"';
 		$pruefSaveButton = "submit";
 		$pruefBackground = 'style="background-color: aqua;"';
+		$frageBackground = 'style="background-color: gray;"';
 		break;
 }
 ?>
@@ -162,7 +166,7 @@ switch ($mode) {
 
 
 
-<div id="FragenListe">
+<div id="FragenListe" <?=$frageBackground?>>
 	<h3>Angelegte Fragen</h3>
 	<table>
 	<?php
@@ -177,10 +181,11 @@ switch ($mode) {
 		
 	</table>
 	
-	<a href="<?= $this->url('frage', ['action' => 'create', 'id' => $pruefung->getId()]) ?>"><button type="button" <?=$frageDisabled?>>Neue Frage Anlegen</button></a>
+	<a href="<?= $this->url('frage', ['action' => 'create', 'id' => $pruefung->getId()])  ?>"><button type="button" <?=$frageDisabled?>>Neue Frage Anlegen</button></a>
+	<a href="<?= $this->url('pruefung', ['action' => 'edit', 'id' => $pruefung->getId()]) ?>"><button type="button" <?=$frageDisabled?>>Kopfdaten der Pr&uuml;fung bearbeiten</button></a>
 </div>
 
-<div id="Frage">
+<div id="Frage" <?=$frageBackground?>>
 <?php if ($mode == PruefungController::createFragen) { ?>
 
 <h3>Frage anlegen</h3>
@@ -209,7 +214,8 @@ switch ($mode) {
 		foreach ($antworten as $antwort) { echo '<br>' ?>
 		<input type="text"     name="antwort_text<?=$i?>" required value="<?=$antwort->getText()?>">
 		<input type="checkbox" name="antwort_checked<?=$i?>" <?php if ($antwort->getStatus() == 1) echo "checked"?>>
-		<input type="hidden"   name="antwort_id<?=$i?>" value="<?=$antwort->getId()?>"> 
+		<input type="hidden"   name="antwort_id<?=$i?>" value="<?=$antwort->getId()?>">
+		<a href="<?= $this->url('frage', ['action' => 'deleteAntwort', 'id' => $antwort->getId()])?>"><button type="button"> - </button></a>
 	<?php 
 		}
 	}
@@ -227,8 +233,8 @@ switch ($mode) {
 </div>
 
 
-
-<a><button type="button">Zur&uuml;ck zum Kurs</button></a>
+<br>
+<a href="<?= $this->url('pruefung', ['action' => 'overview', 'id' => $pruefung->getKursId()])?>"><button type="button">Zur&uuml;ck zur Pr&uuml;fungsliste</button></a>
 
 
 
