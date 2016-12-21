@@ -333,7 +333,7 @@ public function uploadAction(){
     }
     
     
-    public function deleteAction(){
+    public function delete_docAction(){
     		
     	if($_SERVER['REQUEST_METHOD'] == 'POST' && $_POST['thissite']) {
     		
@@ -341,7 +341,7 @@ public function uploadAction(){
     		$document	= $_REQUEST["document"];
     		
     		return new ViewModel(['path'=>$path, 'document'=>$document]);
-    	/*	if(is_writeable($path."/".$document)){
+    	/*if(is_writeable($path.$document)){
     			if(unlink(realpath($path."/".$document)))
     					return new ViewModel(['message'=>'Document deleted!']);
     			else 	return new ViewModel(['message'=>'Error by deleting the document!']);
