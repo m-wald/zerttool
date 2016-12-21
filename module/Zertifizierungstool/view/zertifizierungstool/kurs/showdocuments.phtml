@@ -54,8 +54,7 @@
                     <td>
                     	<?php 
                     		foreach($alldocuments as $document){ 
-                    			if(isset($message)) echo $message;
-                    			else {
+                    			
                     			?>
                     			<form accept-charset="utf-8" method="POST" action="delete_doc">
                     			<input type="hidden" value="<?= $ducoment ?>"name="document">
@@ -64,7 +63,7 @@
                     			<input size="70" maxlength="250" value="Delete document" type="submit">
                     			</form>
                     	<?php 	
-                    				}	
+                    					
                     			}
                     	?>
                     </td>
