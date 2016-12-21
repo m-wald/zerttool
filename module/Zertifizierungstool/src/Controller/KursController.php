@@ -347,7 +347,7 @@ public function uploadAction(){
     		$document	= $_REQUEST["document"];
     		
     	//	if(is_writeable($path."/".$document)){
-    			if(unlink($path."/".$document))
+    			if(unlink(realpath($path."/".$document)))
     					return new ViewModel(['message'=>'Document deleted!']);
     			else 	return new ViewModel(['message'=>'Error by deleting the document!']);
     	//	}
