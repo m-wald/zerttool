@@ -398,13 +398,13 @@ public function uploadAction(){
     	$benutzer_kurs=new Benutzer_Kurs();
     	$result= $benutzer_kurs->insert($_REQUEST['benutzername'], $_REQUEST['kurs_id']);
     	
-    	if($result=1)
+    	if($result==1)
     	return new ViewModel(['meldung'=> 'erfolgreich']);
     	
-    	if($result=0)
+    	if($result==0)
     		return new ViewModel(['meldung'=> 'datenbankfehler']);
     	
-    	if($result=-1)
+    	if($result==-1)
     		return new ViewModel(['meldung'=> 'alreadyexists']);
     }
     
