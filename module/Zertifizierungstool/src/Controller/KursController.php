@@ -131,7 +131,7 @@ class KursController extends AbstractActionController
     
     public function csvinviteAction(){
     	
-    	// Zugriff auf Action ist nur erlaubt, falls 
+    	// Zugriff auf Action ist nur erlaubt, falls Zertifizierer oder Admin und Zugang über Button in kursview
     	if(User::currentUser()->getBenutzername()==null) {
     		header("refresh:0; url = /user/login");
     		exit;
@@ -209,7 +209,7 @@ class KursController extends AbstractActionController
    			
    	  	elseif(!empty($_SESSION['kurs_id'])){
    	  		
-   			return new ViewModel(['kurs_id' => $_REQUEST['kurs_id']]);
+   			return new ViewModel();
    		}
    		//falls direkt auf diese Action zugegriffen wurde, ohne dass ein Kurs ausgewählt wurde!
    		else header("refresh:0; url = /kurs/showkurse");
@@ -220,32 +220,40 @@ class KursController extends AbstractActionController
 
 
 public function uploadAction(){	
+	
+	
+	// Zugriff auf Action ist nur erlaubt, falls Zertifizierer oder Admin und Zugang über Button in kursview
+	if(User::currentUser()->getBenutzername()==null) {
+		header("refresh:0; url = /user/login");
+		exit;
+	}
+	 
+	if(User::currentUser()->istTeilnehmer()==true){
+		header("refresh:0; url = /user/home");
+		exit;
+	}
+	
+	
+	
 				 
 	if($_SERVER['REQUEST_METHOD'] == 'POST' && $_POST['thissite']) {
 		
-		$kurs_id = $_REQUEST["kurs_id"];
-		
-		
+		$kurs_id = $_SESSION["kurs_id"];
+			
 				 
 		//Upload-Verzeichnis
-		//Check ob Verzeichnis mit dem Kurs Id exists
+		//Check ob Verzeichnis mit dem Kurs Id existiert
 		//Wenn nein - erstellt neues
 		$path= 'data/uploadsKurse/';
 		$path_new = $path.$kurs_id.'/';
 		
 		if(!is_dir($path_new)) mkdir($path_new, 0777);
 		
-		//return new ViewModel(['kurs_id' => $kurs_id]);
-		
-		echo "Directory am Anfang: ".$path_new."<br>";
-	
-			
-		
+				
 		$filename=pathinfo($_FILES['datei']['name'],PATHINFO_FILENAME);
 		$extension=strtolower(pathinfo($_FILES['datei']['name'], PATHINFO_EXTENSION));
 		
-		echo "1: ".$kurs_id."<br>";
-		 
+			 
 		//ï¿½berprï¿½fung der Dateiendung
 		 
 		$allowed_extensions=array('pdf','word');
@@ -254,8 +262,7 @@ public function uploadAction(){
 			return new ViewModel(['meldung' => 'datentyp']);
 		}
 		
-		echo "2: ".$kurs_id."<br>";
-		 
+				 
 		//ï¿½berprï¿½fung der Dateigrï¿½ï¿½e
 		 
 		$max_size = 5000000;                                //5 MB (in Byte angegeben)
@@ -265,22 +272,18 @@ public function uploadAction(){
 			return new ViewModel(['meldung' =>'dateigroesse']);
 		}
 		
-		echo "3: ".$kurs_id."<br>";
-		 
-		//Pfad zum Upload
-		$kurs_id=$_POST["kurs_id"];
-		$new_path = $path.$kurs_id.'/'.$filename.'.'.$extension;
-		echo "Gespeichert in: ".$new_path."<br>";
-		if($path_new!=$new_path) echo "Wieder falsches UploadVerzeichnis!"."<br>";
-		if(empty($_POST["kurs_id"])) echo "Kurs_id ist gleich NULL!";
-		 
+				 
+		//Dateipfad
+		
+		$new_path = $path_new.$filename.'.'.$extension;
+				 
 		//Neuer Dateiname falls die Datei bereits existiert
 		 
 		if(file_exists($new_path)) { //Falls Datei existiert, hï¿½nge eine Zahl an den Dateinamen
 			$id = 1;
 			do {
 				//$kurs_id = $_REQUEST["kurs_id"];
-				if(move_uploaded_file($_FILES['datei']['tmp_name'], $path.$kurs_id.'/'.$filename.'_'.$id.'.'.$extension)) {
+				if(move_uploaded_file($_FILES['datei']['tmp_name'], $path_new.$filename.'_'.$id.'.'.$extension)) {
 						
 					return new ViewModel(['meldung' => 'erfolgreich']);
 				}
@@ -292,7 +295,7 @@ public function uploadAction(){
 		
 		else {
 			//$kurs_id = $_REQUEST["kurs_id"];
-			if(move_uploaded_file($_FILES['datei']['tmp_name'], $path.$kurs_id.'/'.$filename.'.'.$extension))
+			if(move_uploaded_file($_FILES['datei']['tmp_name'], $path_new.$filename.'.'.$extension))
 				{
 			
 				return new ViewModel(['meldung' => 'erfolgreich']);
@@ -301,18 +304,18 @@ public function uploadAction(){
 		 
 		//Alles okay, verschiebe Datei an neuen Pfad
 		 
-		/*if(move_uploaded_file($_FILES['datei']['tmp_name'], $new_path)) {
-			
-			return new ViewModel(['meldung' => 'erfolgreich']);
-			//echo $new_path;
-		}*/
-		 
+			 
 		 
 	}	 
 
-	else{
-		return new ViewModel(['kurs_id' => $kurs_id]);
+	elseif(!empty($_SESSION['kurs_id'])){
+	
+		return new ViewModel();
 	}
+	//falls direkt auf diese Action zugegriffen wurde, ohne dass ein Kurs ausgewählt wurde!
+	else header("refresh:0; url = /kurs/showkurse");
+	exit;
+
   }
   
   
