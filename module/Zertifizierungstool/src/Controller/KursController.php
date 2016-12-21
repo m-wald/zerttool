@@ -119,6 +119,7 @@ class KursController extends AbstractActionController
     
     public function kursviewAction(){
     	$id = $_REQUEST["kurs_id"];
+    	$_SESSION['kurs_id']=$id;
     	$kurs = new Kurs();
     	if(!$kurs->load($id)) $status="Fehler beim Laden des Kurses!";
     	//else {$kursview = $kurs->load($id); $status="Kurs wird gleich geladen...";}
@@ -129,9 +130,21 @@ class KursController extends AbstractActionController
     
     
     public function csvinviteAction(){
+    	
+    	// Zugriff auf Action ist nur erlaubt, falls 
+    	if(User::currentUser()->getBenutzername()==null) {
+    		header("refresh:0; url = /user/login");
+    		exit;
+    	}
+    	
+    	if(User::currentUser()->istTeilnehmer()==true){
+    		header("refresh:0; url = /user/home");
+    		exit;
+    	}
+    	
    	
    
-   	if($_SERVER['REQUEST_METHOD'] == 'POST' && $_POST['thissite']) {
+   	if($_SERVER['REQUEST_METHOD'] == 'POST' && $_POST['site']=='csvinvite') {
    		
    		//Upload-Verzeichnis
    		
@@ -194,20 +207,21 @@ class KursController extends AbstractActionController
    			return new ViewModel(['meldung' => 'erfolgreich','fehler' =>$nomail]);
    			}
    			
-   	  	else{
+   	  	elseif(!empty($_SESSION['kurs_id'])){
+   	  		
    			return new ViewModel(['kurs_id' => $_REQUEST['kurs_id']]);
    		}
+   		//falls direkt auf diese Action zugegriffen wurde, ohne dass ein Kurs ausgewählt wurde!
+   		else header("refresh:0; url = /kurs/showkurse");
+   		exit;
    } 
 
 
 
 
-public function uploadAction(){
-	
-	
-	
+public function uploadAction(){	
 				 
-	if($_SERVER['REQUEST_METHOD'] == 'POST') {
+	if($_SERVER['REQUEST_METHOD'] == 'POST' && $_POST['thissite']) {
 		
 		$kurs_id = $_REQUEST["kurs_id"];
 		
@@ -304,19 +318,39 @@ public function uploadAction(){
   
     public function showdocumentsAction(){
         $id = $_REQUEST["kurs_id"];
+        $id = 12;
         $name = $_REQUEST["kurs_name"];
             //$kurs = new Kurs();
             //if(!$kurs->load($id)) $status="Fehler beim Laden der Kursdokumente!";
         //Pfad wo die uploads gespeichert wurden
-        $path = "data/uploadsKurse/'.$id.'";
+        $path = "data/uploadsKurse/".$id."/";
         
         //Ordner auslesen und in Variable speichern
-        $alldocuments = scandir($path);
+        //$alldocuments = scandir($path);
+        $alldocuments = array_diff(scandir($path), array('..', '.'));
         
         return new ViewModel(['path' => $path,
                                 'alldocuments' => $alldocuments,
                                 'status' => $status,
                                 'kursname' => $name]); 
+    }
+    
+    
+    public function delete_docAction(){
+    		
+    	if($_SERVER['REQUEST_METHOD'] == 'POST' && $_POST['thissite']) {
+    		
+    		$path		= $_REQUEST["path"];
+    		$document	= $_REQUEST["document"];
+    		
+    		if(is_writeable($path."/".$document)){
+    			if(unlink($path."/".$document))
+    					return new ViewModel(['message'=>'Document deleted!']);
+    			else 	return new ViewModel(['message'=>'Error by deleting the document!']);
+    		}
+    		else		return new ViewModel(['message'=>'Access denied!']);
+    		
+    	}
     }
 
 

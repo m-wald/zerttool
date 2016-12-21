@@ -6,6 +6,7 @@
         echo $status;
     }
     else{
+    	print_r($alldocuments);
 ?>
 <head>
     <meta charset="utf-8">
@@ -16,7 +17,8 @@
     <div class="container">
     	<h3>Dokumente zum Kurs <?php echo $kursname;?>: </h3>
             <table class="table table-hover">
-                <tr><th>Dateinname</th><th>Dateiformat</th><th>Dateigröße</th></tr>
+                <tr><th>Dateinname</th><th>Dateiformat</th><th>Dateigröße</th><th>Aktion</th></tr>
+                
                 <td>    
                         <?php
                             foreach($alldocuments as $document){
@@ -48,6 +50,22 @@
                                 echo $size;
                             }
                         ?>
+                    </td>
+                    <td>
+                    	<?php 
+                    		foreach($alldocuments as $document){ 
+                    			
+                    			?>
+                    			<form accept-charset="utf-8" method="POST" action="delete_doc">
+                    			<input type="hidden" value="<?php echo $document; 	?>"name="document"> 
+                    			<input type="hidden" value="<?php echo $path; 		?>"name="path">
+                    			<input type="hidden" value="thissite" name='thissite'>
+                    			<input size="70" maxlength="250" value="Delete document" type="submit">
+                    			</form>
+                    	<?php 	
+                    					
+                    			}
+                    	?>
                     </td>
                 
             </table>

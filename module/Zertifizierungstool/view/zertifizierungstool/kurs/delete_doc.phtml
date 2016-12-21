@@ -1,0 +1,12 @@
+<h1>Document manage</h1>
+
+<br><br>
+
+<?php 
+use Zertifizierungstool\Model\Kurs;
+
+if(isset($message)) {
+	echo $message;
+	header("refresh:2; url = /kurs/showdocuments");
+}
+ ?>
