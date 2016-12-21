@@ -106,11 +106,19 @@ class UserController extends AbstractActionController
 			$user = new User();
 			
 			$user->load($_POST['benutzername']);
-				
+
 			$result = $user->passwortControll($_POST['passwort']);
 			if ($result){
 				User::currentUser()->load($_POST['benutzername']);
 				$_SESSION["currentUser"] = serialize(User::currentUser());
+				if (isset ($_POST['inviteuser'])) {
+					
+					header("refresh:0; url=/kurs/enterkurs?benutzername=".$_POST['inviteuser']."&kurs_id=".$_SESSION['kurs']);
+					exit;
+				
+				
+				
+				}
 				return new ViewModel(['anmeldestatus' => true]);
 			}
 			else {
@@ -118,8 +126,14 @@ class UserController extends AbstractActionController
 			}
 		}
 		 
+		if (isset($_GET['inviteuser'])) {
+			
+			return new ViewModel(['inviteuser'=>$_GET['inviteuser']]);
+			
+		}
 		
 		return new ViewModel();
+		
 		}
 
 	}

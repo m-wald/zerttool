@@ -20,6 +20,11 @@
 <table>
 <tr><td>Benutzername:</td><td> <input type="text" name="benutzername" required></td></tr>
 <tr><td>Passwort:</td><td> <input type="password" name="passwort" required> </td></tr>
+
+<?php if (isset($inviteuser)) { ?>
+	<input type='hidden' name="inviteuser" value='<?php echo $inviteuser?>'>
+<?php }?>
+
 </table><br><br>
 <input type="submit" value="Jetzt anmelden">
 

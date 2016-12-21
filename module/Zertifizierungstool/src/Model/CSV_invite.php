@@ -43,17 +43,17 @@ class CSV_invite {
 		if ($user->load_via_email($email)) {
 			
 			$empfaenger = $email;
-			$betreff = "Einladung zu Kurs ".$kurs->getKurs_name;
-			$text = "Hallo ".$user->vorname." ".$user->nachname.",\n\n Sie wurden in den Kurs ".$kurs->getKurs_name." eigeladen.\n
+			$betreff = "Einladung zu Kurs ".$kurs->getKurs_name();
+			$text = "Hallo ".$user->getVorname()." ".$user->getNachname().",\n\n Sie wurden in den Kurs ".$kurs->getKurs_name()." eigeladen.\n
 					Bitte folgen Sie diesem Link um sich einzutragen:\n\n
-					www.zerttool.tk/kurs/...";
+					www.zerttool.tk/kurs/enterkurs?benutzername=".$user->getBenutzername()."&kurs_id=".$kurs_id;
 			$text = wordwrap($text, 70);
 			mail ($empfaenger, $betreff, $text);
 		}else {
 			
 			$empfaenger = $email;
-			$betreff = "Einladung zu Kurs ".$kurs->getKurs_name;
-			$text = "Hallo zukünftiger Teilnehmer,\n\n Sie wurden in den Kurs ".$kurs->getKurs_name." eigeladen.\n
+			$betreff = "Einladung zu Kurs ".$kurs->getKurs_name();
+			$text = "Hallo zukünftiger Teilnehmer,\n\n Sie wurden in den Kurs ".$kurs->getKurs_name()." eigeladen.\n
 					Für diese E-Mail-Adresse wurde bisher keine Registrierung festgestellt.
 					Bitte folgen Sie diesem Link um sich zu registrieren:\n\n
 					www.zerttool.tk/kurs/...

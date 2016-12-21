@@ -118,11 +118,10 @@ class User
 		if (mysqli_num_rows($result) > 0) {
 			while ($row = mysqli_fetch_assoc($result)) {
 				array_push($return_array, $row);
-			}
-		} else {
-			return false;
-		}
+							}
 		
+		
+			
 		foreach ($return_array as $row) {
 			$this->benutzername     = $row['benutzername'];
 			$this->vorname		    = $row['vorname'];
@@ -137,6 +136,12 @@ class User
 			$this->ist_zertifizierer = $row['ist_zertifizierer'];
 			$this->ist_teilnehmer    = $row['ist_teilnehmer'];
 		}
+		return true;
+	}
+		else {
+			return false;
+		}
+		
 		
 		
 	}

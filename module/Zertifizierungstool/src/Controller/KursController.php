@@ -6,6 +6,7 @@ use Zend\View\Model\ViewModel;
 use Zertifizierungstool\Model\Kurs;
 use Zertifizierungstool\Model\User;
 use Zertifizierungstool\Model\CSV_invite;
+use Zertifizierungstool\Model\Benutzer_Kurs;
 
 class KursController extends AbstractActionController
 {   
@@ -194,7 +195,7 @@ class KursController extends AbstractActionController
    				while (($data = fgetcsv($handle, 1000)) !== FALSE) {
    					
    				   		$csv = new CSV_invite();
-   				   		if(($csv->insert_data($data[0], $_POST['kurs_id'])) ==false){
+   				   		if(($csv->insert_data($data[0], $_SESSION['kurs_id'])) ==false){
    				   			$nomail[$i]=$data;
    				   			$i++;
    				   		}
@@ -388,6 +389,30 @@ public function uploadAction(){
 	
 }*/
 
+    
+    public function enterkursAction() {
+    	
+    if(User::currentUser()->getBenutzername() == $_REQUEST['benutzername']){
+    	
+    	$benutzer_kurs=new Benutzer_Kurs();
+    	$benutzer_kurs->insert($_REQUEST['benutzername'], $_REQUEST['kurs_id']);
+    	
+    	return new ViewModel(['meldung'=> 'erfolgreich']);
+    }
+    
+    elseif(User::currentUser()->getBenutzername()!= NULL) {
+    	
+    	return new Viewmodel(['meldung'=> 'falseuser']);
+    }
+    
+    else {
+    	$_SESSION['kurs']=$_REQUEST['kurs_id'];
+    	header("refresh:0; url= /user/login?inviteuser=".$_REQUEST['benutzername']);
+    }
+    
+    
+    
+    }
 
 }
 
