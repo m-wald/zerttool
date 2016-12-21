@@ -332,6 +332,21 @@ public function uploadAction(){
                                 'status' => $status,
                                 'kursname' => $name]); 
     }
+    
+    
+    public function delete_docAction(){
+    		
+    	if($_SERVER['REQUEST_METHOD'] == 'POST' && $_POST['thissite']) {
+    		
+    		if(is_writeable($path."/".$document)){
+    			if(unlink($path."/".$document))
+    			return new ViewModel(['message'=>'Document deleted!']);
+    		}
+    		elseif(!is_writeable($path."/".$document))
+    			return new ViewModel(['message'=>'Access denied!']);
+    		else return new ViewModel(['message'=>'Error by deleting the document!']);
+    	}
+    }
 
 
 /*public function upload_multAction(){

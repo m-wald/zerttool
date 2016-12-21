@@ -17,7 +17,7 @@
     <div class="container">
     	<h3>Dokumente zum Kurs <?php echo $kursname;?>: </h3>
             <table class="table table-hover">
-                <tr><th>Dateinname</th><th>Dateiformat</th><th>Dateigröße</th></tr>
+                <tr><th>Dateinname</th><th>Dateiformat</th><th>Dateigröße</th><th>Aktion</th></tr>
                 <td>    
                         <?php
                             foreach($alldocuments as $document){
@@ -49,6 +49,23 @@
                                 echo $size;
                             }
                         ?>
+                    </td>
+                    <td>
+                    	<?php 
+                    		foreach($alldocuments as $document){ 
+                    			if(isset($message)) echo $message;
+                    			else {
+                    			?>
+                    			<form accept-charset="utf-8" method="POST" action="delete_doc">
+                    			<input type="hidden" value="<?= $ducoment ?>"name="document">
+                    			<input type="hidden" value="<?= $path ?>"name="path">
+                    			<input type="hidden" value="thissite" name='thissite'>
+                    			<input size="70" maxlength="250" value="anzeigen" type="submit">
+                    			</form>
+                    	<?php 	
+                    				}	
+                    			}
+                    	?>
                     </td>
                 
             </table>
