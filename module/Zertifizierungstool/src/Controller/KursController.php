@@ -333,7 +333,7 @@ public function uploadAction(){
     }
     
     
-    public function delete_docAction(){
+    public function deleteAction(){
     		
     	if($_SERVER['REQUEST_METHOD'] == 'POST' && $_POST['thissite']) {
     		
