@@ -318,11 +318,12 @@ public function uploadAction(){
   
     public function showdocumentsAction(){
         $id = $_REQUEST["kurs_id"];
+        $id = 12;
         $name = $_REQUEST["kurs_name"];
             //$kurs = new Kurs();
             //if(!$kurs->load($id)) $status="Fehler beim Laden der Kursdokumente!";
         //Pfad wo die uploads gespeichert wurden
-        $path = "data/uploadsKurse/12/";
+        $path = "data/uploadsKurse/".$id."/";
         
         //Ordner auslesen und in Variable speichern
         //$alldocuments = scandir($path);
