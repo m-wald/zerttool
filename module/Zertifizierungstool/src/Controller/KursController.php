@@ -118,8 +118,13 @@ class KursController extends AbstractActionController
     }
     
     public function kursviewAction(){
-    	$id = $_REQUEST["kurs_id"];
-    	$_SESSION['kurs_id']=$id;
+    	if(!empty($_REQUEST["kurs_id"]) || $_REQUEST["kurs_id"] == $_SESSION['kurs_id'])
+    			$id = $_SESSION['kurs_id'];
+    	else 
+    	{  		
+    		$id = $_REQUEST["kurs_id"];
+    		$_SESSION['kurs_id']=$id;
+    	}
     	$kurs = new Kurs();
     	if(!$kurs->load($id)) $status="Fehler beim Laden des Kurses!";
     	$_SESSION['kurs_name']=$kurs->getKurs_name();
