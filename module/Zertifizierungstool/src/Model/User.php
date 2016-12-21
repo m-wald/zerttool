@@ -108,6 +108,39 @@ class User
 		// Fehler prüfen
 	}
 	
+	public function load_via_email ($email) {
+		$db = new Db_connection();
+		
+		$query = "SELECT * FROM benutzer where email='".$email."';";
+		
+		$result = $db->execute($query);
+		$return_array = array();
+		if (mysqli_num_rows($result) > 0) {
+			while ($row = mysqli_fetch_assoc($result)) {
+				array_push($return_array, $row);
+			}
+		} else {
+			return false;
+		}
+		
+		foreach ($return_array as $row) {
+			$this->benutzername     = $row['benutzername'];
+			$this->vorname		    = $row['vorname'];
+			$this->nachname		    = $row['nachname'];
+			$this->geburtsdatum     = $row['geburtsdatum'];
+			$this->strasse          = $row['strasse'];
+			$this->plz              = $row['plz'];
+			$this->ort              = $row['ort'];
+			$this->email            = $row['email'];
+			$this->email_bestaetigt  = $row['email_bestaetigt'];
+			$this->ist_admin         = $row['ist_admin'];
+			$this->ist_zertifizierer = $row['ist_zertifizierer'];
+			$this->ist_teilnehmer    = $row['ist_teilnehmer'];
+		}
+		
+		
+	}
+	
 	public function getBenutzername() {
 		return $this->benutzername;
 	}
