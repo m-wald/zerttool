@@ -118,11 +118,12 @@ class KursController extends AbstractActionController
     }
     
     public function kursviewAction(){
-    	if($_REQUEST["kurs_id"] == $_SESSION['kurs_id'])
+    	$new_id = $_REQUEST["kurs_id"];
+    	if($new_id == $_SESSION['kurs_id'])
     			$id = $_SESSION['kurs_id'];
     	else 
     	{  		
-    		$id = $_REQUEST["kurs_id"];
+    		$id = $new_id;
     		$_SESSION['kurs_id']=$id;
     	}
     	$kurs = new Kurs();
