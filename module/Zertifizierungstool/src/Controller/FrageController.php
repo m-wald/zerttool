@@ -178,7 +178,7 @@ class FrageController extends AbstractActionController {
 								$status = 1;
 							}
 		
-							$antwort = new Antwort($_REQUEST["antwort_id"],
+							$antwort = new Antwort($_REQUEST["antwort_id" .$index],
 									$_REQUEST["antwort_text" .$index],
 									$frage->getId(),
 									$status);
