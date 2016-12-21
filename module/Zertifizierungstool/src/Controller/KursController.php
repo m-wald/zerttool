@@ -122,6 +122,7 @@ class KursController extends AbstractActionController
     	$_SESSION['kurs_id']=$id;
     	$kurs = new Kurs();
     	if(!$kurs->load($id)) $status="Fehler beim Laden des Kurses!";
+    	$_SESSION['kurs_name']=$kurs->getKurs_name();
     	//else {$kursview = $kurs->load($id); $status="Kurs wird gleich geladen...";}
     	//return new ViewModel(['kursview'=>$kursview, 'status' => $status]);
         return new ViewModel(['kurs' => $kurs,
@@ -316,7 +317,7 @@ public function uploadAction(){
     public function showdocumentsAction(){
         $id = $_SESSION['kurs_id'];
        // $id = 12;
-        $name = $_REQUEST["kurs_name"];
+        $name = $_SESSION['kurs_name'];
             //$kurs = new Kurs();
             //if(!$kurs->load($id)) $status="Fehler beim Laden der Kursdokumente!";
         //Pfad wo die uploads gespeichert wurden
