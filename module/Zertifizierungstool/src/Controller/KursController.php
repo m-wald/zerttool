@@ -223,7 +223,7 @@ public function uploadAction(){
 				 
 	if($_SERVER['REQUEST_METHOD'] == 'POST' && $_POST['thissite']) {
 		
-		$kurs_id = $_REQUEST["kurs_id"];
+		$kurs_id = $_SESSION["kurs_id"];
 		echo $kurs_id;
 		
 				 
@@ -268,11 +268,11 @@ public function uploadAction(){
 		echo "3: ".$kurs_id."<br>";
 		 
 		//Pfad zum Upload
-		$kurs_id=$_POST["kurs_id"];
-		$new_path = $path.$kurs_id.'/'.$filename.'.'.$extension;
-		echo "Gespeichert in: ".$new_path."<br>";
-		if($path_new!=$new_path) echo "Wieder falsches UploadVerzeichnis!"."<br>";
-		if(empty($_POST["kurs_id"])) echo "Kurs_id ist gleich NULL!";
+		
+		$new_path = $path_new.$filename.'.'.$extension;
+		echo "vorgesehener Pfad: ".$new_path."<br>";
+		
+		
 		 
 		//Neuer Dateiname falls die Datei bereits existiert
 		 
@@ -280,7 +280,7 @@ public function uploadAction(){
 			$id = 1;
 			do {
 				//$kurs_id = $_REQUEST["kurs_id"];
-				if(move_uploaded_file($_FILES['datei']['tmp_name'], $path.$kurs_id.'/'.$filename.'_'.$id.'.'.$extension)) {
+				if(move_uploaded_file($_FILES['datei']['tmp_name'], $path_new.$filename.'_'.$id.'.'.$extension)) {
 						
 					return new ViewModel(['meldung' => 'erfolgreich']);
 				}
@@ -292,7 +292,7 @@ public function uploadAction(){
 		
 		else {
 			//$kurs_id = $_REQUEST["kurs_id"];
-			if(move_uploaded_file($_FILES['datei']['tmp_name'], $path.$kurs_id.'/'.$filename.'.'.$extension))
+			if(move_uploaded_file($_FILES['datei']['tmp_name'], $path_new.$filename.'.'.$extension))
 				{
 			
 				return new ViewModel(['meldung' => 'erfolgreich']);
@@ -311,7 +311,7 @@ public function uploadAction(){
 	}	 
 
 	else{
-		return new ViewModel(['kurs_id' => $kurs_id]);
+		return new ViewModel();
 	}
   }
   
