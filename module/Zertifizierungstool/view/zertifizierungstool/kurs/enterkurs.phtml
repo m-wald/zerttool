@@ -1,0 +1,27 @@
+<h1>Kurseinladung</h1>
+
+
+<?php 
+
+if($meldung=="erfolgreich"){
+	
+	echo "<b><font color='green'>Sie wurden erfolgreich in den Kurs eingetragen!</font></b>";
+}
+
+if($meldung=="falseuser"){
+	
+	echo "<b><font color='red'>Falscher Account!! Bitte loggen Sie sich aus und klicken Sie erneut auf den erhaltenen Link!";
+}
+
+if($meldung=="datenbankfehler"){
+
+	echo "<b><font color='red'>Daten konnten aufgrund eines Datenbankfehlers nicht eingetragen werden! Bitte versuchen Sie es erneut!";
+}
+
+if($meldung=="alreadyexists"){
+
+	echo "<b><font color='red'>Sie sind bereits im Kurs eingetragen!";
+}
+
+
+?>

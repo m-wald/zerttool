@@ -1,0 +1,59 @@
+<?php
+    use Zertifizierungstool\Model\Kurs;
+    
+    if (isset($status)) {
+    	echo $status;
+    }
+    else{
+?>
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+
+    <div class="container">
+    	<h3>Kurs </h3>
+    	
+        <table class="table table-hover">
+    	<tr><td>Kursname:</td><td> 	<?=$kurs->getKurs_name()?>		</td></tr>
+        <tr><td>Kursstart:</td><td> <?=$kurs->getKurs_start()?>	</td></tr>
+        <tr><td>Kursende:</td><td>	<?=$kurs->getKurs_ende()?>		</td></tr>
+        <tr><td>Sichtbarkeit:</td>
+        	<td> 
+                     <?php
+                        if($kurs->getSichtbarkeit() == 1)   	echo "öffentlich";
+                      	else              						echo "privat";
+                     ?> 
+           </td>
+       	</tr>
+        <tr><td>Benutzername:</td><td><?=$kurs->getBenutzername()?></td></tr>
+        <tr><td>Beschreibung:</td><td><?=$kurs->getBeschreibung()?></td></tr>
+        </table>
+        
+		<?php  }    ?>
+		<form accept-charset="utf-8" method="POST" action="upload">
+                    <input type="hidden" value="<?php echo $kurs->getKurs_id();?>" name="kurs_id">
+                    <input size="70" maxlength="250" value="Datei hinzufügen" type="submit">
+		</form>
+                <form accept-charset="utf-8" method="POST" action="showdocuments">
+                    <input type="hidden" value="<?=$kurs->getKurs_id()?>" name="kurs_id">
+                    <input type="hidden" value="<?=$kurs->getKurs_name()?>" name="kurs_name">
+                    <input size="70" maxlength="250" value="Kursdokumente anzeigen" type="submit">
+		</form>
+		
+		<!--  author Michael Zillner -->
+		
+		<form accept-charset="utf-8" method="POST" action="csvinvite">
+                    <input type="hidden" value="<?php echo $kurs->getKurs_id();?>" name="kurs_id">
+                    <input size="70" maxlength="250" value="Teilnehmer &uuml;ber CSV einladen" type="submit">
+		</form>
+		
+		
+  
+    </div>
+    </body>
+    
+    

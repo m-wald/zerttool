@@ -1,10 +1,25 @@
+<h1> Kursmaterial hochladen</h1>
+
+
 
 <form method="post" action="upload" enctype="multipart/form-data">
 Dokument: <input type='file' name='datei' id='datei'><br>
+
+<input type="hidden" value="thissite" name='thissite'> <br><br>
 <input type='submit' value='Upload ' name='submit'>
-</form>
+</form><br><br>
 <?php 
-if($meldung=='datentyp') echo "Datentyp ist falsch!";
-	elseif($meldung=='dateigroesse') echo "Datei ist zu gross!";
-		elseif($meldung=='erfolgreich') echo"Datei ist erfolgreich uploaded!";	
+if(isset($meldung)){
+	if($meldung=='datentyp') echo "<b>Datentyp ist falsch!</b>";
+	elseif($meldung=='dateigroesse') echo "<b>Datei ist zu gross!</b>";
+	elseif($meldung=='erfolgreich') echo"<b>Datei wurde erfolgreich hochgeladen!</b>";
 	
+}
+	
+		
+?>
+<form method="post" action="showkurse">
+<input type="submit" value="zur&uuml;ck zur Kurs&uuml;bersicht">
+
+
+</form>
