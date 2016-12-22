@@ -1,3 +1,8 @@
+<form method="post" action="kursview">
+<input type="submit" value="zur&uuml;ck zur Kurs&uuml;bersicht" name="back">
+<input type="hidden" value="<?php echo $_SESSION['kurs_id']; ?>" name='kurs_id'>
+</form>
+<br>
 <h1>Kursdokumente</h1>
 
 <?php
@@ -14,11 +19,8 @@
 </head>
 <body>
 
-<form method="post" action="kursview">
-<input type="submit" value="zur&uuml;ck zur Kurs&uuml;bersicht" name="back">
-<input type="hidden" value="<?php echo $_SESSION['kurs_id']; ?>" name='kurs_id'>
-</form>
-<br> 
+
+ 
     <div class="container">
     	<h3>Dokumente zum Kurs <?php echo $kursname;?>: </h3>
             <table class="table table-hover">
