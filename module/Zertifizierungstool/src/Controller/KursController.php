@@ -275,12 +275,14 @@ class KursController extends AbstractActionController
    	
    			$_SESSION['kurs']=$_REQUEST['kurs_id'];
    			header("refresh:0; url= /user/login?inviteuser=".$user->getBenutzername());
+   			exit;
    	
    		}
    		else {
    	
    			$_SESSION['kurs']=$_REQUEST['kurs_id'];
    			header("refresh:0; url= /user/register?inviteuser=".$_REQUEST['email']);
+   			exit;
    	
    		}
    	}
@@ -304,6 +306,7 @@ class KursController extends AbstractActionController
    	    else {
    	    	$_SESSION['kurs']=$_REQUEST['kurs_id'];
    	    	header("refresh:0; url= /user/login?inviteuser=".$_REQUEST['benutzername']);
+   	    	exit;
    	    }
    	
    	
