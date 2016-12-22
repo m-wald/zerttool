@@ -225,6 +225,31 @@ class KursController extends AbstractActionController
    		exit;
    } 
 
+   public function enterkursAction() {
+   	
+   	    if(User::currentUser()->getBenutzername() == $_REQUEST['benutzername']){
+   	
+   	    	$benutzer_kurs=new Benutzer_Kurs();
+   	    	$benutzer_kurs->insert($_REQUEST['benutzername'], $_REQUEST['kurs_id']);
+   	
+   	    	return new ViewModel(['meldung'=> 'erfolgreich']);
+   	    }
+   	
+   	    elseif(User::currentUser()->getBenutzername()!= NULL) {
+   	
+   	    	return new Viewmodel(['meldung'=> 'falseuser']);
+   	    }
+   	
+   	    else {
+   	    	$_SESSION['kurs']=$_REQUEST['kurs_id'];
+   	    	header("refresh:0; url= /user/login?inviteuser=".$_REQUEST['benutzername']);
+   	    }
+   	
+   	
+   }
+   
+   
+   
 
 
 
