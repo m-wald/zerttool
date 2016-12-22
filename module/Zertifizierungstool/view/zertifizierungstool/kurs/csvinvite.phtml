@@ -57,7 +57,7 @@ if(!empty($fehler)) {
 <br><br>
 <form method="post" action="kursview">
 <input type="submit" value="zur&uuml;ck zur Kurs&uuml;bersicht">
-
+<input type="hidden" value="<?php echo $_SESSION['kurs_id']; ?>" name='kurs_id'>
 
 </form>
 

@@ -10,7 +10,7 @@
 <input type="hidden" value="singleinvite" name='site'>
 <input type="submit" value="Jetzt einladen">
 </form>
-
+<br><br>
 
 
 <?php if (isset($erfolgreich)) {
@@ -21,13 +21,13 @@
 
 <?php if (isset($fehler)) {
 
-	echo "Es liegt bereits eine Einladung für die E-Mail Adresse <b>".$fehler."</b> vor.";
+	echo "Es liegt bereits eine Einladung f&uuml;r die E-Mail Adresse <b>".$fehler."</b> vor.";
 	
 }?>
 
 <br><br>
 <form method="post" action="kursview">
 <input type="submit" value="zur&uuml;ck zur Kurs&uuml;bersicht">
-
+<input type="hidden" value="<?php echo $_SESSION['kurs_id']; ?>" name='kurs_id'>
 
 </form>
