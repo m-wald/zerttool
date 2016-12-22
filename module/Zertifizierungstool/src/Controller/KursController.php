@@ -6,6 +6,7 @@ use Zend\View\Model\ViewModel;
 use Zertifizierungstool\Model\Kurs;
 use Zertifizierungstool\Model\User;
 use Zertifizierungstool\Model\CSV_invite;
+use Zertifizierungstool\Model\Benutzer_Kurs;
 
 class KursController extends AbstractActionController
 {   
