@@ -26,8 +26,19 @@ else {
 <tr><td>Strasse:</td><td> <input type="text" name="strasse" required></td></tr>
 <tr><td>Postleitzahl:</td><td> <input type="text" name="plz" required></td></tr>
 <tr><td>Ort:</td><td> <input type="text" name="ort" required></td></tr>
+
+<!-- Falls E-Mail-Einladung gefolgt wird, und noch keine Registrierung vorgenommen wurde -->
+
+<?php if (isset($email)) {?>
+
+<tr><td>E-Mail:</td><td> <input type="email" name="email" value="<?php echo $email?>" readonly required></td></tr>
+<input type="hidden" name="invitemail" value="true">
+
+<?php } else {?>
+
 <tr><td>E-Mail:</td><td> <input type="email" name="email" required></td></tr>
 
+<?php }?>
 
 <input type="hidden" value = 0 name="email_bestaetigt">
 

@@ -240,6 +240,22 @@ class KursController extends AbstractActionController
    	
    	    	return new Viewmodel(['meldung'=> 'falseuser']);
    	    }
+   	    
+   	    elseif(isset($_REQUEST['email'])) {
+   	    	$user = new User();
+   	    	if ($user->load_via_email($_REQUEST['email'])) {
+   	    		
+   	    		$_SESSION['kurs']=$_REQUEST['kurs_id'];
+   	    		header("refresh:0; url= /user/login?inviteuser=".$user->getBenutzername());
+   	    		
+   	    	}
+   	    	else {
+   	    		
+   	    		$_SESSION['kurs']=$_REQUEST['kurs_id'];
+   	    		header("refresh:0; url= /user/register?inviteuser=".$_REQUEST['email']);
+   	    		
+   	    	}
+   	    }
    	
    	    else {
    	    	$_SESSION['kurs']=$_REQUEST['kurs_id'];

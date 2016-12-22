@@ -1,3 +1,12 @@
 <h1>Registrierung erfolgreich best&auml;tigt! Sie werden jetzt zum Login weitergeleitet.</h1>
 
-<?php header("refresh:2; url=/user/login"); ?>
+<?php if (isset($benutzername)) {
+
+	header("refresh:2; url=/kurs/enterkurs?benutzername=".$benutzername."&kurs_id=".$kurs_id);
+	exit;
+
+} else {?>
+
+<?php header("refresh:2; url=/user/login"); 
+
+}?>

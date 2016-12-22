@@ -230,7 +230,7 @@ class User
 	 * @return Bei Erfolg oder nicht Erfolg wird ein entsprechender String zurückgeliefert,
 	 * der an die View übergeben werden kann.
 	 */
-	public function register() {
+	public function register($invite) {
 		$db = new Db_connection();
 		
 		$this->passwort = $this->saltPasswort($this->passwort);
@@ -243,12 +243,23 @@ class User
 		
 		
 		$result = $db->execute($query);
-		$m = $this->registerMail();
+		
+		if ($invite){
+			
+			$this->registerMailInvite();
+			
+		}else {
+		
+			$m = $this->registerMail();
+		
+		}
 		return "Daten wurden erfolgreich gespeichert. Sie erhalten in K&uuml;rze eine E-Mail. Bitte folgen Sie dem darin enthaltenen Link, um Ihre Registrierung abzuschlie&szlig;en.";
 	    
 	    
 		}else {
+			
 		return "Benutzername ist bereits vergeben! Bitte anderen Namen ausw&auml;hlen!";
+		
 		}
 	}
 	/**
@@ -294,6 +305,16 @@ class User
 		$text = "Hallo ".$this->vorname." ".$this->nachname.",\n\n bitte bestaetigen Sie folgenden Link:\n\n zerttool.tk/user/registerbest?benutzer=".$this->benutzername;
 		$text = wordwrap($text, 70);
 		mail ($empfaenger, $betreff, $text); 
+	}
+	
+	public function registerMailInvite() {
+		
+		$empfaenger = $this->email;
+		$betreff = "Registrierung Zertifizierungstool";
+		$text = "Hallo ".$this->vorname." ".$this->nachname.",\n\n bitte bestaetigen Sie folgenden Link:\n\n zerttool.tk/user/registerbest?benutzer=".$this->benutzername."&kurs_id=".$_SESSION['kurs'];
+		$text = wordwrap($text, 70);
+		mail ($empfaenger, $betreff, $text);
+		
 	}
 	
 	public function passwordForgottenMail() {

@@ -62,8 +62,15 @@ class UserController extends AbstractActionController
 			
 			}
 			
-			$result = $user->register();
+			if (isset ($_REQUEST['invitemail'])) {
+				
+				$result = $user->register(true);
+			}
+			else {
 			
+				$result = $user->register(false);
+			
+			}
 			
 			return new ViewModel(['meldung' => $result]);
 			
@@ -73,8 +80,17 @@ class UserController extends AbstractActionController
 			if (User::currentUser()->istAdmin()) {
 				return new ViewModel(['status' => 'admin']);
 			} else {
-							
-				return new ViewModel();
+				
+				if (isset($_GET['inviteuser'])) {
+					
+					return new ViewModel(['email'=> $_GET['inviteuser']]);
+					
+				}else {
+				
+				
+				
+				 return new ViewModel();
+				}
 			}
 		}
 		}
@@ -85,6 +101,11 @@ class UserController extends AbstractActionController
 		$user = new User();
 		$user->load($_GET['benutzer']);
 		$user->registerbest();
+		if (isset($_GET['kurs_id'])) {
+			
+			return new ViewModel(['benutzername'=>$user->getBenutzername(), 'kurs_id'=>$_GET['kurs_id']]);
+			
+		}
 		return new ViewModel();
 	}
 	
