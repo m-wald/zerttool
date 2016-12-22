@@ -245,7 +245,7 @@ class KursController extends AbstractActionController
    	}
    	
    	
-   	elseif(User::currentUser()->getBenutzername() == $_REQUEST['benutzername']){
+   	elseif(User::currentUser()->getBenutzername() == $_REQUEST['benutzername'] && !isset($_REQUEST['email'])){
    	
    	    	$benutzer_kurs=new Benutzer_Kurs();
    	    	$benutzer_kurs->insert($_REQUEST['benutzername'], $_REQUEST['kurs_id']);
