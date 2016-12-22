@@ -134,6 +134,47 @@ class KursController extends AbstractActionController
         		'status' => $status]);  
     }
     
+    public function singleinviteAction() {
+    	
+    	if(User::currentUser()->getBenutzername()==null) {
+    		header("refresh:0; url = /user/login");
+    		exit;
+    	}
+    	 
+    	if(User::currentUser()->istTeilnehmer()==true){
+    		header("refresh:0; url = /user/home");
+    		exit;
+    	}
+    	
+    	if($_SERVER['REQUEST_METHOD'] == 'POST' && $_POST['site']=='singleinvite') {
+    		
+    		$csv = new CSV_invite();
+    		if ($csv->insert_data($_REQUEST['email'], $_SESSION['kurs_id'])) {
+    			
+    			$csv->inviteMail($_REQUEST['email'], $_SESSION['kurs_id']);
+    			
+    			return new ViewModel(['erfolgreich' => $_REQUEST['email']]);
+    			
+    		}else {
+    			
+    			return new ViewModel(['fehler' =>$_REQUEST['email']]);
+    			
+    		}
+    		
+    	}
+    	elseif(!empty($_SESSION['kurs_id'])){
+    	
+    		return new ViewModel();
+    	}
+	    	//falls direkt auf diese Action zugegriffen wurde, ohne dass ein Kurs ausgewählt wurde!
+	    	else header("refresh:0; url = /kurs/showkurse");
+	    	exit;
+  }
+    	
+    
+    
+    
+    
     
     public function csvinviteAction(){
     	
