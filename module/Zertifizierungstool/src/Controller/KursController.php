@@ -268,7 +268,7 @@ class KursController extends AbstractActionController
    } 
 
    public function enterkursAction() {
-   	
+   	//todo zeitliche Gültigkeit des Kurses überprüfen
    	if(isset($_REQUEST['email'])) {
    		$user = new User();
    		if ($user->load_via_email($_REQUEST['email'])) {
