@@ -228,7 +228,24 @@ class KursController extends AbstractActionController
 
    public function enterkursAction() {
    	
-   	    if(User::currentUser()->getBenutzername() == $_REQUEST['benutzername']){
+   	if(isset($_REQUEST['email'])) {
+   		$user = new User();
+   		if ($user->load_via_email($_REQUEST['email'])) {
+   	
+   			$_SESSION['kurs']=$_REQUEST['kurs_id'];
+   			header("refresh:0; url= /user/login?inviteuser=".$user->getBenutzername());
+   	
+   		}
+   		else {
+   	
+   			$_SESSION['kurs']=$_REQUEST['kurs_id'];
+   			header("refresh:0; url= /user/register?inviteuser=".$_REQUEST['email']);
+   	
+   		}
+   	}
+   	
+   	
+   	elseif(User::currentUser()->getBenutzername() == $_REQUEST['benutzername']){
    	
    	    	$benutzer_kurs=new Benutzer_Kurs();
    	    	$benutzer_kurs->insert($_REQUEST['benutzername'], $_REQUEST['kurs_id']);
@@ -241,21 +258,7 @@ class KursController extends AbstractActionController
    	    	return new Viewmodel(['meldung'=> 'falseuser']);
    	    }
    	    
-   	    elseif(isset($_REQUEST['email'])) {
-   	    	$user = new User();
-   	    	if ($user->load_via_email($_REQUEST['email'])) {
-   	    		
-   	    		$_SESSION['kurs']=$_REQUEST['kurs_id'];
-   	    		header("refresh:0; url= /user/login?inviteuser=".$user->getBenutzername());
-   	    		
-   	    	}
-   	    	else {
-   	    		
-   	    		$_SESSION['kurs']=$_REQUEST['kurs_id'];
-   	    		header("refresh:0; url= /user/register?inviteuser=".$_REQUEST['email']);
-   	    		
-   	    	}
-   	    }
+
    	
    	    else {
    	    	$_SESSION['kurs']=$_REQUEST['kurs_id'];
