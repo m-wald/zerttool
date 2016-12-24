@@ -458,9 +458,9 @@ class KursController extends AbstractActionController
              *  ansonsten einen anderen Hinweis zurückgeben.
             */
             if($signout){
-                return new ViewModel(['meldung'=> 'erfolgreich']);
+                return new ViewModel(['meldung' => 'erfolgreich']);
             }else {
-                return new ViewModel(['meldung'=> 'fehlerhaft']);
+                return new ViewModel(['meldung' => 'fehlerhaft']);
             }
         }
         return new ViewModel();
