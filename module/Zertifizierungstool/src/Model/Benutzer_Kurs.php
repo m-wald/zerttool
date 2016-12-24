@@ -15,6 +15,13 @@ class Benutzer_Kurs {
 	private $bestanden;
 	
 	
+	/**
+	 * Methode zum Eintragen eines Benutzers in einen bestimmten Kurs
+	 * @param $benutzer Benutzer der in Kurs zugeordnet werden soll
+	 * @param $kurs_id Kurs dem ein Benutzer zugeordnet werden soll
+	 * @return 1 falls Insert funktioniert hat, -1 falls der Benutzer schon dem entsprechenden
+	 * 		   Kurs zugeordnet wurde, 0 falls beim Insertversuch ein Datenbankfehler auftritt
+	 */
 	public function insert($benutzer,$kurs_id) {
 		
 		$db=new Db_connection();

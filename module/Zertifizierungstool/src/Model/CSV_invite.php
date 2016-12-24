@@ -11,6 +11,14 @@ class CSV_invite {
 	private $kurs_id;
 	
 	
+	/**
+	 * Schreibt einen Datensatz in die Eingeladen-Tabelle (E-Mailadresse, Kurs_ID)
+	 * Überprüft vorab, ob ein entsprechender Datensatz schon in Tabelle vorhanden
+	 * @param String $email E-Mail-Adresse des Teilnehmers, der eingeladen werden sollte
+	 * @param number $kurs_id Kurs, zu dem eingeladen werden sollte
+	 * @return true falls Datenbankbefehl (insert) erfolgreich durchgeführt wurde
+	 * false, falls Datensatz schon vorhanden, oder Datenbankfehler bei insert
+	 */
 	public function insert_data($email,$kurs_id) {
 		
 		$this->email   = $email;
@@ -35,6 +43,13 @@ class CSV_invite {
 		}
 	}
 	
+	/**
+	 * Versendet eine Einladungsmail für einen bestimmten Kurs
+	 * Prüft ob zu der übergebenen Mail ein Benutzer existiert.
+	 * Versendet dann eine entsprechende Einladungsmail mit Link zum eintragen in den Kurs
+	 * @param String $email E-Mailadresse an die eine Einladung versendet werden soll
+	 * @param number $kurs_id Kurs zu den eingeladen wird
+	 */
 	public function inviteMail($email, $kurs_id) {
 		
 		$kurs = new Kurs();
