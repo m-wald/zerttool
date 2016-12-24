@@ -274,14 +274,25 @@ class UserController extends AbstractActionController
 				
 			}
 			
-		} else if (isset($_POST['benutzermail'])){
+		} else if (isset($_POST['benutzername'])){
 			
 			$user = new User();
-			$user->load($_POST['benutzermail']);
+			$user->load($_POST['benutzername']);
 			$user->passwordForgottenMail();
 			return new ViewModel(['status' => 'mail']);
 			
-		} else if (isset($_POST['newPasswort1'])) {
+		} 
+		
+		else if (isset($_POST['email'])){
+				
+			$user = new User();
+			$user->load_via_email($_POST['email']);
+			$user->passwordForgottenMail();
+			return new ViewModel(['status' => 'mail']);
+				
+		}
+		
+		else if (isset($_POST['newPasswort1'])) {
 			
 			if ($_POST['newPasswort1']==$_POST['newPasswort2']) {
 				$user = new User();
