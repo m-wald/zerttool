@@ -1,0 +1,20 @@
+<h1>Kurs</h1>
+
+<?php
+if(isset($meldung)) {
+    echo $meldung;
+    header("refresh:4; url = /user/home");
+} elseif(isset($error)) {
+    echo $error;
+    ?>
+    <br><br>
+    <form method="post" action="kursview">
+        <input type="submit" value="zur&uuml;ck zur Kurs&uuml;bersicht" name="back">
+        <input type="hidden" value="<?php echo $_SESSION['kurs_id']; ?>" name='kurs_id'>
+    </form>
+    <br>
+    <?php
+} 
+
+
+?>
