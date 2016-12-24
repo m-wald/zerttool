@@ -50,7 +50,7 @@ class Benutzer_Kurs {
             $db = new Db_connection();
             
             //Pr�fung, ob Benutzer bereits im Kurs ist
-            $query="select * from benutzer_kurs where benutzername='".$benutzer."' and kurs_id=".$kurs_id.";";
+            $query="select * from benutzer_kurs where benutzername='".$benutzername."' and kurs_id=".$kursid.";";
             
             if(mysqli_num_rows($result) == 1){
 		return true;
