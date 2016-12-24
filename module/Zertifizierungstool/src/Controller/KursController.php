@@ -126,12 +126,12 @@ class KursController extends AbstractActionController
     	
     	$_SESSION['kurs_id']=$id;
     	$kurs = new Kurs();
-        //$benutzer_kurs = new Benutzer_Kurs();
+        $benutzer_kurs = new Benutzer_Kurs();
     	if(!$kurs->load($id)) $status="Fehler beim Laden des Kurses!";
     	$_SESSION['kurs_name']=$kurs->getKurs_name();
         return new ViewModel(['kurs' => $kurs,
-        		'status' => $status/*,
-                        'benutzer_kurs' => $benutzer_kurs*/]);  
+        		'status' => $status,
+                        'benutzer_kurs' => $benutzer_kurs]);  
     }
     
     public function singleinviteAction() {
@@ -450,7 +450,9 @@ class KursController extends AbstractActionController
     
     public function signoutkursAction(){
         if($_SERVER['REQUEST_METHOD'] == 'POST') {
-            //
+            $benutzer_kurs = new Benutzer_Kurs();
+            $id = $_REQUEST['kurs_id'];
+            $signout = $benutzer_kurs->signindelete($id, User::currentUser()->getBenutzername());
         }
     }
 
