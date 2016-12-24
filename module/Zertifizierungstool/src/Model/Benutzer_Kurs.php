@@ -71,7 +71,6 @@ class Benutzer_Kurs {
         public function signindelete($kursid, $benutzername) {
             $db = new Db_connection();
             $signintest = insert($benutzername, $kursid);
-            
             if($signintest == -1) {
                 $query = "delete from benutzer_kurs where benutzername = '".$benutzername."' and kurs_id = ".$kursid.";";
                 $result=$db->execute($query);
@@ -81,6 +80,19 @@ class Benutzer_Kurs {
             }
             //Wenn Methode hier ankommt, dann konnte die Zeile nicht gelöscht werden
             return false;
+        }
+        
+        public $a = 10;
+        public $b = 20;
+        
+        public function atest(){
+            $summe = sumtest($a, $b);
+            return $summe;
+        }
+        
+        public function sumtest($c, $d) {
+            $sum = $c + $d;
+            return $sum;
         }
 	
 	
