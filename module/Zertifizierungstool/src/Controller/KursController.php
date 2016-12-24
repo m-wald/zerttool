@@ -127,12 +127,11 @@ class KursController extends AbstractActionController
     	$_SESSION['kurs_id']=$id;
     	$kurs = new Kurs();
         //$benutzer_kurs = new Benutzer_Kurs();
-        $benutzer_kurs = "hallo";
     	if(!$kurs->load($id)) $status="Fehler beim Laden des Kurses!";
     	$_SESSION['kurs_name']=$kurs->getKurs_name();
         return new ViewModel(['kurs' => $kurs,
-        		'status' => $status,
-                        'benutzer_kurs' => $benutzer_kurs]);  
+        		'status' => $status/*,
+                        'benutzer_kurs' => $benutzer_kurs*/]);  
     }
     
     public function singleinviteAction() {
