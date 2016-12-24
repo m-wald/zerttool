@@ -51,7 +51,7 @@ class Benutzer_Kurs {
         /*
          * Abfrage ob Benutzer schon im Kurs eingetragen ist
          * @author Sergej
-         * @params true/false
+         * @return true/false
          */
         /*
         public function signintesting($kursid, $benutzername) {
