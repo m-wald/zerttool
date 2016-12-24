@@ -453,16 +453,17 @@ class KursController extends AbstractActionController
             $benutzer_kurs = new Benutzer_Kurs();
             $id = $_REQUEST['kurs_id'];
             $signout = $benutzer_kurs->signindelete($id, User::currentUser()->getBenutzername());
+            
             /*  Wenn das Austragen erfolgreich war, dann Meldung mit entsprechenden Hinweis an View zurückgeben,
              *  ansonsten einen anderen Hinweis zurückgeben.
             */
             if($signout){
-                $meldung = "Sie sind erfolgreich aus dem Kurs ausgetreten.";
+                $meldung = 'erfolgreich';
             }else {
-                $error = "Beim Austragen tratt ein Fehler auf, versuchen Sie es bitte erneut!";
+                $meldung = "fehlerhaft";
             }
         }
-        return ViewModel(['meldung' => $meldung, 'error' => $error]);
+        return ViewModel(['meldung' => $meldung]);
     }
 
 
