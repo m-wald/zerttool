@@ -166,10 +166,10 @@ class KursController extends AbstractActionController
     	
     		return new ViewModel();
     	}
-	    	//falls direkt auf diese Action zugegriffen wurde, ohne dass ein Kurs ausgewählt wurde!
+	    	//falls direkt auf diese Action zugegriffen wurde, ohne dass ein Kurs ausgewï¿½hlt wurde!
 	    	else header("refresh:0; url = /kurs/showkurse");
 	    	exit;
-  }
+    }
     	
     
     
@@ -178,7 +178,7 @@ class KursController extends AbstractActionController
     
     public function csvinviteAction(){
     	
-    	// Zugriff auf Action ist nur erlaubt, falls Zertifizierer oder Admin und Zugang über Button in kursview
+    	// Zugriff auf Action ist nur erlaubt, falls Zertifizierer oder Admin und Zugang ï¿½ber Button in kursview
     	if(User::currentUser()->getBenutzername()==null) {
     		header("refresh:0; url = /user/login");
     		exit;
@@ -262,13 +262,13 @@ class KursController extends AbstractActionController
    	  		
    			return new ViewModel();
    		}
-   		//falls direkt auf diese Action zugegriffen wurde, ohne dass ein Kurs ausgewählt wurde!
+   		//falls direkt auf diese Action zugegriffen wurde, ohne dass ein Kurs ausgewï¿½hlt wurde!
    		else header("refresh:0; url = /kurs/showkurse");
    		exit;
-   } 
+    } 
 
-   public function enterkursAction() {
-   	//todo zeitliche Gültigkeit des Kurses überprüfen
+    public function enterkursAction() {
+   	//todo zeitliche Gï¿½ltigkeit des Kurses ï¿½berprï¿½fen
    	if(isset($_REQUEST['email'])) {
    		$user = new User();
    		if ($user->load_via_email($_REQUEST['email'])) {
@@ -310,17 +310,17 @@ class KursController extends AbstractActionController
    	    }
    	
    	
-   }
+    }
    
    
    
 
 
 
-public function uploadAction(){	
+    public function uploadAction(){	
 	
 	
-	// Zugriff auf Action ist nur erlaubt, falls Zertifizierer oder Admin und Zugang über Button in kursview
+	// Zugriff auf Action ist nur erlaubt, falls Zertifizierer oder Admin und Zugang ï¿½ber Button in kursview
 	if(User::currentUser()->getBenutzername()==null) {
 		header("refresh:0; url = /user/login");
 		exit;
@@ -404,11 +404,11 @@ public function uploadAction(){
 	
 		return new ViewModel();
 	}
-	//falls direkt auf diese Action zugegriffen wurde, ohne dass ein Kurs ausgewählt wurde!
+	//falls direkt auf diese Action zugegriffen wurde, ohne dass ein Kurs ausgewï¿½hlt wurde!
 	else header("refresh:0; url = /kurs/showkurse");
 	exit;
 
-  }
+    }
   
   
     public function showdocumentsAction(){
@@ -447,6 +447,12 @@ public function uploadAction(){
     	
     	}
     }
+    
+    public function signoutkursAction(){
+        if($_SERVER['REQUEST_METHOD'] == 'POST') {
+            //
+        }
+    }
 
 
 /*public function upload_multAction(){
@@ -468,10 +474,10 @@ public function uploadAction(){
 	
 	
 		
-	// Gibt die Dateinamen aller Dateien zurück
+	// Gibt die Dateinamen aller Dateien zurï¿½ck
 	$names = $upload->getFileName();
 	
-	// Gibt die Größen aller Dateien als Array zurück
+	// Gibt die Grï¿½ï¿½en aller Dateien als Array zurï¿½ck
 	// wenn mehr als eine Datei hochgeladen wurde
 	$size = $upload->getFileSize();
 	
