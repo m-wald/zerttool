@@ -70,12 +70,14 @@ class Benutzer_Kurs {
         
         public function signindelete($kursid, $benutzername) {
             $db = new Db_connection();
-            $signintest = insert($kursid, $benutzername);
+            $signintest = insert($benutzername, $kursid);
             
             if($signintest == -1) {
                 $query = "delete from benutzer_kurs where benutzername = '".$benutzername."' and kurs_id = ".$kursid.";";
                 $result=$db->execute($query);
-                return true;
+                if(mysqli_num_rows($result) == 1) {
+                    return true;
+                }
             }
             //Wenn Methode hier ankommt, dann konnte die Zeile nicht gelöscht werden
             return false;
