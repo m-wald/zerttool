@@ -8,7 +8,7 @@ if($meldung == "erfolgreich") {
     echo "Beim Austragen trat ein Fehler auf, versuchen Sie es bitte erneut!";
     ?>
     <br><br>
-    <form method="post" action="kursview">
+    <form method="post" action="showkurse">
         <input type="submit" value="zur&uuml;ck zur Kurs&uuml;bersicht" name="back">
         <input type="hidden" value="<?php echo $_SESSION['kurs_id']; ?>" name='kurs_id'>
     </form>
