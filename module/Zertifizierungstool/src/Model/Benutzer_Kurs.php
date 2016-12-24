@@ -57,7 +57,7 @@ class Benutzer_Kurs {
             $db = new Db_connection();
             
             //Pr�fung, ob Benutzer bereits im Kurs ist
-            $query="select * from benutzer_kurs where benutzername='".$benutzername."' and kurs_id=".$kursid.";";
+            $query = "select * from benutzer_kurs where benutzername = '".$benutzername."' and kurs_id = ".$kursid.";";
             $result=$db->execute($query);
             if(mysqli_num_rows($result) == 1){
 		return true;
@@ -70,7 +70,7 @@ class Benutzer_Kurs {
             $db = new Db_connection();
             
             if(signintesting($id, $benutzer)) {
-                $query="delete from benutzer_kurs where benutzername='".$benutzername."' and kurs_id=".$kursid.";";
+                $query = "delete from benutzer_kurs where benutzername = '".$benutzername."' and kurs_id = ".$kursid.";";
                 $result=$db->execute($query);
                 return true;
             }
