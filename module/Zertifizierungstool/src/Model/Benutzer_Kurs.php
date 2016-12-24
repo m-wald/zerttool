@@ -53,6 +53,7 @@ class Benutzer_Kurs {
          * @author Sergej
          * @params true/false
          */
+        /*
         public function signintesting($kursid, $benutzername) {
             $db = new Db_connection();
             
@@ -65,11 +66,13 @@ class Benutzer_Kurs {
                 return false;
             }
         }
+        */
         
         public function signindelete($kursid, $benutzername) {
             $db = new Db_connection();
+            $signintest = insert($kursid, $benutzername);
             
-            if(signintesting($id, $benutzer)) {
+            if($signintest == -1) {
                 $query = "delete from benutzer_kurs where benutzername = '".$benutzername."' and kurs_id = ".$kursid.";";
                 $result=$db->execute($query);
                 return true;
