@@ -86,7 +86,7 @@ class Benutzer_Kurs {
         public $b = 20;
         
         public function atest(){
-            $summe = sumtest($a, $b);
+            $summe = Benutzer_Kurs::sumtest($a, $b);
             return $summe;
         }
         
