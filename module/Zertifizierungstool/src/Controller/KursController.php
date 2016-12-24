@@ -459,10 +459,10 @@ class KursController extends AbstractActionController
             if($signout){
                 $meldung = "Sie sind erfolgreich aus dem Kurs ausgetreten.";
             }else {
-                $error = "";
+                $error = "Beim Austragen tratt ein Fehler auf, versuchen Sie es bitte erneut!";
             }
-            
         }
+        return ViewModel(['meldung' => $meldung, 'error' => $error]);
     }
 
 
