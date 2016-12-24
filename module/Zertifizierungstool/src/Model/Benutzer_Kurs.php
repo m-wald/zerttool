@@ -19,7 +19,7 @@ class Benutzer_Kurs {
 		
 		$db=new Db_connection();
 		
-		//Prüfung, ob Benutzer bereits im Kurs ist
+		//Prï¿½fung, ob Benutzer bereits im Kurs ist
 		$query="select * from benutzer_kurs where benutzername='".$benutzer."' and kurs_id=".$kurs_id.";";
 		
 		$result=$db->execute($query);
@@ -41,7 +41,23 @@ class Benutzer_Kurs {
 		
 	}
 	
-	
+        /*
+         * Abfrage ob Benutzer schon im Kurs eingetragen ist
+         * @author Sergej
+         * @params true/false
+         */
+        public function signintesting($kursid, $benutzername) {
+            $db = new Db_connection();
+            
+            //Prï¿½fung, ob Benutzer bereits im Kurs ist
+            $query="select * from benutzer_kurs where benutzername='".$benutzer."' and kurs_id=".$kurs_id.";";
+            
+            if(mysqli_num_rows($result) == 1){
+		return true;
+            } else {
+                return false;
+            }
+        }
 	
 	
 	
