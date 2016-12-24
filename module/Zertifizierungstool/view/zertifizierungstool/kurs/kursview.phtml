@@ -48,7 +48,7 @@
         
                 <?php 
                 // Prüfen, ob Teilnehmer für den Kurs schon eingetragen ist
-                $signintest = $benutzer_kurs->insert($kurs->getKurs_id(), User::currentUser()->getBenutzername());
+                $signintest = $benutzer_kurs->insert(User::currentUser()->getBenutzername(), $kurs->getKurs_id());
                 // Wenn Benutzer im Kurs eingetragen ist, dann kann er austreten
                 if((User::currentUser()->istTeilnehmer()) && ($signintest == -1)) {
                     ?>
