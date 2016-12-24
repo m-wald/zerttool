@@ -108,6 +108,12 @@ class User
 		// Fehler prüfen
 	}
 	
+	/**
+	 * Lädt die Daten des Benutzers der übergebenen E-Mailadresse
+	 * @param String E-Mailadresse des zu ladenden Benutzers
+	 * @return boolean true falls der Benutzer gefunden wurde
+	 * 				   false falls Benutzer mit der übergebenen Mailadresse nicht gefunden wurde
+	 */
 	public function load_via_email ($email) {
 		$db = new Db_connection();
 		
@@ -296,7 +302,7 @@ class User
 	/**
 	 * Versendet an die Mailadresse des Objektes eine Mail, zum bestätigen des Accounts
 	 * Dazu wird ein Link mit der Route der entsprechenden Action mit zusätzlichem Parameter
-	 * des Benutzernames dieses Objektes
+	 * des Benutzernames dieses Objektes erstellt
 	 */
 	public function registerMail () {
 		$empfaenger = $this->email;
@@ -307,6 +313,11 @@ class User
 		mail ($empfaenger, $betreff, $text); 
 	}
 	
+	/**
+	 * Versendet an die Mailadresse des Objektes eine Mail, zum bestätigen des Accounts falls zuvor der Teilnehmer eingeladen wurde
+	 * Dazu wird ein Link mit der Route der entsprechenden Action mit zusätzlichem Parameter
+	 * des Benutzernames dieses Objektes und der Kurs_id zu der der Teilnehmer eingeladen wurde erstellt
+	 */
 	public function registerMailInvite() {
 		
 		$empfaenger = $this->email;
@@ -316,6 +327,14 @@ class User
 		mail ($empfaenger, $betreff, $text);
 		
 	}
+	
+	/**
+	 * Versendet an die Mailadresse des Objektes eine Mail, falls durch den Passwort-Vergessen-Link
+	 * angefordert. Zusätzlich wird eine zufällige Prüfzahl generiert, die in der Datenbank gespeichert
+	 * wird. Dies soll zusätzliche Sicherheit gewähren
+	 * Prüfzahl wird in Link als Parameter übergeben
+	 * 
+	 */
 	
 	public function passwordForgottenMail() {
 		
@@ -341,6 +360,19 @@ class User
 		$query = "update benutzer set email_bestaetigt=1 where benutzername='".$this->benutzername."';";
 		$result = $db->execute($query);
 	}
+	
+	
+	/**
+	 * Ändert die Werte der Benutzertabelle mit den Übergebenen Werten
+	 * @param String $vorname
+	 * @param String $nachname
+	 * @param String $geburtsdatum
+	 * @param String $strasse
+	 * @param String $plz
+	 * @param String $ort
+	 * @param String $email
+	 * @return boolean true falls erfolgreich, false falls Datenbankfehler
+	 */
 	public function update($vorname, $nachname, $geburtsdatum, $strasse, $plz, $ort, $email) {
 		$db = new Db_connection();
 		$query = "update benutzer set
@@ -356,6 +388,11 @@ class User
 		return $result;
 	}
 	
+	/**
+	 * Ändert das Passwort des Benutzers in der Datenbank. Passwort wird verschlüsselt.
+	 * @param String $passwort Neues Passwort
+	 * @return boolean true falls erfolgreich, false falls Datenbankfehler
+	 */
 	public function  updatePassword($passwort) {
 		
 			$passwort = $this->saltPasswort($passwort);
@@ -368,6 +405,11 @@ class User
 	
 	}
 	
+	/**
+	 * Überprüft übergebene Prüfzahl mit Prüfzahl in Datenbank des Benutzers
+	 * @param number $pruefzahl Zu überprüfende Prüfzahl
+	 * @return boolean true falls Prüfzahl übereinstimmen, false falls nicht
+	 */
 	public function  check_pruefzahl($pruefzahl) {
 	
 		$db = new Db_connection();
