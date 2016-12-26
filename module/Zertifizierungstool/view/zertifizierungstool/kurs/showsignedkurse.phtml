@@ -1,0 +1,45 @@
+<h1>Kurs</h1>
+<?php
+    use Zertifizierungstool\Model\Kurs;
+?>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+    
+    <div class="container">
+    	<h3>Ihre Kurse: </h3>
+            <table class="table table-hover">
+        
+        <tr>
+        	<th> KursName </th>
+		<th> KursStart </th>
+                <th> KursEnde </th>
+                <th> KursLeiter </th>
+		</tr>
+		
+		<?php 
+			foreach($result as $row){ ?>
+			<tr>
+				<td><?=$row['kurs_name']?></td>
+				<td><?=$row['kurs_start']?></td>
+                                <td><?=$row['kurs_ende']?></td>
+                                <td><?=$row['kurs_benutzername']?></td>					
+                                <td> <form accept-charset="utf-8" method="POST" action="kursview">
+                                        <input type="hidden" value="<?=$row['kurs_id']?>"name="kurs_id">
+                                        <input size="70" maxlength="250" value="anzeigen" type="submit">
+                                </form> </td>
+                                <td> <form accept-charset="utf-8" method="POST" action="signoutkurs">
+                                        <input type="hidden" value="<?=$row['kurs_id']?>"name="kurs_id">
+                                        <input size="70" maxlength="250" value="austreten" type="submit">
+                                </form> </td>
+			</tr>
+		<?php }?>
+		
+		</table>
+
+    </div>
+</body>
+
