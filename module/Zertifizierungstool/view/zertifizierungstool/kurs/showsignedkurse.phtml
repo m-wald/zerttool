@@ -1,6 +1,7 @@
 <h1>Kurs</h1>
 <?php
     use Zertifizierungstool\Model\Kurs;
+    use Zertifizierungstool\Model\Benutzer_Kurs;
 ?>
 
 <head>
@@ -18,6 +19,8 @@
 		<th> KursStart </th>
                 <th> KursEnde </th>
                 <th> KursLeiter </th>
+                <th></th>
+                <th></th>
 		</tr>
 		
 		<?php 
@@ -31,10 +34,21 @@
                                         <input type="hidden" value="<?=$row['kurs_id']?>"name="kurs_id">
                                         <input size="70" maxlength="250" value="anzeigen" type="submit">
                                 </form> </td>
-                                <td> <form accept-charset="utf-8" method="POST" action="signoutkurs">
-                                        <input type="hidden" value="<?=$row['kurs_id']?>"name="kurs_id">
-                                        <input size="70" maxlength="250" value="austreten" type="submit">
-                                </form> </td>
+                                <td>
+                                <?php 
+                                 // Prüfen, ob Teilnehmer für den Kurs schon eingetragen ist
+                                $signintest = $benutzer_kurs->insert(User::currentUser()->getBenutzername(), $kurs->getKurs_id());
+                                // Wenn Benutzer im Kurs eingetragen ist, dann kann er austreten
+                                if((User::currentUser()->istTeilnehmer()) && ($signintest == -1)) {
+                                    ?>
+                                    <form accept-charset="utf-8" method="POST" action="signoutkurs">
+                                        <input type="hidden" value="<?=$kurs->getKurs_id()?>" name="kurs_id">
+                                        <input size="70" maxlength="250" value="Aus Veranstaltung austragen" type="submit">
+                                    </form>
+                                    <?php
+                                }
+                                ?>
+                                </td>
 			</tr>
 		<?php }?>
 		
