@@ -74,9 +74,7 @@ class Benutzer_Kurs {
             if($signintest == -1) {
                 $query = "delete from benutzer_kurs where benutzername = '".$benutzername."' and kurs_id = ".$kursid.";";
                 $result=$db->execute($query);
-                if(mysqli_num_rows($result) == 1) {
-                    return true;
-                }
+                return true;
             }
             //Wenn Methode hier ankommt, dann konnte die Zeile nicht gelöscht werden
             return false;
