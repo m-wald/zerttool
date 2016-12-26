@@ -88,6 +88,26 @@ class Kurs {
             return 0;
         }
     }
+    
+    /*
+     * Lädt alle Kurse zu denen sich der Teilnehmer eingeschrieben hat.
+     * @param Benutzername des Teilnehmers
+     * @return Array mit allen Kursen, bzw. 0, falls noch keine Daten existieren
+     */
+    public function loadsignedkurse($benutzername) {
+        $db = new Db_connection();
+        if(User::currentUser()->istTeilnehmer()) {
+            $query = "SELECT * FROM benutzer_kurs JOIN kurs USING (kurs_id) WHERE benutzer_kurs.benutzername = '".$benutzername."';";
+            $result = $db->execute($query);
+        }
+
+        if (mysqli_num_rows($result) > 0){
+            return $result;
+        }else{
+            return 0;
+        }
+    }
+    
    
     /**
      * Speichert einen neuen Kurs in die Datenbank
