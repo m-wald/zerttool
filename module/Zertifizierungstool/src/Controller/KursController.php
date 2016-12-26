@@ -67,16 +67,9 @@ class KursController extends AbstractActionController
     }
     
     /*
-    public function ladentestAction(){
-        $kurs = new Kurs();
-        $laden = $kurs->loadKurse(User::currentUser()->getBenutzername());
-        return new ViewModel(['result' => $laden]);  
-    }
-    */
-    
-    /*
-     * Lädt Kurse eines Zertifizerers und übergibt diese der View
-     * @return Kurse eines Zertifizierers
+     * Wenn Zertifizierer, dann Kurse des Zertifizierers laden und der View übergeben
+     * Wenn Admin oder Teilnehmer, dann entsprechende Kurse laden und der View übergeben
+     * @return Kurse eines Zertifizierers, bzw. je nach Regelung die einsehabren Kurse für Admin und Teilnehmer an die View
      */
     public function showkurseAction(){
         $kurs = new Kurs();
@@ -91,6 +84,18 @@ class KursController extends AbstractActionController
             $kurseladen = $kurs->loadKurse(NULL);
         }
         return new ViewModel(['result' => $kurseladen]); 
+    }
+    
+    /*
+     * Lädt Kurse zu denen sich der Teilnehmer eingetragen hat und übergibt diese
+     * @return Kurse des Teilnehmers an die View
+     */
+    public function showsignedkurseAction() {
+        $kurs = new Kurs();
+        if(User::currentUser()->istTeilnehmer()) {
+            $signedkurse = $kurs->loadsignedkurse(User::currentUser()->getBenutzername());
+        }
+        return new ViewModel(['result' => $signedkurse]);
     }
     
     /*
