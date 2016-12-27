@@ -34,7 +34,7 @@ else{
                         <?php } ?>
                 </select></td></tr>
         <tr><td>Benutzername:</td><td> 
-        		 <select name="benutzername">
+        		 <select name="benutzername" action="loadZert">
         		 <option selected value='<?=$kurs->getBenutzername()?>'><?=$kurs->getBenutzername()?></option>
         		 <?php $result->loadZert();
         		 	foreach($result as $name){	 
@@ -43,6 +43,7 @@ else{
         		 	
         		 <?php }?>
       			  </select>
+      			  <?php echo $name.$result;?>
         	</td></tr>
       
         <tr><td>Beschreibung:</td><td> <input type="text" name="beschreibung" required value='<?=$kurs->getBeschreibung()?>'></td></tr>
