@@ -1,9 +1,13 @@
+
+
+
+
+
 <h1>Kursangaben &auml;ndern</h1>
 
 <?php 
     
 use Zertifizierungstool\Model\Kurs;
-
 if (isset($status)) {
 	echo $status;
 }
@@ -11,7 +15,6 @@ if($status == "Erfolgreich geändert.") {
 	header("refresh:2; url = /kurs/showkurse");
 	
 }
-
 else{
 ?>
 	
@@ -26,24 +29,20 @@ else{
                 <select name="sichtbarkeit">
                     <?php
                         if($kurs->getSichtbarkeit() == 1){ ?>
-                            <option value = 1 selected>&ouml;ffentlich</option>
-                            <option value= 0 >privat</option>
+                            <option value = 1 selected> sichtbar </option>
+                            <option value= 0 >nicht sichtbar</option>
                         <?php } else { ?>
-                            <option value= 0 selected>privat</option>
-                            <option value = 1 > &ouml;ffentlich </option>
+                            <option value= 0 selected>nicht sichtbar</option>
+                            <option value = 1 > sichtbar </option>
                         <?php } ?>
                 </select></td></tr>
-        <tr><td>Benutzername:</td><td> 
-        	<select name="benutzername">
+        <tr><td>Benutzername:</td>
+            <td> <select name="benutzername">
                         <?php
                             foreach($result as $name) { ?>
-                            <option value="<?php echo $name; ?>"><?php echo $name; ?></option>
+                            <option value="'.<?php echo $name; ?>.'"> <?php echo $name; ?> </option>
                             <?php } ?>     
-                </select>
-      			  
-        	</td></tr>
-        	
-      
+                </select></td></tr>
         <tr><td>Beschreibung:</td><td> <input type="text" name="beschreibung" required value='<?=$kurs->getBeschreibung()?>'></td></tr>
     </table>
     <br><br>
