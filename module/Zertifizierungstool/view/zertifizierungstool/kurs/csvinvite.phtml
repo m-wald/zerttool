@@ -65,13 +65,13 @@ if(!empty($falsetype)){
 	<table>
 	<tr><th width="300"><b>Datensatz</b></th></tr>
 	<?php 
-	while ($row = mysqli_fetch_array($falsetype)) {
-	foreach($row as $ft) {
+	
+	foreach($falsetype as $ft) {
 		?>
 			
 			<tr><td><?php echo $ft;?></td></tr>
 			
-		<?php }}?>
+		<?php }?>
 		</table>		
 	<?php 	
 }
