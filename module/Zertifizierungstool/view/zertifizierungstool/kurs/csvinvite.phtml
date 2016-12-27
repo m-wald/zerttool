@@ -11,7 +11,7 @@ CSV-Datei ausw&auml;hlen: <input type="file" name="datei" required> <br><br>
 <!-- wird übergeben, um der csvinviteAction() mitzuteilen, dass von dieser Seite aus zugegriffen wird -->
 <input type="hidden" value="csvinvite" name='site'>
 
-<input type="submit" value="Datei jetzt ausw&auml;hlen">
+<input type="submit" value="Datei jetzt hochladen!">
 
 
 
@@ -30,13 +30,13 @@ if($meldung=="dateigroesse") {
 }
 
 if($meldung=="erfolgreich") {
-	echo "<b><font color = 'green'>Upload der Datei war erfolgreich!</font></b><br>";
+	echo "<h3><font color = 'green'>Upload der Datei war erfolgreich!</font></h3><br>";
 	
 		
 	}
 	
 if(!empty($fehler)) {
-	echo "Es wurde keine Einladung an folgende E-Mail-Adressen versendet, da bereits eine Einladung zum angegebenen Kurs existiert: <br><br>";
+	echo "<b><font color = 'red'>Es wurde keine Einladung an folgende E-Mail-Adressen versendet, da bereits eine Einladung zum angegebenen Kurs existiert: </font></b><br><br>";
 		
 	
 ?>
@@ -59,7 +59,7 @@ if(!empty($fehler)) {
 
 <?php 
 if(!empty($falsetype)){
-	echo "Datensatz in CSV-Datei fehlerhaft! Es wurde keine E-Mail f&uuml;r folgende Werte generiert:<br><br>";
+	echo "<b><font color = 'red'>Datensatz in CSV-Datei fehlerhaft! Es wurde keine E-Mail f&uuml;r folgende Werte generiert:</font></b><br><br>";
 	
 	?>
 	<table>
