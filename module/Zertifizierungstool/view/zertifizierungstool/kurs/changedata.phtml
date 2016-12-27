@@ -37,7 +37,7 @@ else {
         		 <option selected value='<?=$kurs->getBenutzername()?>'><?=$kurs->getBenutzername()?></option>
         		 <?php 
         		 while($row = $result->fetch_assoc()){
-        		 	if($row['benutzername'] == 'qqq') continue;
+        		 	if($row['benutzername'] == $kurs->getBenutzername()) continue;
         		 ?>
         		 	<option value='<?php echo $row['benutzername']; ?>'><?php echo $row['benutzername']; ?></option>  		 
         		 	
