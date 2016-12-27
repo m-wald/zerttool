@@ -55,6 +55,37 @@ if(!empty($fehler)) {
 }
 ?>
 <br><br>
+
+
+<?php 
+if(!empty($falsetype)){
+	echo "Datensatz in CSV-Datei fehlerhaft! Es wurde keine E-Mail f&uuml;r folgende Werte generiert:<br><br>";
+	
+	?>
+	<table>
+	<tr><th width="300"><b>Datensatz</b></th></tr>
+	<?php 
+	while ($row = mysql_fetch_array($falsetype)) {
+	foreach($row as $ft) {
+		?>
+			
+			<tr><td><?php echo $ft;?></td></tr>
+			
+		<?php }}?>
+		</table>		
+	<?php 	
+}
+	?>
+	<br><br>
+
+
+
+
+
+
+
+
+
 <form method="post" action="kursview">
 <input type="submit" value="zur&uuml;ck zur Kurs&uuml;bersicht">
 <input type="hidden" value="<?php echo $_SESSION['kurs_id']; ?>" name='kurs_id'>

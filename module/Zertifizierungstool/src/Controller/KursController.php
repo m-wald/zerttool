@@ -240,12 +240,24 @@ class KursController extends AbstractActionController
    		
    		if(move_uploaded_file($_FILES['datei']['tmp_name'], $new_path)) {
    			
-   			$i=0;	
+   			   			
    			$nomail=array();
+   			$i=0;
+   			$falsetype=array();
+   			$j=0;
    			if (($handle = fopen($new_path, "r")) !== FALSE) {
-   				while (($data = fgetcsv($handle, 1000)) !== FALSE) {
+   				while (($data = fgetcsv($handle, 1000,";")) !== FALSE) {
    					
    				   		$csv = new CSV_invite();
+   				   		
+   				   		//falls in der CSV-Datei mehr als eine Spalte befüllt wird (nur eine E-Mail-Adresse pro Zeile!!)
+   				   		$num = count($data);
+   				 	
+   				   		if($num>1){
+   				   			$falsetype[$j]=$data;
+   				   			$j++;
+   				   			continue;
+   				   		}
    				   		
    				   		if(($csv->insert_data($data[0], $_POST['kurs_id'])) ==false){
    				   			$nomail[$i]=$data;
@@ -260,7 +272,7 @@ class KursController extends AbstractActionController
    				fclose($handle);
    			}
    			
-   			return new ViewModel(['meldung' => 'erfolgreich','fehler' =>$nomail]);
+   			return new ViewModel(['meldung' => 'erfolgreich','fehler' =>$nomail, 'falsetype'=>$falsetype]);
    			}
    			
    	  	elseif(!empty($_SESSION['kurs_id'])){
