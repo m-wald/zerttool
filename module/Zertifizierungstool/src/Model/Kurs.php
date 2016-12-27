@@ -81,15 +81,39 @@ class Kurs {
     
     	
         
-        if (mysqli_num_rows($result) > 0){
-        	// TODO Ihr übergebt hier direkt das Ergebnis der Datenbankabfrage.
-        	// Besser wärs, wenn ihr für jeden Datensatz ein neues Objekt von der Klasse "Kurs" anlegt und in ein Array speichert.
-        	// Am Ende könnt ihr dann das Array zurückgeben und in der View dann einfach die getter-Methoden für das jeweilige Objekt aufrufen.
+        //if (mysqli_num_rows($result) > 0){
+        	// TODO Ihr ï¿½bergebt hier direkt das Ergebnis der Datenbankabfrage.
+        	// Besser wï¿½rs, wenn ihr fï¿½r jeden Datensatz ein neues Objekt von der Klasse "Kurs" anlegt und in ein Array speichert.
+        	// Am Ende kï¿½nnt ihr dann das Array zurï¿½ckgeben und in der View dann einfach die getter-Methoden fï¿½r das jeweilige Objekt aufrufen.
         	// #Objektorientierung ;)
-            return $result;
+        if (mysqli_num_rows($result) > 0) {
+            while ($row = mysqli_fetch_assoc($result)) {
+                    array_push($return_array, $row);
+            }
+            
+            foreach ($return_array as $row) {	
+                $this->kurs_id      = $row['kurs_id'];
+                $this->kurs_name    = $row['kurs_name'];
+                $this->kurs_start   = $row['kurs_start'];
+                $this->kurs_ende    = $row['kurs_ende'];
+                $this->sichtbarkeit = $row['sichtbarkeit'];
+                $this->benutzername = $row['benutzername'];
+            }
+            
+            return $return_array;
+            
+        } else {
+            //kein Ergebnis gefunden
+            return 0;
+                echo "Kein Ergebnis gefunden.";
+        }
+
+        
+            
+        /*    return $result;
         }else{
             return 0;
-        }
+        }*/
     }
     
     /*
@@ -145,7 +169,7 @@ class Kurs {
     }
     
     /**
-     * Prüft anhand des aktuellen Datums, ob das Kurs_Ende erreicht wurde.
+     * Prï¿½ft anhand des aktuellen Datums, ob das Kurs_Ende erreicht wurde.
      * @return true falls noch aktiv, false falls nicht
      */
     public function active($kurs_id) {
