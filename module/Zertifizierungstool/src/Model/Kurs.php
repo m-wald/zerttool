@@ -181,7 +181,7 @@ class Kurs {
                     kurs_start = '".$kursstart."',
                     kurs_ende = '".$kursende."',
                     sichtbarkeit = '".$sichtbarkeit."',
-                    beschreibung = '".$beschreibung."' where kurs_id = ".$kursid.";";
+                    beschreibung = '".$beschreibung."' where kurs_id = '".$kursid."';";
         $result = $db->execute($query);
         return $result;
     }
