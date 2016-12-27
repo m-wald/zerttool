@@ -39,7 +39,7 @@ else{
         		 <?php $kurs->loadZert();
         		 	foreach($result as $name){	 
         		 ?>
-        		 	<option value='<?= $name ?>'><?= $name ?></option>  		 
+        		 	<option value='<?php echo $name; ?>'><?php echo $name; ?></option>  		 
         		 	
         		 <?php }?>
       			  </select>
