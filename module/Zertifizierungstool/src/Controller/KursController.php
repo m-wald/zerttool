@@ -293,7 +293,12 @@ class KursController extends AbstractActionController
     } 
 
     public function enterkursAction() {
-   	//todo zeitliche Gï¿½ltigkeit des Kurses ï¿½berprï¿½fen
+   	// zeitliche Gï¿½ltigkeit des Kurses ï¿½berprï¿½fen
+   	
+    	$kurs= new Kurs();
+    	if (!$kurs->active($_REQUEST['kurs_id'])){
+    		return new ViewModel(['meldung' =>'dateerror']);
+    	}
    	
     	
     //Fall: Teilnehmer klickt auf Einladungs-Link (ist noch nicht registriert). ABER: Fehlerabfangen für den Fall

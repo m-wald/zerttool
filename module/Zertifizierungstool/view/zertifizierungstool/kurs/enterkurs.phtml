@@ -25,5 +25,12 @@ if($meldung=="alreadyexists"){
 	echo "<b><font color='red'>Sie sind bereits im Kurs eingetragen!";
 }
 
+if($meldung=="dateerror") {
+	
+	echo "<b><font color='red'>Kurs ist bereits abgelaufen!";
+	
+	header("refresh:2; url = /user/home");
+}
+
 
 ?>

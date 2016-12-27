@@ -148,8 +148,19 @@ class Kurs {
      * Prüft anhand des aktuellen Datums, ob das Kurs_Ende erreicht wurde.
      * @return true falls noch aktiv, false falls nicht
      */
-    public function active() {
+    public function active($kurs_id) {
+    	$db = new Db_connection();
     	
+    	$query = "select 1 from kurs where (CURRENT_DATE BETWEEN kurs_start AND kurs_ende) and kurs_id=".$kurs_id;
+    	
+    	$result= $db->execute($query);
+    	
+    	if (mysqli_num_rows($result)>0) {
+    		return true;
+    	}
+    	else {
+    		return false;
+    	}
 
     	
     }
