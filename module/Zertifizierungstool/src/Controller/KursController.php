@@ -269,6 +269,8 @@ class KursController extends AbstractActionController
    				   		
    				   		
    				   		//Prüfung, ob es sich um E-Mail-Adresse handelt
+   				   		
+   				   		$data = filter_var($data, FILTER_SANITIZE_EMAIL);
    				   		if (!filter_var($data, FILTER_VALIDATE_EMAIL)) {
    				   			$falsetype[$j]=$data;
    				   			$j++;
