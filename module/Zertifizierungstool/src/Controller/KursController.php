@@ -81,8 +81,8 @@ class KursController extends AbstractActionController
          * TODO Admin hat doch auch alle Funktionen eines Zertifizierers oder?
          * 		Dann kann er ja theorethisch auch Kurse haben, in denen er Kursleiter ist
          * TODO Es werden momentan ja nur die Kurse geladen und angezeigt, die schon gestartet sind.
-         * 		Ein Zertifizierer will aber vielleicht noch vor Kursbeginn irgendwelche Daten ändern oder
-         * 		Teilnehmer wollen auch Kurse sehen, die sie später belegen wollen.
+         * 		Ein Zertifizierer will aber vielleicht noch vor Kursbeginn irgendwelche Daten ï¿½ndern oder
+         * 		Teilnehmer wollen auch Kurse sehen, die sie spï¿½ter belegen wollen.
          * 		Deswegen mein Vorschlag: Alle Kurse laden, die noch nicht beendet sind.
          * Sind aber nur Ideen, also falls ihr da anderer Meinung seid, gebt Bescheid ;)
          */
@@ -92,6 +92,15 @@ class KursController extends AbstractActionController
             $kurseladen = $kurs->loadKurse(NULL);
         }
         return new ViewModel(['result' => $kurseladen]); 
+    }
+    
+    /*
+     * zum Anzeigen von Archivierten Kursen
+     */
+    public function showarchivedkurseAction() {
+        $kurs = new Kurs();
+        $kurseladen = $kurs->loadarchivedKurse(User::currentUser()->getBenutzername());
+        return new ViewModel(['result' => $kurseladen]);
     }
     
     
@@ -265,7 +274,7 @@ class KursController extends AbstractActionController
    					
    				   		$csv = new CSV_invite();
    				   		
-   				   		//falls in der CSV-Datei mehr als eine Spalte befüllt wird (nur eine E-Mail-Adresse pro Zeile!!)
+   				   		//falls in der CSV-Datei mehr als eine Spalte befï¿½llt wird (nur eine E-Mail-Adresse pro Zeile!!)
    				   		$num = count($data);
    				 	
    				   		if($num>1){
@@ -275,7 +284,7 @@ class KursController extends AbstractActionController
    				   		}
    				   		
    				   		
-   				   		//Prüfung, ob es sich um E-Mail-Adresse handelt
+   				   		//Prï¿½fung, ob es sich um E-Mail-Adresse handelt
    				   		
    				   		
    				   		if (!filter_var($data[0], FILTER_VALIDATE_EMAIL)) {
@@ -319,7 +328,7 @@ class KursController extends AbstractActionController
     	}
    	
     	
-    //Fall: Teilnehmer klickt auf Einladungs-Link (ist noch nicht registriert). ABER: Fehlerabfangen für den Fall
+    //Fall: Teilnehmer klickt auf Einladungs-Link (ist noch nicht registriert). ABER: Fehlerabfangen fï¿½r den Fall
     //dass sich der Teilnehmer in der Zwischenzeit schon am System registriert hat!
     
     if(isset($_REQUEST['email'])) {
@@ -332,7 +341,7 @@ class KursController extends AbstractActionController
    	
    		}
    		
-   		//Fall: künftiger Teilnehmer klickt auf Einladungs-Link (ist noch NICHT REGISTRIERT!!)
+   		//Fall: kï¿½nftiger Teilnehmer klickt auf Einladungs-Link (ist noch NICHT REGISTRIERT!!)
    		else {
    	
    			$_SESSION['kurs']=$_REQUEST['kurs_id'];
@@ -342,7 +351,7 @@ class KursController extends AbstractActionController
    		}
    	}
    	
-   	//falls Nutzer über Kursview in öffentlich verfügbaren Kurs eintreten will
+   	//falls Nutzer ï¿½ber Kursview in ï¿½ffentlich verfï¿½gbaren Kurs eintreten will
    	
    	elseif(isset($_REQUEST['enterpubliccourse'])){
    		$benutzer_kurs=new Benutzer_Kurs();
