@@ -1,0 +1,58 @@
+<h1>Kursangaben &auml;ndern</h1>
+
+<?php 
+    
+use Zertifizierungstool\Model\Kurs;
+
+if (isset($status)) {
+	echo $status;
+}
+if($status == "Erfolgreich geändert.") {
+	header("refresh:2; url = /kurs/showkurse");
+	
+}
+
+else{
+?>
+	
+    <h5> Passen Sie die Kursdaten entsprechend an.</h5>
+
+    <form method="post" action="changedata">
+    <table>
+        <tr><td>Kursname:</td><td> <input type="text" name="kursname" required value='<?=$kurs->getKurs_name()?>'></td></tr>
+        <tr><td>Kursstart:</td><td> <input type="date" name="kursstart" required value='<?=$kurs->getKurs_start()?>'></td></tr>
+        <tr><td>Kursende:</td><td> <input type="date" name="kursende" required value='<?=$kurs->getKurs_ende()?>'></td></tr>
+        <tr><td>Sichtbarkeit:</td><td> 
+                <select name="sichtbarkeit">
+                    <?php
+                        if($kurs->getSichtbarkeit() == 1){ ?>
+                            <option value = 1 selected>&ouml;ffentlich</option>
+                            <option value= 0 >privat</option>
+                        <?php } else { ?>
+                            <option value= 0 selected>privat</option>
+                            <option value = 1 > &ouml;ffentlich </option>
+                        <?php } ?>
+                </select></td></tr>
+        <tr><td>Benutzername:</td><td> 
+        	<select name="benutzername">
+                        <?php
+                            foreach($result as $name) { ?>
+                            <option value="<?php echo $name; ?>"><?php echo $name; ?></option>
+                            <?php } ?>     
+                </select>
+      			  
+        	</td></tr>
+        	
+      
+        <tr><td>Beschreibung:</td><td> <input type="text" name="beschreibung" required value='<?=$kurs->getBeschreibung()?>'></td></tr>
+    </table>
+    <br><br>
+    <input type="hidden" name="kurs_id" readonly="readonly" value="<?=$kurs->getKurs_id()?>">
+    <input type = "submit" name="speichern" value="Kursdaten ändern!"> 
+    </form>
+    <br>
+<?php
+}
+?>
+
+<a href="<?= $this->url('pruefung', ['action' => 'overview', 'id' => $kurs->getKurs_id()])?>"><button type="button">Zu den Pr&uuml;fungen</button></a>
