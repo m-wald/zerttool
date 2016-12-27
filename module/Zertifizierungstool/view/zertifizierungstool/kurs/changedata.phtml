@@ -46,7 +46,10 @@ else{
       			  </select>
       			  
         	</td></tr>
-        	<?php echo $name.$result; $zert=loadZertifizierer(); print_r($zert);?>
+        	<?php 
+        	$result->loadZert();
+        	echo $name.$result;
+        	/*$zert->loadZertifizierer();*/ print_r($zert);?>
       
         <tr><td>Beschreibung:</td><td> <input type="text" name="beschreibung" required value='<?=$kurs->getBeschreibung()?>'></td></tr>
     </table>
