@@ -150,7 +150,7 @@ class Kurs {
      */
     public function active() {
     	
-    	
+
     	
     }
 
