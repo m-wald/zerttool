@@ -129,7 +129,7 @@ class KursController extends AbstractActionController
      * @return Status (Fehler/Erfolg) und Kursdaten 
      */
     public function changedataAction(){
-    	unset($status);
+    	
     	$id = $_REQUEST["kurs_id"];
     	$kurs = new Kurs();
     	if(!$kurs->load($id)) $status="Fehler beim Laden des Kurses!";
