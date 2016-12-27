@@ -241,6 +241,11 @@ class User
 		
 		$this->passwort = $this->saltPasswort($this->passwort);
 		
+		//Formatänderung des Geburtsdatums in Jahr-Monat-Tag (für Datenbank wichtig)
+		
+		$date = new DateTime($this->geburtsdatum);
+		$this->geburtsdatum=$date->format('Y-m-d');
+		
 		if (!$this->alreadyExist()){
 		$query = "insert into benutzer (benutzername, passwort, vorname, nachname, geburtsdatum, strasse, plz, ort, email, email_bestaetigt, ist_admin, ist_zertifizierer, ist_teilnehmer) values ('"
   				.$this->benutzername."', '".$this->passwort."', '".$this->vorname."', '".$this->nachname."', '"
