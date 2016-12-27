@@ -294,7 +294,12 @@ class KursController extends AbstractActionController
 
     public function enterkursAction() {
    	//todo zeitliche Gï¿½ltigkeit des Kurses ï¿½berprï¿½fen
-   	if(isset($_REQUEST['email'])) {
+   	
+    	
+    //Fall: Teilnehmer klickt auf Einladungs-Link (ist noch nicht registriert). ABER: Fehlerabfangen für den Fall
+    //dass sich der Teilnehmer in der Zwischenzeit schon am System registriert hat!
+    
+    if(isset($_REQUEST['email'])) {
    		$user = new User();
    		if ($user->load_via_email($_REQUEST['email'])) {
    	
@@ -303,6 +308,8 @@ class KursController extends AbstractActionController
    			exit;
    	
    		}
+   		
+   		//Fall: künftiger Teilnehmer klickt auf Einladungs-Link (ist noch NICHT REGISTRIERT!!)
    		else {
    	
    			$_SESSION['kurs']=$_REQUEST['kurs_id'];
@@ -312,6 +319,18 @@ class KursController extends AbstractActionController
    		}
    	}
    	
+   	//falls Nutzer über Kursview in öffentlich verfügbaren Kurs eintreten will
+   	
+   	elseif(isset($_REQUEST['enterpubliccourse'])){
+   		$benutzer_kurs=new Benutzer_Kurs();
+   		$benutzer_kurs->insert(User::currentUser()->getBenutzername(), $_REQUEST['kurs_id']);
+   	
+   		return new ViewModel(['meldung' => 'erfolgreich']);
+   	
+   	}
+   	
+   	
+   	//Wenn richtiger Benutzer eingeloggt ist, Eintragung in Kurs 
    	
    	elseif(User::currentUser()->getBenutzername() == $_REQUEST['benutzername'] && !isset($_REQUEST['email'])){
    	
@@ -321,23 +340,19 @@ class KursController extends AbstractActionController
    	    	return new ViewModel(['meldung'=> 'erfolgreich']);
    	    }
    	
-   	    elseif(User::currentUser()->getBenutzername()!= NULL) {
+   	    
+   	    
+   	    //Wenn falscher Benutzer eingeloggt ist 
+   	    
+   	elseif(User::currentUser()->getBenutzername()!= NULL) {
    	
    	    	return new Viewmodel(['meldung'=> 'falseuser']);
    	    }
    	   
    	    
-   	    //falls Nutzer über Kursview in öffentlich verfügbaren Kurs eintreten will
-   	    
-   	 elseif(isset($_REQUEST['enterpubliccourse'])){
-   	 	$benutzer_kurs=new Benutzer_Kurs();
-   	 	$benutzer_kurs->insert(User::currentUser()->getBenutzername(), $_REQUEST['kurs_id']);
-   	 	
-   	 	return new ViewModel(['meldung' => 'erfolgreich']);
-   	 	
-   	 }
+   	   // Falls eingeladener Teilnehmer noch nicht eingeloggt ist
    	
-   	    else {
+   	else {
    	    	$_SESSION['kurs']=$_REQUEST['kurs_id'];
    	    	header("refresh:0; url= /user/login?inviteuser=".$_REQUEST['benutzername']);
    	    	exit;
