@@ -107,7 +107,7 @@ class KursController extends AbstractActionController
     public function loadzertAction(){
     	$zert = new Kurs();
     	$zertladen = $zert->loadZertifizierer();
-    	return new Viewmodel (['result' => $zertladen]);
+    	return new Viewmodel (['result' => $zertladen, 'zert' => $zert]);
     }
     
     /**
@@ -133,6 +133,12 @@ class KursController extends AbstractActionController
     	if(!$kurs->load($id)) $status="Fehler beim Laden des Kurses!";
     	
         if($_REQUEST["speichern"]) {
+        	$start  = $_REQUEST["kursstart"];
+        	$end    = $_REQUEST["kursende"];
+        	$starttimestamp = strtotime($start);
+        	$endtimestamp   = strtotime($end);
+        	
+        	if($endtimestamp > $starttimestamp) {
             $kurs->update($_REQUEST["kursid"], $_REQUEST["kursname"], $_REQUEST["kursstart"], $_REQUEST["kursende"], $_REQUEST["sichtbarkeit"], $_REQUEST["beschreibung"]);
             $kurs = new Kurs(
                     $_REQUEST["kursid"],
@@ -142,6 +148,8 @@ class KursController extends AbstractActionController
                     $_REQUEST["sichtbarkeit"],
                     $_REQUEST["beschreibung"]); 
             $status = "Erfolgreich geändert."; 
+        }
+        else $status = "Der Kursende muss in der Zukunft liegen!";
         }
               return new ViewModel(['kurs' => $kurs,
         		'status' => $status]);    

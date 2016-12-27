@@ -36,8 +36,8 @@ else{
         <tr><td>Benutzername:</td><td> 
         		 <select name="benutzername">
         		 <option selected value='<?=$kurs->getBenutzername()?>'><?=$kurs->getBenutzername()?></option>
-        		 <?php $result = $zert->loadZert();
-        		 while($row = $result->fetch_assoc()){
+        		 <?php $x = $zert->loadZert();
+        		 while($row = $x->fetch_assoc()){
         		 ?>
         		 	<option value='<?php echo $row['benutzername']; ?>'><?php echo $row['benutzername']; ?></option>  		 
         		 	
