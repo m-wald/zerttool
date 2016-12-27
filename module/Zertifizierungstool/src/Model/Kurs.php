@@ -115,6 +115,25 @@ class Kurs {
     }
     
     /*
+     * Lädt die archivierten Kurse
+     */
+    public function loadarchivedKurse($benutzername) {
+        $db = new Db_connection();
+        if(User::currentUser()->istZertifizierer() || User::currentUser()->istAdmin()){
+            $query = "SELECT * FROM kurs WHERE benutzername = '".$benutzername."'
+                            AND (kurs_ende <= CURRENT_DATE + 30);";
+        }    	
+    	$result = $db->execute($query);
+        
+        if (mysqli_num_rows($result) > 0){
+            return $result;
+        } else {
+            //kein Ergebnis gefunden
+            return 0;
+        }
+    }
+    
+    /*
      * Lädt alle Kurse zu denen sich der Teilnehmer eingeschrieben hat.
      * @param Benutzername des Teilnehmers
      * @return Array mit allen Kursen, bzw. 0, falls noch keine Daten existieren
