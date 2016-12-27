@@ -160,7 +160,8 @@ class Kurs {
     
     public function save(){
         $db = new Db_connection();
-	$query = "INSERT INTO kurs (kurs_name, kurs_start, kurs_ende, sichtbarkeit, benutzername, beschreibung) VALUES ('".$this->kurs_name."','".$this->kurs_start."', '".$this->kurs_ende."', '".$this->sichtbarkeit."', '".$this->benutzername."', '".$this->beschreibung."')";
+	$query = "INSERT INTO kurs (kurs_name, kurs_start, kurs_ende, sichtbarkeit, benutzername, beschreibung) VALUES 
+			('".$this->kurs_name."','".$this->kurs_start."', '".$this->kurs_ende."', '".$this->sichtbarkeit."', '".$this->benutzername."', '".$this->beschreibung."')";
         
 	$result = $db->execute($query);
         
@@ -180,7 +181,7 @@ class Kurs {
                     kurs_start = '".$kursstart."',
                     kurs_ende = '".$kursende."',
                     sichtbarkeit = '".$sichtbarkeit."',
-                    beschreibung = '".$beschreibung."' where kurs_id = '".$kursid."';";
+                    beschreibung = '".$beschreibung."' where kurs_id = ".$kursid.";";
         $result = $db->execute($query);
         return $result;
     }
