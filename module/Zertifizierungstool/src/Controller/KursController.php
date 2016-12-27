@@ -147,6 +147,29 @@ class KursController extends AbstractActionController
         		'status' => $status]);    
     }
     
+    /*
+     * Kopiert die archevierten Daten
+     */
+     public function copydataAction() {
+        $id = $_REQUEST["kurs_id"];
+    	$kurs = new Kurs();
+    	if(!$kurs->load($id)) $status="Fehler beim Laden des Kurses!";
+        
+        if($_REQUEST["speichern"]) {
+            $kurs->insert($_REQUEST["kursname"], $_REQUEST["kursstart"], $_REQUEST["kursende"], $_REQUEST["sichtbarkeit"], $_REQUEST["beschreibung"]);
+            $kurs = new Kurs(
+                    $_REQUEST["kursid"],
+                    $_REQUEST["kursname"],
+                    $_REQUEST["kursstart"],
+                    $_REQUEST["kursende"],
+                    $_REQUEST["sichtbarkeit"],
+                    $_REQUEST["beschreibung"]); 
+            $status = "Erfolgreich geändert."; 
+        }
+              return new ViewModel(['kurs' => $kurs,
+        		'status' => $status]);    
+    }
+    
     public function kursviewAction(){
     	if(isset($_POST["back"]) && !empty($_POST["kurs_id"]))
     		$id = $_POST["kurs_id"];
