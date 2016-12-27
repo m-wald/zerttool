@@ -34,17 +34,19 @@ else{
                         <?php } ?>
                 </select></td></tr>
         <tr><td>Benutzername:</td><td> 
-        		 <select name="benutzername" action="loadZert">
+        		 <select name="benutzername">
         		 <option selected value='<?=$kurs->getBenutzername()?>'><?=$kurs->getBenutzername()?></option>
-        		 <?php $result->loadZert();
+        		 <?php /*$result->loadZert();
         		 	foreach($result as $name){	 
         		 ?>
         		 	<option value='<?php echo $name; ?>'><?php echo $name; ?></option>  		 
         		 	
-        		 <?php }?>
+        		 <?php }  
+        		 */?>
       			  </select>
-      			  <?php echo $name.$result;?>
+      			  
         	</td></tr>
+        	<?php echo $name.$result; $zert=loadZertifizierer(); print_r($zert);?>
       
         <tr><td>Beschreibung:</td><td> <input type="text" name="beschreibung" required value='<?=$kurs->getBeschreibung()?>'></td></tr>
     </table>
