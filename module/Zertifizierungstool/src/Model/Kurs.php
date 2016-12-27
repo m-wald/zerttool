@@ -186,9 +186,26 @@ class Kurs {
     	else {
     		return false;
     	}
-
-    	
     }
+
+    
+    /*
+     * Laedt alle bestehende Zertifizierern
+     */	
+    public function loadZertifizierer(){
+    	$db = new Db_connection();
+    	 
+    	$query = "SELECT benutzername FROM benutzer WHERE ist_zertifizierer = 1;";
+    	$result = $db->execute($query);
+    	    	
+    	if (mysqli_num_rows($result) > 0){
+    		return $result;
+    	}else{
+    		return 0;
+    	}
+    }
+    	
+   
 
     function getKurs_id() {
         return $this->kurs_id;

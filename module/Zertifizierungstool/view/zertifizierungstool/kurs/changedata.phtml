@@ -26,14 +26,25 @@ else{
                 <select name="sichtbarkeit">
                     <?php
                         if($kurs->getSichtbarkeit() == 1){ ?>
-                            <option value = 1 selected> sichtbar </option>
-                            <option value= 0 >nicht sichtbar</option>
+                            <option value = 1 selected>öffentlich</option>
+                            <option value= 0 >privat</option>
                         <?php } else { ?>
-                            <option value= 0 selected>nicht sichtbar</option>
-                            <option value = 1 > sichtbar </option>
+                            <option value= 0 selected>privat</option>
+                            <option value = 1 > öffentlich </option>
                         <?php } ?>
                 </select></td></tr>
-        <tr><td>Benutzername:</td><td> <input type="text" name="benutzername" required value='<?=$kurs->getBenutzername()?>'></td></tr>
+        <tr><td>Benutzername:</td><td> 
+        		 <select name="benutzername">
+        		 <option selected value='<?=$kurs->getBenutzername()?>'><?=$kurs->getBenutzername()?></option>
+        		 <?php loadZertifizierer();
+        		 	foreach($result as $name){	 
+        		 ?>
+        		 	<option value='<?= $row ?>'><?= $row ?></option>  		 
+        		 	</select>
+        		 <?php }?>
+        
+        
+      <!-- <input type="text" name="benutzername" required value='<?=$kurs->getBenutzername()?>'></td></tr> -->
         <tr><td>Beschreibung:</td><td> <input type="text" name="beschreibung" required value='<?=$kurs->getBeschreibung()?>'></td></tr>
     </table>
     <br><br>
