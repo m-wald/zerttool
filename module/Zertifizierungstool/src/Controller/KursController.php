@@ -140,8 +140,9 @@ class KursController extends AbstractActionController
         	$end    = $_REQUEST["kursende"];
         	$starttimestamp = strtotime($start);
         	$endtimestamp   = strtotime($end);
+        	$today = strtotime(date(d-m-Y));
         	
-        	if($endtimestamp > $starttimestamp) {
+        	if($endtimestamp > $starttimestamp && $endtimestamp > $today && $starttimestamp >= $today) {
             $kurs->update($_REQUEST["kursid"], $_REQUEST["kursname"], $_REQUEST["kursstart"], $_REQUEST["kursende"], $_REQUEST["sichtbarkeit"], $_REQUEST["beschreibung"]);
             $kurs = new Kurs(
                     $_REQUEST["kursid"],
@@ -152,7 +153,7 @@ class KursController extends AbstractActionController
                     $_REQUEST["beschreibung"]); 
             $status = "Erfolgreich geÃ¤ndert."; 
         }
-        else $status = "Der Kursende muss in der Zukunft liegen!";
+        else $status = "Überprüfen Sie bitte Start- und End-Datum des Kurses!";
         }
               return new ViewModel(['kurs' => $kurs, 'result' => $zertladen,'status' => $status]);    
     }
