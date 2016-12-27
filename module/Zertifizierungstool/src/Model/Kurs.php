@@ -140,6 +140,16 @@ class Kurs {
         $result = $db->execute($query);
         return $result;
     }
+    
+    /**
+     * Prüft anhand des aktuellen Datums, ob das Kurs_Ende erreicht wurde.
+     * @return true falls noch aktiv, false falls nicht
+     */
+    public function active() {
+    	
+    	
+    	
+    }
 
     function getKurs_id() {
         return $this->kurs_id;
