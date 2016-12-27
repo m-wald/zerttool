@@ -11,9 +11,9 @@
 		
 		<?php
 		print_r ($result);
-			foreach($result as $row){ ?>
+			while($row = $result->fetch_assoc()){ ?>
 			<tr>
-				<td><?php echo $row; ?></td>
+				<td><?php echo $row['benutzername']; ?></td>
 			</tr>
 		<?php }?>
 		
