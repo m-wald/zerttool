@@ -8,11 +8,10 @@ if (isset($status)) {
 	echo $status;
 }
 if($status == "Erfolgreich geändert.") {
-	header("refresh:2; url = /kurs/showkurse");
-	
+	header("refresh:2; url = /kurs/showkurse");	
 }
 
-else{
+else {
 ?>
 	
     <h5> Passen Sie die Kursdaten entsprechend an.</h5>
@@ -36,8 +35,8 @@ else{
         <tr><td>Benutzername:</td><td> 
         		 <select name="benutzername">
         		 <option selected value='<?=$kurs->getBenutzername()?>'><?=$kurs->getBenutzername()?></option>
-        		 <?php $x = $zert->loadZert();
-        		 while($row = $x->fetch_assoc()){
+        		 <?php 
+        		 while($row = $result->fetch_assoc()){
         		 ?>
         		 	<option value='<?php echo $row['benutzername']; ?>'><?php echo $row['benutzername']; ?></option>  		 
         		 	
