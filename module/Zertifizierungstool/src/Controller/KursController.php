@@ -66,7 +66,7 @@ class KursController extends AbstractActionController
 	return new ViewModel();
     }
     
-    /*
+    /**
      * Wenn Zertifizierer, dann Kurse des Zertifizierers laden und der View übergeben
      * Wenn Admin oder Teilnehmer, dann entsprechende Kurse laden und der View übergeben
      * @return Kurse eines Zertifizierers, bzw. je nach Regelung die einsehabren Kurse für Admin und Teilnehmer an die View
@@ -77,6 +77,14 @@ class KursController extends AbstractActionController
          * Wenn Zertifizierer, dann soll er nur seine Kurse angezeigt bekommen.
          * Wenn Admin oder Teilnehmer, dann soll NULL als Parameter übergeben werden,
          * damit in der SQL-Query nicht nach dem Benutzernamen gefiltert wird
+         * 
+         * TODO Admin hat doch auch alle Funktionen eines Zertifizierers oder?
+         * 		Dann kann er ja theorethisch auch Kurse haben, in denen er Kursleiter ist
+         * TODO Es werden momentan ja nur die Kurse geladen und angezeigt, die schon gestartet sind.
+         * 		Ein Zertifizierer will aber vielleicht noch vor Kursbeginn irgendwelche Daten �ndern oder
+         * 		Teilnehmer wollen auch Kurse sehen, die sie sp�ter belegen wollen.
+         * 		Deswegen mein Vorschlag: Alle Kurse laden, die noch nicht beendet sind.
+         * Sind aber nur Ideen, also falls ihr da anderer Meinung seid, gebt Bescheid ;)
          */
         if(User::currentUser()->istZertifizierer()){
             $kurseladen = $kurs->loadKurse(User::currentUser()->getBenutzername());
@@ -86,7 +94,7 @@ class KursController extends AbstractActionController
         return new ViewModel(['result' => $kurseladen]); 
     }
     
-    /*
+    /**
      * Lädt Kurse zu denen sich der Teilnehmer eingetragen hat und übergibt diese
      * @return Kurse des Teilnehmers an die View
      */

@@ -54,7 +54,7 @@ class Kurs {
         return false;
     }
     
-    /*
+    /**
      * LÃ¤dt alle Kurse, die dem Ã¼bergebenen Benutzernamen zugeordent sind
      * Wenn Zertifizierer, dann sollen alle aktiven Kurse ausgegeben werden fÃ¼r die der Zertifizierer
      * zustÃ¤ndig ist. Wenn Admin, dann sollen alle aktiven Kurse ausgegeben werden.
@@ -63,7 +63,6 @@ class Kurs {
      *      Teilnehmer
      * @return Array mit allen Kursen, ansonsten 0.
      */
-    
     public function loadKurse($benutzername) {
     	$db = new Db_connection();
         if(User::currentUser()->istZertifizierer()){
@@ -83,6 +82,10 @@ class Kurs {
     	
         
         if (mysqli_num_rows($result) > 0){
+        	// TODO Ihr übergebt hier direkt das Ergebnis der Datenbankabfrage.
+        	// Besser wärs, wenn ihr für jeden Datensatz ein neues Objekt von der Klasse "Kurs" anlegt und in ein Array speichert.
+        	// Am Ende könnt ihr dann das Array zurückgeben und in der View dann einfach die getter-Methoden für das jeweilige Objekt aufrufen.
+        	// #Objektorientierung ;)
             return $result;
         }else{
             return 0;

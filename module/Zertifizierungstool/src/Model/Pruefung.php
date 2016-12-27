@@ -3,9 +3,17 @@ namespace Zertifizierungstool\Model;
 
 use Zertifizierungstool\Model\Db_connection;
 
+/**
+ * Objekte dieser Klasse repräsentieren die Entität "Prüfung" aus der Datenbank.
+ * Die Klasse enthält Methoden zum Lesen, Verändern und Löschen von Datensätzen aus der Tabelle "pruefung"
+ * 
+ * @author Martin
+ *
+ */
 class Pruefung {
 	
-	private $id;
+	/** Tabellenfeld "pruefung_id" */
+	private $id;		
 	private $name;
 	private $termin;
 	private $kurs_id;
@@ -19,6 +27,12 @@ class Pruefung {
 		$this->cutscore = $cutscore;
 	}
 	
+	/**
+	 * Fügt die Daten des aktuellen Objekts als neuen Datensatz in der Datenbank.
+	 * Setzt auch die Id des Objekts mit dem Wert, der von der DB automatisch zugeteilt wurde.
+	 * 
+	 * @return boolean false, falls ein Fehler aufgetreten ist. Sonst true.
+	 */
 	public function saveNew() {
 		$db = new Db_connection();
 		$conn = $db->getConnection();
@@ -42,6 +56,11 @@ class Pruefung {
 		}
 	}
 	
+	/**
+	 * Aktualisiert den Datensatz mit der ID des aktuellen Objekts.
+	 * 
+	 * @return boolean false, falls ein Fehler aufgetreten ist. Sonst true.
+	 */
 	public function update() {
 		$db = new Db_connection();
 		$conn = $db->getConnection();
@@ -64,6 +83,12 @@ class Pruefung {
 		}
 	}
 	
+	/**
+	 * Befüllt die Attribute des aktuellen Objekts mit den entsprechenden Daten aus der Datenbank.
+	 * 
+	 * @param $id Die id des Eintrags in der Datenbank, der geladen werden soll.
+	 * @return boolean false, falls ein Fehler aufgetreten ist. Sonst true.
+	 */
 	public function load($id) {
 		$db = new Db_connection();
 		
@@ -71,7 +96,7 @@ class Pruefung {
 		
 		$result = $db->execute($query);
 		
-		if(!$result || !mysqli_num_rows($result) > 0) {
+		if(!$result || mysqli_num_rows($result) != 1) {
 			// Fehler bei der Datenbankabfrage oder keine Prüfung mit der Id gefunden
 			return false;
 		}
@@ -87,6 +112,12 @@ class Pruefung {
 		return true;
 	}
 	
+	/**
+	 * Lädt alle Prüfungen, die zu einem bestimmten Kurs gehören und speichert diese in einem Array.
+	 * 
+	 * @param $kurs_id Id des Kurses, dessen Prüfungen geladen werden sollen.
+	 * @return boolean false, falls ein Fehler aufgetreten ist. Sonst das befüllte Array.
+	 */
 	public static function loadList($kurs_id) {
 		$db = new Db_connection();
 		$conn = $db->getConnection();
