@@ -1,6 +1,7 @@
 <h1>Kurs</h1>
 <?php
     use Zertifizierungstool\Model\Kurs;
+    use Zertifizierungstool\Model\User;
 ?>
 
 <head>
@@ -20,13 +21,15 @@
 		
 		<?php 
 			foreach($result as $row){ ?>
-			<tr>
+			<tr><?php 
+                            if(User::currentUser()->istAdmin() || User::currentUser()->istZertifizierer()) { ?>
 				<td><?=$row['kurs_id']?></td>
 				<td><?=$row['kurs_name']?></td>
 				<td> <form accept-charset="utf-8" method="POST" action="changedata">
 						<input type="hidden" value="<?=$row['kurs_id']?>"name="kurs_id">
 						<input size="70" maxlength="250" value="ändern" type="submit">
 					</form> </td>
+                            <?php } ?>
 					
 			<td> <form accept-charset="utf-8" method="POST" action="kursview">
 						<input type="hidden" value="<?=$row['kurs_id']?>"name="kurs_id">
