@@ -34,11 +34,18 @@ input[type=number]{
 
 <script type="text/javascript">
 	var AntwortAnzahl;
+
+	var frage_text;
+	var frage_punkte;
+
+	var antwort_id;
+	var antwort_text;
+	var antwort_status;
 	
 	var formStart =
-		'Frage: <br> <textarea rows="3" cols="50" name="frage_text" form="frageForm" required></textarea>' +
+		'Frage: <br> <textarea rows="3" cols="50" name="frage_text" form="frageForm" required>' + frage_text + '</textarea>' +
 		'<form method="POST" id="frageForm">' + 
-			'Punkte: <input type="number" name="punkte" min="0" required> <br>';
+			'Punkte: <input type="number" name="punkte" min="0" required value="' + frage_punkte + '"> <br>';
 
 	var formEnd = 
 		'<input type="hidden" name="id" 		 readonly="readonly">' +
@@ -74,11 +81,29 @@ input[type=number]{
 	
 	function showFormMC() {
 		AntwortAnzahl = 1;
+		<?php if ($mode == PruefungController::createFragen) {?>
 		document.getElementById("formular").innerHTML = formMC;
+
+		<?php } else { ?>
+		frage_text 	 = <?=$frageToEdit->getText()  ?>;
+		frage_punkte = <?=$frageToEdit->getPunkte()?>;
+		<?php $antworten = Antwort::loadList($frageToEdit->getId()); ?>
+		
+		document.getElementById("formular").innerHTML = formMC;
+		<?php }?>
 	}
 
 	function showFormTF() {
+		<?php if ($mode == PruefungController::createFragen) {?>
 		document.getElementById("formular").innerHTML = formTF;
+
+		<?php } else { ?>
+		frage_text 	 = <?=$frageToEdit->getText()  ?>;
+		frage_punkte = <?=$frageToEdit->getPunkte()?>;
+		<?php $antworten = Antwort::loadList($frageToEdit->getId()); ?>
+		
+		document.getElementById("formular").innerHTML = formTF;
+		<?php }?>
 	}
 
 	function newAntwort() {
@@ -117,31 +142,16 @@ if (isset($errors)) {
 	}
 }
 
-switch ($mode) {
-	case PruefungController::createFragen:
-		$pruefReadonly = 'readonly = "readonly" disabled';
-		$pruefSaveButton = "hidden";
-		$pruefBackground = 'style="background-color: gray;"';
-		$frageBackground = 'style="background-color: aqua;"';
-		break;
-	case PruefungController::editFragen:
-		$pruefReadonly = 'readonly = "readonly" disabled';
-		$pruefSaveButton = "hidden";
-		$pruefBackground = 'style="background-color: gray;"';
-		$frageBackground = 'style="background-color: aqua;"';
-		break;
-	case PruefungController::createPruefung:
-		$frageDisabled = 'disabled "disabled"';
-		$pruefSaveButton = "submit";
-		$pruefBackground = 'style="background-color: aqua;"';
-		$frageBackground = 'style="background-color: gray;"';
-		break;
-	case PruefungController::editPruefung:
-		$frageDisabled = 'disabled "disabled"';
-		$pruefSaveButton = "submit";
-		$pruefBackground = 'style="background-color: aqua;"';
-		$frageBackground = 'style="background-color: gray;"';
-		break;
+if ($mode == PruefungController::PRUEFUNG) {
+	$pruefSaveButton = "submit";
+	$pruefBackground = 'style="background-color: aqua;"';
+	$frageBackground = 'style="background-color: gray;"';
+	$frageDisabled   = 'disabled "disabled"';
+} else {
+	$pruefReadonly = 'readonly = "readonly" disabled';
+	$pruefSaveButton = "hidden";
+	$pruefBackground = 'style="background-color: gray;"';
+	$frageBackground = 'style="background-color: aqua;"';
 }
 ?>
 

@@ -12,6 +12,33 @@ use Zertifizierungstool\Model\Antwort;
 
 class FrageController extends AbstractActionController {
 	
+	private $frage;
+	
+	private function handleForm($request) {
+		$this->$frage = new Frage(
+				$request["id"],
+				$request["frage_text"],
+				$request["punkte"],
+				$request["pruefung_id"],
+				$request["frage_typ"]);
+		
+
+			if (empty($request["id"])) {
+				$success = $this->$frage->saveNew();
+			}else {
+				$success = $this->$frage->update();
+			}
+				
+			if ($success) {
+				header ("refresh:0; url = /frage/create/" .$this->$frage->getPruefungId());
+			}else {
+				array_push($errors, "Fehler beim Speichern der Frage. Bitte erneut versuchen!");
+			}
+	}
+	
+	public function createAction() {
+		
+	}
 	public function createAction() {
 		// TODO Prüfen ob Prüfungstermin schon erreicht ist
 		// Die Prüfung kann dann nicht mehr bearbeitet werden

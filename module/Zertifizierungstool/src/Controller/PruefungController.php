@@ -20,11 +20,107 @@ class PruefungController extends AbstractActionController {
 	const pathToHtml	 = 'zertifizierungstool/pruefung/pruefung';
 	
 	// TODO Prüfungskonstanten zusammenlegen?
-	const createPruefung = "Pruefung anlegen";
-	const editPruefung   = "Pruefung bearbeiten";
+	//const createPruefung = "Pruefung anlegen";
+	//const editPruefung   = "Pruefung bearbeiten";
+	const PRUEFUNG 		 = "Pruefung";
 	const createFragen   = "Fragen anlegen";
 	const editFragen	 = "Fragen bearbeiten";
 	
+	/** Das behandelte Prüfungs-Objekt */
+	private $pruefung;
+	
+	private function handleForm($request, $fragen = array()) {
+		// Array, das eventuelle Fehlermeldungen enthält
+		$errors = array();
+		
+		if ($request['speichernPruefung']) {
+		
+		$this->$pruefung = new Pruefung(
+				$request["pruefid"],
+				$request["name"],
+				$request["termin"],
+				$request["kursid"],
+				$request["cutscore"] / 100 );
+			
+		// TODO Format des Prüfungstermins überprüfen
+		// Prüfungstermin validieren
+		//array_push($errors, $this->checkDate($pruefung));
+			
+		if (empty($errors)) {
+			if (empty($request["pruefid"])) {
+				$success = $this->$pruefung->saveNew();
+			}else {
+				$success = $this->$pruefung->update();
+			}
+			
+			if ($success) {
+				header ("refresh:0; url = /frage/create/" .$this->$pruefung->getId());
+			}else {
+				array_push($errors, "Fehler beim Speichern der Pr&uuml;fung. Bitte erneut versuchen!");
+			}
+		}
+		}
+
+		$viewModel = new ViewModel([
+				'pruefung' => $this->$pruefung,
+				'errors'   => $errors,
+				'fragen'   => $fragen,
+				'mode'	   => PruefungController::createPruefung
+		]);
+		
+		
+		$viewModel->setTemplate(PruefungController::pathToHtml);
+		return $viewModel;
+	}
+	
+	public function createAction() {
+		// Berechtigungsprüfung TODO weiterleitung auf fehlerseite
+		if (!User::currentUser()->istAdmin() && !User::currentUser()->istZertifizierer()) {
+			header ("refresh:0; url = /user/login/");
+		}
+		
+		if (empty($_REQUEST["kursid"])) {
+			$newKursid = $this->params()->fromRoute('id');	
+		}else {
+			$newKursid = $_REQUEST["kursid"];
+		}
+		
+		$this->$pruefung = new Pruefung();
+		$this->$pruefung->setKursId($newKursid);
+		
+		return $this->handleForm($_REQUEST[]);
+	}
+	
+	public function editAction() {
+		// Berechtigungsprüfung TODO weiterleitung auf fehlerseite
+		if (!User::currentUser()->istAdmin() && !User::currentUser()->istZertifizierer()) {
+			header ("refresh:0; url = /user/login/");
+		}
+		
+		if (empty($_REQUEST["pruefid"])) {
+			$pruefung_id = $this->params()->fromRoute('id');
+		}else {
+			$pruefung_id = $_REQUEST["pruefid"];
+		}
+		
+		$this->$pruefung = new Pruefung();
+		$this->$pruefung->load($pruefung_id);
+		
+		$kurs = new Kurs();
+		$kurs->load($this->$pruefung->getKursId());
+		
+		if (!$kurs->getBenutzername() == User::currentUser()->getBenutzername()) {
+			header ("refresh:0; url = /user/login/");
+		}
+		
+		if ($this->$pruefung->getTermin() >= new Date()) {
+			array_push($errors, "Der Prüfungszeitraum wurde bereits erreicht. Die Prüfung kann nicht mehr bearbeitet werden!");
+		}
+		
+		return $this->handleForm($_REQUEST[], Frage::loadList($this->$pruefung->getId()));
+	}
+	
+	/*
 	public function createAction() {
 		// Array, das eventuelle Fehlermeldungen enthält
 		$errors = array();
@@ -81,6 +177,7 @@ class PruefungController extends AbstractActionController {
 		
 	}
 	
+	
 	public function editAction() {
 		
 		// TODO Prüfen ob Prüfungstermin schon erreicht ist
@@ -95,21 +192,7 @@ class PruefungController extends AbstractActionController {
 			return "Keine Berechtigung";
 			//array_push($errors, "Keine Berechtigung!");
 		}
-		
-		/*
-		$pruefung_id = $_REQUEST["pruefid"];
-		
-		if (empty($pruefung_id)) {
-			$pruefung_id = $this->params()->fromRoute('id');
-		}
-		
-		$pruefung = new Pruefung();
-		$pruefung->load($pruefung_id);
-		
-		// Überprüfung, ob aktueller Benutzer auch der Kursleiter ist
-		$kurs = new Kurs();
-		$kurs->load($pruefung->getKursId());
-		*/
+
 		
 		if (!$_REQUEST['speichernPruefung']) {
 			// Formular wurde noch nicht gesendet
@@ -121,6 +204,10 @@ class PruefungController extends AbstractActionController {
 			
 			if (!$kurs->getBenutzername() == User::currentUser()->getBenutzername()) {
 				array_push($errors, "Keine Berechtigung!");
+			}
+			
+			if ($pruefung->getTermin() >= new Date()) {
+				array_push($errors, "Der Prüfungszeitraum wurde bereits erreicht. Die Prüfung kann nicht mehr bearbeitet werden!");
 			}
 			
 		} else {
@@ -157,6 +244,7 @@ class PruefungController extends AbstractActionController {
 		$viewModel->setTemplate(PruefungController::pathToHtml);
 		return $viewModel;
 	}
+	*/
 	
 	//TODO
 	public function deleteAction() {
