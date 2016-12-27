@@ -6,6 +6,8 @@
 if($meldung=="erfolgreich"){
 	
 	echo "<b><font color='green'>Sie wurden erfolgreich in den Kurs eingetragen!</font></b>";
+	
+	header("refresh:2; url= /kurs/kursview");
 }
 
 if($meldung=="falseuser"){

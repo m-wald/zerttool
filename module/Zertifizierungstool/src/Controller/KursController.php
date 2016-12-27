@@ -325,8 +325,17 @@ class KursController extends AbstractActionController
    	
    	    	return new Viewmodel(['meldung'=> 'falseuser']);
    	    }
+   	   
    	    
-
+   	    //falls Nutzer über Kursview in öffentlich verfügbaren Kurs eintreten will
+   	    
+   	 elseif(isset($_REQUEST['enterpubliccourse'])){
+   	 	$benutzer_kurs=new Benutzer_Kurs();
+   	 	$benutzer_kurs->insert(User::currentUser()->getBenutzername(), $_REQUEST['kurs_id']);
+   	 	
+   	 	return new ViewModel(['meldung' => 'erfolgreich']);
+   	 	
+   	 }
    	
    	    else {
    	    	$_SESSION['kurs']=$_REQUEST['kurs_id'];

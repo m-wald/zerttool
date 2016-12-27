@@ -54,6 +54,16 @@
                         </form> <br>
                         <?php
                     }
+                    
+                    if(User::currentUser()->istTeilnehmer() && !$benutzer_kurs->alreadyexist(User::currentUser()->getBenutzername(), $kurs->getKurs_id())) {
+                    	?>
+                                            <form accept-charset="utf-8" method="POST" action="enterkurs">
+                                                <input type="hidden" value="<?=$kurs->getKurs_id()?>" name="kurs_id">
+                                                <input type="hidden" name="enterpubliccourse">
+                                                <input size="70" maxlength="250" value="Kurs beitreten" type="submit">
+                                            </form> <br>
+                                            <?php
+                                        }
                     ?>
                 
                 <?php 
