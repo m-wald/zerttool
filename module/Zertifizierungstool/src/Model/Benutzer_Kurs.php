@@ -53,25 +53,25 @@ class Benutzer_Kurs {
          * @author Sergej
          * @return true/false
          */
-        /*
-        public function signintesting($kursid, $benutzername) {
+        
+        public function alreadyexist($benutzername, $kursid) {
             $db = new Db_connection();
             
             //Pr�fung, ob Benutzer bereits im Kurs ist
             $query = "select * from benutzer_kurs where benutzername = '".$benutzername."' and kurs_id = ".$kursid.";";
             $result=$db->execute($query);
-            if(mysqli_num_rows($result) == 1){
+            if(mysqli_num_rows($result) > 0){
 		return true;
             } else {
                 return false;
             }
         }
-        */
+        
         
         public function signindelete($kursid, $benutzername) {
             $db = new Db_connection();
-            $signintest = Benutzer_Kurs::insert($benutzername, $kursid);
-            if($signintest == -1) {
+            
+            if($this->alreadyexist($benutzername, $kursid)) {
                 $query = "delete from benutzer_kurs where benutzername = '".$benutzername."' and kurs_id = ".$kursid.";";
                 $result=$db->execute($query);
                 return true;
