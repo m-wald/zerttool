@@ -95,7 +95,7 @@ class KursController extends AbstractActionController
     }
     
     public function loadZertAction(){
-    	$zert = new User();
+    	//$zert = new User();
     	$zertladen = $zert->loadZertifizierer();
     	return new Viewmodel (['result' => $zertladen]);
     }
