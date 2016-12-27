@@ -67,14 +67,11 @@ class Kurs {
     	$db = new Db_connection();
         if(User::currentUser()->istZertifizierer()){
             $query = "SELECT * FROM kurs WHERE benutzername = '".$benutzername."'
-                            AND (CURRENT_DATE BETWEEN kurs_start
-                            AND kurs_ende);";
+                            AND (CURRENT_DATE <= kurs_ende);";
         }elseif((User::currentUser()->istAdmin()) && ($benutzername == NULL)){
-            $query = "SELECT * FROM kurs WHERE (CURRENT_DATE BETWEEN kurs_start
-                            AND kurs_ende);";
+            $query = "SELECT * FROM kurs WHERE (CURRENT_DATE <= kurs_ende);";
 	}elseif((User::currentUser()->istTeilnehmer()) && ($benutzername == NULL)){
-            $query = "SELECT * FROM kurs WHERE (CURRENT_DATE BETWEEN kurs_start
-                            AND kurs_ende) AND sichtbarkeit = 1;";
+            $query = "SELECT * FROM kurs WHERE (CURRENT_DATE <= kurs_ende) AND sichtbarkeit = 1;";
 	}
     	
     	$result = $db->execute($query);
