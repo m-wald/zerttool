@@ -267,6 +267,15 @@ class KursController extends AbstractActionController
    				   			continue;
    				   		}
    				   		
+   				   		
+   				   		//Prüfung, ob es sich um E-Mail-Adresse handelt
+   				   		if (!filter_var($data, FILTER_VALIDATE_EMAIL)) {
+   				   			$falsetype[$j]=$data;
+   				   			$j++;
+   				   			continue;
+   				   		}
+   				   		
+   				   		
    				   		if(($csv->insert_data($data[0], $_POST['kurs_id'])) ==false){
    				   			$nomail[$i]=$data;
    				   			$i++;
