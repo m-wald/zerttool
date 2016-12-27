@@ -67,11 +67,13 @@ if(!empty($falsetype)){
 	<?php 
 	
 	foreach($falsetype as $ft) {
+		$num=count($ft);
 		?>
 			
-			<tr><td><?php echo $ft;?></td></tr>
+			<tr><td><?php for($i=0;$i<$num;$i++){
+								echo $ft[$i]." ";}?></td></tr>
 			
-		<?php }?>
+		
 		</table>		
 	<?php 	
 }
