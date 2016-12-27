@@ -5,14 +5,3 @@
 
 <h2>Herzlich willkommen, <?php echo $benutzername; ?> !</h2>
 
-<?php echo date('Y-m-d')."<br>";
-
-$date1 = new DateTime("16.01.2016");
-$date2 = new DateTime(date('Y-m-d'));
-echo $date1->format('Y-m-d')."<br>";
-echo $date1->diff($date2)."<br>";
-if ($date1->diff($date2)<0) {
-	echo "kurs veraltet";
-} else 
-	echo "kurs aktiv"
-?>
