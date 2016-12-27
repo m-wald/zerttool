@@ -243,7 +243,7 @@ class User
 		
 		//Formatänderung des Geburtsdatums in Jahr-Monat-Tag (für Datenbank wichtig)
 		
-		$date = new DateTime($this->geburtsdatum);
+		$date = new \DateTime($this->geburtsdatum);
 		$this->geburtsdatum=$date->format('Y-m-d');
 		
 		if (!$this->alreadyExist()){
