@@ -144,9 +144,9 @@ class KursController extends AbstractActionController
         	$today = strtotime(date(d-m-Y));
         	
         	if($endtimestamp > $starttimestamp && $endtimestamp > $today && $starttimestamp >= $today) {
-            $kurs->update($_REQUEST["kursid"], $_REQUEST["kursname"], $_REQUEST["kursstart"], $_REQUEST["kursende"], $_REQUEST["sichtbarkeit"], $_REQUEST["beschreibung"]);
+            $kurs->update($_REQUEST["kurs_id"], $_REQUEST["kursname"], $_REQUEST["kursstart"], $_REQUEST["kursende"], $_REQUEST["sichtbarkeit"], $_REQUEST["beschreibung"]);
             $kurs = new Kurs(
-                    $_REQUEST["kursid"],
+                    $_REQUEST["kurs_id"],
                     $_REQUEST["kursname"],
                     $_REQUEST["kursstart"],
                     $_REQUEST["kursende"],
