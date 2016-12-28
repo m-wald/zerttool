@@ -189,9 +189,8 @@ class Kurs {
     /*
      *  TODO:::::::Archivierter Kurs soll in die Datenbank eingepflegt werden
      */
-    public function insert($kursname, $kursstart, $kursende, $sichtbarkeit, $beschreibung) {
+    public function insert($kursname, $kursstart, $kursende, $sichtbarkeit, $benutzername, $beschreibung) {
         $db = new Db_connection();
-        //TODO benutzername
 	$query = "INSERT INTO kurs (kurs_name, kurs_start, kurs_ende, sichtbarkeit, benutzername, beschreibung) VALUES ('".$kursname."','".$kursstart."', '".$kursende."', '".$sichtbarkeit."', '".$benutzername."', '".$beschreibung."')";
         
 	$result = $db->execute($query);
