@@ -64,8 +64,13 @@ class UserController extends AbstractActionController
 				
 				}
 			} else {
-				
-				return new ViewModel(['pw_kontrolle' => 'ungleiche passwoerter']);
+				if (User::currentUser()->istAdmin()) {
+					
+					return new ViewModel(['pw_kontrolle' => 'ungleiche passwoerter','status' => 'admin']);
+					
+				} else {
+					return new ViewModel(['pw_kontrolle' => 'ungleiche passwoerter']);
+				}
 			}
 			
 			if (isset ($_REQUEST['invitemail'])) {
