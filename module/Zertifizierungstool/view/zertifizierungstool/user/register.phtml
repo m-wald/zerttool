@@ -19,7 +19,8 @@ else {
 
 <table>
 <tr><td>Benutzername:</td><td> <input type="text" name="benutzername" required></td></tr>
-<tr><td>Passwort:</td><td> <input type="text" name="passwort" required></td></tr>
+<tr><td>Passwort:</td><td> <input type="password" name="passwort" required></td></tr>
+<tr><td>Passwort best&auml;tigen:</td><td> <input type="password" name="passwort2" required></td></tr>
 <tr><td>Vorname:</td><td> <input type="text" name="vorname" required> </td></tr>
 <tr><td>Nachname:</td><td> <input type="text" name="nachname" required></td></tr>
 <tr><td>Geburtsdatum:</td><td> <input type="date" name="geburtsdatum" required></td></tr>
@@ -64,8 +65,13 @@ else {
 <input type = "submit" value="Best&auml;tigen">
 
 </form>
-
+<br><br>
 
 <?php 
+}
+
+if (isset($pw_kontrolle)) {
+	
+	echo "<b><font color='red'>Das best&auml;tigte Passwort stimmt nicht mit dem vergebenen Passwort &uuml;berein!</font></b>";
 }
 ?>

@@ -380,6 +380,9 @@ class User
 	 */
 	public function update($vorname, $nachname, $geburtsdatum, $strasse, $plz, $ort, $email) {
 		$db = new Db_connection();
+		
+		$date = new \DateTime($geburtsdatum);
+		$geburtsdatum=$date->format('Y-m-d');
 		$query = "update benutzer set
 				vorname='".$vorname."',
 				nachname='".$nachname."',
