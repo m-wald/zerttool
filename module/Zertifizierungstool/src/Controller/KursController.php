@@ -423,6 +423,7 @@ class KursController extends AbstractActionController
    	elseif(isset($_REQUEST['enterpubliccourse'])){
    		$benutzer_kurs=new Benutzer_Kurs();
    		$benutzer_kurs->insert(User::currentUser()->getBenutzername(), $_REQUEST['kurs_id']);
+   		$_SESSION['kurs']=$_REQUEST['kurs_id'];
    	
    		return new ViewModel(['meldung' => 'erfolgreich']);
    	
