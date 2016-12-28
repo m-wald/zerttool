@@ -132,7 +132,7 @@ class KursController extends AbstractActionController
     	
     	$id = $_REQUEST["kurs_id"];
         //aus archivierte Kurse
-        if($_REQUEST['archiv'] == 1) {
+        if($_REQUEST["archiv"] == 1) {
             $archiviert = "gesetzt";
         } else {
             $archiviert = "ungesetzt";
