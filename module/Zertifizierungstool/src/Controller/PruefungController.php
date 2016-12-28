@@ -19,9 +19,6 @@ class PruefungController extends AbstractActionController {
 	
 	const pathToHtml	 = 'zertifizierungstool/pruefung/pruefung';
 	
-	// TODO Prüfungskonstanten zusammenlegen?
-	//const createPruefung = "Pruefung anlegen";
-	//const editPruefung   = "Pruefung bearbeiten";
 	const PRUEFUNG 		 = "Pruefung";
 	const createFragen   = "Fragen anlegen";
 	const editFragen	 = "Fragen bearbeiten";
@@ -88,7 +85,7 @@ class PruefungController extends AbstractActionController {
 		$this->$pruefung = new Pruefung();
 		$this->$pruefung->setKursId($newKursid);
 		
-		return $this->handleForm($_REQUEST[]);
+		return $this->handleForm($_REQUEST);
 	}
 	
 	public function editAction() {
@@ -117,7 +114,7 @@ class PruefungController extends AbstractActionController {
 			array_push($errors, "Der Prüfungszeitraum wurde bereits erreicht. Die Prüfung kann nicht mehr bearbeitet werden!");
 		}
 		
-		return $this->handleForm($_REQUEST[], Frage::loadList($this->$pruefung->getId()));
+		return $this->handleForm($_REQUEST, Frage::loadList($this->$pruefung->getId()));
 	}
 	
 	/*
