@@ -205,7 +205,7 @@ class Kurs {
     public function active($kurs_id) {
     	$db = new Db_connection();
     	
-    	$query_future = "select 1 from kurs where (CURRENT_DATE > kurs_start) and kurs_id=".$kurs_id;
+    	$query_future = "select 1 from kurs where (CURRENT_DATE < kurs_start) and kurs_id=".$kurs_id;
     	$result_future= $db->execute($query_future);
     	
     	$query_current = "select 1 from kurs where (CURRENT_DATE BETWEEN kurs_start AND kurs_ende) and kurs_id=".$kurs_id;
