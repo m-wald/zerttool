@@ -154,7 +154,7 @@ class KursController extends AbstractActionController
                     $_REQUEST["beschreibung"]); 
             $status = "Erfolgreich ge√§ndert."; 
         }
-        else $status = "‹berpr¸fen Sie bitte Start- und End-Datum des Kurses!";
+        else $status = "ÔøΩberprÔøΩfen Sie bitte Start- und End-Datum des Kurses!";
         }
               return new ViewModel(['kurs' => $kurs, 'result' => $zertladen,'status' => $status]);    
     }
@@ -164,17 +164,19 @@ class KursController extends AbstractActionController
      */
      public function copydataAction() {
         $id = $_REQUEST["kurs_id"];
+        $benutzername = User::currentUser()->getBenutzername();
     	$kurs = new Kurs();
     	if(!$kurs->load($id)) $status="Fehler beim Laden des Kurses!";
         
         if($_REQUEST["speichern"]) {
-            $kurs->insert($_REQUEST["kursname"], $_REQUEST["kursstart"], $_REQUEST["kursende"], $_REQUEST["sichtbarkeit"], $_REQUEST["beschreibung"]);
+            $kurs->insert($_REQUEST["kursname"], $_REQUEST["kursstart"], $_REQUEST["kursende"], $_REQUEST["sichtbarkeit"], $benutzername, $_REQUEST["beschreibung"]);
             $kurs = new Kurs(
                     $_REQUEST["kursid"],
                     $_REQUEST["kursname"],
                     $_REQUEST["kursstart"],
                     $_REQUEST["kursende"],
                     $_REQUEST["sichtbarkeit"],
+                    $benutzername,
                     $_REQUEST["beschreibung"]); 
             $status = "Erfolgreich ge√§ndert."; 
         }
