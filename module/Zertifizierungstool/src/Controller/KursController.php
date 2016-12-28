@@ -131,19 +131,26 @@ class KursController extends AbstractActionController
     public function changedataAction(){
     	
     	$id = $_REQUEST["kurs_id"];
+        //aus archivierte Kurse
+        if($_REQUEST['archiv'] == 1) {
+            $archiviert = "gesetzt";
+        } else {
+            $archiviert = "ungesetzt";
+        }
+       
     	$kurs = new Kurs();
     	if(!$kurs->load($id)) $status="Fehler beim Laden des Kurses!";
     	$zertladen = $kurs->loadZertifizierer();
     	
         if($_REQUEST["speichern"]) {
         	
-        	$start  = $_REQUEST["kursstart"];
-        	$end    = $_REQUEST["kursende"];
-        	$starttimestamp = strtotime($start);
-        	$endtimestamp   = strtotime($end);
-        	$today = strtotime(date(d-m-Y));
+            $start  = $_REQUEST["kursstart"];
+            $end    = $_REQUEST["kursende"];
+            $starttimestamp = strtotime($start);
+            $endtimestamp   = strtotime($end);
+            $today = strtotime(date(d-m-Y));
         	
-        	if($endtimestamp > $starttimestamp && $endtimestamp > $today && $starttimestamp >= $today) {
+            if($endtimestamp > $starttimestamp && $endtimestamp > $today && $starttimestamp >= $today) {
             $kurs->update($_REQUEST["kurs_id"], $_REQUEST["kursname"], $_REQUEST["kursstart"], $_REQUEST["kursende"], $_REQUEST["sichtbarkeit"], $_REQUEST["beschreibung"]);
             $kurs = new Kurs(
                     $_REQUEST["kurs_id"],
@@ -153,15 +160,38 @@ class KursController extends AbstractActionController
                     $_REQUEST["sichtbarkeit"],
                     $_REQUEST["beschreibung"]); 
             $status = "Erfolgreich geändert."; 
+            }
+            else $status = "�berpr�fen Sie bitte Start- und End-Datum des Kurses!";
         }
-        else $status = "�berpr�fen Sie bitte Start- und End-Datum des Kurses!";
+        
+        if($_REQUEST["übernehmen"]) {
+        	
+            $start  = $_REQUEST["kursstart"];
+            $end    = $_REQUEST["kursende"];
+            $starttimestamp = strtotime($start);
+            $endtimestamp   = strtotime($end);
+            $today = strtotime(date(d-m-Y));
+        	
+            if($endtimestamp > $starttimestamp && $endtimestamp > $today && $starttimestamp >= $today) {
+            $kurs->insert($_REQUEST["kursname"], $_REQUEST["kursstart"], $_REQUEST["kursende"], $_REQUEST["sichtbarkeit"], User::currentUser()->getBenutzername(), $_REQUEST["beschreibung"]);
+            $kurs = new Kurs(
+                    $_REQUEST["kurs_id"],
+                    $_REQUEST["kursname"],
+                    $_REQUEST["kursstart"],
+                    $_REQUEST["kursende"],
+                    $_REQUEST["sichtbarkeit"],
+                    $_REQUEST["beschreibung"]); 
+            $status = "Erfolgreich geändert."; 
+            }
+            else $status = "�berpr�fen Sie bitte Start- und End-Datum des Kurses!";
         }
-              return new ViewModel(['kurs' => $kurs, 'result' => $zertladen,'status' => $status]);    
+        
+              return new ViewModel(['kurs' => $kurs, 'result' => $zertladen, 'archiv' => $archiviert, 'status' => $status]);    
     }
     
     /*
      * Kopiert die archevierten Daten
-     */
+     
      public function copydataAction() {
         $id = $_REQUEST["kurs_id"];
         $benutzername = User::currentUser()->getBenutzername();
@@ -182,7 +212,7 @@ class KursController extends AbstractActionController
         }
               return new ViewModel(['kurs' => $kurs,
         		'status' => $status]);    
-    }
+    }*/
     
     public function kursviewAction(){
     	if(isset($_POST["back"]) && !empty($_POST["kurs_id"]))
