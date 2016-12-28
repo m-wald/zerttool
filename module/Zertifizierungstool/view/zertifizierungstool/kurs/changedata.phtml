@@ -17,7 +17,7 @@ else {
 	
     <h5> Passen Sie die Kursdaten entsprechend an.</h5>
 
-    <form method="post" action="changedata">
+    <form accept-charset="utf-8" method="post" action="changedata">
     <table>
         <tr><td>Kursname:</td><td> <input type="text" name="kursname" required value='<?=$kurs->getKurs_name()?>'></td></tr>
         <tr><td>Kursstart:</td><td> <input type="date" name="kursstart" required value='<?=$kurs->getKurs_start()?>'></td></tr>
@@ -52,8 +52,15 @@ else {
         <tr><td>Beschreibung:</td><td> <input type="text" name="beschreibung" required value='<?=$kurs->getBeschreibung()?>'></td></tr>
     </table>
     <br><br>
-    <input type="hidden" name="kurs_id" readonly="readonly" value="<?=$kurs->getKurs_id()?>">
-    <input type = "submit" name="speichern" value="Kursdaten ändern!"> 
+    
+    <?php 
+    if($archiviert == "gesetzt") { ?>
+        <input type="hidden" name="kurs_id" readonly="readonly" value="<?=$kurs->getKurs_id()?>">
+        <input type = "submit" name="übernehmen" value="Kursdaten kopieren"> 
+    <?php } else { ?>
+        <input type="hidden" name="kurs_id" readonly="readonly" value="<?=$kurs->getKurs_id()?>">
+        <input type = "submit" name="speichern" value="Kursdaten ändern!"> 
+    <?php } ?>
     </form>
     <br>
 <?php
