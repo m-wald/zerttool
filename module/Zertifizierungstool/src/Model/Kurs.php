@@ -121,7 +121,7 @@ class Kurs {
         $db = new Db_connection();
         if(User::currentUser()->istZertifizierer() || User::currentUser()->istAdmin()){
             $query = "SELECT * FROM kurs WHERE benutzername = '".$benutzername."'
-                            AND (kurs_ende <= CURRENT_DATE + 30);";
+                            AND (CURRENT_DATE >= kurs_ende + 30);";
         }    	
     	$result = $db->execute($query);
         
