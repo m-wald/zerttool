@@ -381,14 +381,20 @@ class KursController extends AbstractActionController
     } 
 
     public function enterkursAction() {
-   	// zeitliche G�ltigkeit des Kurses �berpr�fen
+   	/* zeitliche G�ltigkeit des Kurses �berpr�fen
+   	 * 2 - Kurs ist abgelaufen
+   	 * 0 - Kurs startet in der Zukunft
+   	 */
+   	
    	
     	$kurs= new Kurs();
     	if ($kurs->active($_REQUEST['kurs_id']) == 2){
-    		return new ViewModel(['meldung' =>'dateerror']);
+    		$zahl = 2;
+    		return new ViewModel(['meldung' =>'dateerror', 'zahl'=>'zahl']);
     	}
     	elseif($kurs->active($_REQUEST['kurs_id']) == 0) {
-    		return new ViewModel(['meldung' =>'datefuture']);
+    		$zahl = 1;
+    		return new ViewModel(['meldung' =>'datefuture', 'zahl'=>'zahl']);
     	}
    	
     	
