@@ -387,6 +387,9 @@ class KursController extends AbstractActionController
     	if (!$kurs->active($_REQUEST['kurs_id'])){
     		return new ViewModel(['meldung' =>'dateerror']);
     	}
+    	elseif($kurs->active($_REQUEST['kurs_id']) == 2) {
+    		return new ViewModel(['meldung' =>'datefuture']);
+    	}
    	
     	
     //Fall: Teilnehmer klickt auf Einladungs-Link (ist noch nicht registriert). ABER: Fehlerabfangen f�r den Fall

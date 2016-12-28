@@ -205,16 +205,19 @@ class Kurs {
     public function active($kurs_id) {
     	$db = new Db_connection();
     	
-    	$query = "select 1 from kurs where (CURRENT_DATE BETWEEN kurs_start AND kurs_ende) and kurs_id=".$kurs_id;
+    	$query_future = "select 1 from kurs where (CURRENT_DATE > kurs_ende) and kurs_id=".$kurs_id;
+    	$result_future= $db->execute($query_future);
     	
-    	$result= $db->execute($query);
+    	$query_current = "select 1 from kurs where (CURRENT_DATE BETWEEN kurs_start AND kurs_ende) and kurs_id=".$kurs_id;
+    	$result_current= $db->execute($query_current);
     	
-    	if (mysqli_num_rows($result)>0) {
-    		return true;
+    	if (mysqli_num_rows($result_future)>0) {
+    		$return = 2;
     	}
-    	else {
-    		return false;
-    	}
+    	elseif (mysqli_num_rows($result_current)>0)   		
+    			$return = 1;
+    	else $return = 0;
+    	return $return;
     }
 
     
