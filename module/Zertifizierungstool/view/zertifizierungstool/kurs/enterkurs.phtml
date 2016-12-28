@@ -29,16 +29,12 @@ if($meldung=="alreadyexists"){
 if($meldung=="dateerror") {
 	
 	echo "<b><font color='red'>Kurs ist bereits abgelaufen!";
-	echo $zahl;
-	
 	header("refresh:2; url = /kurs/showkurse");
 }
 
 if($meldung=="datefuture") {
 
 	echo "<b><font color='red'>Kurs startet in der Zukunft!";
-	echo $zahl;
-
 	header("refresh:2; url = /kurs/showkurse");
 }
 
