@@ -212,12 +212,12 @@ class Kurs {
     	$result_current= $db->execute($query_current);
     	
     	if (mysqli_num_rows($result_future)>0) {
-    		$return = 2;
+    		return 2;
     	}
     	elseif (mysqli_num_rows($result_current)>0)   		
-    			$return = 1;
-    	else $return = 0;
-    	return $return;
+    			return 1;
+    	else return 0;
+    	
     }
 
     
