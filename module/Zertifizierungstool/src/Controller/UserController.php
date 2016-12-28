@@ -66,10 +66,10 @@ class UserController extends AbstractActionController
 			} else {
 				if (User::currentUser()->istAdmin()) {
 					
-					return new ViewModel(['pw_kontrolle' => 'ungleiche passwoerter','status' => 'admin']);
+					return new ViewModel(['pw_kontrolle' => 'ungleiche passwoerter','status' => 'admin', 'email'=> $_REQUEST['email']]);
 					
 				} else {
-					return new ViewModel(['pw_kontrolle' => 'ungleiche passwoerter']);
+					return new ViewModel(['pw_kontrolle' => 'ungleiche passwoerter', 'email'=> $_REQUEST['email']]);
 				}
 			}
 			
