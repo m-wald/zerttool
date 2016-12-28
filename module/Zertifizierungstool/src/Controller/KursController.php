@@ -388,10 +388,10 @@ class KursController extends AbstractActionController
    	
    	
     	$kurs= new Kurs();
-    	if ($kurs->active($_REQUEST['kurs_id']) == 2){
+    	if ($kurs->active($_REQUEST['kurs_id']) == 0){
     		return new ViewModel(['meldung' =>'dateerror']);
     	}
-    	elseif($kurs->active($_REQUEST['kurs_id']) == 0) {
+    	elseif($kurs->active($_REQUEST['kurs_id']) == 2) {
     		return new ViewModel(['meldung' =>'datefuture']);
     	}
    	
