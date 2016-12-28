@@ -384,7 +384,7 @@ class KursController extends AbstractActionController
    	// zeitliche G�ltigkeit des Kurses �berpr�fen
    	
     	$kurs= new Kurs();
-    	if (!$kurs->active($_REQUEST['kurs_id'])){
+    	if ($kurs->active($_REQUEST['kurs_id']) == 0){
     		return new ViewModel(['meldung' =>'dateerror']);
     	}
     	elseif($kurs->active($_REQUEST['kurs_id']) == 2) {
