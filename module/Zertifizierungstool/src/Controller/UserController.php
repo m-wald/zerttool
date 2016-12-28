@@ -29,6 +29,11 @@ class UserController extends AbstractActionController
 	} */
 	
 	
+	/**
+	 * Author: Michael´s
+	 * Registrierung eines Benutzers. Admin kann Admin, Zertifizierer und Teilnehmer anlegen.
+	 * Nicht registrierte Benutzer können einen Teilnehmer-Account erstellen.
+	 */
 	public function registerAction()
 	{
 		
@@ -41,8 +46,10 @@ class UserController extends AbstractActionController
 		
 		if($_SERVER['REQUEST_METHOD'] == 'POST') {
 			
-			if ($_REQUEST['passwort']==$_REQUEST['passwort2']) {
 			
+			//Überprüfung ob Passwort und bestätigtes Passwort übereinstimmen
+			if ($_REQUEST['passwort']==$_REQUEST['passwort2']) {
+				//Falls ein Admin einen Benutzer anlegt wird hier geprüft, welche Rolle vergeben wurde
 				if (User::currentUser()->istAdmin()) {
 					
 					if ($_REQUEST['rolle']=='a') {
@@ -59,13 +66,15 @@ class UserController extends AbstractActionController
 					
 					
 				} else {
-			
+					//Falls Teilnehmer sich selbst registriert
 					$user= new User($_REQUEST["benutzername"], $_REQUEST["passwort"], $_REQUEST["vorname"], $_REQUEST["nachname"], $_REQUEST["geburtsdatum"], $_REQUEST["strasse"], $_REQUEST["plz"], $_REQUEST["ort"], $_REQUEST["email"], $_REQUEST["email_bestaetigt"], $_REQUEST["ist_admin"], $_REQUEST["ist_zertifizierer"], $_REQUEST["ist_teilnehmer"]);
 				
 				}
+				
+				//Fehlerausgabe bei falschen bestätigtem Passwort
 			} else {
 				if (User::currentUser()->istAdmin()) {
-					
+					//Falls Admin wird dies wieder an die View übergeben, email falls Registrierung über invitemail
 					return new ViewModel(['pw_kontrolle' => 'ungleiche passwoerter','status' => 'admin', 'email'=> $_REQUEST['email']]);
 					
 				} else {
@@ -73,6 +82,8 @@ class UserController extends AbstractActionController
 				}
 			}
 			
+			//Bei Registrierung über invite, wird ein angepasster Registrierungslink
+			//generiert (Kurs_id wird mit übergeben) 
 			if (isset ($_REQUEST['invitemail'])) {
 				
 				$result = $user->register(true);
@@ -86,12 +97,13 @@ class UserController extends AbstractActionController
 			return new ViewModel(['meldung' => $result]);
 			
 		}
-		
+		//Ausgabe des Formulars, bei erstem Aufruf der Seite
 		else {
 			if (User::currentUser()->istAdmin()) {
 				return new ViewModel(['status' => 'admin']);
 			} else {
 				
+				//Falls per invite Seite aufgerufen wird, wird die Mailadresse vorbelegt
 				if (isset($_GET['inviteuser'])) {
 					
 					return new ViewModel(['email'=> $_GET['inviteuser']]);
@@ -108,6 +120,10 @@ class UserController extends AbstractActionController
 	}
 	
 	
+	/**
+	 * Author Michael´s
+	 * Setzt den boolschen Wert "bestätigt" des Benutzers von 0 auf 1 
+	 */
 	public function registerbestAction() {
 		$user = new User();
 		$user->load($_GET['benutzer']);
@@ -234,6 +250,9 @@ class UserController extends AbstractActionController
 	
 	}
 	
+	/**
+	 * Änderung des Passworts, altes Passwort wird benötigt
+	 */
 	public function changepasswordAction() {
 		
 		if(User::currentUser()->getBenutzername()==NULL){
@@ -243,6 +262,8 @@ class UserController extends AbstractActionController
 		else{
 		
 		if($_SERVER['REQUEST_METHOD'] == 'POST') {
+			
+			//Überprüfung ob neues Passwort mit bestätigtem PW übereinstimmen
 			if ($_REQUEST['newPasswort1'] == $_REQUEST['newPasswort2']) {
 				$result = User::currentUser()->passwortControll($_REQUEST['passwort']);
 				if ($result) {
@@ -268,6 +289,12 @@ class UserController extends AbstractActionController
 		}
 	}
 	
+	/**
+	 * Änderung des PW falls PW vergessen wurde, über E-Mail
+	 * Versendet an die Mail-Adresse des Benutzers einen Link,
+	 * zum ändern des PW. Zusätzlich wird eine zufällige Prüfzahl generiert, die in 
+	 * der Datenbank gespeichert und per Mail übergeben wird.
+	 */
 	public function passwordforgottenAction() {
 		
 		if (isset($_GET['benutzer'])) {
