@@ -17,6 +17,8 @@
         <tr>
         	<th> KursID </th>
 			<th colspan="3"> KursName </th>
+			<th>Kursstart</th>
+			<th>Kursende</th>
 		</tr>
 		
 		<?php
@@ -24,6 +26,8 @@
 			<tr>
 				<td><?=$row['kurs_id']?></td>
 				<td><?=$row['kurs_name']?></td>
+				<td><?=$row['kurs_start']?></td>
+				<td><?=$row['kurs_ende']?></td>
                                 
                                 <?php 
                                 if(User::currentUser()->istAdmin() || User::currentUser()->istZertifizierer()) { ?>
@@ -37,17 +41,7 @@
 						<input type="hidden" value="<?=$row['kurs_id']?>"name="kurs_id">
 						<input size="70" maxlength="250" value="anzeigen" type="submit">
 					</form> </td>
-			<?php 
 			
-			
-			/*	<td><a href="http://132.231.36.205/kurs/kursview&kurs_id=<?=$row['kurs_id']?>">
-			<button type="button">Anzeigen</button>
-			</a>
-			</td>
-			 * 
-			 * 
-				*/
-			?>
 			</tr>
 		<?php }?>
 		
