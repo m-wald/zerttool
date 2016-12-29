@@ -75,13 +75,7 @@ class PruefungController extends AbstractActionController {
 		//array_push($errors, $this->checkDate($pruefung));
 			
 		if (empty($errors)) {
-			if (empty($request["pruefid"])) {
-				$success = $this->pruefung->saveNew();
-			}else {
-				$success = $this->pruefung->update();
-			}
-			
-			if ($success) {
+			if ($this->pruefung->save()) {
 				header ("refresh:0; url = /frage/create/" .$this->pruefung->getId());
 			}else {
 				array_push($errors, "Fehler beim Speichern der Pr&uuml;fung. Bitte erneut versuchen!");
