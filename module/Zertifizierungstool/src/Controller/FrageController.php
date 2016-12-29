@@ -42,14 +42,37 @@ class FrageController extends AbstractActionController {
 				'nextId'	=> $nextId,
 		]);
 	}
-	private function handleForm($request) {
+	private function handleForm($request, $mode) {
 		// TODO Prüfen ob Prüfungstermin schon erreicht ist
 		// Die Prüfung kann dann nicht mehr bearbeitet werden
 		
 		// Array, das mit eventuellen Fehlermeldungen gefüllt wird
 		$errors = array();
 		
-		if (isset($request['speichernPruefung'])) {
+		// Diesen Teil doch in die Methoden?
+		$this->frage = new Frage();
+		$pruefung = new Pruefung();
+		if ($mode == PruefungController::editFragen) {
+			$frageid = $_REQUEST["id"];
+			
+			if (empty($frageid)) {
+				$frageid = $this->params()->fromRoute('id');
+			}
+			$this->frage->load($frageid);
+			$pruefungid = $this->frage->getPruefungId();
+			
+		}elseif ($mode == PruefungController::createFragen) {
+			$pruefungid = $_REQUEST["pruefung_id"];
+			if (empty($pruefungid)) {
+				$pruefungid = $this->params()->fromRoute('id');
+			}
+		}
+			
+		if (!$pruefung->load($pruefungid)) {
+			array_push($errors, "Fehler beim Laden der Prüfung!");
+		}
+		
+		if (isset($request['speichernFrage'])) {
 			// Neues Frage-Objekt mit den Daten aus dem gesendeten Formular erzeugen und in der DB speichern bzw. aktualisieren
 			$this->frage = new Frage(
 							$request["id"],
@@ -102,6 +125,17 @@ class FrageController extends AbstractActionController {
 				header ("refresh:0; url = /frage/create/" .$this->frage->getPruefungId());
 			}
 		}
+		
+		$viewModel = new ViewModel([
+				'pruefung' => $pruefung,
+				'fragen'   => Frage::loadList($pruefung->getId()), // Fragen laden -> Was bei Fehler?
+				'errors'   => $errors,
+				'mode'	   	  => $mode,
+				'frageToEdit' => $this->frage
+		]);
+		
+		$viewModel->setTemplate(PruefungController::pathToHtml);
+		return $viewModel;
 	}
 	
 	public function createAction() {
@@ -110,29 +144,7 @@ class FrageController extends AbstractActionController {
 			header ("refresh:0; url = /user/login/");
 		}
 		
-		$pruefungid = $_REQUEST["pruefung_id"];
-		
-		if (empty($pruefungid)) {
-			$pruefungid = $this->params()->fromRoute('id');
-		}
-		
-		$pruefung = new Pruefung();
-		
-		if (!$pruefung->load($pruefungid)) {
-			array_push($errors, "Fehler beim Laden der Prüfung!");
-		}
-		
-		$this->handleForm($_REQUEST);
-		
-		$viewModel = new ViewModel([
-				'pruefung' => $pruefung,
-				'fragen'   => Frage::loadList($pruefung->getId()),
-				'errors'   => $errors,
-				'mode'	   => PruefungController::createFragen
-		]);
-		
-		$viewModel->setTemplate(PruefungController::pathToHtml);
-		return $viewModel;
+		return $this->handleForm($_REQUEST, PruefungController::createFragen);
 	}
 	
 	/*
@@ -231,6 +243,15 @@ class FrageController extends AbstractActionController {
 		return $viewModel;
 	}
 	*/
+	
+	public function edit2Action() {
+		// Berechtigungsprüfung
+		if (!User::currentUser()->istAdmin() && !User::currentUser()->istZertifizierer()) {
+			array_push($errors, "Keine Berechtigung!");
+		}
+		
+		return $this->handleForm($_REQUEST, PruefungController::editFragen);
+	}
 	public function editAction() {
 		// Prüfen ob Prüfungstermin schon erreicht ist
 		// Die Prüfung kann dann nicht mehr bearbeitet werden
