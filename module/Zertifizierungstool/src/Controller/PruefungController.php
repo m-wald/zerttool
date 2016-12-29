@@ -29,6 +29,8 @@ class PruefungController extends AbstractActionController {
 	private $pruefung;
 	
 	public function takeExamAction() {
+		// TODO Prüfen ob Teilnehmer im Kurs eingetragen ist
+		
 		// Prüfungs-Id aus URL laden
 		$pruefung_id = $this->params()->fromRoute('id');
 		

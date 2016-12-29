@@ -18,11 +18,12 @@ use Zertifizierungstool\Model\Antwort;
  */
 class FrageController extends AbstractActionController {
 	
-	private $frage = new Frage();
+	private $frage;
 	
 	public function answerAction() {
 		// Frage laden
 		$frageid = $this->params()->fromRoute('id');
+		$this->frage = new Frage();
 		$this->frage->load($frageid);
 		
 		// Alle Antworten zu dieser Frage laden
@@ -51,6 +52,7 @@ class FrageController extends AbstractActionController {
 		$errors = array();
 		
 		// Diesen Teil doch in die Methoden?
+		$this->frage = new Frage();
 		$pruefung = new Pruefung();
 		if ($mode == PruefungController::editFragen) {
 			$frageid = $_REQUEST["id"];

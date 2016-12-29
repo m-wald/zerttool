@@ -1,3 +1,6 @@
+<?php
+use Zertifizierungstool\Model\User;
+?>
 <table>
 	<tr><th width="150">Name<th width="100">Termin<th>Cutscore</tr>
 
@@ -8,9 +11,12 @@
 		<td><?=$pruefung->getTermin()?></td>
 		<td><?=$pruefung->getCutscore() * 100?></td>
 		
-		<?php if (strtotime($pruefung->getTermin()) > time()) {?>
+	<?php if (strtotime($pruefung->getTermin()) > time() && (User::currentUser()->istAdmin() || User::currentUser()->istZertifizierer())) {?>
 		<td><a href="<?= $this->url('pruefung', ['action' => 'edit',   'id' => $pruefung->getId()])?>"><button type="button">Bearbeiten</button></a></td>
 		<td><a href="<?= $this->url('pruefung', ['action' => 'delete', 'id' => $pruefung->getId()])?>"><button type="button">L&ouml;schen</button></a></td>
+		</tr>
+	<?php }elseif (strtotime($pruefung->getTermin()) <= time() && (User::currentUser()->istAdmin() || User::currentUser()->istTeilnehmer())) {?>
+		<td><a href="<?= $this->url('pruefung', ['action' => 'takeExam', 'id' => $pruefung->getId()])?>"><button type="button">Absolvieren</button></a></td>
 		</tr>
 	<?php }}?>
 </table>
