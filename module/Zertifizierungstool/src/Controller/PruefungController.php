@@ -26,7 +26,7 @@ class PruefungController extends AbstractActionController {
 	const editFragen	 = "Fragen bearbeiten";
 	
 	/** Das behandelte Prüfungs-Objekt */
-	private $pruefung = new Pruefung();
+	private $pruefung;
 	
 	public function takeExamAction() {
 		// Prüfungs-Id aus URL laden
