@@ -28,12 +28,25 @@ class Pruefung {
 	}
 	
 	/**
+	 * Speichert das aktuelle Objekt in der Datenbank.
+	 * Falls das Objekt bereits in der Datenbank existiert, wird der entsprechende
+	 * Datensatz aktualisiert. Ansonsten wird ein neuer Datensatz angelegt.
+	 */
+	public function save() {
+		if (empty($this->id)) {
+			return $this->saveNew();
+		}else {
+			return $this->update();
+		}
+	}
+	
+	/**
 	 * Fügt die Daten des aktuellen Objekts als neuen Datensatz in der Datenbank.
 	 * Setzt auch die Id des Objekts mit dem Wert, der von der DB automatisch zugeteilt wurde.
 	 * 
 	 * @return boolean false, falls ein Fehler aufgetreten ist. Sonst true.
 	 */
-	public function saveNew() {
+	private function saveNew() {
 		$db = new Db_connection();
 		$conn = $db->getConnection();
 		
@@ -61,7 +74,7 @@ class Pruefung {
 	 * 
 	 * @return boolean false, falls ein Fehler aufgetreten ist. Sonst true.
 	 */
-	public function update() {
+	private function update() {
 		$db = new Db_connection();
 		$conn = $db->getConnection();
 		

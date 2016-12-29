@@ -1,0 +1,36 @@
+<div id="FragenListe">
+	<h3>Fragen</h3>
+	<table>
+	<?php foreach ($fragen as $f) { ?>
+			<tr><td><?=$f->getText()?></td><td><a href="<?= $this->url('frage', ['action' => 'answer', 'id' => $f->getId()]) ?>"><button type="button" <?=$frageDisabled?>>Antworten</button></a></td><td>Flag, ob schon geantwortet</td></tr>		
+	<?php } ?>
+	</table>
+</div>
+
+<div id="Frage">
+	<?php 
+		echo $frage->getText();
+		echo $frage->getPunkte();
+		
+		if ($frage->getTyp() == 'TF') {?>
+			<input type="hidden" name="antwort_id" value="<?=$antworten[0]->getId()?>">
+			<input type="radio"  name="tf" value="true"  <?php if ($antworten[0]->getStatus() == 1) echo "checked";?>> Wahr<br>
+			<input type="radio"  name="tf" value="false" <?php if ($antworten[0]->getStatus() == 0) echo "checked";?>> Falsch<br>
+			
+		
+		<?php }else {
+			foreach ($antworten as $antwort) {?>
+				
+		<?php	
+			}
+		}
+	
+	?>
+	
+</div>
+
+
+<a href="<?= $this->url('frage', ['action' => 'answer', 'id' => $nextId]) ?>"><button type="button">Weiter</button></a>
+
+<br>
+<a href="<?= $this->url('pruefung', ['action' => 'result', 'id' => $frage->getPruefungId()]) ?>"><button type="button">Prüfung beenden</button></a>

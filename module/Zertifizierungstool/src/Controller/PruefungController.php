@@ -11,9 +11,10 @@ use Zertifizierungstool\Model\User;
 use Zertifizierungstool\Model\Frage;
 
 /**
- * TODO Dokumentation
+ * Controller, der Aufgaben verarbeitet, die sich auf die Entität "Prüfung" beziehen.
+ * Beinhaltet Actions zum Anlegen, Bearbeiten, Absolvieren und Löschen von Prüfungen.
+ * 
  * @author martin
- *
  */
 class PruefungController extends AbstractActionController {
 	
@@ -26,32 +27,62 @@ class PruefungController extends AbstractActionController {
 	/** Das behandelte Prüfungs-Objekt */
 	private $pruefung;
 	
+	public function takeExamAction() {
+		// Prüfung mit Id aus URL laden
+		// Eintrag in Tabelle schreibt_pruefung
+			//pruefung-getId(), currentUser()-getBenutzername(), aktueller timestamp, 0(nicht bestanden)
+		
+		// Alle Fragen zur Prüfung laden
+		// Für jede Frage:
+			// Alle Antworten laden
+			// Für jede Antwort:
+				// Objekt von "beantwortet" erzeugen mit schreibt_pruefung->getId(), antwort->getId(), beantwortet_status = 0 ->in Db speichern
+				// extra-Attribut "edited" (gesetzt sobal User auf "Weiter" oder so geklickt hat)
+		
+		// Weiterleiten an FrageController Action answer mit Id der ersten Prüfungsfrage
+	}
+	
+	/**
+	 * Überprüft, ob ein Teilnehmer eine Prüfung bestanden hat
+	 */
+	public function resultAction() {
+		// Abgebene Antworten prüfen und evtl "bestanden" in schreibt_pruefung auf 1 setzen
+		// Mit cutscore vergleichen
+		// Anbieten Zertifikat runterzuladen
+	}
+	
+	/**
+	 * Verarbeitet das Formular zum Anlegen und Bearbeiten von Prüfungen
+	 * @param $request Daten aus Request-Array
+	 * @param array $fragen Evtl. bereits angelegte Fragen
+	 * @return \Zend\View\Model\ViewModel
+	 */
 	private function handleForm($request, $fragen = array()) {
 		// Array, das eventuelle Fehlermeldungen enthält
 		$errors = array();
 		
-		if ($request['speichernPruefung']) {
+		if (isset($request['speichernPruefung'])) {
 		
-		$this->$pruefung = new Pruefung(
+		$this->pruefung = new Pruefung(
 				$request["pruefid"],
 				$request["name"],
 				$request["termin"],
 				$request["kursid"],
 				$request["cutscore"] / 100 );
-			
+		
 		// TODO Format des Prüfungstermins überprüfen
 		// Prüfungstermin validieren
 		//array_push($errors, $this->checkDate($pruefung));
 			
 		if (empty($errors)) {
 			if (empty($request["pruefid"])) {
-				$success = $this->$pruefung->saveNew();
+				$success = $this->pruefung->saveNew();
 			}else {
-				$success = $this->$pruefung->update();
+				$success = $this->pruefung->update();
 			}
 			
 			if ($success) {
-				header ("refresh:0; url = /frage/create/" .$this->$pruefung->getId());
+				header ("refresh:0; url = /frage/create/" .$this->pruefung->getId());
 			}else {
 				array_push($errors, "Fehler beim Speichern der Pr&uuml;fung. Bitte erneut versuchen!");
 			}
@@ -59,10 +90,10 @@ class PruefungController extends AbstractActionController {
 		}
 
 		$viewModel = new ViewModel([
-				'pruefung' => $this->$pruefung,
+				'pruefung' => $this->pruefung,
 				'errors'   => $errors,
 				'fragen'   => $fragen,
-				'mode'	   => PruefungController::createPruefung
+				'mode'	   => PruefungController::PRUEFUNG
 		]);
 		
 		
@@ -70,10 +101,14 @@ class PruefungController extends AbstractActionController {
 		return $viewModel;
 	}
 	
+	/**
+	 * Legt die Kopfdaten einer neuen Prüfung in der Datenbank an.
+	 * @return \Zend\View\Model\ViewModel
+	 */
 	public function createAction() {
 		// Berechtigungsprüfung TODO weiterleitung auf fehlerseite
 		if (!User::currentUser()->istAdmin() && !User::currentUser()->istZertifizierer()) {
-			header ("refresh:0; url = /user/login/");
+			//header ("refresh:0; url = /user/login/");
 		}
 		
 		if (empty($_REQUEST["kursid"])) {
@@ -82,12 +117,16 @@ class PruefungController extends AbstractActionController {
 			$newKursid = $_REQUEST["kursid"];
 		}
 		
-		$this->$pruefung = new Pruefung();
-		$this->$pruefung->setKursId($newKursid);
+		$this->pruefung = new Pruefung();
+		$this->pruefung->setKursId($newKursid);
 		
 		return $this->handleForm($_REQUEST);
 	}
 	
+	/**
+	 * Bearbeitet die Kopfdaten einer Prüfung.
+	 * @return \Zend\View\Model\ViewModel
+	 */
 	public function editAction() {
 		// Berechtigungsprüfung TODO weiterleitung auf fehlerseite
 		if (!User::currentUser()->istAdmin() && !User::currentUser()->istZertifizierer()) {
@@ -100,21 +139,21 @@ class PruefungController extends AbstractActionController {
 			$pruefung_id = $_REQUEST["pruefid"];
 		}
 		
-		$this->$pruefung = new Pruefung();
-		$this->$pruefung->load($pruefung_id);
+		$this->pruefung = new Pruefung();
+		$this->pruefung->load($pruefung_id);
 		
 		$kurs = new Kurs();
-		$kurs->load($this->$pruefung->getKursId());
+		$kurs->load($this->pruefung->getKursId());
 		
 		if (!$kurs->getBenutzername() == User::currentUser()->getBenutzername()) {
 			header ("refresh:0; url = /user/login/");
 		}
 		
-		if ($this->$pruefung->getTermin() >= new Date()) {
+		if ($this->pruefung->getTermin() >= new Date()) {
 			array_push($errors, "Der Prüfungszeitraum wurde bereits erreicht. Die Prüfung kann nicht mehr bearbeitet werden!");
 		}
 		
-		return $this->handleForm($_REQUEST, Frage::loadList($this->$pruefung->getId()));
+		return $this->handleForm($_REQUEST, Frage::loadList($this->pruefung->getId()));
 	}
 	
 	/*
@@ -124,7 +163,7 @@ class PruefungController extends AbstractActionController {
 		$result = false;
 		$fragen = array();
 		
-		// Berechtigungsprüfung TODO weiterleitung auf fehlerseite
+		// Berechtigungsprüfung weiterleitung auf fehlerseite
 		if (!User::currentUser()->istAdmin() && !User::currentUser()->istZertifizierer()) {
 			array_push($errors, "Keine Berechtigung!");
 		}
@@ -147,7 +186,7 @@ class PruefungController extends AbstractActionController {
 					$_REQUEST["kursid"], 
 					$_REQUEST["cutscore"] / 100 );
 			
-			// TODO Format des Prüfungstermins überprüfen
+			// Format des Prüfungstermins überprüfen
 			// Prüfungstermin validieren
 			//array_push($errors, $this->checkDate($pruefung));
 			
@@ -177,7 +216,7 @@ class PruefungController extends AbstractActionController {
 	
 	public function editAction() {
 		
-		// TODO Prüfen ob Prüfungstermin schon erreicht ist
+		// Prüfen ob Prüfungstermin schon erreicht ist
 		// Die Prüfung kann dann nicht mehr bearbeitet werden
 		
 		// Array, das eventuelle Fehlermeldungen enthält
@@ -216,7 +255,7 @@ class PruefungController extends AbstractActionController {
 					$_REQUEST["kursid"],
 					$_REQUEST["cutscore"] / 100 );
 				
-			// TODO Format des Prüfungstermins überprüfen
+			// Format des Prüfungstermins überprüfen
 			// Prüfungstermin validieren
 			//array_push($errors, $this->checkDate($pruefung));
 				
@@ -244,6 +283,9 @@ class PruefungController extends AbstractActionController {
 	*/
 	
 	//TODO
+	/**
+	 * Löscht eine Prüfung.
+	 */
 	public function deleteAction() {
 		
 	}
@@ -252,13 +294,17 @@ class PruefungController extends AbstractActionController {
 	 * Listet alle Prüfungen auf, die zu einem Kurs gehören
 	 */
 	public function overviewAction() {
-		$pruefungen = Pruefung::loadList($this->params()->fromRoute('id'));
+		$kursid = $this->params()->fromRoute('id');
+		$pruefungen = Pruefung::loadList($kursid);
 		
 		if ($pruefungen == false) {
 			// Fehler
 		}
 		
-		return new ViewModel(['pruefungen' => $pruefungen]);
+		return new ViewModel([
+				'pruefungen' => $pruefungen,
+				'kursid'	 => $kursid
+		]);
 	}
 	
 	/**

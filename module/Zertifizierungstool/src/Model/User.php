@@ -43,11 +43,9 @@ class User
 	}
 	
 	/**
-	 * Setzt das übergebene User-Objekt als aktuellen Benutzer
-	 * 
-	 * @param $user User-Objekt
+	 * Setzt den aktuellen Benutzer
 	 */
-	public static function setCurrentUser($user) {
+	public static function setCurrentUser() {
 		self::$currentUser = $this;
 	}
 	

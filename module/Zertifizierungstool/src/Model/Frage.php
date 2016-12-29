@@ -18,7 +18,21 @@ class Frage {
 		$this->pruefung_id = $pruefung_id;
 		$this->typ		   = $typ;
 	}
-	public function saveNew() {
+	
+	/**
+	 * Speichert das aktuelle Objekt in der Datenbank.
+	 * Falls das Objekt bereits in der Datenbank existiert, wird der entsprechende
+	 * Datensatz aktualisiert. Ansonsten wird ein neuer Datensatz angelegt.
+	 */
+	public function save() {
+		if (empty($this->id)) {
+			return $this->saveNew();
+		}else {
+			return $this->update();
+		}
+	}
+	
+	private function saveNew() {
 		$db = new Db_connection();
 		$conn = $db->getConnection();
 		
@@ -41,7 +55,7 @@ class Frage {
 		}
 	}
 	
-	public function update() {
+	private function update() {
 		$db = new Db_connection();
 		$conn = $db->getConnection();
 		
