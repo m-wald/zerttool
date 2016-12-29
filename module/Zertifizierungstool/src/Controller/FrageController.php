@@ -147,6 +147,16 @@ class FrageController extends AbstractActionController {
 		return $this->handleForm($_REQUEST, PruefungController::createFragen);
 	}
 	
+	public function editAction() {
+		// Berechtigungsprüfung
+		if (!User::currentUser()->istAdmin() && !User::currentUser()->istZertifizierer()) {
+			array_push($errors, "Keine Berechtigung!");
+		}
+	
+		return $this->handleForm($_REQUEST, PruefungController::editFragen);
+	}
+	
+	
 	/*
 	public function createAction() {
 		// Prüfen ob Prüfungstermin schon erreicht ist
@@ -241,16 +251,6 @@ class FrageController extends AbstractActionController {
 		
 		$viewModel->setTemplate(PruefungController::pathToHtml);
 		return $viewModel;
-	}
-	*/
-	
-	public function edit2Action() {
-		// Berechtigungsprüfung
-		if (!User::currentUser()->istAdmin() && !User::currentUser()->istZertifizierer()) {
-			array_push($errors, "Keine Berechtigung!");
-		}
-		
-		return $this->handleForm($_REQUEST, PruefungController::editFragen);
 	}
 	public function editAction() {
 		// Prüfen ob Prüfungstermin schon erreicht ist
@@ -361,6 +361,7 @@ class FrageController extends AbstractActionController {
 		$viewModel->setTemplate(PruefungController::pathToHtml);
 		return $viewModel;
 	}
+	*/
 	
 	public function deleteAction() {
 		// TODO Berechtigungsprüfungen
