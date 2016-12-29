@@ -1,3 +1,30 @@
+<?php
+use Zertifizierungstool\Model\Frage;
+use Zertifizierungstool\Model\Antwort;
+use Zertifizierungstool\Model\Pruefung;
+use Zertifizierungstool\Controller\PruefungController;
+
+if (isset($errors)) {
+	foreach ($errors as $err) {
+		echo "Fehler: " . $err . "<br>";
+	}
+}
+
+if ($mode == PruefungController::PRUEFUNG) {
+	$pruefSaveButton = "submit";
+	$pruefBackground = 'style="background-color: aqua;"';
+	$frageBackground = 'style="background-color: gray;"';
+	$frageDisabled   = 'disabled "disabled"';
+	$pruefReadonly	 = '';
+} else {
+	$pruefReadonly = 'readonly = "readonly" disabled';
+	$pruefSaveButton = "hidden";
+	$pruefBackground = 'style="background-color: gray;"';
+	$frageBackground = 'style="background-color: aqua;"';
+	$frageDisabled	 = '';
+}
+?>
+?>
 <style>
 #KopfdatenPruefung {
 	position: relative;
@@ -84,7 +111,7 @@ input[type=number]{
 		<?php if ($mode == PruefungController::createFragen) {?>
 		document.getElementById("formular").innerHTML = formMC;
 
-		<?php } else { ?>
+		<?php } elseif ($mode == PruefungController::editFragen) { ?>
 		frage_text 	 = <?=$frageToEdit->getText()  ?>;
 		frage_punkte = <?=$frageToEdit->getPunkte()?>;
 		<?php $antworten = Antwort::loadList($frageToEdit->getId()); ?>
@@ -97,7 +124,7 @@ input[type=number]{
 		<?php if ($mode == PruefungController::createFragen) {?>
 		document.getElementById("formular").innerHTML = formTF;
 
-		<?php } else { ?>
+		<?php } elseif ($mode == PruefungController::editFragen) { ?>
 		frage_text 	 = <?=$frageToEdit->getText()  ?>;
 		frage_punkte = <?=$frageToEdit->getPunkte()?>;
 		<?php $antworten = Antwort::loadList($frageToEdit->getId()); ?>
@@ -117,6 +144,8 @@ input[type=number]{
 			'<input type="checkbox" name="antwort_checked' + AntwortAnzahl + '">  ' +
 			'<button type="button" onclick="deleteAntwort(' + AntwortAnzahl + ')"> - </button>' +
 			'<p id="ant' + neuStelle +'"></p>';
+
+		Alle Indexe in Array speichern und zurückgeben?
 	}
 
 
@@ -130,30 +159,7 @@ input[type=number]{
 
 </script>
 
-<?php 
-use Zertifizierungstool\Model\Frage;
-use Zertifizierungstool\Model\Antwort;
-use Zertifizierungstool\Model\Pruefung;
-use Zertifizierungstool\Controller\PruefungController;
 
-if (isset($errors)) {
-	foreach ($errors as $err) {
-		echo "Fehler: " . $err . "<br>";
-	}
-}
-
-if ($mode == PruefungController::PRUEFUNG) {
-	$pruefSaveButton = "submit";
-	$pruefBackground = 'style="background-color: aqua;"';
-	$frageBackground = 'style="background-color: gray;"';
-	$frageDisabled   = 'disabled "disabled"';
-} else {
-	$pruefReadonly = 'readonly = "readonly" disabled';
-	$pruefSaveButton = "hidden";
-	$pruefBackground = 'style="background-color: gray;"';
-	$frageBackground = 'style="background-color: aqua;"';
-}
-?>
 
 <h1>Pr&uuml;fung anlegen/bearbeiten</h1>
 
@@ -204,15 +210,15 @@ if ($mode == PruefungController::PRUEFUNG) {
 
 <?php } elseif ($mode == PruefungController::editFragen) { ?>
 <h3>Frage bearbeiten</h3>
-	Frage: <br> <textarea rows="3" cols="50" name="frage_text" form="frageForm" required><?=$frageToEdit[0]->getText()?></textarea>
+	Frage: <br> <textarea rows="3" cols="50" name="frage_text" form="frageForm" required><?=$frageToEdit->getText()?></textarea>
 	<form method="POST" id="frageForm">
-	<br>Punkte <input type="number" name="punkte" min="0" required value="<?=$frageToEdit[0]->getPunkte()?>"><br>
+	<br>Punkte <input type="number" name="punkte" min="0" required value="<?=$frageToEdit->getPunkte()?>"><br>
 
 	
 	<?php 
-	$antworten = Antwort::loadList($frageToEdit[0]->getId());
+	$antworten = Antwort::loadList($frageToEdit->getId());
 	
-	if ($frageToEdit[0]->getTyp() == "TF") { ?>
+	if ($frageToEdit->getTyp() == "TF") { ?>
 		<input type="hidden" name="frage_typ" readonly="readonly" value="TF">
 		<input type="radio" name="tf" value="true"  <?php if ($antworten[0]->getStatus() == 1) echo "checked";?>> Wahr<br>
 		<input type="radio" name="tf" value="false" <?php if ($antworten[0]->getStatus() == 0) echo "checked";?>> Falsch<br>
@@ -231,8 +237,8 @@ if ($mode == PruefungController::PRUEFUNG) {
 	}
 	?>
 	
-	<input type="hidden" name="id" 		    readonly="readonly" value="<?=$frageToEdit[0]->getId()?>">
-	<input type="hidden" name="pruefung_id" readonly="readonly" value="<?=$frageToEdit[0]->getPruefungId()?>">
+	<input type="hidden" name="id" 		    readonly="readonly" value="<?=$frageToEdit->getId()?>">
+	<input type="hidden" name="pruefung_id" readonly="readonly" value="<?=$frageToEdit->getPruefungId()?>">
 	<input type="submit" name="speichernFrage" value="Speichern">
 	<input type="reset" value="Felder zur&uuml;cksetzen">
 	</form>

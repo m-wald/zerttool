@@ -10,37 +10,134 @@ use Zertifizierungstool\Model\User;
 use Zertifizierungstool\Model\Frage;
 use Zertifizierungstool\Model\Antwort;
 
+/**
+ * Controller, der Aufgaben verarbeitet, die sich auf die Entität "Frage" und "Antwort" beziehen.
+ * Beinhaltet Actions zum Anlegen, Bearbeiten, Beantworten und Löschen von Fragen und Antworten.
+ *
+ * @author martin
+ */
 class FrageController extends AbstractActionController {
 	
 	private $frage;
 	
+	public function answerAction() {
+		// Frage laden
+		$frage = new Frage();
+		// TODO$frage->load()
+		// Alle Antworten zu dieser Frage laden
+		$antworten = Antwort::loadList($frage->getId());
+		// Alle Fragen zu frage->getPruefungId() laden
+		$fragen = Frage::loadList($frage->getPruefungId());
+		// Array nach Id sortieren
+		array_multisort($fragen);
+		// Ermitteln der nächsten Id nach der aktuellen im Array
+			// Was bei letzter Id?
+		// Nachdem Formular angesendet wurde:
+			// Entsprechenden Eintrag in beantwortet ändern
+			// Ermitteln der nächsten Prüfung im Array
+			
+		return new ViewModel([
+				'frage'		=> $frage,
+				'antworten' => $antworten,
+				'nextId'	=> $nextId,
+		]);
+	}
 	private function handleForm($request) {
-		$this->$frage = new Frage(
-				$request["id"],
-				$request["frage_text"],
-				$request["punkte"],
-				$request["pruefung_id"],
-				$request["frage_typ"]);
+		// TODO Prüfen ob Prüfungstermin schon erreicht ist
+		// Die Prüfung kann dann nicht mehr bearbeitet werden
 		
-
-			if (empty($request["id"])) {
-				$success = $this->$frage->saveNew();
-			}else {
-				$success = $this->$frage->update();
-			}
-				
-			if ($success) {
-				header ("refresh:0; url = /frage/create/" .$this->$frage->getPruefungId());
-			}else {
+		// Array, das mit eventuellen Fehlermeldungen gefüllt wird
+		$errors = array();
+		
+		if (isset($request['speichernPruefung'])) {
+			// Neues Frage-Objekt mit den Daten aus dem gesendeten Formular erzeugen und in der DB speichern bzw. aktualisieren
+			$this->frage = new Frage(
+							$request["id"],
+							$request["frage_text"],
+							$request["punkte"],
+							$request["pruefung_id"],
+							$request["frage_typ"]);
+		
+			if (!$this->frage->save()) {
 				array_push($errors, "Fehler beim Speichern der Frage. Bitte erneut versuchen!");
+				
+			}else {
+				// Frage konnte gespeichert werden -> Speichern der zugehöregen Antwort(en)
+				switch ($request["frage_typ"]) {
+					case "TF":
+						$status = 0;
+						if ($request["tf"] == "true") {
+							$status = 1;
+						}
+						
+						$antwort = new Antwort($request["antwort_id"], "", $this->frage->getId(), $status);
+						
+						if (!$antwort->save()) array_push($errors, "Fehler beim Speichern der Antwort. Bitte erneut versuchen!");
+	
+						break;
+		
+					case "MC":
+						$index = 1;
+						while (!empty($request["antwort_text" .$index])) {
+							$status = 0;
+							if ($request["antwort_checked" .$index]) {
+								$status = 1;
+							}
+		
+							$antwort = new Antwort(
+										$request["antwort_id" .$index],
+										$request["antwort_text" .$index],
+										$this->frage->getId(),
+										$status);
+			
+							if (!$antwort->save()) array_push($errors, "Fehler beim Speichern der Antwort. Bitte erneut versuchen!");
+							
+							$index++;
+							}
+						break;
+				}
 			}
+	
+			if (empty($errors)) {
+				header ("refresh:0; url = /frage/create/" .$this->frage->getPruefungId());
+			}
+		}
 	}
 	
 	public function createAction() {
+		// Berechtigungsprüfung
+		if (!User::currentUser()->istAdmin() && !User::currentUser()->istZertifizierer()) {
+			header ("refresh:0; url = /user/login/");
+		}
 		
+		$pruefungid = $_REQUEST["pruefung_id"];
+		
+		if (empty($pruefungid)) {
+			$pruefungid = $this->params()->fromRoute('id');
+		}
+		
+		$pruefung = new Pruefung();
+		
+		if (!$pruefung->load($pruefungid)) {
+			array_push($errors, "Fehler beim Laden der Prüfung!");
+		}
+		
+		$this->handleForm($_REQUEST);
+		
+		$viewModel = new ViewModel([
+				'pruefung' => $pruefung,
+				'fragen'   => Frage::loadList($pruefung->getId()),
+				'errors'   => $errors,
+				'mode'	   => PruefungController::createFragen
+		]);
+		
+		$viewModel->setTemplate(PruefungController::pathToHtml);
+		return $viewModel;
 	}
+	
+	/*
 	public function createAction() {
-		// TODO Prüfen ob Prüfungstermin schon erreicht ist
+		// Prüfen ob Prüfungstermin schon erreicht ist
 		// Die Prüfung kann dann nicht mehr bearbeitet werden
 		
 		// Array, das eventuelle Fehlermeldungen enthält
@@ -133,9 +230,9 @@ class FrageController extends AbstractActionController {
 		$viewModel->setTemplate(PruefungController::pathToHtml);
 		return $viewModel;
 	}
-	
+	*/
 	public function editAction() {
-		// TODO Prüfen ob Prüfungstermin schon erreicht ist
+		// Prüfen ob Prüfungstermin schon erreicht ist
 		// Die Prüfung kann dann nicht mehr bearbeitet werden
 		
 		// Array, das eventuelle Fehlermeldungen enthält
@@ -237,7 +334,7 @@ class FrageController extends AbstractActionController {
 				'errors'   => $errors,
 				// Fragen laden -> Was bei Fehler?
 				'mode'	   => PruefungController::editFragen,
-				'frageToEdit' => array($frage)
+				'frageToEdit' => $frage
 		]);
 		
 		$viewModel->setTemplate(PruefungController::pathToHtml);

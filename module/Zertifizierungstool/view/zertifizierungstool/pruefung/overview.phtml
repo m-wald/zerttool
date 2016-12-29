@@ -8,7 +8,7 @@
 		<td><?=$pruefung->getTermin()?></td>
 		<td><?=$pruefung->getCutscore() * 100?></td>
 		
-		<?php if ($pruefung->getTermin() < new Date()) {?>
+		<?php if (strtotime($pruefung->getTermin()) < time()) {?>
 		<td><a href="<?= $this->url('pruefung', ['action' => 'edit',   'id' => $pruefung->getId()])?>"><button type="button">Bearbeiten</button></a></td>
 		<td><a href="<?= $this->url('pruefung', ['action' => 'delete', 'id' => $pruefung->getId()])?>"><button type="button">L&ouml;schen</button></a></td>
 		</tr>
@@ -16,5 +16,5 @@
 </table>
 
 <br>
-<a href="<?= $this->url('pruefung', ['action' => 'create', 'id' => $pruefungen[0]->getKursId()])?>"><button type="button">Neue Pr&uuml;fung anlegen</button></a>
-<a href="http://132.231.36.205/kurs/changedata/&kurs_id=<?=$pruefungen[0]->getKursId()?>"><button type="button">Zur&uuml;ck zur Bearbeitung der Kursdaten</button></a>
+<a href="<?= $this->url('pruefung', ['action' => 'create', 'id' => $kursid])?>"><button type="button">Neue Pr&uuml;fung anlegen</button></a>
+<a href="http://132.231.36.205/kurs/changedata/&kurs_id=<?=$kursid?>"><button type="button">Zur&uuml;ck zur Bearbeitung der Kursdaten</button></a>

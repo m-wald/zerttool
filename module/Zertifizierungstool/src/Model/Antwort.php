@@ -16,7 +16,21 @@ class Antwort {
 		$this->frage_id = $frage_id;
 		$this->status 	= $status;
 	}
-	public function saveNew() {
+	
+	/**
+	 * Speichert das aktuelle Objekt in der Datenbank.
+	 * Falls das Objekt bereits in der Datenbank existiert, wird der entsprechende
+	 * Datensatz aktualisiert. Ansonsten wird ein neuer Datensatz angelegt.
+	 */
+	public function save() {
+		if (empty($this->id)) {
+			return $this->saveNew();
+		}else {
+			return $this->update();
+		}
+	}
+	
+	private function saveNew() {
 		$db = new Db_connection();
 		
 		$query = "INSERT INTO antwort (antwort_text, frage_id, status) VALUES ('"
@@ -35,7 +49,7 @@ class Antwort {
 		}
 	}
 	
-	public function update() {
+	private function update() {
 		$db = new Db_connection();
 		$conn = $db->getConnection();
 	
