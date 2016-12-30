@@ -672,14 +672,25 @@ class KursController extends AbstractActionController
 			
 			// Add new page
 			$id = 0;
-			$pdf->pages[$id] = new Page(Page::SIZE_A4);
+			//$pdf->pages[0] = new Page(Page::SIZE_A4);
 			
 			// Set font
 			// TODO Hier kommt ein Fehler, weil $page noch nicht gesetzt wurde => $page ist hier NULL
-			$page->setFont(Font::fontWithName(Font::FONT_HELVETICA), 20);
+			//$page->setFont(Font::fontWithName(Font::FONT_HELVETICA), 20);
 			
+			$pdf->pages[] = ($page1 = $pdf->newPage('A4'));
+			
+			
+			// Erstelle einen neuen Zeichensatz
+			$font = Zend_Pdf_Font::fontWithName(Zend_Pdf_Font::FONT_HELVETICA);
 			// Draw text
-			$page->drawText('Hello world!', 100, 510);
+			
+			$page1->setFont($font, 36)
+			->setFillColor(Zend_Pdf_Color_Html::color('#9999cc'))
+			->drawText('Hello world!', 60, 500);
+			
+			
+			//$page->drawText('Hello world!', 100, 510);
 	
 			// Save document as a new file or rewrite existing document
 			$pdf->save($path.$fileName.$extansion);
