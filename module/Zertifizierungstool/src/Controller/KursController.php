@@ -666,7 +666,7 @@ class KursController extends AbstractActionController
 		
 		$fileName = date('d-m-Y h:i:s');
 		$extansion = '.pdf';
-		$path = 'zerttool/data/pdf/';	
+		$path = 'data/pdf/';	
 		
 		
 		try{
