@@ -8,19 +8,22 @@ use Zertifizierungstool\Model\User;
 use Zertifizierungstool\Model\CSV_invite;
 use Zertifizierungstool\Model\Benutzer_Kurs;
 
-//function simpleBootLoader( $stack ) {
+/*
+function simpleBootLoader( $stack ) {
 
 	require_once '../home/user/vendor/zendframework/zendpdf/library/ZendPdf'.
 	str_replace( '\\', DIRECTORY_SEPARATOR, $stack ) .'.php';
-/*}
+}
 
 spl_autoload_register( 'simpleBootLoader' );
-*/
+
 
 use ZendPdf\PdfDocument;
 use ZendPdf\Page;
 use ZendPdf\Font;
+*/
 
+require_once '../home/user/vendor/zendframework/zendpdf/library/ZendPdf/';
 
 class KursController extends AbstractActionController
 {   
