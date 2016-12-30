@@ -695,7 +695,7 @@ class KursController extends AbstractActionController
 			//$page->drawText('Hello world!', 100, 510);
 	
 			// Save document as a new file or rewrite existing document
-			$pdf->save($fileName);
+			//$pdf->save($path.$fileName.$extansion);
 		
 		echo 'SUCCESS: Document saved!';
 		} catch (Exception $e) {
