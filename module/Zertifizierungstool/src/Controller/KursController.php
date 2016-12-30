@@ -23,13 +23,6 @@ use ZendPdf\Page;
 use ZendPdf\Font;
 */
 
-require_once '../home/user/vendor/zendframework/zendpdf/library/ZendPdf/';
-
-
-use ZendPdf\PdfDocument;
-use ZendPdf\Page;
-use ZendPdf\Font;
-
 
 class KursController extends AbstractActionController
 {   
