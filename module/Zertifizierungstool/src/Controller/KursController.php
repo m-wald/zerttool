@@ -701,7 +701,7 @@ class KursController extends AbstractActionController
 			die ('Application error: ' . $e->getMessage());
 		}
 	
-		//$pdf = PdfDocument::load('zerttool/data/pdf');
+		echo $pdf->render();
 	}
 
 }
