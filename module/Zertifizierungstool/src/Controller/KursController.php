@@ -701,7 +701,9 @@ class KursController extends AbstractActionController
 		} catch (Exception $e) {
 			die ('PDF error: ' . $e->getMessage());
 		}
-	
+		
+		header("Content-Disposition: inline; filename=result.pdf");
+		header("Content-type: application/x-pdf");
 		echo $pdf->render();
 	}
 	}
