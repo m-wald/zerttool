@@ -8,7 +8,7 @@ use Zertifizierungstool\Model\User;
 use Zertifizierungstool\Model\CSV_invite;
 use Zertifizierungstool\Model\Benutzer_Kurs;
 
-
+/*
 function simpleBootLoader( $stack ) {
 
 	require_once '../home/user/vendor/zendframework/zendpdf/library/ZendPdf/'.
@@ -21,11 +21,20 @@ spl_autoload_register( 'simpleBootLoader' );
 use ZendPdf\PdfDocument;
 use ZendPdf\Page;
 use ZendPdf\Font;
+*/
 
+require_once '../home/user/vendor/zendframework/zendpdf/library/ZendPdf/';
+
+
+use ZendPdf\PdfDocument;
+use ZendPdf\Page;
+use ZendPdf\Font;
 
 
 class KursController extends AbstractActionController
 {   
+	
+	
     public function anlegenAction(){
         
         if($_SERVER['REQUEST_METHOD'] == 'POST') {
