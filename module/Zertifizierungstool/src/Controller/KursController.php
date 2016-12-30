@@ -12,22 +12,6 @@ use ZendPdf\Font;
 use ZendPdf\Page;
 use ZendPdf\Exception;
 
-/*
-function simpleBootLoader( $stack ) {
-
-	require_once '../home/user/vendor/zendframework/zendpdf/library/ZendPdf/'.
-	str_replace( '\\', DIRECTORY_SEPARATOR, $stack ) .'.php';
-}
-
-spl_autoload_register( 'simpleBootLoader' );
-
-
-use ZendPdf\PdfDocument;
-use ZendPdf\Page;
-use ZendPdf\Font;
-*/
-
-
 class KursController extends AbstractActionController
 {   
 	public function anlegenAction(){
@@ -690,6 +674,7 @@ class KursController extends AbstractActionController
 			$pdf->pages[] = new Page(Page::SIZE_A4);
 			
 			// Set font
+			// TODO Hier kommt ein Fehler, weil $page noch nicht gesetzt wurde => $page ist hier NULL
 			$page->setFont(Font::fontWithName(Font::FONT_HELVETICA), 20);
 			
 			// Draw text
