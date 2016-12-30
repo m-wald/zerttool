@@ -8,6 +8,9 @@ use Zertifizierungstool\Model\User;
 use Zertifizierungstool\Model\CSV_invite;
 use Zertifizierungstool\Model\Benutzer_Kurs;
 use ZendPdf\PdfDocument;
+use ZendPdf\Font;
+use ZendPdf\Page;
+use ZendPdf\Exception;
 
 /*
 function simpleBootLoader( $stack ) {
@@ -684,10 +687,10 @@ class KursController extends AbstractActionController
 			$pdf = new PdfDocument();
 			
 			// Add new page
-			$pdf->pages[] = new Zend_Pdf_Page(Zend_Pdf_Page::SIZE_A4);
+			$pdf->pages[] = new Page(Page::SIZE_A4);
 			
 			// Set font
-			$page->setFont(Zend_Pdf_Font::fontWithName(Zend_Pdf_Font::FONT_HELVETICA), 20);
+			$page->setFont(Font::fontWithName(Font::FONT_HELVETICA), 20);
 			
 			// Draw text
 			$page->drawText('Hello world!', 100, 510);
@@ -696,7 +699,7 @@ class KursController extends AbstractActionController
 			$pdf->save($path.$fileName.$extansion);
 		
 		echo 'SUCCESS: Document saved!';
-		} catch (Zend_Pdf_Exception $e) {
+		} catch (Exception $e) {
 			die ('PDF error: ' . $e->getMessage());
 		} catch (Exception $e) {
 			die ('Application error: ' . $e->getMessage());
