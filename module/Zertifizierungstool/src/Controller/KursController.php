@@ -7,7 +7,7 @@ use Zertifizierungstool\Model\Kurs;
 use Zertifizierungstool\Model\User;
 use Zertifizierungstool\Model\CSV_invite;
 use Zertifizierungstool\Model\Benutzer_Kurs;
-use ZendPdf\PdfDocument;
+use Zend\ZendPdf\PdfDocument;
 
 
 class KursController extends AbstractActionController
@@ -661,7 +661,8 @@ class KursController extends AbstractActionController
 	public function pdfAction()
 	{
 		
-		$fileName = date('d-m-Y h:i:s' );
+		$fileName = date('d-m-Y h:i:s');
+		$extansion = '.pdf';
 		$path = 'zerttool/data/pdf/';
 		try{
 			// Create new PDF document.
@@ -677,7 +678,7 @@ class KursController extends AbstractActionController
 			$page->drawText('Hello world!', 100, 510);
 	
 			// Save document as a new file or rewrite existing document
-			$pdf->save($path.$fileName);
+			$pdf->save($path.$fileName.$extansion);
 		
 		echo 'SUCCESS: Document saved!';
 		} catch (Zend_Pdf_Exception $e) {
