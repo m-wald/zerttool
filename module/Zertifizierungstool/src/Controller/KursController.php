@@ -7,7 +7,9 @@ use Zertifizierungstool\Model\Kurs;
 use Zertifizierungstool\Model\User;
 use Zertifizierungstool\Model\CSV_invite;
 use Zertifizierungstool\Model\Benutzer_Kurs;
-use ZendPdf\PdfDocument;
+
+// Load Zend_Pdf class
+Zend_Loader::loadClass('Zend_Pdf');
 
 
 class KursController extends AbstractActionController
