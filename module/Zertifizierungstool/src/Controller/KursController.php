@@ -665,7 +665,7 @@ class KursController extends AbstractActionController
 		$path = 'zerttool/data/pdf/';
 		try{
 			// Create new PDF document.
-			$pdf = new Zend_Pdf();
+			$pdf = new PdfDocument();
 			
 			// Add new page
 			$pdf->pages[] = new Zend_Pdf_Page(Zend_Pdf_Page::SIZE_A4);
