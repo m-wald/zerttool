@@ -26,9 +26,7 @@ use ZendPdf\Font;
 
 class KursController extends AbstractActionController
 {   
-	
-	
-    public function anlegenAction(){
+	public function anlegenAction(){
         
         if($_SERVER['REQUEST_METHOD'] == 'POST') {
             
