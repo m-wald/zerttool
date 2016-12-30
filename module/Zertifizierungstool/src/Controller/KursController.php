@@ -7,6 +7,7 @@ use Zertifizierungstool\Model\Kurs;
 use Zertifizierungstool\Model\User;
 use Zertifizierungstool\Model\CSV_invite;
 use Zertifizierungstool\Model\Benutzer_Kurs;
+use ZendPdf\PdfDocument;
 
 /*
 function simpleBootLoader( $stack ) {
