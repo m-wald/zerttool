@@ -681,7 +681,7 @@ class KursController extends AbstractActionController
 			// TODO Hier kommt ein Fehler, weil $page noch nicht gesetzt wurde => $page ist hier NULL
 			//$page->setFont(Font::fontWithName(Font::FONT_HELVETICA), 20);
 			
-			$pdf->pages[] = ($page1 = $pdf->newPage('A4'));
+			$pdf->pages[0] = ($page1 = $pdf->newPage('A4'));
 			
 			
 			// Erstelle einen neuen Zeichensatz
@@ -695,13 +695,11 @@ class KursController extends AbstractActionController
 			//$page->drawText('Hello world!', 100, 510);
 	
 			// Save document as a new file or rewrite existing document
-			$pdf->save($fileName.$extansion);
+			$pdf->save($fileName);
 		
 		echo 'SUCCESS: Document saved!';
 		} catch (Exception $e) {
 			die ('PDF error: ' . $e->getMessage());
-		} catch (Exception $e) {
-			die ('Application error: ' . $e->getMessage());
 		}
 	
 		echo $pdf->render();
