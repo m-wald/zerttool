@@ -697,14 +697,13 @@ class KursController extends AbstractActionController
 			// Save document as a new file or rewrite existing document
 			//$pdf->save($path.$fileName.$extansion);
 		
-		echo 'SUCCESS: Document saved!';
+			header("Content-Disposition: inline; filename=$fileName.pdf");
+			header("Content-type: application/x-pdf");
+			echo $pdf->render();
 		} catch (Exception $e) {
 			die ('PDF error: ' . $e->getMessage());
-		}
+		}	
 		
-		header("Content-Disposition: inline; filename=$fileName.pdf");
-		header("Content-type: application/x-pdf");
-		echo $pdf->render();
 	}
 	}
 
