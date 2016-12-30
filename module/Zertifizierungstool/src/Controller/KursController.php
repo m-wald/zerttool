@@ -682,11 +682,10 @@ class KursController extends AbstractActionController
 			
 			
 			// Erstelle einen neuen Zeichensatz
-			$font = Zend_Pdf_Font::fontWithName(Zend_Pdf_Font::FONT_HELVETICA);
+			$font = Font::fontWithName(Zend_Pdf_Font::FONT_HELVETICA);
 			// Draw text
 			
 			$page1->setFont($font, 36)
-			->setFillColor(Zend_Pdf_Color_Html::color('#9999cc'))
 			->drawText('Hello world!', 60, 500);
 			
 			
