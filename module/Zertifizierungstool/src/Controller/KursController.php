@@ -671,7 +671,8 @@ class KursController extends AbstractActionController
 			$pdf = new PdfDocument();
 			
 			// Add new page
-			$pdf->pages[] = new Page(Page::SIZE_A4);
+			$id = 0;
+			$pdf->pages[$id] = new Page(Page::SIZE_A4);
 			
 			// Set font
 			// TODO Hier kommt ein Fehler, weil $page noch nicht gesetzt wurde => $page ist hier NULL
