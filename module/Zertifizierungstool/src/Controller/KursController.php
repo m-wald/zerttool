@@ -662,10 +662,13 @@ class KursController extends AbstractActionController
 
 	public function pdfAction()
 	{
+		if($_SERVER['REQUEST_METHOD'] == 'POST' && $_POST['pdf']) {
 		
 		$fileName = date('d-m-Y h:i:s');
 		$extansion = '.pdf';
-		$path = 'zerttool/data/pdf/';
+		$path = 'zerttool/data/pdf/';	
+		
+		
 		try{
 			// Create new PDF document.
 			$pdf = new PdfDocument();
@@ -702,6 +705,7 @@ class KursController extends AbstractActionController
 		}
 	
 		echo $pdf->render();
+	}
 	}
 
 }
