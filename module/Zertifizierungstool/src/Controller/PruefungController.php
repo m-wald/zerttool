@@ -170,6 +170,7 @@ class PruefungController extends AbstractActionController {
 			header ("refresh:0; url = /user/login/");
 		}
 		
+		// Was wenn Fehler? Zurückleiten auf Übersicht?
 		if ($this->pruefung->getTermin() <= time()) {
 			array_push($errors, "Der Prüfungszeitraum wurde bereits erreicht. Die Prüfung kann nicht mehr bearbeitet werden!");
 		}
