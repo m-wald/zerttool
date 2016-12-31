@@ -712,9 +712,9 @@ class KursController extends AbstractActionController
 				$image = Image::imageWithPath($imagePath);
 				//Draw Image
 				$left = 10;
-				$bottom = 1000;
-				$right = 1000;
-				$top = 5;
+				$bottom = 77;
+				$right = 262;
+				$top = 10;
 				$page1->drawImage($image, $left, $bottom, $right, $top);
 				// Draw text
 				$page1->drawText('Hello world!', 60, 500);
