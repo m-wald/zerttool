@@ -699,12 +699,13 @@ class KursController extends AbstractActionController
 			}
 		
 			
-			
+			/*
 			$kurs = new Kurs;
 			if(!$kurs->kursResult($benutzer, $_SESSION['kurs_id'])) {
 				return new Viewmodel (['message' => 'access_error']);
 				exit;
 			}
+			*/
 			
 			//$kurs_id = $_POST["kurs_id"];
 			//TODO kurs_id benutzen statt kurs_name
