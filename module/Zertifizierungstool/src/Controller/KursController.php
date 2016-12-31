@@ -715,6 +715,7 @@ class KursController extends AbstractActionController
 				$bottom = 110;
 				$right = 110;
 				$top = 177;
+				$page1->rotate(0, 0, M_PI/12);
 				$page1->drawImage($image, $left, $bottom, $right, $top);
 				// Draw text
 				$page1->drawText('Hello world!', 60, 500);
