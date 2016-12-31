@@ -707,7 +707,7 @@ class KursController extends AbstractActionController
 			else 									$kurs_name = $_SESSION['kurs_name'];
 			
 			$kurs = new Kurs;
-			if(!$kurs->kursResult($benutzer, $_SESSION['kurs_name'])) {
+			if(!$kurs->kursResult($benutzer, $_SESSION['kurs_id'])) {
 				return new Viewmodel (['message' => 'access_error']);
 				exit;
 			}
