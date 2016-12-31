@@ -10,6 +10,8 @@ use Zertifizierungstool\Model\Kurs;
 use Zertifizierungstool\Model\User;
 use Zertifizierungstool\Model\Frage;
 use Zertifizierungstool\Model\Antwort;
+use Zertifizierungstool\Model\Schreibt_pruefung;
+use Zertifizierungstool\Model\Beantwortet;
 
 /**
  * Controller, der Aufgaben verarbeitet, die sich auf die Entität "Prüfung" beziehen.
@@ -30,12 +32,17 @@ class PruefungController extends AbstractActionController {
 	
 	public function takeExamAction() {
 		// TODO Prüfen ob Teilnehmer im Kurs eingetragen ist
+		// TODO Prüfen, ob Kursende schon erreicht
+		// TODO Prüfen, ob letzter Versuch schon 24 Stunden her ist
+		// TODO Prüfen, ob Teilnehmer die Prüfung schon bestanden hat oder 3 mal nicht bestanden hat
 		
 		// Prüfungs-Id aus URL laden
 		$pruefung_id = $this->params()->fromRoute('id');
 		
 		// Eintrag in Tabelle schreibt_pruefung
-			//$pruefung_id, currentUser()-getBenutzername(), aktueller timestamp, 0(nicht bestanden)
+		$schreibt_pruefung = new Schreibt_pruefung("", $pruefung_id, User::currentUser()->getBenutzername(), time(), 0);
+		$schreibt_pruefung->saveNew();
+		// TODO Fehler abfangen
 		
 		// Alle Fragen zur Prüfung laden
 		$fragen = Frage::loadList($pruefung_id);
@@ -48,19 +55,24 @@ class PruefungController extends AbstractActionController {
 			// Für jede Antwort:
 			foreach ($antworten as $antwort) {
 				// Objekt von "beantwortet" erzeugen mit schreibt_pruefung->getId(), antwort->getId(), beantwortet_status = 0 ->in Db speichern
-				// extra-Attribut "edited" (gesetzt sobal User auf "Weiter" oder so geklickt hat)
-			
+				// extra-Attribut "edited"? (gesetzt sobal User auf "Weiter" oder so geklickt hat)
+				$beantwortet = new Beantwortet("", $schreibt_pruefung->getId(), $antwort->getId(), 0);
+				$beantwortet->saveNew();
+				// TODO Fehler abfangen
 			}
 		}
-
+		
+		
 		// Weiterleiten an FrageController Action answer mit Id der ersten Prüfungsfrage
-		header("refresh:0; url = /frage/answer/" .$fragen[0]->getId());
+		header("refresh:0; url = /frage/answer/" .$schreibt_pruefung->getId()); //statt fragen[0]->getId()
 	}
 	
 	/**
 	 * Überprüft, ob ein Teilnehmer eine Prüfung bestanden hat
 	 */
 	public function resultAction() {
+		// aus schreibt_pruefung auslesen
+			// absteigend nach timestamp sortieren und erster Eintrag ist der richtige
 		// Abgebene Antworten prüfen und evtl "bestanden" in schreibt_pruefung auf 1 setzen
 		// Mit cutscore vergleichen
 		// Anbieten Zertifikat runterzuladen
@@ -117,7 +129,7 @@ class PruefungController extends AbstractActionController {
 	public function createAction() {
 		// Berechtigungsprüfung TODO weiterleitung auf fehlerseite
 		if (!User::currentUser()->istAdmin() && !User::currentUser()->istZertifizierer()) {
-			//header ("refresh:0; url = /user/login/");
+			header ("refresh:0; url = /user/login/");
 		}
 		
 		if (empty($_REQUEST["kursid"])) {

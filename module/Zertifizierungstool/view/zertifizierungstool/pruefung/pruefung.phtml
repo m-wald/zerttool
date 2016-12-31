@@ -230,7 +230,7 @@ input[type=number]{
 		<input type="hidden"   name="antwort_id<?=$i?>" value="<?=$antwort->getId()?>">
 		<a href="<?= $this->url('frage', ['action' => 'deleteAntwort', 'id' => $antwort->getId()])?>"><button type="button"> - </button></a>
 	<?php 
-		}
+		$i++;}
 	}
 	?>
 	

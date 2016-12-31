@@ -9,6 +9,8 @@ use Zertifizierungstool\Model\Pruefung;
 use Zertifizierungstool\Model\User;
 use Zertifizierungstool\Model\Frage;
 use Zertifizierungstool\Model\Antwort;
+use Zertifizierungstool\Model\Schreibt_pruefung;
+use Zertifizierungstool\Model\Beantwortet;
 
 /**
  * Controller, der Aufgaben verarbeitet, die sich auf die Entität "Frage" und "Antwort" beziehen.
@@ -21,33 +23,56 @@ class FrageController extends AbstractActionController {
 	private $frage;
 	
 	public function answerAction() {
-		// Frage laden
-		$frageid = $this->params()->fromRoute('id');
-		$this->frage = new Frage();
-		$this->frage->load($frageid);
+		// Alle Fragen zur Prüfung laden
+		$schreibt_pruefung_id = $this->params()->fromRoute('id');
+		$schreibt_pruefung = new Schreibt_pruefung();
+		$schreibt_pruefung->load($schreibt_pruefung_id);
 		
-		// Alle Antworten zu dieser Frage laden
-		$antworten = Antwort::loadList($this->frage->getId());
-		// Alle Fragen zu frage->getPruefungId() laden
-		$fragen = Frage::loadList($this->frage->getPruefungId());
+		$fragen = Frage::loadList($schreibt_pruefung->getPruefungId());
+		
 		// Array nach Id sortieren
 		array_multisort($fragen);
-		// Ermitteln der nächsten Id nach der aktuellen im Array
-			// Was bei letzter Id?
+		
+		// Ermitteln der nächsten Id nach der aktuellen im Array TODO Was bei letzter Id? Wieder zur ersten Frage?
+		if (isset($_REQUEST['next_index'])) {	
+			$next_index = $_REQUEST['next_index'];
+		} else {
+			$next_index = 0;
+		}
+
+		$frage = $fragen[$nextid];
+		// Alle Antworten zu dieser Frage laden
+		$antworten = Antwort::loadList($frage->getId());
+		
 		// Nachdem Formular angesendet wurde:
+		if ($_REQUEST['speichern']) {
+			if ($this->frage->getTyp() == 'TF') {
+				if ($_REQUEST['tf'] == true) {
+					$success = Beantwortet::setTrue($schreibt_pruefung_id, $_REQUEST['antwort_id']);
+				} else {
+					$success = Beantwortet::setFalse($schreibt_pruefung_id, $_REQUEST['antwort_id']);
+				}
+				
+			} else {
+				// MC-Frage
+			}
+			
+			if ($success) {
+				header ("refresh:0; url = /frage/answer/" .$schreibt_pruefung_id);
+			}
+			
+		}
 			// Entsprechenden Eintrag in beantwortet ändern
 			// Ermitteln der nächsten Frage im Array
 			
 		return new ViewModel([
 				'frage'		=> $this->frage,
 				'antworten' => $antworten,
-				'nextId'	=> $nextId,
+				'next_index' => $next_index,
+				'schreibt_pruefung_id' => $schreibt_pruefung_id,
 		]);
 	}
 	private function handleForm($request, $mode) {
-		// TODO Prüfen ob Prüfungstermin schon erreicht ist
-		// Die Prüfung kann dann nicht mehr bearbeitet werden
-		
 		// Array, das mit eventuellen Fehlermeldungen gefüllt wird
 		$errors = array();
 		
@@ -72,6 +97,10 @@ class FrageController extends AbstractActionController {
 			
 		if (!$pruefung->load($pruefungid)) {
 			array_push($errors, "Fehler beim Laden der Prüfung!");
+		}
+		
+		if (strtotime($pruefung->getTermin()) >= time() ) {
+			array_push($errors, "Der Prüfungszeitraum hat bereits begonnen. Die Prüfung kann nicht mehr bearbeitet werden!");
 		}
 		
 		if (isset($request['speichernFrage'])) {
