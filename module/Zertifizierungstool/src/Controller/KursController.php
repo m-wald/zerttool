@@ -721,9 +721,9 @@ class KursController extends AbstractActionController
 				$image = Image::imageWithPath('data/img/justdoit.jpg');
 				//Draw Image
 				$left = 5;
-				$bottom = 293;
+				$bottom = 323;
 				$right = 269;
-				$top = 670;
+				$top = 700;
 			
 				$page1->drawImage($image, $left, $bottom, $right, $top);
 				
@@ -734,11 +734,11 @@ class KursController extends AbstractActionController
 				$page1->setFont($font, 25);
 				$page1->drawText($vorname.' '.$nachname, 280, 650);
 				
-				$page1->drawLine(280, 640, 600,640);
+				$page1->drawLine(280, 640, 500,640);
 				
-				$page1->setFont($font, 14);
+				$page1->setFont($font, 12);
 				$page1->drawText('Geboren am: '.User::currentUser()->getGeburtsdatum(), 280, 600);
-				$page1->setFont($font, 16);
+				$page1->setFont($font, 14);
 				$page1->drawText('hat erfolgreich folgernder Kurs abgeschlossen:', 280, 570);
 				$page1->setFont($font, 25);
 				$page1->drawText($_SESSION['kurs_name'], 280, 520); 
