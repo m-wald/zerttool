@@ -710,9 +710,9 @@ class KursController extends AbstractActionController
 				$image = Image::imageWithPath($imagePath);
 				//Draw Image
 				$left = 262;
-				$bottom = 710;
+				$bottom = 777;
 				$right = 10;
-				$top = 777;
+				$top = 710;
 				
 				//$page1->rotate(0, 0, M_PI/12);
 				$page1->drawImage($image, $left, $bottom, $right, $top);
@@ -730,13 +730,13 @@ class KursController extends AbstractActionController
 				
 		
 				// Draw text
-				$page1->drawText('Zertifikat', 60, 500);
+				$page1->drawText('Zertifikat', 60, 700);
 				$page1->setFont($font, 30);
-				$page1->drawText($vorname.' '.$nachname, 60, 400);
+				$page1->drawText($vorname.' '.$nachname, 60, 600);
 				$page1->setFont($font, 25);
-				$page1->drawText('hat erfolgreich folgernder Kurs abgeschlossen:', 60, 350);
+				$page1->drawText('hat erfolgreich folgernder Kurs abgeschlossen:', 60, 550);
 				$page1->setFont($font, 30);
-				$page1->drawText($_SESSION['kurs_name'], 60, 300);
+				$page1->drawText($_SESSION['kurs_name'], 60, 500);
 				
 				// Save document as a new file or rewrite existing document
 				//$pdf->save($path.$fileName.$extansion);
