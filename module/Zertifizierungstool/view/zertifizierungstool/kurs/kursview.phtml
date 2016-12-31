@@ -44,6 +44,11 @@
                     <input size="70" maxlength="250" value="Kursdokumente anzeigen" type="submit">
                 </form> <br>
                 
+                <form method="post" action="pdf">
+				<input type="hidden" value="pdf" name='pdf'>
+				<input type="submit" value="Zertifikat herunterladen">
+				</form><br>
+                
                 <?php 
                     // Prüfen, ob Teilnehmer für den Kurs schon eingetragen ist
                     // Wenn Benutzer im Kurs eingetragen ist, dann kann er austreten
@@ -64,10 +69,7 @@
                                                 <input size="70" maxlength="250" value="Kurs beitreten" type="submit">
                                             </form> <br>
                                             
-                                            <form method="post" action="pdf">
-											<input type="hidden" value="pdf" name='pdf'>
-											<input type="submit" value="Zertifikat herunterladen">
-											</form><br>
+                                        
                                             <?php
                                         }
                     ?>
