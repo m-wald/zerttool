@@ -716,15 +716,15 @@ class KursController extends AbstractActionController
 				$right = 10;
 				$top = 777;
 				*/
-				$page1->rotate(0, 0, M_PI/12);
-				$page1->drawImage($image, 100, 100);
-				$page1->rotate(0, 0, 0);
+				//$page1->rotate(0, 0, M_PI/12);
+				$page1->drawImage($image, $left, $bottom, $right, $top);
+				
 				// Draw text
 				$page1->drawText('Zertifikat', 60, 500);
 				$page1->setFont($font, 30);
 				$page1->drawText($vorname.' '.$nachname, 60, 400);
 				$page1->setFont($font, 25);
-				$page1->drawText('hat erfolgreich folgernder Kurs abgeschloßen:', 60, 350);
+				$page1->drawText('hat erfolgreich folgernder Kurs abgeschlossen:', 60, 350);
 				$page1->setFont($font, 30);
 				$page1->drawText($_SESSION['kurs_name'], 60, 300);
 		
