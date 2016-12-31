@@ -710,9 +710,9 @@ class KursController extends AbstractActionController
 				$image = Image::imageWithPath($imagePath);
 				//Draw Image
 				$left = 262;
-				$bottom = 807;
+				$bottom = 817;
 				$right = 10;
-				$top = 740;
+				$top = 750;
 				
 				//$page1->rotate(0, 0, M_PI/12);
 				$page1->drawImage($image, $left, $bottom, $right, $top);
@@ -722,17 +722,21 @@ class KursController extends AbstractActionController
 				//Draw Image
 				$left = 10;
 				$bottom = 10;
-				$right = 380;
-				$top = 534;
-				
-				//$page1->rotate(0, 0, M_PI/12);
+				$right = 269;
+				$top = 377;
+			
 				$page1->drawImage($image, $left, $bottom, $right, $top);
 				
-		
 				// Draw text
-				$page1->drawText('Zertifikat', 60, 700);
+				$page1->drawText('Zertifikat', 150, 680);
+				
 				$page1->setFont($font, 30);
 				$page1->drawText($vorname.' '.$nachname, 60, 600);
+				
+				$page1->drawLine(60, 590, 500,590);
+				
+				$page1->setFont($font, 20);
+				$page1->drawText('Geboren am: '.User::currentUser()->getGeburtsdatum(), 60, 575);
 				$page1->setFont($font, 25);
 				$page1->drawText('hat erfolgreich folgernder Kurs abgeschlossen:', 60, 550);
 				$page1->setFont($font, 30);
