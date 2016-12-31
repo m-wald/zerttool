@@ -671,8 +671,8 @@ class KursController extends AbstractActionController
      * 
      */
 
-	public function pdfAction()
-	{
+	public function pdfAction(){
+		
 		$benutzer = User::currentUser()->getBenutzername();
 		$vorname = User::currentUser()->getVorname();
 		$nachname = User::currentUser()->getNachname();
@@ -686,8 +686,10 @@ class KursController extends AbstractActionController
 			else {
 				$list = $kurs->pdfList($benutzer);
 				return new Viewmodel (['list' => $list]);		
-		}
-	}	
+				}
+			}
+			
+		else {
 		
 		
 		if($_SERVER['REQUEST_METHOD'] == 'POST' && $_POST['pdf']) {
@@ -698,19 +700,18 @@ class KursController extends AbstractActionController
 				exit;
 			}
 		
+			//$kurs_id = $_POST["kurs_id"];
+			//TODO kurs_id benutzen statt kurs_name
 			
+			if(isset($_REQUEST["kurs_name"]))		$kurs_name = $_REQUEST["kurs_name"];
+			else 									$kurs_name = $_SESSION['kurs_name'];
 			
 			$kurs = new Kurs;
-			if(!$kurs->kursResult($benutzer, $_SESSION['kurs_id'])) {
+			if(!$kurs->kursResult($benutzer, $kurs_name)) {
 				return new Viewmodel (['message' => 'access_error']);
 				exit;
 			}
 			
-			
-			//$kurs_id = $_POST["kurs_id"];
-			//TODO kurs_id benutzen statt kurs_name
-			if($_REQUEST["kurs_name"] != NULL)		$kurs_name = $_REQUEST["kurs_name"];
-			else 									$kurs_name = $_SESSION['kurs_name'];
 			
 			$fileName = $kurs_name.'_'.$vorname.'_'.$nachname;
 			//$extansion = '.pdf';
@@ -784,6 +785,7 @@ class KursController extends AbstractActionController
 			exit;
 		*/
 		
+	}
 	}
 	
 	

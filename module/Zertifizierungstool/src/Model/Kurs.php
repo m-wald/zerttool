@@ -122,11 +122,13 @@ class Kurs {
      * Prüft ob der User den KUrs bestanden hat
      */    
     
-    public function kursResult($benutzername, $kurs_id){
+    public function kursResult($benutzername, $kurs_name){
     	$db = new Db_connection();
     	if((User::currentUser()->istTeilnehmer()) && ($benutzername == NULL)){
-    		$query = "SELECT bestanden FROM benutzer_kurs WHERE benutzername = '".$benutzername."' 
-    					AND kurs_id = ".$kurs_id." ;";
+    		$query = "SELECT bestanden FROM benutzer_kurs 
+    					JOIN kurs ON kurs.kurs_id = benutzer_kurs.kurs_id
+    					WHERE benutzername = '".$benutzername."' 
+    					AND kurs.kurs_name = ".$kurs_name." ;";
     		$result = $db->execute($query);    		 
     		
     		if (mysqli_fetch_all($result))	 	return true;
