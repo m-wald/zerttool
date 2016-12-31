@@ -143,7 +143,7 @@ class Kurs {
     	if((User::currentUser()->istTeilnehmer())){
     		$query = "SELECT benutzer_kurs.kurs_id, kurs.kurs_name FROM benutzer_kurs
     				JOIN kurs ON kurs.kurs_id = benutzer_kurs.kurs_id
-    				WHERE benutzername = '".$benutzername."' AND bestanden = 1
+    				WHERE benutzer_kurs.benutzername = '".$benutzername."' AND bestanden = 1
     				;";
     		$result = $db->execute($query);
     	
