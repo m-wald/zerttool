@@ -63,6 +63,11 @@
                                                 <input type="hidden" name="enterpubliccourse">
                                                 <input size="70" maxlength="250" value="Kurs beitreten" type="submit">
                                             </form> <br>
+                                            
+                                            <form method="post" action="pdf">
+											<input type="hidden" value="pdf" name='pdf'>
+											<input type="submit" value="Zertifikat herunterladen">
+											</form><br>
                                             <?php
                                         }
                     ?>
@@ -98,10 +103,7 @@
                     </form>
                     <br><br>
                     
-                    <form method="post" action="pdf">
-					<input type="hidden" value="pdf" name='pdf'>
-					<input type="submit" value="Zertifikat herunterladen">
-					</form><br>
+                    
 					
 					
 					
