@@ -740,7 +740,7 @@ class KursController extends AbstractActionController
 				$page1->setFont($font, 25);
 				$page1->drawText('hat erfolgreich folgernder Kurs abgeschlossen:', 60, 570);
 				$page1->setFont($font, 30);
-				$page1->drawText($_SESSION['kurs_name'], 60, 520);
+				$page1->drawText($_SESSION['kurs_name'], 60, 520); 
 				
 				// Save document as a new file or rewrite existing document
 				//$pdf->save($path.$fileName.$extansion);
