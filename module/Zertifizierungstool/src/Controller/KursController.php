@@ -776,10 +776,10 @@ class KursController extends AbstractActionController
 				return new Viewmodel (['message' => 'error']);
 			}
 		}
-			 
+			/* 
 			else header("refresh:0; url = /kurs/showkurse");
 			exit;
-		
+		*/
 		
 	}
 	
