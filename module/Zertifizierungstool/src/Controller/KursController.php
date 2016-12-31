@@ -707,11 +707,11 @@ class KursController extends AbstractActionController
 			else 									$kurs_name = $_SESSION['kurs_name'];
 			
 			$kurs = new Kurs;
-			/*if(!$kurs->kursResult($benutzer, $kurs_name)) {
+			if(!$kurs->kursResult($benutzer, $_SESSION['kurs_name'])) {
 				return new Viewmodel (['message' => 'access_error']);
 				exit;
 			}
-			*/
+			
 			
 			$fileName = $kurs_name.'_'.$vorname.'_'.$nachname;
 			//$extansion = '.pdf';
