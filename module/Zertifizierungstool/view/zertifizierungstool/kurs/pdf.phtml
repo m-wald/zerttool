@@ -1,10 +1,69 @@
 <?php 
 
+if(isset($message)){
+
 if ($message == 'success') {
 	header("refresh:0; url = /kurs/kursview");
 }
-else {
+elseif ($message == 'error') {
 	echo "Ein Fehler ist aufgetretten beim erstellen von PDF Datei!";
 	header("refresh:2; url = /kurs/kursview");
 }
+
+elseif($message == 'access_error'){
+	echo "Sie haben den Kurs nicht bestanden!";
+	header("refresh:2; url = /kurs/showkurse");
+}
+}
+
+
+if(isset($_POST['pdflist'])) {
+	
+	if($message == 'access_error'){
+		echo "Keine bestandene Kurse vorhanden!";
+		header("refresh:2; url = /kurs/showkurse");
+	}
+	
+	
+
 ?>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+    
+    <div class="container">
+    	<h3>Erworbene Leistungen: </h3>
+            <table class="table table-hover">
+        
+        <tr>
+        	<th> KursID </th>
+			<th> KursName </th>
+			<th> Leistung</th>
+			
+		</tr>
+		
+		<?php
+			foreach($list as $row){ ?>
+			<tr>
+				<td><?=$row['kurs_id']?></td>
+				<td><?=$row['kurs_name']?></td>
+				
+                                
+                                					
+			<td> <form accept-charset="utf-8" method="POST" action="pdf">
+						<input type="hidden" value="<?=$row['kurs_name']?>"name="kurs_id">
+						<input size="70" maxlength="250" value="Zertifikat" type="submit">
+					</form> </td>
+			
+			</tr>
+		<?php }?>
+		
+		</table>
+
+    </div>
+</body>
+
+<?php }?>

@@ -667,10 +667,28 @@ class KursController extends AbstractActionController
     
     /*
      * Erstellt einen PDF Zertifikat
+     * 
+     * 
      */
 
 	public function pdfAction()
 	{
+		$benutzer = User::currentUser()->getBenutzername();
+		$vorname = User::currentUser()->getVorname();
+		$nachname = User::currentUser()->getNachname();
+		
+		if($_SERVER['REQUEST_METHOD'] == 'POST' && $_POST['pdflist']) {
+			$kurs = new Kurs;
+			if(!$kurs->pdfList($benutzer)) {
+				return new Viewmodel (['message' => 'access_error']);
+				exit;
+			}
+			else {
+				$list = $kurs->pdfList($benutzer);
+				return new Viewmodel (['list' => $list]);		
+		}
+	}	
+		
 		
 		if($_SERVER['REQUEST_METHOD'] == 'POST' && $_POST['pdf']) {
 			 
@@ -683,14 +701,18 @@ class KursController extends AbstractActionController
 			if(User::currentUser()->istTeilnehmer()==true){
 				header("refresh:0; url = /user/home");
 				exit;
-			}
-		
-			$benutzer = User::currentUser()->getBenutzername();
-			$vorname = User::currentUser()->getVorname();
-			$nachname = User::currentUser()->getNachname();
+			}		
 			
-			 
-			$fileName = $_SESSION['kurs_name'].'_'.$vorname.'_'.$nachname;
+			$kurs = new Kurs;
+			if(!$kurs->kursResult($benutzer, $_SESSION['kurs_id'])) {
+				return new Viewmodel (['message' => 'access_error']);
+				exit;
+			}
+			
+			//$kurs_id = $_POST["kurs_id"];
+			//TODO kurs_id benutzen statt kurs_name
+			$kurs_name = $_REQUEST["kurs_name"];
+			$fileName = $kurs_name.'_'.$vorname.'_'.$nachname;
 			$extansion = '.pdf';
 			$imagePath = 'data/img/logo.png';
 		
@@ -741,7 +763,7 @@ class KursController extends AbstractActionController
 				$page1->setFont($font, 14);
 				$page1->drawText('hat erfolgreich folgernder Kurs abgeschlossen:', 280, 570);
 				$page1->setFont($font, 25);
-				$page1->drawText($_SESSION['kurs_name'], 280, 520); 
+				$page1->drawText($kurs_name, 280, 520); 
 				
 				// Save document as a new file or rewrite existing document
 				//$pdf->save($path.$fileName.$extansion);
@@ -756,12 +778,15 @@ class KursController extends AbstractActionController
 				die ('PDF error: ' . $e->getMessage());
 				return new Viewmodel (['message' => 'error']);
 			}
-			 
-			//else header("refresh:0; url = /kurs/showkurse");
-			//exit;
 		}
+			 
+			else header("refresh:0; url = /kurs/showkurse");
+			exit;
+		
 		
 	}
+	
+	
 
 
 }
