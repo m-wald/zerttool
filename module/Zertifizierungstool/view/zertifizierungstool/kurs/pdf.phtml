@@ -3,5 +3,8 @@
 if ($message == 'success') {
 	header("refresh:0; url = /kurs/kursview");
 }
-else header("refresh:0; url = /kurs/kursview");
+else {
+	echo "Ein Fehler ist aufgetretten beim erstellen von PDF Datei!";
+	header("refresh:2; url = /kurs/kursview");
+}
 ?>
