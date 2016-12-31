@@ -124,7 +124,7 @@ class Kurs {
     
     public function kursResult($benutzername, $kurs_id){
     	$db = new Db_connection();
-    	if((User::currentUser()->istTeilnehmer()) && ($benutzername == NULL)){
+    	if((User::currentUser()->istTeilnehmer())){
     		$query = "SELECT bestanden FROM benutzer_kurs WHERE benutzername = '".$benutzername."' 
     					AND kurs_id = ".$kurs_id." ;";
     		$result = $db->execute($query);    		 
