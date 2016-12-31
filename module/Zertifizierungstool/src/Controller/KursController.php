@@ -11,6 +11,8 @@ use ZendPdf\PdfDocument;
 use ZendPdf\Font;
 use ZendPdf\Page;
 use ZendPdf\Exception;
+use ZendPdf\Style;
+use ZendPdf\Image;
 
 class KursController extends AbstractActionController
 {   
@@ -225,8 +227,11 @@ class KursController extends AbstractActionController
     	$_SESSION['kurs_name']=$kurs->getKurs_name();
         return new ViewModel(['kurs' => $kurs,
         		'status' => $status,
-                        'benutzer_kurs' => $benutzer_kurs]);  
+                        'benutzer_kurs' => $benutzer_kurs]);
+           
     }
+    
+    
     
     public function singleinviteAction() {
     	
@@ -659,53 +664,76 @@ class KursController extends AbstractActionController
 
 
 
+    
+    /*
+     * Erstellt einen PDF Zertifikat
+     */
 
 	public function pdfAction()
 	{
+		
 		if($_SERVER['REQUEST_METHOD'] == 'POST' && $_POST['pdf']) {
+			 
+			// Zugriff auf Action ist nur erlaubt, falls Zertifizierer oder Admin und Zugang �ber Button in kursview
+			if(User::currentUser()->getBenutzername()==null) {
+				header("refresh:0; url = /user/login");
+				exit;
+			}
 		
-		$fileName = date('d-m-Y h:i:s');
-		$extansion = '.pdf';
-		$path = 'data/UploadsKurse/';	
+			if(User::currentUser()->istTeilnehmer()==true){
+				header("refresh:0; url = /user/home");
+				exit;
+			}
+		
+			$benutzer = User::currentUser()->getBenutzername();
+			$vorname = User::currentUser()->getVorname();
+			$nachname = User::currentUser()->getNachname();
+			$name = $vorname.'_'.$nachname;
+			 
+			$fileName = $_SESSION['kurs_name'].'_'.$name;
+			$extansion = '.pdf';
+			$img_path = 'data/img/logo.png';
 		
 		
-		try{
-			// Create new PDF document.
-			$pdf = new PdfDocument();
-			
-			// Add new page
-			$id = 0;
-			//$pdf->pages[0] = new Page(Page::SIZE_A4);
-			
-			// Set font
-			// TODO Hier kommt ein Fehler, weil $page noch nicht gesetzt wurde => $page ist hier NULL
-			//$page->setFont(Font::fontWithName(Font::FONT_HELVETICA), 20);
-			
-			$pdf->pages[0] = ($page1 = $pdf->newPage('A4'));
-			
-			
-			// Erstelle einen neuen Zeichensatz
-			$font = Font::fontWithName(Font::FONT_HELVETICA);
-			// Draw text
-			
-			$page1->setFont($font, 36)
-			->drawText('Hello world!', 60, 500);
-			
-			
-			//$page->drawText('Hello world!', 100, 510);
-	
-			// Save document as a new file or rewrite existing document
-			//$pdf->save($path.$fileName.$extansion);
+			try{
+				// Create new PDF document.
+				$pdf = new PdfDocument();
+				 
+				// Add new page
+				$pdf->pages[0] = ($page1 = $pdf->newPage('A4'));
+				
+				//Load Image
+				$image = Image::imageWithPath($imagePath);
 		
-			header("Content-Disposition: inline; filename=$fileName.pdf");
-			header("Content-type: application/x-pdf");
-			echo $pdf->render();
-		} catch (Exception $e) {
-			die ('PDF error: ' . $e->getMessage());
-		}	
+				// Set font
+				$font = Font::fontWithName(Font::FONT_HELVETICA);
+		
+				// Erstelle einen neuen Zeichensatz
+				// Draw text
+				 
+				$page1->setFont($font, 36)
+				->drawText('Hello world!', 60, 500);
+		
+				// Save document as a new file or rewrite existing document
+				//$pdf->save($path.$fileName.$extansion);
+		
+				header("Content-Disposition: inline; filename=$fileName.pdf");
+				header("Content-type: application/x-pdf");
+				echo $pdf->render();
+				
+				return new Viewmodel (['message' => 'success']);
+		
+			} catch (Exception $e) {
+				die ('PDF error: ' . $e->getMessage());
+				return new Viewmodel (['message' => 'error']);
+			}
+			 
+			//else header("refresh:0; url = /kurs/showkurse");
+			//exit;
+		}
 		
 	}
-	}
+
 
 }
 

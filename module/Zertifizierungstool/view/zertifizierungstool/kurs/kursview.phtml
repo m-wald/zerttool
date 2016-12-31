@@ -96,6 +96,14 @@
                        <input size="70" maxlength="250" value="Einzelnen Teilnehmer einladen" type="submit">
                     </form>
                     <br><br>
+                    
+                    <form method="post" action="pdf">
+					<input type="hidden" value="pdf" name='pdf'>
+					<input type="submit" value="Zertifikat herunterladen!">
+					</form>
+					
+					 <br><br>
+					
                     <a href="<?= $this->url('pruefung', ['action' => 'overview', 'id' => $kurs->getKurs_id()])?>"><button type="button">Zu den Pr&uuml;fungen</button></a>
                 <?php }} ?>
                         

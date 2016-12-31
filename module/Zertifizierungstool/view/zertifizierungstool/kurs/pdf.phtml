@@ -1,11 +1,7 @@
-<h1>PDF</h1>
+<?php 
 
-<form method="post" action="pdf">
-
-
-<input type="hidden" value="pdf" name='pdf'>
-<input type="submit" value="Create PDF!">
-
-
-
-</form>
+if ($message == 'success') {
+	header("refresh:0; url = /kurs/kursview");
+}
+else header("refresh:0; url = /kurs/kursview");
+?>
