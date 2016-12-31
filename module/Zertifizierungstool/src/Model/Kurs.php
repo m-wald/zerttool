@@ -268,6 +268,10 @@ class Kurs {
     function getBeschreibung() {
         return $this->beschreibung;
     }
+    
+    function getTeilnehmerzahl() {
+    	return $this->teilnehmerzahl;
+    }
 
     function setKurs_id($kurs_id) {
         $this->kurs_id = $kurs_id;
