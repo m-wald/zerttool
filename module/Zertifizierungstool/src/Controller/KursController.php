@@ -688,9 +688,9 @@ class KursController extends AbstractActionController
 			$benutzer = User::currentUser()->getBenutzername();
 			$vorname = User::currentUser()->getVorname();
 			$nachname = User::currentUser()->getNachname();
-			$name = $vorname.'_'.$nachname;
+			
 			 
-			$fileName = $_SESSION['kurs_name'].'_'.$name;
+			$fileName = $_SESSION['kurs_name'].'_'.$vorname.'_'.$nachname;
 			$extansion = '.pdf';
 			$imagePath = 'data/img/logo.png';
 		
@@ -716,11 +716,17 @@ class KursController extends AbstractActionController
 				$right = 10;
 				$top = 777;
 				*/
-				//$page1->rotate(0, 0, M_PI/12);
-				$page1->drawImage($image, 10, 10);
+				$page1->rotate(0, 0, M_PI/12);
+				$page1->drawImage($image, 100, 100);
+				$page1->rotate(0, 0, 0);
 				// Draw text
 				$page1->drawText('Zertifikat', 60, 500);
-				$page1->drawText($name, 60, 400);
+				$page1->setFont($font, 30);
+				$page1->drawText($vorname.' '.$nachname, 60, 400);
+				$page1->setFont($font, 25);
+				$page1->drawText('hat erfolgreich folgernder Kurs abgeschloßen:', 60, 350);
+				$page1->setFont($font, 30);
+				$page1->drawText($_SESSION['kurs_name'], 60, 300);
 		
 				// Save document as a new file or rewrite existing document
 				//$pdf->save($path.$fileName.$extansion);
