@@ -711,14 +711,16 @@ class KursController extends AbstractActionController
 				//Load Image
 				$image = Image::imageWithPath($imagePath);
 				//Draw Image
-				$left = 362;
-				$bottom = 110;
-				$right = 110;
-				$top = 177;
-				$page1->rotate(0, 0, M_PI/12);
-				$page1->drawImage($image, $left, $bottom, $right, $top);
+				/*$left = 262;
+				$bottom = 710;
+				$right = 10;
+				$top = 777;
+				*/
+				//$page1->rotate(0, 0, M_PI/12);
+				$page1->drawImage($image, 10, 10);
 				// Draw text
-				$page1->drawText('Hello world!', 60, 500);
+				$page1->drawText('Zertifikat', 60, 500);
+				$page1->drawText($name, 60, 400);
 		
 				// Save document as a new file or rewrite existing document
 				//$pdf->save($path.$fileName.$extansion);
