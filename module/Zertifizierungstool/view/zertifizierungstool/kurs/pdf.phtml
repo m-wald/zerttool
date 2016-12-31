@@ -55,6 +55,7 @@ if(isset($_POST['pdflist'])) {
                                 					
 			<td> <form accept-charset="utf-8" method="POST" action="pdf">
 						<input type="hidden" value="<?=$row['kurs_name']?>"name="kurs_name">
+						<input type="hidden" value="<?=$row['kurs_id']?>"name="kurs_id">
 						<input size="70" maxlength="250" value="Zertifikat" type="submit">
 					</form> </td>
 			
