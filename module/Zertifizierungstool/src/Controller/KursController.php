@@ -700,9 +700,7 @@ class KursController extends AbstractActionController
 				$pdf = new PdfDocument();
 				 
 				// Add new page
-				$pdf->pages[0] = ($page1 = $pdf->newPage('A4'));
-				
-				
+				$pdf->pages[0] = ($page1 = $pdf->newPage('A4'));			
 		
 				// Set font
 				$font = Font::fontWithName(Font::FONT_HELVETICA);
@@ -727,6 +725,19 @@ class KursController extends AbstractActionController
 				$page1->drawText('hat erfolgreich folgernder Kurs abgeschlossen:', 60, 350);
 				$page1->setFont($font, 30);
 				$page1->drawText($_SESSION['kurs_name'], 60, 300);
+				
+				
+				
+				$image = Image::imageWithPath('data/img/justdoit.jpg');
+				//Draw Image
+				$left = 380;
+				$bottom = 10;
+				$right = 10;
+				$top = 534;
+				
+				//$page1->rotate(0, 0, M_PI/12);
+				$page1->drawImage($image, $left, $bottom, $right, $top);
+				
 		
 				// Save document as a new file or rewrite existing document
 				//$pdf->save($path.$fileName.$extansion);
