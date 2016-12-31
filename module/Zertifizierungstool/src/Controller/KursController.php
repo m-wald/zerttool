@@ -720,9 +720,9 @@ class KursController extends AbstractActionController
 								
 				$image = Image::imageWithPath('data/img/justdoit.jpg');
 				//Draw Image
-				$left = 380;
+				$left = 10;
 				$bottom = 10;
-				$right = 10;
+				$right = 380;
 				$top = 534;
 				
 				//$page1->rotate(0, 0, M_PI/12);
