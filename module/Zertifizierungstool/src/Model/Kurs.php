@@ -129,8 +129,8 @@ class Kurs {
     					AND kurs_id = ".$kurs_id." ;";
     		$result = $db->execute($query);    		 
     		
-    		if ($result == 1) 	return true;
-    		else 				return false;
+    		if (mysqli_fetch_all($result))	 	return true;
+    		else 								return false;
     	}
     }
     
@@ -146,8 +146,8 @@ class Kurs {
     				;";
     		$result = $db->execute($query);
     	
-    		if (mysqli_num_rows($result) > 0) 	return true;
-    		else 								return false;
+    		if (mysqli_num_rows($result) > 0) 	return $result;
+    		else 								return 0;
     	}
     }
     

@@ -699,19 +699,21 @@ class KursController extends AbstractActionController
 			}
 		
 			
-			/*
+			
 			$kurs = new Kurs;
 			if(!$kurs->kursResult($benutzer, $_SESSION['kurs_id'])) {
 				return new Viewmodel (['message' => 'access_error']);
 				exit;
 			}
-			*/
+			
 			
 			//$kurs_id = $_POST["kurs_id"];
 			//TODO kurs_id benutzen statt kurs_name
-			$kurs_name = $_REQUEST["kurs_name"];
+			if($_REQUEST["kurs_name"] != NULL)		$kurs_name = $_REQUEST["kurs_name"];
+			else 									$kurs_name = $_SESSION['kurs_name'];
+			
 			$fileName = $kurs_name.'_'.$vorname.'_'.$nachname;
-			$extansion = '.pdf';
+			//$extansion = '.pdf';
 			$imagePath = 'data/img/logo.png';
 		
 		
