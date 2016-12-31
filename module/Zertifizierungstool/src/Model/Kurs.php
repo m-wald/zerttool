@@ -125,13 +125,14 @@ class Kurs {
     public function kursResult($benutzername, $kurs_name){
     	$db = new Db_connection();
     	if((User::currentUser()->istTeilnehmer()) && ($benutzername == NULL)){
-    		$query = "SELECT bestanden FROM benutzer_kurs 
+    		$query = "SELECT bestanden 
+    					FROM benutzer_kurs 
     					JOIN kurs ON kurs.kurs_id = benutzer_kurs.kurs_id
-    					WHERE benutzername = '".$benutzername."' 
+    					WHERE benutzer_kurs.benutzername = '".$benutzername."' 
     					AND kurs.kurs_name = ".$kurs_name." ;";
     		$result = $db->execute($query);    		 
     		
-    		if (mysqli_fetch_all($result))	 	return true;
+    		if ($result)	 					return true;
     		else 								return false;
     	}
     }
