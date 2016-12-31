@@ -702,17 +702,22 @@ class KursController extends AbstractActionController
 				// Add new page
 				$pdf->pages[0] = ($page1 = $pdf->newPage('A4'));
 				
-				//Load Image
-				$image = Image::imageWithPath($imagePath);
+				
 		
 				// Set font
 				$font = Font::fontWithName(Font::FONT_HELVETICA);
-		
-				// Erstelle einen neuen Zeichensatz
+				$page1->setFont($font, 36);		
+					 
+				//Load Image
+				$image = Image::imageWithPath($imagePath);
+				//Draw Image
+				$left = 10;
+				$bottom = 1000;
+				$right = 1000;
+				$top = 5;
+				$page1->drawImage($image, $left, $bottom, $right, $top);
 				// Draw text
-				 
-				$page1->setFont($font, 36)
-				->drawText('Hello world!', 60, 500);
+				$page1->drawText('Hello world!', 60, 500);
 		
 				// Save document as a new file or rewrite existing document
 				//$pdf->save($path.$fileName.$extansion);
