@@ -692,7 +692,7 @@ class KursController extends AbstractActionController
 			 
 			$fileName = $_SESSION['kurs_name'].'_'.$name;
 			$extansion = '.pdf';
-			$img_path = 'data/img/logo.png';
+			$imagePath = 'data/img/logo.png';
 		
 		
 			try{
