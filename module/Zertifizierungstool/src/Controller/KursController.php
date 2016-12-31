@@ -698,10 +698,7 @@ class KursController extends AbstractActionController
 				exit;
 			}
 		
-			if(User::currentUser()->istTeilnehmer()==true){
-				header("refresh:0; url = /user/home");
-				exit;
-			}		
+			
 			
 			$kurs = new Kurs;
 			if(!$kurs->kursResult($benutzer, $_SESSION['kurs_id'])) {
