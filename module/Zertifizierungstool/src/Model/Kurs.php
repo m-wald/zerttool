@@ -12,6 +12,7 @@ class Kurs {
     private $kurs_ende;
     private $sichtbarkeit;
     private $benutzername;
+    private $teilnehmerzahl;
     
     public function __construct($kurs_name, $kurs_start, $kurs_ende, $sichtbarkeit, $benutzername, $beschreibung) {
         $this->kurs_id = "";
@@ -33,7 +34,7 @@ class Kurs {
     
     public function load($id) {
         $db = new Db_connection();
-        $query = "SELECT * FROM kurs WHERE kurs_id = ".$id.";";
+        $query = "SELECT * FROM kurs join teilnehmerzahl using (kurs_id) WHERE kurs_id = ".$id.";";
         $result = $db->execute($query);       
 
         if (mysqli_num_rows($result) > 0) {
@@ -46,6 +47,7 @@ class Kurs {
                 $this->sichtbarkeit = $row['sichtbarkeit'];
                 $this->benutzername = $row['benutzername'];
                 $this->beschreibung = $row['beschreibung'];
+                $this->teilnehmerzahl = $row['teilnehmerzahl'];
                 
                 return true;
         }
