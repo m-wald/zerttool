@@ -141,7 +141,7 @@ class Kurs {
     public function pdfList($benutzername){
     	$db = new Db_connection();
     	if((User::currentUser()->istTeilnehmer())){
-    		$query = "SELECT kurs_id, kurs_name FROM benutzer_kurs
+    		$query = "SELECT benutzer_kurs.kurs_id, kurs.kurs_name FROM benutzer_kurs
     				JOIN kurs ON kurs.kurs_id = benutzer_kurs.kurs_id
     				WHERE benutzername = '".$benutzername."' AND bestanden = 1
     				;";
