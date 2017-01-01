@@ -33,17 +33,6 @@ class KursController extends AbstractActionController
             
             //todo Enddatum in der Zukunft abprüfen?
             
-            
-            
-            //todo Admin legt Kurs an -> Admin ist kein Kursleiter
-            /*
-            if(User::currentUser()->istAdmin()){
-                
-            }
-            
-             * 
-             */
-            
             $kurs = new Kurs(
                     $_REQUEST["kursname"], 
                     $_REQUEST["kursstart"], 
