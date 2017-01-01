@@ -13,6 +13,7 @@ use Zertifizierungstool\Model\Antwort;
 use Zertifizierungstool\Model\Schreibt_pruefung;
 use Zertifizierungstool\Model\Beantwortet;
 use Zertifizierungstool\Model\SchreibtPruefung;
+use Zend\Stdlib\DateTime;
 
 /**
  * Controller, der Aufgaben verarbeitet, die sich auf die Entität "Prüfung" beziehen.
@@ -44,16 +45,17 @@ class PruefungController extends AbstractActionController {
 		
 		
 		// Eintrag in Tabelle schreibt_pruefung
-		$datetime = new \DateTime();
-		$datetime->format('Y-m-d - H:i:s');
+		$datetime = new DateTime();
+		$datetime->format('U = Y-m-d H:i:s');
 		$schreibt_pruefung = new SchreibtPruefung("", $pruefung_id, User::currentUser()->getBenutzername(), $datetime, 0);
+		/*
 		if (!$schreibt_pruefung->saveNew()) {
 			array_push($errors, "Fehler Nr.1 beim Vorbereiten der Prüfungsfragen!");
 		}
 
 		// Alle Fragen zur Prüfung laden
 		$fragen = Frage::loadList($pruefung_id);
-		/*
+		
 		// Für jede Frage:
 		foreach ($fragen as $frage) {
 			// Alle Antworten laden
