@@ -8,9 +8,9 @@
         header("refresh:4; url = /user/home");
     }
     elseif ($error == 'falsedate'){
-        echo "Kursende wurde vor dem Kursbeginn erfasst! <br>";
+        echo "<b><font color ='red'>Kursende wurde vor dem Kursbeginn erfasst.</font> <br>";
     }elseif ($error == 'nichterfolgt'){
-    	echo "Daten konnten nicht gespeichert werden. <br>";
+    	echo "<b><font color ='red'>Daten konnten nicht gespeichert werden.</font> <br>";
     }
 		
 ?>
