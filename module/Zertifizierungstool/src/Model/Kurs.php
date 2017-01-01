@@ -80,40 +80,33 @@ class Kurs {
     
     	
         
-        if (mysqli_num_rows($result) > 0){
+        //if (mysqli_num_rows($result) > 0){
         	// TODO Ihr �bergebt hier direkt das Ergebnis der Datenbankabfrage.
         	// Besser w�rs, wenn ihr f�r jeden Datensatz ein neues Objekt von der Klasse "Kurs" anlegt und in ein Array speichert.
         	// Am Ende k�nnt ihr dann das Array zur�ckgeben und in der View dann einfach die getter-Methoden f�r das jeweilige Objekt aufrufen.
         	// #Objektorientierung ;)
-        /*if (mysqli_num_rows($result) > 0) {
+        if (mysqli_num_rows($result) > 0) {
             while ($row = mysqli_fetch_assoc($result)) {
                     array_push($return_array, $row);
             }
             
             foreach ($return_array as $row) {	
-                $this->kurs_id      = $row['kurs_id'];
-                $this->kurs_name    = $row['kurs_name'];
-                $this->kurs_start   = $row['kurs_start'];
-                $this->kurs_ende    = $row['kurs_ende'];
-                $this->sichtbarkeit = $row['sichtbarkeit'];
-                $this->benutzername = $row['benutzername'];
+                $this->kurs_id          = $row['kurs_id'];
+                $this->kurs_name        = $row['kurs_name'];
+                $this->kurs_start       = $row['kurs_start'];
+                $this->kurs_ende        = $row['kurs_ende'];
+                $this->sichtbarkeit     = $row['sichtbarkeit'];
+                $this->benutzername     = $row['benutzername'];
+                $this->teilnehmerzahl   = $row['teilnehmerzahl'];
             }
             
             return $return_array;
-        */  
-            return $result;
+          
+        //    return $result;
         } else {
             //kein Ergebnis gefunden
             return 0;
-                //echo "Kein Ergebnis gefunden.";
         }
-
-        
-            
-        /*    return $result;
-        }else{
-            return 0;
-        }*/
     }
     
     
