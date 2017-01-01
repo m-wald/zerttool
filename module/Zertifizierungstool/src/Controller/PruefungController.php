@@ -41,6 +41,7 @@ class PruefungController extends AbstractActionController {
 		// Prüfungs-Id aus URL laden
 		$pruefung_id = $this->params()->fromRoute('id');
 		
+		/*
 		// Eintrag in Tabelle schreibt_pruefung
 		$schreibt_pruefung = new Schreibt_pruefung("", $pruefung_id, User::currentUser()->getBenutzername(), time(), 0);
 		if (!$schreibt_pruefung->saveNew()) {
@@ -69,9 +70,10 @@ class PruefungController extends AbstractActionController {
 		if (empty($errors)) {
 			// Weiterleiten an FrageController Action answer mit Id der ersten Prüfungsfrage
 			header("refresh:0; url = /frage/answer/" .$schreibt_pruefung->getId()); //statt fragen[0]->getId()
-		} else {
-			return new ViewModel(['errors' => $errors]);
 		}
+		*/
+		
+		return new ViewModel(['errors' => $errors]);
 	}
 	
 	/**
