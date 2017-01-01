@@ -30,7 +30,7 @@ class PruefungController extends AbstractActionController {
 	/** Das behandelte Prüfungs-Objekt */
 	private $pruefung;
 	
-	public function takeExamAction() {
+	public function takeexamAction() {
 		// TODO Prüfen ob Teilnehmer im Kurs eingetragen ist
 		// TODO Prüfen, ob Kursende schon erreicht
 		// TODO Prüfen, ob letzter Versuch schon 24 Stunden her ist
@@ -79,7 +79,7 @@ class PruefungController extends AbstractActionController {
 	 */
 	public function resultAction() {
 		// aus schreibt_pruefung auslesen
-			// absteigend nach timestamp sortieren und erster Eintrag ist der richtige
+			// id aus route
 		// Abgebene Antworten prüfen und evtl "bestanden" in schreibt_pruefung auf 1 setzen
 		// Mit cutscore vergleichen
 		// Anbieten Zertifikat runterzuladen
