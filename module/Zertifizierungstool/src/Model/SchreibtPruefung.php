@@ -33,7 +33,12 @@ class SchreibtPruefung {
 		//$db = new Db_connection();
 		//$conn = $db->getConnection();
 	
+		$datetime = new \DateTime();
+		$datetime->format('U = Y-m-d H:i:s');
 		
+		$query = "INSERT INTO schreibt_pruefung (pruefung_id, benutzername, zeitpunkt, bestanden) VALUES ("
+					.$this->pruefung_id;
+		/*
 		$query = "INSERT INTO schreibt_pruefung (pruefung_id, benutzername, zeitpunkt, bestanden) VALUES ("
 				.$this->pruefung_id	. ", '"
 				.$this->benutzername. "', '"
