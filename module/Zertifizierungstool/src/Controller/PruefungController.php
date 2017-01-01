@@ -13,7 +13,6 @@ use Zertifizierungstool\Model\Antwort;
 use Zertifizierungstool\Model\Schreibt_pruefung;
 use Zertifizierungstool\Model\Beantwortet;
 use Zertifizierungstool\Model\SchreibtPruefung;
-use Zend\Db\Sql\Ddl\Column\Datetime;
 
 /**
  * Controller, der Aufgaben verarbeitet, die sich auf die Entität "Prüfung" beziehen.
@@ -45,7 +44,7 @@ class PruefungController extends AbstractActionController {
 		
 		
 		// Eintrag in Tabelle schreibt_pruefung
-		$datetime = new Datetime();
+		$datetime = new \DateTime();
 		$datetime->format('Y-m-d H:i:s');
 		$schreibt_pruefung = new SchreibtPruefung("", $pruefung_id, User::currentUser()->getBenutzername(), $datetime, 0);
 		if (!$schreibt_pruefung->saveNew()) {
