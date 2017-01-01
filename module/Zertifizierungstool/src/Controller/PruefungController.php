@@ -36,13 +36,16 @@ class PruefungController extends AbstractActionController {
 		// TODO Prüfen, ob letzter Versuch schon 24 Stunden her ist
 		// TODO Prüfen, ob Teilnehmer die Prüfung schon bestanden hat oder 3 mal nicht bestanden hat
 		
+		$errors = array();
+		
 		// Prüfungs-Id aus URL laden
 		$pruefung_id = $this->params()->fromRoute('id');
 		
 		// Eintrag in Tabelle schreibt_pruefung
 		$schreibt_pruefung = new Schreibt_pruefung("", $pruefung_id, User::currentUser()->getBenutzername(), time(), 0);
-		$schreibt_pruefung->saveNew();
-		// TODO Fehler abfangen
+		if (!$schreibt_pruefung->saveNew()) {
+			array_push($errors, "Fehler Nr.1 beim Vorbereiten der Prüfungsfragen!");
+		}
 		
 		// Alle Fragen zur Prüfung laden
 		$fragen = Frage::loadList($pruefung_id);
@@ -57,14 +60,18 @@ class PruefungController extends AbstractActionController {
 				// Objekt von "beantwortet" erzeugen mit schreibt_pruefung->getId(), antwort->getId(), beantwortet_status = 0 ->in Db speichern
 				// extra-Attribut "edited"? (gesetzt sobal User auf "Weiter" oder so geklickt hat)
 				$beantwortet = new Beantwortet("", $schreibt_pruefung->getId(), $antwort->getId(), 0);
-				$beantwortet->saveNew();
-				// TODO Fehler abfangen
+				if (!$beantwortet->saveNew()) {
+					array_push($errors, "Fehler Nr.2 beim Vorbereiten der Prüfungsfragen!");
+				}
 			}
 		}
 		
-		
-		// Weiterleiten an FrageController Action answer mit Id der ersten Prüfungsfrage
-		header("refresh:0; url = /frage/answer/" .$schreibt_pruefung->getId()); //statt fragen[0]->getId()
+		if (empty($errors)) {
+			// Weiterleiten an FrageController Action answer mit Id der ersten Prüfungsfrage
+			header("refresh:0; url = /frage/answer/" .$schreibt_pruefung->getId()); //statt fragen[0]->getId()
+		} else {
+			return new ViewModel(['errors' => $errors]);
+		}
 	}
 	
 	/**
@@ -99,7 +106,7 @@ class PruefungController extends AbstractActionController {
 		
 		// TODO Format des Prüfungstermins überprüfen
 		// Prüfungstermin validieren
-		//array_push($errors, $this->checkDate($pruefung));
+		array_push($errors, $this->checkDate());
 			
 		if (empty($errors)) {
 			if ($this->pruefung->save()) {
@@ -213,16 +220,16 @@ class PruefungController extends AbstractActionController {
 	 * @param Die zu überprüfende Prüfung $pruefung
 	 * @return Eventuelle Fehlermeldung
 	 */
-	private function checkDate($pruefung) {
+	private function checkDate() {
 		$error;
 		$kurs = new Kurs();
 		
-		if ($kurs->load($pruefung->getKursId())) {
-			if ($pruefung->getTermin() < $kurs->getKurs_start()) {
-				$error= "Der Pr&uuml;fungszeitraum kann erst nach Kursbeginn beginnen!";
+		if ($kurs->load($this->pruefung->getKursId())) {
+			if ($this->pruefung->getTermin() < $kurs->getKurs_start()) {
+				$error= "Der Pr&uuml;fungszeitraum kann erst nach Kursbeginn starten!";
 			
-			}elseif ($pruefung->getTermin() > date_sub($kurs->getKurs_ende(), new \DateInterval("P4D"))) {
-				$error = "Der Pr&uuml;fungszeitraum muss spätestens 4 Tage vor Kursende beginnen!";
+			}elseif ($this->pruefung->getTermin() > date_sub($kurs->getKurs_ende(), new \DateInterval("P4D"))) {
+				$error = "Der Pr&uuml;fungszeitraum muss mindestens 4 Tage vor Kursende starten!";
 			}
 		}else {
 			$error = "Der Kurs wurde nicht in der Datenbank gefunden!";

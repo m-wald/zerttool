@@ -11,6 +11,7 @@ use Zertifizierungstool\Model\Frage;
 use Zertifizierungstool\Model\Antwort;
 use Zertifizierungstool\Model\Schreibt_pruefung;
 use Zertifizierungstool\Model\Beantwortet;
+use Zertifizierungstool\Model\Kurs;
 
 /**
  * Controller, der Aufgaben verarbeitet, die sich auf die Entität "Frage" und "Antwort" beziehen.
@@ -97,6 +98,13 @@ class FrageController extends AbstractActionController {
 			
 		if (!$pruefung->load($pruefungid)) {
 			array_push($errors, "Fehler beim Laden der Prüfung!");
+		}
+		
+		$kurs = new Kurs();
+		$kurs->load($pruefung->getKursId());
+		// Der angemeldete Benutzer muss Admin und/oder Leiter des Kurses sein
+		if (!User::currentUser()->istAdmin() && $kurs->getBenutzername() != User::currentUser()->getBenutzername()) {
+			array_push($errors, "Sie sind nicht der Leiter dieses Kurses!");
 		}
 		
 		if (strtotime($pruefung->getTermin()) <= time() ) {
