@@ -43,7 +43,7 @@ class PruefungController extends AbstractActionController {
 		
 		
 		// Eintrag in Tabelle schreibt_pruefung
-		$schreibt_pruefung = new Schreibt_pruefung("", $pruefung_id, User::currentUser()->getBenutzername(), time(), 0);
+		// $schreibt_pruefung = new Schreibt_pruefung("", $pruefung_id, User::currentUser()->getBenutzername(), time(), 0);
 		array_push($errors, $pruefung_id);
 		array_push($errors, User::currentUser()->getBenutzername());
 		array_push($errors, time());
