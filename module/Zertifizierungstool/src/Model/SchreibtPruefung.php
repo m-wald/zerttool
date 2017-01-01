@@ -37,7 +37,8 @@ class SchreibtPruefung {
 		$datetime->format('U = Y-m-d H:i:s');
 		
 		$query = "INSERT INTO schreibt_pruefung (pruefung_id, benutzername, zeitpunkt, bestanden) VALUES ("
-					.$this->pruefung_id;
+					.$this->pruefung_id .", '"
+					.User::currentUser()->getBenutzername() ."'";
 		/*
 		$query = "INSERT INTO schreibt_pruefung (pruefung_id, benutzername, zeitpunkt, bestanden) VALUES ("
 				.$this->pruefung_id	. ", '"
