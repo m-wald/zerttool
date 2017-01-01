@@ -99,7 +99,7 @@ class FrageController extends AbstractActionController {
 			array_push($errors, "Fehler beim Laden der Prüfung!");
 		}
 		
-		if (strtotime($pruefung->getTermin()) >= time() ) {
+		if (strtotime($pruefung->getTermin()) <= time() ) {
 			array_push($errors, "Der Prüfungszeitraum hat bereits begonnen. Die Prüfung kann nicht mehr bearbeitet werden!");
 		}
 		
