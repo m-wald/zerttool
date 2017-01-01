@@ -33,10 +33,11 @@ class SchreibtPruefung {
 		$db = new Db_connection();
 		$conn = $db->getConnection();
 		
+		strft
 		$query = "INSERT INTO schreibt_pruefung (pruefung_id, benutzername, zeitpunkt, bestanden) VALUES ("
 				.$this->pruefung_id	. ", '"
 				.User::currentUser()->getBenutzername(). "', '"
-				.strftime('Y-m-d H:i:s', time()) ."', "
+				.strftime('%F %T', time()) ."', "
 				."0)" ;
 		
 		$result = mysqli_query($conn, $query);
