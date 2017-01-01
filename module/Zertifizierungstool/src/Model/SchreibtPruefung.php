@@ -30,7 +30,6 @@ class SchreibtPruefung {
 	 * @return boolean false, falls ein Fehler aufgetreten ist. Sonst true.
 	 */
 	public function saveNew() {
-		/*
 		$db = new Db_connection();
 		$conn = $db->getConnection();
 	
@@ -42,7 +41,8 @@ class SchreibtPruefung {
 	
 		$result = mysqli_query($conn, $query);
 	
-		if(!$result) {
+		/*
+		if(!empty(mysqli_error($conn))) {
 			// Fehler bei der Datenbankabfrage
 			echo mysqli_error($conn);
 			echo "<br>" . $query;
