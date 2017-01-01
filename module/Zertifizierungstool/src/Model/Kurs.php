@@ -119,7 +119,7 @@ class Kurs {
     
     
     /*
-     * Prüft ob der User den KUrs bestanden hat
+     * Prï¿½ft ob der User den KUrs bestanden hat
      */    
     
     public function kursResult($benutzername, $kurs_id){
@@ -160,7 +160,7 @@ class Kurs {
         $db = new Db_connection();
         if(User::currentUser()->istZertifizierer() || User::currentUser()->istAdmin()){
             $query = "SELECT * FROM kurs WHERE benutzername = '".$benutzername."'
-                            AND (CURRENT_DATE >= kurs_ende + 30);";
+                            AND (CURRENT_DATE > kurs_ende);";
         }    	
     	$result = $db->execute($query);
         
@@ -180,7 +180,7 @@ class Kurs {
     public function loadsignedkurse($benutzername) {
         $db = new Db_connection();
         if(User::currentUser()->istTeilnehmer()) {
-            $query = "SELECT * FROM benutzer_kurs JOIN kurs USING (kurs_id) WHERE benutzer_kurs.benutzername = '".$benutzername."';";
+            $query = "SELECT * FROM benutzer_kurs JOIN kurs USING (kurs_id) WHERE benutzer_kurs.benutzername = '".$benutzername."' and (CURRENT_DATE between kurs_start and kurs_ende);";
             $result = $db->execute($query);
         }
 
