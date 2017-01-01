@@ -12,6 +12,7 @@ use Zertifizierungstool\Model\Frage;
 use Zertifizierungstool\Model\Antwort;
 use Zertifizierungstool\Model\Schreibt_pruefung;
 use Zertifizierungstool\Model\Beantwortet;
+use Zertifizierungstool\Model\SchreibtPruefung;
 
 /**
  * Controller, der Aufgaben verarbeitet, die sich auf die Entität "Prüfung" beziehen.
@@ -47,7 +48,7 @@ class PruefungController extends AbstractActionController {
 		array_push($errors, $pruefung_id);
 		array_push($errors, User::currentUser()->getBenutzername());
 		array_push($errors, time());
-		$schreibt_test = new Schreibt_pruefung();
+		$schreibt_test = new SchreibtPruefung();
 		/*
 		if (!$schreibt_pruefung->saveNew()) {
 			array_push($errors, "Fehler Nr.1 beim Vorbereiten der Prüfungsfragen!");

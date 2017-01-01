@@ -1,4 +1,4 @@
-	<?php
+<?php
 namespace Zertifizierungstool\Model;
 
 use Zertifizierungstool\Model\Db_connection;
