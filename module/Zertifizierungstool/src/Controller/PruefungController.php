@@ -30,7 +30,7 @@ class PruefungController extends AbstractActionController {
 	/** Das behandelte Prüfungs-Objekt */
 	private $pruefung;
 	
-	public function takeexamAction() {
+	public function takeAction() {
 		// TODO Prüfen ob Teilnehmer im Kurs eingetragen ist
 		// TODO Prüfen, ob Kursende schon erreicht
 		// TODO Prüfen, ob letzter Versuch schon 24 Stunden her ist
