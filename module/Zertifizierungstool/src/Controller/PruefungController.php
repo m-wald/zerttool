@@ -53,7 +53,7 @@ class PruefungController extends AbstractActionController {
 
 		// Alle Fragen zur Prüfung laden
 		$fragen = Frage::loadList($pruefung_id);
-		
+		/*
 		// Für jede Frage:
 		foreach ($fragen as $frage) {
 			// Alle Antworten laden
@@ -74,7 +74,7 @@ class PruefungController extends AbstractActionController {
 			// Weiterleiten an FrageController Action answer mit Id der ersten Prüfungsfrage
 			header("refresh:0; url = /frage/answer/" .$schreibt_pruefung->getId()); //statt fragen[0]->getId()
 		}
-		
+		*/
 		return new ViewModel(['errors' => $errors]);
 	}
 	
