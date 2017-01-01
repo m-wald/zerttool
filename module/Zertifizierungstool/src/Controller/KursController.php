@@ -16,7 +16,7 @@ use ZendPdf\Image;
 
 class KursController extends AbstractActionController
 {   
-	public function anlegenAction(){
+    public function createAction(){
         
         if($_SERVER['REQUEST_METHOD'] == 'POST') {
             
@@ -32,17 +32,6 @@ class KursController extends AbstractActionController
 
             
             //todo Enddatum in der Zukunft abprüfen?
-            
-            
-            
-            //todo Admin legt Kurs an -> Admin ist kein Kursleiter
-            /*
-            if(User::currentUser()->istAdmin()){
-                
-            }
-            
-             * 
-             */
             
             $kurs = new Kurs(
                     $_REQUEST["kursname"], 
@@ -189,30 +178,6 @@ class KursController extends AbstractActionController
               return new ViewModel(['kurs' => $kurs, 'result' => $zertladen, 'archiv' => $archiviert, 'status' => $status]);    
     }
     
-    /*
-     * Kopiert die archevierten Daten
-     
-     public function copydataAction() {
-        $id = $_REQUEST["kurs_id"];
-        $benutzername = User::currentUser()->getBenutzername();
-    	$kurs = new Kurs();
-    	if(!$kurs->load($id)) $status="Fehler beim Laden des Kurses!";
-        
-        if($_REQUEST["speichern"]) {
-            $kurs->insert($_REQUEST["kursname"], $_REQUEST["kursstart"], $_REQUEST["kursende"], $_REQUEST["sichtbarkeit"], $benutzername, $_REQUEST["beschreibung"]);
-            $kurs = new Kurs(
-                    $_REQUEST["kursid"],
-                    $_REQUEST["kursname"],
-                    $_REQUEST["kursstart"],
-                    $_REQUEST["kursende"],
-                    $_REQUEST["sichtbarkeit"],
-                    $benutzername,
-                    $_REQUEST["beschreibung"]); 
-            $status = "Erfolgreich geändert."; 
-        }
-              return new ViewModel(['kurs' => $kurs,
-        		'status' => $status]);    
-    }*/
     
     public function kursviewAction(){
     	if(isset($_POST["back"]) && !empty($_POST["kurs_id"]))
@@ -230,8 +195,7 @@ class KursController extends AbstractActionController
                         'benutzer_kurs' => $benutzer_kurs]);
            
     }
-    
-    
+
     
     public function singleinviteAction() {
     	
@@ -269,11 +233,7 @@ class KursController extends AbstractActionController
 	    	else header("refresh:0; url = /kurs/showkurse");
 	    	exit;
     }
-    	
-    
-    
-    
-    
+
     
     public function csvinviteAction(){
     	
@@ -389,6 +349,7 @@ class KursController extends AbstractActionController
    		exit;
     } 
 
+    
     public function enterkursAction() {
    	/* zeitliche G�ltigkeit des Kurses �berpr�fen
    	 * 2 - Kurs ist abgelaufen
@@ -470,10 +431,6 @@ class KursController extends AbstractActionController
    	
    	
     }
-   
-   
-   
-
 
 
     public function uploadAction(){	
@@ -607,6 +564,7 @@ class KursController extends AbstractActionController
     	}
     }
     
+    
     public function signoutkursAction(){
         if($_SERVER['REQUEST_METHOD'] == 'POST') {
             $benutzer_kurs = new Benutzer_Kurs();
@@ -656,13 +614,6 @@ class KursController extends AbstractActionController
 	
 	
 }*/
-    public function testseiteAction(){
-    	$zert = new Kurs();
-    	$zertladen = $zert->loadZertifizierer();
-    	return new Viewmodel (['result' => $zertladen]);
-    }
-
-
 
     
     /*
@@ -790,10 +741,6 @@ class KursController extends AbstractActionController
 		
 	}
 	}
-	
-	
-
-
 }
 
    				
