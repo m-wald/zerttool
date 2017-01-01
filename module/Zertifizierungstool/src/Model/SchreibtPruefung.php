@@ -33,6 +33,7 @@ class SchreibtPruefung {
 		$db = new Db_connection();
 		$conn = $db->getConnection();
 	
+		/*
 		$query = "INSERT INTO schreibt_pruefung (pruefung_id, benutzername, zeitpunkt, bestanden) VALUES ("
 				.$this->pruefung_id	. ", '"
 				.$this->benutzername. "', '"
@@ -41,7 +42,6 @@ class SchreibtPruefung {
 	
 		$result = mysqli_query($conn, $query);
 	
-		/*
 		if(!empty(mysqli_error($conn))) {
 			// Fehler bei der Datenbankabfrage
 			echo mysqli_error($conn);
