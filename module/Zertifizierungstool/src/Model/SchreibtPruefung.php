@@ -22,4 +22,35 @@ class SchreibtPruefung {
 		$this->zeitpunkt    = $zeitpunkt;
 		$this->bestanden 	= $bestanden;
 	}
+	
+	/**
+	 * Fügt die Daten des aktuellen Objekts als neuen Datensatz in der Datenbank.
+	 * Setzt auch die Id des Objekts mit dem Wert, der von der DB automatisch zugeteilt wurde.
+	 *
+	 * @return boolean false, falls ein Fehler aufgetreten ist. Sonst true.
+	 */
+	public function saveNew() {
+		$db = new Db_connection();
+		$conn = $db->getConnection();
+	
+		$query = "INSERT INTO schreibt_pruefung (pruefung_id, benutzername, zeitpunkt, bestanden) VALUES ("
+				.$this->pruefung_id	. ", '"
+						.$this->benutzername. "', '"
+								.$this->zeitpunkt ."', "
+										.$this->bestanden .")" ;
+	
+										$result = mysqli_query($conn, $query);
+	
+										if(!$result) {
+											// Fehler bei der Datenbankabfrage
+											echo mysqli_error($conn);
+											echo "<br>" . $query;
+											return false;
+												
+										} else {
+											// Id des eben eingefügten Datensatzes auslesen und im Objekt setzen
+											$this->id = mysqli_insert_id($conn);
+											return true;
+										}
+	}
 }
