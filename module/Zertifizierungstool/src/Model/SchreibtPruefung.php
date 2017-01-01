@@ -35,22 +35,22 @@ class SchreibtPruefung {
 	
 		$query = "INSERT INTO schreibt_pruefung (pruefung_id, benutzername, zeitpunkt, bestanden) VALUES ("
 				.$this->pruefung_id	. ", '"
-						.$this->benutzername. "', '"
-								.$this->zeitpunkt ."', "
-										.$this->bestanden .")" ;
+				.$this->benutzername. "', '"
+				.$this->zeitpunkt ."', "
+				.$this->bestanden .")" ;
 	
-										$result = mysqli_query($conn, $query);
+		$result = mysqli_query($conn, $query);
 	
-										if(!$result) {
-											// Fehler bei der Datenbankabfrage
-											echo mysqli_error($conn);
-											echo "<br>" . $query;
-											return false;
-												
-										} else {
-											// Id des eben eingefügten Datensatzes auslesen und im Objekt setzen
-											$this->id = mysqli_insert_id($conn);
-											return true;
-										}
+		if(!$result) {
+			// Fehler bei der Datenbankabfrage
+			echo mysqli_error($conn);
+			echo "<br>" . $query;
+			return false;
+					
+		} else {
+			// Id des eben eingefügten Datensatzes auslesen und im Objekt setzen
+			$this->id = mysqli_insert_id($conn);
+			return true;
+		}
 	}
 }

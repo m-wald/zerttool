@@ -41,17 +41,17 @@ class PruefungController extends AbstractActionController {
 		
 		// Prüfungs-Id aus URL laden
 		$pruefung_id = $this->params()->fromRoute('id');
-		
-		
+
 		// Eintrag in Tabelle schreibt_pruefung
 		$datetime = new \DateTime();
 		$datetime->format('U = Y-m-d H:i:s');
 		$schreibt_pruefung = new SchreibtPruefung("", $pruefung_id, User::currentUser()->getBenutzername(), $datetime, 0);
-		/*
+		
 		if (!$schreibt_pruefung->saveNew()) {
 			array_push($errors, "Fehler Nr.1 beim Vorbereiten der Prüfungsfragen!");
 		}
 
+		/*
 		// Alle Fragen zur Prüfung laden
 		$fragen = Frage::loadList($pruefung_id);
 		
