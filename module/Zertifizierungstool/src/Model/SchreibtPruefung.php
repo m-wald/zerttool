@@ -30,6 +30,7 @@ class SchreibtPruefung {
 	 * @return boolean false, falls ein Fehler aufgetreten ist. Sonst true.
 	 */
 	public function saveNew() {
+		/*
 		$db = new Db_connection();
 		$conn = $db->getConnection();
 	
@@ -52,5 +53,6 @@ class SchreibtPruefung {
 			$this->id = mysqli_insert_id($conn);
 			return true;
 		}
+		*/
 	}
 }
