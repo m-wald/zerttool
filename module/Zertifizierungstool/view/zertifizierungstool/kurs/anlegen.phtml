@@ -39,7 +39,7 @@
  * 
  */
 ?>
-<form>
+<form action="anlegen" method="POST">
     <div class="form-group">
         <label for="kursname"> Kursname </label>
         <input type="text" class="form-control" placeholder="Musterkurs" required>
@@ -54,14 +54,14 @@
     </div>
     <div class="form-group">
         <label for="sichtbarkeit"> Sichtbarkeit </label>
-        <select name="sichtbarkeit">
+        <select name="sichtbarkeit" class="form-control">
 			<option value= 1 >sichtbar</option>
 			<option value= 0 selected>nicht sichtbar</option>
         </select>
     </div>
     <div class="form-group">
         <label for="beschreibung"> Beschreibung </label>
-        <input type="text" class="form-control" placeholder="Kursbeschreibung" required>
+        <textarea name="beschreibung" class="form-control" placeholder="Kursbeschreibung" required></textarea>
     </div>
-  <button type="submit" class="btn btn-default">Submit</button>
+  <button type="submit" class="btn btn-default">Kurs anlegen</button>
 </form>
