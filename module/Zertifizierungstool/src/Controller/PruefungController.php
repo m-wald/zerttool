@@ -47,6 +47,7 @@ class PruefungController extends AbstractActionController {
 		array_push($errors, $pruefung_id);
 		array_push($errors, User::currentUser()->getBenutzername());
 		array_push($errors, time());
+		$schreibt_test = new Schreibt_pruefung();
 		/*
 		if (!$schreibt_pruefung->saveNew()) {
 			array_push($errors, "Fehler Nr.1 beim Vorbereiten der Prüfungsfragen!");
