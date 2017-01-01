@@ -30,25 +30,15 @@ class SchreibtPruefung {
 	 * @return boolean false, falls ein Fehler aufgetreten ist. Sonst true.
 	 */
 	public function saveNew() {
-		//$db = new Db_connection();
-		//$conn = $db->getConnection();
-	
-		$datetime = new \DateTime();
-		$datetime->format('U = Y-m-d H:i:s');
+		$db = new Db_connection();
+		$conn = $db->getConnection();
 		
-		
-		$query = "INSERT INTO schreibt_pruefung (pruefung_id, benutzername, zeitpunkt, bestanden) VALUES ("
-					.$this->pruefung_id .", '"
-					.User::currentUser()->getBenutzername() ."', '"
-					.strftime('Y-m-d H:i:s') ."'";
-		/*
 		$query = "INSERT INTO schreibt_pruefung (pruefung_id, benutzername, zeitpunkt, bestanden) VALUES ("
 				.$this->pruefung_id	. ", '"
-				.$this->benutzername. "', '"
-				.$this->zeitpunkt ."', "
-				.$this->bestanden .")" ;
+				.User::currentUser()->getBenutzername(). "', '"
+				.strftime('Y-m-d H:i:s') ."', "
+				."0)" ;
 		
-		/*
 		$result = mysqli_query($conn, $query);
 	
 		if(!empty(mysqli_error($conn))) {
@@ -62,6 +52,5 @@ class SchreibtPruefung {
 			$this->id = mysqli_insert_id($conn);
 			return true;
 		}
-		*/
 	}
 }
