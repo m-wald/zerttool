@@ -16,7 +16,7 @@ use ZendPdf\Image;
 
 class KursController extends AbstractActionController
 {   
-	public function anlegenAction(){
+	public function createAction(){
         
         if($_SERVER['REQUEST_METHOD'] == 'POST') {
             
