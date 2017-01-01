@@ -116,6 +116,43 @@ class Kurs {
         }*/
     }
     
+    
+    
+    /*
+     * Prüft ob der User den KUrs bestanden hat
+     */    
+    
+    public function kursResult($benutzername, $kurs_id){
+    	$db = new Db_connection();
+    	if((User::currentUser()->istTeilnehmer())){
+    		$query = "SELECT bestanden FROM benutzer_kurs WHERE benutzername = '".$benutzername."' 
+    					AND kurs_id = ".$kurs_id." ;";
+    		$result = $db->execute($query);    		 
+    		
+    		if (mysqli_fetch_all($result))	 	return true;
+    		else 								return false;
+    	}
+    }
+    
+    /*
+     * List von alle bestandene Kurse vom Benutzer
+     */
+    
+    public function pdfList($benutzername){
+    	$db = new Db_connection();
+    	if((User::currentUser()->istTeilnehmer())){
+    		$query = "SELECT benutzer_kurs.kurs_id, kurs.kurs_name FROM benutzer_kurs
+    				JOIN kurs ON kurs.kurs_id = benutzer_kurs.kurs_id
+    				WHERE benutzer_kurs.benutzername = '".$benutzername."' AND bestanden = 1
+    				;";
+    		$result = $db->execute($query);
+    	
+    		if (mysqli_num_rows($result) > 0) 	return $result;
+    		else 								return 0;
+    	}
+    }
+    
+    
     /*
      * LÃ¤dt die archivierten Kurse
      */

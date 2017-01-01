@@ -44,6 +44,11 @@
                     <input size="70" maxlength="250" value="Kursdokumente anzeigen" type="submit">
                 </form> <br>
                 
+                <form method="post" action="pdf">
+				<input type="hidden" value="pdf" name='pdf'>
+				<input type="submit" value="Zertifikat herunterladen">
+				</form><br>
+                
                 <?php 
                     // Prüfen, ob Teilnehmer für den Kurs schon eingetragen ist
                     // Wenn Benutzer im Kurs eingetragen ist, dann kann er austreten
@@ -63,6 +68,8 @@
                                                 <input type="hidden" name="enterpubliccourse">
                                                 <input size="70" maxlength="250" value="Kurs beitreten" type="submit">
                                             </form> <br>
+                                            
+                                        
                                             <?php
                                         }
                     ?>
@@ -98,12 +105,9 @@
                     </form>
                     <br><br>
                     
-                    <form method="post" action="pdf">
-					<input type="hidden" value="pdf" name='pdf'>
-					<input type="submit" value="Zertifikat herunterladen!">
-					</form>
+                    
 					
-					 <br><br>
+					
 					
                     <a href="<?= $this->url('pruefung', ['action' => 'overview', 'id' => $kurs->getKurs_id()])?>"><button type="button">Zu den Pr&uuml;fungen</button></a>
                 <?php }} ?>
