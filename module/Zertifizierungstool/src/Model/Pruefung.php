@@ -173,7 +173,8 @@ class Pruefung {
 		$db = new Db_connection();
 		$conn = $db->getConnection();
 	
-		$query = "SELECT * FROM pruefung natural join anzahl_mitgeschrieben natural join bestehensquote WHERE kurs_id = " .$kurs_id;
+		$query = "SELECT pruefung_id, pruefung_name, pruefung_ab, cutscore, kurs_id, anzahl_mitgeschrieben, bestehensquote FROM pruefung natural join anzahl_mitgeschrieben natural join bestehensquote where kurs_id=".$kurs_id."
+				  union all select pruefung_id, pruefung_name, pruefung_ab, cutscore, kurs_id, 0, 0 from pruefung where kurs_id=".$kurs_id." and pruefung_id not in (select pruefung_id from anzahl_mitgeschrieben) order by pruefung_id;";
 	
 		$result = mysqli_query($conn, $query);
 	
@@ -181,9 +182,7 @@ class Pruefung {
 			// Fehler bei der Datenbankabfrage
 			return false;
 	
-		} else {
-			if (mysqli_num_rows($result)==0){
-				return -1;
+		
 			}
 			$return_array = array();
 			while ($row = mysqli_fetch_assoc($result)) {
@@ -202,7 +201,7 @@ class Pruefung {
 	
 			return $return_array;
 		}
-	}
+	
 	
 	
 	

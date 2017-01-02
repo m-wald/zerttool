@@ -8,25 +8,18 @@ use Zertifizierungstool\Model\Pruefung;
 <h3> alle Pr&uuml;fungen:</h3>
 
 
-<table class="table table-striped">>
+<table class="table table-striped">
 <tr><th width="30%">Pr&uuml;fung</th><th width="30%">Anzahl der Pr&uuml;flinge</th><th width="30%">Bestehensquote</th></tr>
 <?php 
 
-if (isset($pruefungsliste_empty)) {
-	foreach($pruefungsliste_empty as $p) {
-		?>
-		
-	<tr><td height="40px"><?php echo $p->getName();?></td><td>0</td><td>0</td></tr>
-	
-<?php }
-} else {
+
 
 foreach($pruefungsliste as $p) {
 	?>
 	
-<tr><td><?php echo $p->getName();?></td><td><?php echo $p->getAnzahlMitgeschrieben(); ?></td><td><?php echo $p->getBestehensquote();?></td></tr>
+<tr><td><?php echo $p->getName();?></td><td><?php echo $p->getAnzahlMitgeschrieben(); ?></td><td><?php echo $p->getBestehensquote();?></td><td><form method="post" action="statisticlistquestions"><?php if($p->getAnzahlMitgeschrieben()>0){?><input type="submit" name="Einzelne Fragen auflisten" value=<?php echo $p->getId();}?>></form></td> </tr>
 
-<?php }}?>
+<?php }?>
 
 
 </table>
