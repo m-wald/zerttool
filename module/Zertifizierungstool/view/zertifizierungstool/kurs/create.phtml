@@ -5,7 +5,8 @@
 
     //Nur Zertifizierer und Admin haben auf diese Seite Zugriff
     if (!User::currentUser()->istZertifizierer() || !User::currentUser()->istAdmin()) {
-        header("refresh:0; url = /user/home");
+        header("Location: /user/home.phtml");
+        exit();
     }
     if ($message == 'erfolgt'){
         echo "Daten konnten erfolgreich gespeichert werden. <br> 
