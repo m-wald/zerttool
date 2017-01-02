@@ -13,6 +13,7 @@ use ZendPdf\Page;
 use ZendPdf\Exception;
 use ZendPdf\Style;
 use ZendPdf\Image;
+use Zertifizierungstool\Model\Pruefung;
 
 class KursController extends AbstractActionController
 {   
@@ -740,6 +741,18 @@ class KursController extends AbstractActionController
 		*/
 		
 	}
+	}
+	
+	
+	public function showstatisticAction() {
+		
+		
+		$pruefung = new Pruefung();
+		
+		$pruefungsliste = $pruefung->loadstatistics($_SESSION['kurs_id']);
+		
+		return new ViewModel(['pruefungsliste' => $pruefungsliste]);
+		
 	}
 }
 

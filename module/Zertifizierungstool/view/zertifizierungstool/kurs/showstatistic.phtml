@@ -1,0 +1,23 @@
+<?php
+
+use Zertifizierungstool\Model\Pruefung;
+?>
+
+
+<h1> Kursstatistik </h1>
+<h3> alle Pr&uuml;fungen:</h3>
+
+
+<table>
+<tr><th>Pr&uuml;fung</th><th>Anzahl der Pr&uuml;flinge</th><th>Bestehensquote</th></tr>
+<?php 
+
+foreach($pruefungsliste as $p) {
+	?>
+	
+<tr><td><?php $p->getName();?></td><td><?php $p->getAnzahlMitgeschrieben(); ?></td><td><?php $p->getBestehensquote();?></td></tr>
+
+<?php }?>
+
+
+</table>
