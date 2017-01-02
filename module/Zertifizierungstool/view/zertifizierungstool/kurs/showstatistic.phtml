@@ -17,7 +17,7 @@ use Zertifizierungstool\Model\Pruefung;
 foreach($pruefungsliste as $p) {
 	?>
 	
-<tr><td><?php echo $p->getName();?></td><td><?php echo $p->getAnzahlMitgeschrieben(); ?></td><td><?php echo $p->getBestehensquote();?></td><td><form method="post" action="statisticlistquestions"><?php if($p->getAnzahlMitgeschrieben()>0){?><input type="submit" name="Einzelne Fragen auflisten" value=<?php echo $p->getId();}?>></form></td> </tr>
+<tr><td><?php echo $p->getName();?></td><td><?php echo $p->getAnzahlMitgeschrieben(); ?></td><td><?php echo $p->getBestehensquote();?></td><td><form method="post" action="statisticlistquestions"><?php if($p->getAnzahlMitgeschrieben()>0){?><input type="submit" name="Einzelne Fragen auflisten" value=<?php echo $p->getId();?>><?php }?></form></td> </tr>
 
 <?php }?>
 
