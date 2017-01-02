@@ -43,17 +43,15 @@ class PruefungController extends AbstractActionController {
 		$pruefung_id = $this->params()->fromRoute('id');
 
 		// Eintrag in Tabelle schreibt_pruefung
-		$datetime = new \DateTime();
-		$datetime->format('U = Y-m-d H:i:s');
-		$schreibt_pruefung = new SchreibtPruefung("", $pruefung_id, User::currentUser()->getBenutzername(), $datetime, 0);
+		$schreibt_pruefung = new SchreibtPruefung("", $pruefung_id);
 		
 		if (!$schreibt_pruefung->saveNew()) {
-			array_push($errors, "Fehler Nr.1 beim Vorbereiten der Prüfungsfragen!");
+			array_push($errors, "Fehler beim Vorbereiten der Prüfung!");
 		}
 		
-		/*
 		// Alle Fragen zur Prüfung laden
 		$fragen = Frage::loadList($pruefung_id);
+		// TODO Fehler
 		
 		// Für jede Frage:
 		foreach ($fragen as $frage) {
@@ -66,16 +64,16 @@ class PruefungController extends AbstractActionController {
 				// extra-Attribut "edited"? (gesetzt sobal User auf "Weiter" oder so geklickt hat)
 				$beantwortet = new Beantwortet("", $schreibt_pruefung->getId(), $antwort->getId(), 0);
 				if (!$beantwortet->saveNew()) {
-					array_push($errors, "Fehler Nr.2 beim Vorbereiten der Prüfungsfragen!");
+					array_push($errors, "Fehler beim Vorbereiten der Prüfungsfragen!");
 				}
 			}
 		}
 		
 		if (empty($errors)) {
-			// Weiterleiten an FrageController Action answer mit Id der ersten Prüfungsfrage
-			header("refresh:0; url = /frage/answer/" .$schreibt_pruefung->getId()); //statt fragen[0]->getId()
+			// Weiterleiten an FrageController Action answer
+			header("refresh:0; url = /frage/answer/" .$schreibt_pruefung->getId());
 		}
-		*/
+
 		return new ViewModel(['errors' => $errors]);
 	}
 	
