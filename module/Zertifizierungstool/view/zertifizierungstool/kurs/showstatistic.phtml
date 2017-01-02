@@ -12,12 +12,21 @@ use Zertifizierungstool\Model\Pruefung;
 <tr><th>Pr&uuml;fung</th><th>Anzahl der Pr&uuml;flinge</th><th>Bestehensquote</th></tr>
 <?php 
 
+if (isset($pruefungsliste_empty)) {
+	foreach($pruefungsliste_empty as $p) {
+		?>
+		
+	<tr><td><?php $p->getName();?></td><td>0</td><td>0</td></tr>
+	
+<?php }
+} else {
+
 foreach($pruefungsliste as $p) {
 	?>
 	
 <tr><td><?php $p->getName();?></td><td><?php $p->getAnzahlMitgeschrieben(); ?></td><td><?php $p->getBestehensquote();?></td></tr>
 
-<?php }?>
+<?php }}?>
 
 
 </table>

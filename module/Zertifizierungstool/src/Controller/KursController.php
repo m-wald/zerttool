@@ -751,6 +751,11 @@ class KursController extends AbstractActionController
 		
 		$pruefungsliste = $pruefung->loadstatistics($_SESSION['kurs_id']);
 		
+		if($pruefungsliste==-1) {
+			$pruefungsliste = $pruefung->loadList($_SESSION['kurs_id']);
+			return new ViewModel(['pruefungsliste_empty' => $pruefungsliste]);
+		}
+		
 		return new ViewModel(['pruefungsliste' => $pruefungsliste]);
 		
 	}

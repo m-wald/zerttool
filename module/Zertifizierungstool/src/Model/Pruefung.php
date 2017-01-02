@@ -182,6 +182,9 @@ class Pruefung {
 			return false;
 	
 		} else {
+			if (mysqli_num_rows($result)==0){
+				return -1;
+			}
 			$return_array = array();
 			while ($row = mysqli_fetch_assoc($result)) {
 				$p = new Pruefung(
