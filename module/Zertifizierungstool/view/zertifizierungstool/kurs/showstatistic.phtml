@@ -8,15 +8,15 @@ use Zertifizierungstool\Model\Pruefung;
 <h3> alle Pr&uuml;fungen:</h3>
 
 
-<table>
-<tr><th>Pr&uuml;fung</th><th>Anzahl der Pr&uuml;flinge</th><th>Bestehensquote</th></tr>
+<table class="table table-striped">>
+<tr><th width="30%">Pr&uuml;fung</th><th width="30%">Anzahl der Pr&uuml;flinge</th><th width="30%">Bestehensquote</th></tr>
 <?php 
 
 if (isset($pruefungsliste_empty)) {
 	foreach($pruefungsliste_empty as $p) {
 		?>
 		
-	<tr><td><?php echo $p->getName();?></td><td>0</td><td>0</td></tr>
+	<tr><td height="40px"><?php echo $p->getName();?></td><td>0</td><td>0</td></tr>
 	
 <?php }
 } else {
