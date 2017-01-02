@@ -4,7 +4,9 @@
     use Zertifizierungstool\Model\User;
     
     //Nur eingeloggte Benutzer hab auf diese Seite Zugriff
-    if (!User::currentUser()->istZertifizierer() || !User::currentUser()->istAdmin()) {
+    if (User::currentUser()->istZertifizierer() || User::currentUser()->istAdmin()) {
+         //mach nix
+    } else {
         header("Location: /user/home");
         exit();
     }
