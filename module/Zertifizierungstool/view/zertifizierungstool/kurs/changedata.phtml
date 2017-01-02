@@ -3,6 +3,13 @@
 <?php 
     
 use Zertifizierungstool\Model\Kurs;
+use Zertifizierungstool\Model\User;
+
+//Nur eingeloggte Benutzer hab auf diese Seite Zugriff
+if (!User::currentUser()->istZertifizierer() || !User::currentUser()->istAdmin()) {
+    header("Location: /user/home");
+    exit();
+}
 
 if (isset($status)) {
 	echo $status;

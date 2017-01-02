@@ -1,7 +1,14 @@
 <h1>Kurs</h1>
 <?php
     use Zertifizierungstool\Model\Kurs;
+    use Zertifizierungstool\Model\User;
     use Zertifizierungstool\Model\Benutzer_Kurs;
+    
+    //Nur eingeloggte Benutzer hab auf diese Seite Zugriff
+    if (!User::currentUser()->istZertifizierer() || !User::currentUser()->istAdmin() || !User::currentUser()->istTeilnehmer()) {
+        header("Location: /user/home");
+        exit();
+    }
 ?>
 
 <head>
@@ -48,7 +55,7 @@
     </div>
     
     	 <br>
-   					 <form method="post" action="pdf">
+   					<form method="post" action="pdf">
 					<input type="hidden" value="pdflist" name='pdflist'>
 					<input type="submit" value="Meine Zertifikate anzeigen">
 					</form>

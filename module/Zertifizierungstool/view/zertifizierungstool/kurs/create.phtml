@@ -1,23 +1,25 @@
 <h1>Kurs anlegen</h1>
 
 <?php
-    use Zertifizierungstool\Model\User;
 
-    //Nur Zertifizierer und Admin haben auf diese Seite Zugriff
-    if (!User::currentUser()->istZertifizierer() || !User::currentUser()->istAdmin()) {
-        header("Location: /user/home");
-        exit();
-    }
-    if ($message == 'erfolgt'){
-        echo "Daten konnten erfolgreich gespeichert werden. <br> 
-              Sie werden auf die Home-Seite weiterverbunden. <br>";
-        header("refresh:4; url = /user/home");
-    }
-    elseif ($error == 'falsedate'){
-        echo "<b><font color ='red'>Kursende wurde vor dem Kursbeginn erfasst.</font> <br>";
-    }elseif ($error == 'nichterfolgt'){
-    	echo "<b><font color ='red'>Daten konnten nicht gespeichert werden.</font> <br>";
-    }
+use Zertifizierungstool\Model\User;
+
+//Nur eingeloggte Benutzer hab auf diese Seite Zugriff
+if (!User::currentUser()->istZertifizierer() || !User::currentUser()->istAdmin()) {
+    header("Location: /user/home");
+    exit();
+}
+
+if ($message == 'erfolgt'){
+    echo "Daten konnten erfolgreich gespeichert werden. <br> 
+          Sie werden auf die Home-Seite weiterverbunden. <br>";
+    header("refresh:4; url = /user/home");
+}
+elseif ($error == 'falsedate'){
+    echo "<b><font color ='red'>Kursende wurde vor dem Kursbeginn erfasst.</font> <br>";
+}elseif ($error == 'nichterfolgt'){
+    echo "<b><font color ='red'>Daten konnten nicht gespeichert werden.</font> <br>";
+}
 		
 ?>
 <br>

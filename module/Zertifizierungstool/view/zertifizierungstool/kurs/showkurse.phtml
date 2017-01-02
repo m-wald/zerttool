@@ -2,6 +2,12 @@
 <?php
     use Zertifizierungstool\Model\Kurs;
     use Zertifizierungstool\Model\User;
+    
+    //Nur eingeloggte Benutzer hab auf diese Seite Zugriff
+    if (!User::currentUser()->istZertifizierer() || !User::currentUser()->istAdmin() || !User::currentUser()->istTeilnehmer()) {
+        header("Location: /user/home");
+        exit();
+    }
 ?>
 
 <head>
