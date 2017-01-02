@@ -16,7 +16,7 @@ if (isset($pruefungsliste_empty)) {
 	foreach($pruefungsliste_empty as $p) {
 		?>
 		
-	<tr><td><?php $p->getName();?></td><td>0</td><td>0</td></tr>
+	<tr><td><?php echo $p->getName();?></td><td>0</td><td>0</td></tr>
 	
 <?php }
 } else {
@@ -24,7 +24,7 @@ if (isset($pruefungsliste_empty)) {
 foreach($pruefungsliste as $p) {
 	?>
 	
-<tr><td><?php $p->getName();?></td><td><?php $p->getAnzahlMitgeschrieben(); ?></td><td><?php $p->getBestehensquote();?></td></tr>
+<tr><td><?php echo $p->getName();?></td><td><?php echo $p->getAnzahlMitgeschrieben(); ?></td><td><?php echo $p->getBestehensquote();?></td></tr>
 
 <?php }}?>
 
