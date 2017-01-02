@@ -1,7 +1,12 @@
 <h1>Kurs anlegen</h1>
 
 <?php
+    use Zertifizierungstool\Model\User;
 
+    //Nur Zertifizierer und Admin haben auf diese Seite Zugriff
+    if (!User::currentUser()->istZertifizierer() || !User::currentUser()->istAdmin()) {
+        header("refresh:0; url = /user/home");
+    }
     if ($message == 'erfolgt'){
         echo "Daten konnten erfolgreich gespeichert werden. <br> 
               Sie werden auf die Home-Seite weiterverbunden. <br>";
