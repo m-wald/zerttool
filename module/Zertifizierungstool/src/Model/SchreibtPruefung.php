@@ -53,4 +53,6 @@ class SchreibtPruefung {
 			return true;
 		}
 	}
+	
+	public function getId() { return $this->id; }
 }
