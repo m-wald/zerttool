@@ -9,9 +9,9 @@ use Zertifizierungstool\Model\Pruefung;
 use Zertifizierungstool\Model\User;
 use Zertifizierungstool\Model\Frage;
 use Zertifizierungstool\Model\Antwort;
-use Zertifizierungstool\Model\Schreibt_pruefung;
 use Zertifizierungstool\Model\Beantwortet;
 use Zertifizierungstool\Model\Kurs;
+use Zertifizierungstool\Model\SchreibtPruefung;
 
 /**
  * Controller, der Aufgaben verarbeitet, die sich auf die Entität "Frage" und "Antwort" beziehen.
@@ -26,7 +26,7 @@ class FrageController extends AbstractActionController {
 	public function answerAction() {
 		// Alle Fragen zur Prüfung laden
 		$schreibt_pruefung_id = $this->params()->fromRoute('id');
-		$schreibt_pruefung = new Schreibt_pruefung();
+		$schreibt_pruefung = new SchreibtPruefung();
 		$schreibt_pruefung->load($schreibt_pruefung_id);
 		
 		$fragen = Frage::loadList($schreibt_pruefung->getPruefungId());

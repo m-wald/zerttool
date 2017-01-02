@@ -2,6 +2,7 @@
 namespace Zertifizierungstool\Model;
 
 use Zertifizierungstool\Model\Db_connection;
+use Zend\Crypt\PublicKey\Rsa\PublicKey;
 
 /**
  * @author Martin
@@ -54,5 +55,32 @@ class SchreibtPruefung {
 		}
 	}
 	
+	public function load($id) {
+		$db = new Db_connection();
+	
+		$query = "SELECT * FROM schreibt_pruefung WHERE schreibt_pruefung_id = " .$id;
+	
+		$result = $db->execute($query);
+	
+		if(!$result || !mysqli_num_rows($result) > 0) {
+			// Fehler bei der Datenbankabfrage oder keine Frage mit der Id gefunden
+			return false;
+		}
+			
+		$row = mysqli_fetch_assoc($result);
+	
+		$this->id		= $id;
+		$this->pruefung_id 	= $row["pruefung_id"];
+		$this->benutzername   = $row["benutzername"];
+		$this->zeitpunkt  = $row["zeitpunkt"];
+		$this->bestanden = $row["bestanden"];
+	
+		return true;
+	}
+	
 	public function getId() { return $this->id; }
+	public function getPruefungId() { return $this->pruefung_id; }
+	public function getBenutzername() { return $this->benutzername; }
+	public function getZeitpunkt() { return $this->zeitpunkt; }
+	public function getBestanden() { return $this->bestanden; }
 }
