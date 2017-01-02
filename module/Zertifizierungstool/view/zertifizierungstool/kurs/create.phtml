@@ -5,7 +5,7 @@
 
     //Nur Zertifizierer und Admin haben auf diese Seite Zugriff
     if (!User::currentUser()->istZertifizierer() || !User::currentUser()->istAdmin()) {
-        header("Location: /user/home.phtml");
+        header("Location: /user/home");
         exit();
     }
     if ($message == 'erfolgt'){
