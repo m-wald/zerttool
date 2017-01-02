@@ -18,13 +18,19 @@ class Pruefung {
 	private $termin;
 	private $kurs_id;
 	private $cutscore;
+	private $anzahlmitgeschrieben;
+	private $bestehensquote;
 	
-	public function __construct($id = "", $name = "", $termin = "", $kursid = "", $cutscore = "") {
+	
+	public function __construct($id = "", $name = "", $termin = "", $kursid = "", $cutscore = "", $anzahlmitgeschrieben="", $bestehensquote="") {
 		$this->id		= $id;
 		$this->name		= $name;
 		$this->termin	= $termin;
 		$this->kurs_id  = $kursid;
 		$this->cutscore = $cutscore;
+		$this->anzahlmitgeschrieben = $anzahlmitgeschrieben;
+		$this->bestehensquote = $bestehensquote;
+		
 	}
 	
 	/**
@@ -161,12 +167,53 @@ class Pruefung {
 	}
 	
 	
+	/** lädt alle Prüfungen eines Kurses und liefert die Anzahl der Absolventen und die Bestehensquote mit **/
+	
+	public static function loadstatistics($kurs_id) {
+		$db = new Db_connection();
+		$conn = $db->getConnection();
+	
+		$query = "SELECT * FROM pruefung natural join anzahl_mitgeschrieben natural join bestehensquote WHERE kurs_id = " .$kurs_id;
+	
+		$result = mysqli_query($conn, $query);
+	
+		if(!$result) {
+			// Fehler bei der Datenbankabfrage
+			return false;
+	
+		} else {
+			$return_array = array();
+			while ($row = mysqli_fetch_assoc($result)) {
+				$p = new Pruefung(
+						$row["pruefung_id"],
+						$row["pruefung_name"],
+						$row["pruefung_ab"],
+						$row["kurs_id"],
+						$row["cutscore"],
+						$row["anzahl_mitgeschrieben"],
+						$row["bestehensquote"]);
+						
+	
+				array_push($return_array, $p);
+			}
+	
+			return $return_array;
+		}
+	}
+	
+	
+	
+	
+	
+	
 	// Getter methods
 	public function getId() 	  {return $this->id;}	
 	public function getName() 	  {return $this->name;}
 	public function getTermin()   {return $this->termin;}
 	public function getKursId()   {return $this->kurs_id;}
 	public function getCutscore() {return $this->cutscore;}
+	public function getAnzahlMitgeschrieben() {return $this->anzahlmitgeschrieben;}
+	public function getBestehensquote() {return $this->bestehensquote;}
 	
 	
 	// Setter methods
