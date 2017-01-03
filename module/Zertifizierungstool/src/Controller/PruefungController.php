@@ -62,11 +62,10 @@ class PruefungController extends AbstractActionController {
 			
 			// Für jede Antwort:
 			foreach ($antworten as $antwort) {
-				echo $schreibt_pruefung->getId() . "_____" .$antwort->getId();
-				/*
 				// Objekt von "beantwortet" erzeugen und in Db speichern
 				// extra-Attribut "edited"? (gesetzt sobal User auf "Weiter" oder so geklickt hat)
 				$beantwortet = new Beantwortet("", $schreibt_pruefung->getId(), $antwort->getId(), 0);
+				/*
 				if (!$beantwortet->saveNew()) {
 					array_push($errors, "Fehler beim Vorbereiten der Prüfungsfragen!");
 				}
