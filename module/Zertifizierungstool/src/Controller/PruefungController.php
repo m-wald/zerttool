@@ -118,7 +118,7 @@ class PruefungController extends AbstractActionController {
 			$minus = new \DateTime('2017-03-31');
 			$kursende = strftime('Y-m-d', $kurs->getKurs_ende());
 			array_push($errors, "Ende mit strftime: " .$kursende);
-			$minus = new \DateTime($kursende);
+			//$minus = new \DateTime($kursende);
 			array_push($errors, "Ende: " .$minus->format('Y-m-d'));
 			$minus->modify('-4 days');
 			array_push($errors, "Ende - 4: " .$minus->format('Y-m-d'));
