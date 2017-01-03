@@ -114,7 +114,7 @@ class PruefungController extends AbstractActionController {
 		
 		if ($kurs->load($this->pruefung->getKursId())) {
 			$minus = new \DateTime();
-			$minus->setTimestamp(strtotime($kurs->getKurs_ende()));
+			//$minus->setTimestamp(strtotime($kurs->getKurs_ende()));
 			
 			array_push($errors, "Ende: " .strftime('Y-m-d', $minus));
 			$minus->modify('-4 days');
