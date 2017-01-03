@@ -14,6 +14,7 @@
 		
 		if ($frage->getTyp() == 'TF') {?>
 		<form>
+			<input type="hidden" name="typ" value="TF" >
 			<input type="hidden" name="antwort_id" value="<?=$antworten[0]->getId()?>">
 			<input type="radio"  name="tf" value="true"  <?php if ($antworten[0]->getStatus() == 1) echo "checked";?>> Wahr<br>
 			<input type="radio"  name="tf" value="false" <?php if ($antworten[0]->getStatus() == 0) echo "checked";?>> Falsch<br>
@@ -23,6 +24,7 @@
 		</form>	
 		
 		<?php }else {
+			// <input type="hidden" name="typ" value="MC" >
 			foreach ($antworten as $antwort) {?>
 				
 		<?php	

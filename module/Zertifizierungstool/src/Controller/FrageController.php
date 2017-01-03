@@ -48,7 +48,7 @@ class FrageController extends AbstractActionController {
 		// Nachdem Formular angesendet wurde:
 		if ($_REQUEST['speichern']) {
 			// TODO typ aus request!
-			if ($this->frage->getTyp() == 'TF') {
+			if ($_REQUEST['typ'] == 'TF') {
 				if ($_REQUEST['tf'] == true) {
 					$success = Beantwortet::setTrue($schreibt_pruefung_id, $_REQUEST['antwort_id']);
 				} else {
@@ -68,7 +68,7 @@ class FrageController extends AbstractActionController {
 			// Ermitteln der nächsten Frage im Array
 			
 		return new ViewModel([
-				'frage'		=> $this->frage,
+				'frage'		=> $frage,
 				'antworten' => $antworten,
 				'next_index' => $next_index,
 				'schreibt_pruefung_id' => $schreibt_pruefung_id,
