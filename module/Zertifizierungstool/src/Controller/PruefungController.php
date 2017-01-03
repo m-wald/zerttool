@@ -121,7 +121,7 @@ class PruefungController extends AbstractActionController {
 			if ($this->pruefung->getTermin() < $kurs->getKurs_start()) {
 				array_push($errors, "Der Pr&uuml;fungszeitraum kann erst nach Kursbeginn starten!");
 					
-			}elseif ($this->pruefung->getTermin() > $minus) {
+			}elseif ($this->pruefung->getTermin() > $minus->format('Y-m-d')) {
 				array_push($errors, "Der Pr&uuml;fungszeitraum muss mindestens 4 Tage vor Kursende starten!");
 			}
 		}else {
