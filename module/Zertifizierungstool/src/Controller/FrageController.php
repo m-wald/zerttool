@@ -31,16 +31,8 @@ class FrageController extends AbstractActionController {
 		
 		$fragen = Frage::loadList($schreibt_pruefung->getPruefungId());
 		
-		foreach ($fragen as $frage) {
-			echo $frage->getText();
-		}
-		
 		// Array nach Id sortieren
 		array_multisort($fragen);
-		
-		foreach ($fragen as $frage) {
-			echo $frage->getText();
-		}
 		
 		// Ermitteln der nächsten Id nach der aktuellen im Array TODO Was bei letzter Id? Wieder zur ersten Frage?
 		if (isset($_REQUEST['next_index'])) {	
@@ -49,7 +41,7 @@ class FrageController extends AbstractActionController {
 			$next_index = 0;
 		}
 
-		$frage = $fragen[$nextid];
+		$frage = $fragen[$next_index];
 		// Alle Antworten zu dieser Frage laden
 		$antworten = Antwort::loadList($frage->getId());
 		
