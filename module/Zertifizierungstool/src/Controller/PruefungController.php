@@ -115,10 +115,10 @@ class PruefungController extends AbstractActionController {
 		if ($kurs->load($this->pruefung->getKursId())) {
 			$minus = new \DateTime();
 			//$minus->setTimestamp(strtotime($kurs->getKurs_ende()));
-			
-			array_push($errors, "Ende: " .strftime('Y-m-d', $minus));
+			$minus = new \DateTime('2017-03-31');
+			array_push($errors, "Ende: " .$minus->format('Y-m-d'));
 			$minus->modify('-4 days');
-			array_push($errors, "Ende - 4: " .strftime('Y-m-d', $minus));
+			array_push($errors, "Ende - 4: " .$minus->format('Y-m-d'));
 			
 			if ($this->pruefung->getTermin() < $kurs->getKurs_start()) {
 				array_push($errors, "Der Pr&uuml;fungszeitraum kann erst nach Kursbeginn starten!");
