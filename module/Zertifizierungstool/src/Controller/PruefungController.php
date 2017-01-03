@@ -113,12 +113,7 @@ class PruefungController extends AbstractActionController {
 		$kurs = new Kurs();
 		
 		if ($kurs->load($this->pruefung->getKursId())) {
-			$minus = new \DateTime();
-			//$minus->setTimestamp(strtotime($kurs->getKurs_ende()));
-			$minus = new \DateTime('2017-03-31');
-			$kursende = strftime('%F', strtotime($kurs->getKurs_ende()));
-			array_push($errors, "Ende mit strftime: " .$kursende);
-			//$minus = new \DateTime($kursende);
+			$minus = new \DateTime(strftime('%F', strtotime($kurs->getKurs_ende())));
 			array_push($errors, "Ende: " .$minus->format('Y-m-d'));
 			$minus->modify('-4 days');
 			array_push($errors, "Ende - 4: " .$minus->format('Y-m-d'));
@@ -126,7 +121,7 @@ class PruefungController extends AbstractActionController {
 			if ($this->pruefung->getTermin() < $kurs->getKurs_start()) {
 				array_push($errors, "Der Pr&uuml;fungszeitraum kann erst nach Kursbeginn starten!");
 					
-			}elseif ($this->pruefung->getTermin() > date_sub(new \DateTime($kurs->getKurs_ende()), new \DateInterval("P4D"))) {
+			}elseif ($this->pruefung->getTermin() > $minus) {
 				array_push($errors, "Der Pr&uuml;fungszeitraum muss mindestens 4 Tage vor Kursende starten!");
 			}
 		}else {
