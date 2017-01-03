@@ -28,10 +28,10 @@ class Beantwortet {
 	 * @return boolean false, falls ein Fehler aufgetreten ist. Sonst true.
 	 */
 	public function saveNew() {
+		/*
 		$db = new Db_connection();
 		$conn = $db->getConnection();
 		
-		/*
 		$query = "INSERT INTO beantwortet (schreibt_pruefung_id, antwort_id, status) VALUES ("
 					.$this->schreibt_pruefung_id	. ", "
 					.$this->antwort_id	. ", "
