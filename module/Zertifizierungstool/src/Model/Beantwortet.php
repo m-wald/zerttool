@@ -7,7 +7,7 @@ use Zertifizierungstool\Model\Db_connection;
  * @author Martin
  *
  */
-class Beantwortet2 {
+class Beantwortet {
 	
 	private $id;		
 	private $schreibt_pruefung_id;

@@ -10,9 +10,8 @@ use Zertifizierungstool\Model\Kurs;
 use Zertifizierungstool\Model\User;
 use Zertifizierungstool\Model\Frage;
 use Zertifizierungstool\Model\Antwort;
-use Zertifizierungstool\Model\Schreibt_pruefung;
-use Zertifizierungstool\Model\Beantwortet;
 use Zertifizierungstool\Model\SchreibtPruefung;
+use Zertifizierungstool\Model\Beantwortet;
 
 /**
  * Controller, der Aufgaben verarbeitet, die sich auf die Entität "Prüfung" beziehen.
