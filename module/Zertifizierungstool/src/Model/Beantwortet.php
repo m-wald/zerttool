@@ -50,4 +50,49 @@ class Beantwortet {
 			return true;
 		}
 	}
+	
+	//TODO zusammenfassen
+	/**
+	 * Setzt in der DB "True" als abgebene Antwort
+	 */
+	public static function setTrue($schreibt_pruefung, $antwort) {
+		$db = new Db_connection();
+		$conn = $db->getConnection();
+		
+		$query = "UPDATE beantwortet SET status = 1 WHERE "
+					."schreibt_pruefung_id = " .$schreibt_pruefung
+					."AND antwort_id = "	   .$antwort;
+				
+		$result = mysqli_query($conn, $query);
+			
+		if (is_bool($result) && $result == false) {
+			echo $query;
+			echo '<br>' .mysqli_error($conn);
+			return false;
+		} else {
+			return true;
+		}
+	}
+						
+	/**
+	* Setzt in der DB "False" als abgebene Antwort
+	*/
+	public static function setFalse($schreibt_pruefung, $antwort) {
+		$db = new Db_connection();
+		$conn = $db->getConnection();
+							
+		$query = "UPDATE beantwortet SET status = 1 WHERE "
+					."schreibt_pruefung_id = " .$schreibt_pruefung
+					."AND antwort_id = "	   .$antwort;
+									
+		$result = mysqli_query($conn, $query);
+									
+		if (is_bool($result) && $result == false) {
+			echo $query;
+			echo '<br>' .mysqli_error($conn);
+			return false;
+		} else {
+			return true;
+		}
+	}
 }

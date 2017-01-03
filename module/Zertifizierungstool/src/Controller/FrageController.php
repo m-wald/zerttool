@@ -31,8 +31,16 @@ class FrageController extends AbstractActionController {
 		
 		$fragen = Frage::loadList($schreibt_pruefung->getPruefungId());
 		
+		foreach ($fragen as $frage) {
+			echo $frage->getText();
+		}
+		
 		// Array nach Id sortieren
 		array_multisort($fragen);
+		
+		foreach ($fragen as $frage) {
+			echo $frage->getText();
+		}
 		
 		// Ermitteln der nächsten Id nach der aktuellen im Array TODO Was bei letzter Id? Wieder zur ersten Frage?
 		if (isset($_REQUEST['next_index'])) {	
@@ -47,6 +55,7 @@ class FrageController extends AbstractActionController {
 		
 		// Nachdem Formular angesendet wurde:
 		if ($_REQUEST['speichern']) {
+			// TODO typ aus request!
 			if ($this->frage->getTyp() == 'TF') {
 				if ($_REQUEST['tf'] == true) {
 					$success = Beantwortet::setTrue($schreibt_pruefung_id, $_REQUEST['antwort_id']);

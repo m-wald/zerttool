@@ -72,7 +72,7 @@ class PruefungController extends AbstractActionController {
 		
 		if (empty($errors)) {
 			// Weiterleiten an FrageController Action answer
-			//header("refresh:0; url = /frage/answer/" .$schreibt_pruefung->getId());
+			header("refresh:0; url = /frage/answer/" .$schreibt_pruefung->getId());
 		}
 
 		return new ViewModel(['errors' => $errors]);
