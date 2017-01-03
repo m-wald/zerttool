@@ -31,7 +31,7 @@ class Beantwortet {
 		$db = new Db_connection();
 		$conn = $db->getConnection();
 		
-		$query = "INSERT INTO beantwortet (schreibt_pruefung_id, antwort_id, status) VALUES ("
+		$query = "INSERT INTO beantwortet (schreibt_pruefung_id, antwort_id, beantwortet_status) VALUES ("
 				.$this->schreibt_pruefung_id	. ", "
 				.$this->antwort_id	. ", "
 				.$this->status.")" ;
