@@ -38,7 +38,7 @@ class Beantwortet {
 		
 		$result = mysqli_query($conn, $query);
 				
-		if(!$result) {
+		if(!empty(mysqli_error($conn))) {
 			// Fehler bei der Datenbankabfrage
 			echo mysqli_error($conn);
 			echo "<br>" . $query;

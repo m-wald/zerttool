@@ -55,8 +55,6 @@ class PruefungController extends AbstractActionController {
 		
 		// Für jede Frage:
 		foreach ($fragen as $frage) {
-			echo "<br>" .$frage->getText();
-			
 			// Alle Antworten laden
 			$antworten = Antwort::loadList($frage->getId());
 			
@@ -65,11 +63,10 @@ class PruefungController extends AbstractActionController {
 				// Objekt von "beantwortet" erzeugen und in Db speichern
 				// extra-Attribut "edited"? (gesetzt sobal User auf "Weiter" oder so geklickt hat)
 				$beantwortet = new Beantwortet("", $schreibt_pruefung->getId(), $antwort->getId(), 0);
-				/*
 				if (!$beantwortet->saveNew()) {
 					array_push($errors, "Fehler beim Vorbereiten der Prüfungsfragen!");
+					continue;
 				}
-				*/
 			}
 		}
 		
