@@ -51,22 +51,25 @@ class PruefungController extends AbstractActionController {
 		
 		// Alle Fragen zur Prüfung laden
 		$fragen = Frage::loadList($pruefung_id);
-		// TODO Fehler
+		// TODO Fehler oder leeres Array
 		
 		// Für jede Frage:
 		foreach ($fragen as $frage) {
+			echo "<br>" .$frage->getText();
+			/*
 			// Alle Antworten laden
 			$antworten = Antwort::loadList($frage->getId());
 			
 			// Für jede Antwort:
 			foreach ($antworten as $antwort) {
-				// Objekt von "beantwortet" erzeugen mit schreibt_pruefung->getId(), antwort->getId(), beantwortet_status = 0 ->in Db speichern
+				// Objekt von "beantwortet" erzeugen und in Db speichern
 				// extra-Attribut "edited"? (gesetzt sobal User auf "Weiter" oder so geklickt hat)
 				$beantwortet = new Beantwortet("", $schreibt_pruefung->getId(), $antwort->getId(), 0);
 				if (!$beantwortet->saveNew()) {
 					array_push($errors, "Fehler beim Vorbereiten der Prüfungsfragen!");
 				}
 			}
+			*/
 		}
 		
 		if (empty($errors)) {
