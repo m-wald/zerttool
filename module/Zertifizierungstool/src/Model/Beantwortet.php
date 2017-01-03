@@ -31,6 +31,7 @@ class Beantwortet {
 		$db = new Db_connection();
 		$conn = $db->getConnection();
 		
+		/*
 		$query = "INSERT INTO beantwortet (schreibt_pruefung_id, antwort_id, status) VALUES ("
 					.$this->schreibt_pruefung_id	. ", "
 					.$this->antwort_id	. ", "
@@ -49,6 +50,7 @@ class Beantwortet {
 			$this->id = mysqli_insert_id($conn);
 			return true;
 		}
+		*/
 	}
 	
 	/**
