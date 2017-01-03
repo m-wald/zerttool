@@ -63,13 +63,10 @@ class PruefungController extends AbstractActionController {
 				// extra-Attribut "edited"? (gesetzt sobal User auf "Weiter" oder so geklickt hat)
 				$beantwortet = new Beantwortet("", $schreibt_pruefung->getId(), $antwort->getId(), 0);
 				
-				$beantwortet->saveNew();
-				/*
 				if (!$beantwortet->saveNew()) {
 					array_push($errors, "Fehler beim Vorbereiten der Prüfungsfragen!");
 					continue;
 				}
-				*/
 			}
 		}
 		
