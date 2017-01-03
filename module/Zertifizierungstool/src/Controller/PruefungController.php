@@ -99,42 +99,44 @@ class PruefungController extends AbstractActionController {
 		$errors = array();
 		
 		if (isset($request['speichernPruefung'])) {
+		// Der Benutzer hat das Formular abgesendet
 		
-		$this->pruefung = new Pruefung(
-				$request["pruefid"],
-				$request["name"],
-				$request["termin"],
-				$request["kursid"],
-				$request["cutscore"] / 100 );
+			// Neues Prüfungs-Objekt mit den Daten aus dem Formular erzeugen
+			$this->pruefung = new Pruefung(
+					$request["pruefid"],
+					$request["name"],
+					$request["termin"],
+					$request["kursid"],
+					$request["cutscore"] / 100 );
 		
-		// TODO Format des Prüfungstermins überprüfen
-		// Prüfungstermin validieren
-		//array_push($errors, $this->checkDate());
-		$kurs = new Kurs();
+			// TODO Format des Prüfungstermins überprüfen
+			// Prüfungstermin validieren -> Muss nach Kursbeginn und mind. 4 Tage vor Kursende liegen
+			$kurs = new Kurs();
 		
-		if ($kurs->load($this->pruefung->getKursId())) {
-			$minus = new \DateTime(strftime('%F', strtotime($kurs->getKurs_ende())));
-			array_push($errors, "Ende: " .$minus->format('Y-m-d'));
-			$minus->modify('-4 days');
-			array_push($errors, "Ende - 4: " .$minus->format('Y-m-d'));
-			
-			if ($this->pruefung->getTermin() < $kurs->getKurs_start()) {
-				array_push($errors, "Der Pr&uuml;fungszeitraum kann erst nach Kursbeginn starten!");
+			if ($kurs->load($this->pruefung->getKursId())) {
+				if ($this->pruefung->getTermin() < $kurs->getKurs_start()) {
+					array_push($errors, "Der Pr&uuml;fungszeitraum kann erst nach Kursbeginn starten!");
 					
-			}elseif ($this->pruefung->getTermin() > $minus->format('Y-m-d')) {
-				array_push($errors, "Der Pr&uuml;fungszeitraum muss mindestens 4 Tage vor Kursende starten!");
-			}
-		}else {
-			array_push($errors, "Der Kurs wurde nicht in der Datenbank gefunden!");
-		}
-			
-		if (empty($errors)) {
-			if ($this->pruefung->save()) {
-				header ("refresh:0; url = /frage/create/" .$this->pruefung->getId());
+				}else {
+					// Datum ermitteln, zu dem die Prüfung spätestens verfügbar sein muss
+					$latest_date = new \DateTime(strftime('%F', strtotime($kurs->getKurs_ende())));
+					$latest_date->modify('-4 days');
+					if ($this->pruefung->getTermin() > $latest_date->format('Y-m-d')) {
+						array_push($errors, "Der Pr&uuml;fungszeitraum muss mindestens 4 Tage vor Kursende starten! Also spätestens am " .$latest_date->format('d.m.Y'));
+					}
+				}
 			}else {
-				array_push($errors, "Fehler beim Speichern der Pr&uuml;fung. Bitte erneut versuchen!");
+				array_push($errors, "Der Kurs wurde nicht in der Datenbank gefunden!");
 			}
-		}
+			
+			// Falls bisher keine Fehler aufgetreten sind, versuchen die Prüfung zu speichern
+			if (empty($errors)) {
+				if ($this->pruefung->save()) {
+					header ("refresh:0; url = /frage/create/" .$this->pruefung->getId());
+				}else {
+					array_push($errors, "Fehler beim Speichern der Pr&uuml;fung. Bitte erneut versuchen!");
+				}
+			}
 		}
 
 		$viewModel = new ViewModel([
@@ -230,35 +232,5 @@ class PruefungController extends AbstractActionController {
 				'pruefungen' => $pruefungen,
 				'kursid'	 => $kursid
 		]);
-	}
-	
-	/**
-	 * Überprüft den Prüfungstermin nach folgenden Kriterien:
-	 *  - nach Kursbeginn
-	 *  - mindestens 4 Tage vor Kursende
-	 *  
-	 * @param Die zu überprüfende Prüfung $pruefung
-	 * @return Eventuelle Fehlermeldung
-	 */
-	private function checkDate() {
-		$error;
-		$kurs = new Kurs();
-		
-		if ($kurs->load($this->pruefung->getKursId())) {
-			if ($this->pruefung->getTermin() < $kurs->getKurs_start()) {
-				$error= "Der Pr&uuml;fungszeitraum kann erst nach Kursbeginn starten!";
-			
-			}elseif ($this->pruefung->getTermin() > date_sub(new \DateTime($kurs->getKurs_ende()), new \DateInterval("P4D"))) {
-				echo "Kursende: " .strtotime($kurs->getKurs_ende());
-				echo "<br>Kursende ohne strtotime: " .$kurs->getKurs_ende();
-				echo "<br>Kursende mit DateTime: " .new \DateTime(strtotime($kurs->getKurs_ende()));
-				echo "<br>Minus 4 Tage: " .date_sub(new \DateTime($kurs->getKurs_ende()), new \DateInterval("P4D"));
-				$error = "Der Pr&uuml;fungszeitraum muss mindestens 4 Tage vor Kursende starten!";
-			}
-		}else {
-			$error = "Der Kurs wurde nicht in der Datenbank gefunden!";
-		}
-		
-		return $error;
 	}
 }
