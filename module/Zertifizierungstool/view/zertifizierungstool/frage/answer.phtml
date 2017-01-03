@@ -1,8 +1,27 @@
+<style>
+#FragenListe {
+	float:left;
+	border: 5pt;
+	border-color: black;
+	border-style: solid;
+	width: 40%;
+	padding: 2em;
+	}
+
+#Frage {
+	padding: 2em;
+	margin-left: 40%;
+	border: 5pt;
+	border-color: black;
+	border-style: solid;
+	width: 60%;
+	}
+</style>
 <div id="FragenListe">
 	<h3>Fragen</h3>
 	<table>
 	<?php foreach ($fragen as $f) { ?>
-			<tr><td><?=$f->getText()?></td><td><a href="<?= $this->url('frage', ['action' => 'answer', 'id' => $f->getId()]) ?>"><button type="button" <?=$frageDisabled?>>Antworten</button></a></td><td>Flag, ob schon geantwortet</td></tr>		
+			<tr><td><?=$f->getText()?></td><td><a href="<?= $this->url('frage', ['action' => 'answer', 'id' => $f->getId()]) ?>"><button type="button">Antworten</button></a></td><td>Flag, ob schon geantwortet</td></tr>		
 	<?php } ?>
 	</table>
 </div>
@@ -26,7 +45,7 @@
 		<?php }else {
 			// <input type="hidden" name="typ" value="MC" >
 			foreach ($antworten as $antwort) {?>
-				
+				Mc Frage...
 		<?php	
 			}
 		}
