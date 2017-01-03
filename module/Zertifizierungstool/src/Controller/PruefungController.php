@@ -62,7 +62,7 @@ class PruefungController extends AbstractActionController {
 			
 			// Für jede Antwort:
 			foreach ($antworten as $antwort) {
-				echo "<br> Antwort: " .$antwort->getText();
+				echo $schreibt_pruefung->getId() . "_____" .$antwort->getId();
 				/*
 				// Objekt von "beantwortet" erzeugen und in Db speichern
 				// extra-Attribut "edited"? (gesetzt sobal User auf "Weiter" oder so geklickt hat)
