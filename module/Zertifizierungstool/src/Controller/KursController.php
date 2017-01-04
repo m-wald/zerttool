@@ -744,8 +744,30 @@ class KursController extends AbstractActionController
 	}
 	
 	
+	/** Anzeige der Kursstatistik mit Auflistung aller Prüfungen dieses Kurses
+	 * (Prüfungsname, Anzahl der Prüflinge, Bestehensquote der jeweiligen Prüfung)
+	 */ 
+	
 	public function showstatisticAction() {
 		
+		/** Berechtigungsprüfung: falls nicht eingeloggt, Weiterleitung zum Login
+		 * falls Admin bzw. Zertifizierer, dann nur Anzeige der Kursstatistik, falls man in Kursview auf Button
+		 * "Kursstatistik" geklickt hat (hier wird Session mit Kurs-ID gesetzt, die für richtige Statistik nötig ist
+		 * ansonsten Weiterleitung zur Übersicht aller selbst verwalteten Kurse
+		 * falls Teilnehmer, Weiterleitung zur Home-Seite
+		 */
+		
+		if(User::currentUser()->getBenutzername()==NULL){
+			header("refresh:0; url= /user/login");
+			exit;
+		}
+		
+		if(User::currentUser()->istTeilnehmer()){
+			header("refresh:0; url= /user/home");
+			exit;
+		}
+		
+		if((User::currentUser()->istZertifizierer() || User::currentUser()->istAdmin()) && $_POST['site']=='kursview') {
 		
 		$pruefung = new Pruefung();
 		
@@ -754,6 +776,12 @@ class KursController extends AbstractActionController
 		
 		
 		return new ViewModel(['pruefungsliste' => $pruefungsliste]);
+		}
+		
+		else{
+			header("refresh:0; url= kurs/showkurse");
+			exit;
+		}
 		
 	}
 }
