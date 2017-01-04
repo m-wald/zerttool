@@ -21,13 +21,12 @@
     <div class="container">
     	<h3>Aktuell verf&uuml;gbare Kurse: </h3>
             <table class="table table-hover">
-        
-        <tr>
-        	<th> KursID </th>
-		<th> KursName </th>
-		<th> Kursstart </th>
-		<th> Kursende </th>
-	</tr>
+                <tr>
+                        <th> KursID </th>
+                        <th> KursName </th>
+                        <th> Kursstart </th>
+                        <th> Kursende </th>
+                </tr>
 		
 		<?php
 			foreach($result as $r){ ?>
@@ -42,16 +41,18 @@
 				<td> <form accept-charset="utf-8" method="POST" action="changedata">
 						<input type="hidden" value="<?=$r->getKurs_id()?>" name="kurs_id">
 						<input size="70" maxlength="250" value="ändern" type="submit">
-					</form> </td>
+                                     </form> 
+                                </td>
                                 <?php } ?>
 					
-			<td> <form accept-charset="utf-8" method="POST" action="kursview">
+                                <td> <form accept-charset="utf-8" method="POST" action="kursview">
 						<input type="hidden" value="<?=$r->getKurs_id()?>" name="kurs_id">
 						<input size="70" maxlength="250" value="anzeigen" type="submit">
-					</form> </td>
+                                     </form> 
+                                </td>
 			
 			</tr>
-		<?php }?>
+                        <?php }?>
 		
 		</table>
 
