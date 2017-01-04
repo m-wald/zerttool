@@ -86,13 +86,13 @@ class Kurs {
         if (mysqli_num_rows($result) > 0) {
             $return_array = array();
             while ($row = mysqli_fetch_assoc($result)) {
-                    $kurse = new Kurs(
+                    $kurse = new Kurs();/*
                             $row["kurs_id"],
                             $row["kurs_name"],
                             $row["kurs_start"],
                             $row["kurs_ende"],
                             $row["sichtbarkeit"],
-                            $row["benutzername"]);
+                            $row["benutzername"]);*/
                     
                     array_push($return_array, $kurse);
             }
