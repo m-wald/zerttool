@@ -32,21 +32,21 @@
 	</tr>
 		
 		<?php
-			foreach($result as $row){ ?>
+			foreach($result as $r){ ?>
 			<tr>
-				<td><?=$row['kurs_id']?></td>
-				<td><?=$row['kurs_name']?></td>
-                                <td><?=$row['kurs_start']?></td>
-                                <td><?=$row['kurs_ende']?></td>
+				<td><?=$r->getKurs_id()?></td>
+				<td><?=$r->getKurs_name()?></td>
+                                <td><?=$r->getKurs_start()?></td>
+                                <td><?=$r->getKurs_ende()?></td>
 					
                                 <td><form accept-charset="utf-8" method="POST" action="kursview">
-						<input type="hidden" value="<?=$row['kurs_id']?>"name="kurs_id">
+						<input type="hidden" value="<?=$r->getKurs_id()?>"name="kurs_id">
 						<input size="70" maxlength="250" value="anzeigen" type="submit">
                                     </form> </td>
                                 
                                  
 				<td><form accept-charset="utf-8" method="POST" action="changedata">
-						<input type="hidden" value="<?=$row['kurs_id']?>"name="kurs_id">
+						<input type="hidden" value="<?=$r->getKurs_id()?>"name="kurs_id">
                                                 <input type="hidden" value=1 name="archiv">
 						<input size="70" maxlength="250" value="Kursdaten kopieren" type="submit">
                                     </form> </td>
