@@ -78,8 +78,6 @@ class Kurs {
     	
     	$result = $db->execute($query);
     
-    	
-        
         //if (mysqli_num_rows($result) > 0){
         	// TODO Ihr �bergebt hier direkt das Ergebnis der Datenbankabfrage.
         	// Besser w�rs, wenn ihr f�r jeden Datensatz ein neues Objekt von der Klasse "Kurs" anlegt und in ein Array speichert.
