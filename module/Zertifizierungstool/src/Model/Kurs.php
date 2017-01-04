@@ -177,8 +177,28 @@ class Kurs {
         }    	
     	$result = $db->execute($query);
         
-        if (mysqli_num_rows($result) > 0){
+        /*if (mysqli_num_rows($result) > 0){
             return $result;
+        } else {
+            //kein Ergebnis gefunden
+            return 0;
+        }*/
+        
+        if (mysqli_num_rows($result) > 0) {
+            $return_array = array();
+            while ($row = mysqli_fetch_assoc($result)) {
+                    $kurse = new Kurs(
+                            $row["kurs_id"],
+                            $row["kurs_name"],
+                            $row["kurs_start"],
+                            $row["kurs_ende"],
+                            $row["sichtbarkeit"],
+                            $row["benutzername"]);
+                    
+                    array_push($return_array, $kurse);
+            }    
+            return $return_array;
+    
         } else {
             //kein Ergebnis gefunden
             return 0;
@@ -197,9 +217,29 @@ class Kurs {
             $result = $db->execute($query);
         }
 
-        if (mysqli_num_rows($result) > 0){
+        /*if (mysqli_num_rows($result) > 0){
             return $result;
         }else{
+            return 0;
+        }*/
+        
+        if (mysqli_num_rows($result) > 0) {
+            $return_array = array();
+            while ($row = mysqli_fetch_assoc($result)) {
+                    $kurse = new Kurs(
+                            $row["kurs_id"],
+                            $row["kurs_name"],
+                            $row["kurs_start"],
+                            $row["kurs_ende"],
+                            $row["sichtbarkeit"],
+                            $row["benutzername"]);
+                    
+                    array_push($return_array, $kurse);
+            }    
+            return $return_array;
+    
+        } else {
+            //kein Ergebnis gefunden
             return 0;
         }
     }
