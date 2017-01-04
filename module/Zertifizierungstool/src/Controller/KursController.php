@@ -473,10 +473,17 @@ class KursController extends AbstractActionController
    	
    	elseif(isset($_REQUEST['enterpubliccourse'])){
    		$benutzer_kurs=new Benutzer_Kurs();
-   		$benutzer_kurs->insert(User::currentUser()->getBenutzername(), $_REQUEST['kurs_id']);
+   		$result = $benutzer_kurs->insert(User::currentUser()->getBenutzername(), $_REQUEST['kurs_id']);
+   		
+   		if($result == 1) {
    		$_SESSION['kurs']=$_REQUEST['kurs_id'];
    	
    		return new ViewModel(['meldung' => 'erfolgreich']);
+   		}
+   		if($result == -1){
+   			return new ViewModel(['meldung' => 'alreadyexists']);
+   		}
+   		else return new ViewModel(['meldung' => 'datenbankfehler']);
    	
    	}
    	
@@ -486,9 +493,16 @@ class KursController extends AbstractActionController
    	elseif(User::currentUser()->getBenutzername() == $_REQUEST['benutzername'] && !isset($_REQUEST['email'])){
    	
    	    	$benutzer_kurs=new Benutzer_Kurs();
-   	    	$benutzer_kurs->insert($_REQUEST['benutzername'], $_REQUEST['kurs_id']);
-   	
+   	    	$result = $benutzer_kurs->insert($_REQUEST['benutzername'], $_REQUEST['kurs_id']);
+   	    	
+   	if($result == 1){
    	    	return new ViewModel(['meldung'=> 'erfolgreich']);
+   	}
+   	    	
+   	    	if($result == -1){
+   	    		return new ViewModel(['meldung' => 'alreadyexists']);
+   	    	}
+   	    	else return new ViewModel(['meldung' => 'datenbankfehler']);
    	    }
    	
    	    
