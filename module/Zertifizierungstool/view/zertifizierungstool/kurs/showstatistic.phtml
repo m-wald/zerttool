@@ -8,8 +8,11 @@ use Zertifizierungstool\Model\Pruefung;
 <h3> alle Pr&uuml;fungen:</h3>
 
 
-<table class="table table-striped">
-<tr><th width="30%">Pr&uuml;fung</th><th width="30%">Anzahl der Pr&uuml;flinge</th><th width="30%">Bestehensquote</th><th>&Oslash; ben&ouml;tigte Versuche</tr>
+<table class="table table-hover">
+<thead>
+<tr><th width="30%">Pr&uuml;fung</th><th width="30%">Anzahl der Pr&uuml;flinge</th><th width="30%">Bestehensquote</th><th colspan="2">&Oslash; ben&ouml;tigte Versuche</th></tr>
+</thead>
+<tbody>
 <?php 
 
 
@@ -21,5 +24,5 @@ foreach($pruefungsliste as $p) {
 
 <?php }?>
 
-
+</tbody>
 </table>
