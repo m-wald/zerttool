@@ -18,6 +18,19 @@ use Zertifizierungstool\Model\Pruefung;
 class KursController extends AbstractActionController
 {   
     public function createAction(){
+    	
+    	if(User::currentUser()->getBenutzername()==NULL){
+    		header("refresh:0; url= /user/login");
+    		exit;
+    	}
+    	
+    	if(User::currentUser()->istTeilnehmer()){
+    		header("refresh:0; url= /user/home");
+    		exit;
+    	}
+    	
+    		
+    	
         
         if($_SERVER['REQUEST_METHOD'] == 'POST') {
             
@@ -68,6 +81,12 @@ class KursController extends AbstractActionController
      * @return Kurse eines Zertifizierers, bzw. je nach Regelung die einsehabren Kurse für Admin und Teilnehmer an die View
      */
     public function showkurseAction(){
+    	
+    	if(User::currentUser()->getBenutzername()==NULL){
+    		header("refresh:0; url= /user/login");
+    		exit;
+    	}
+    	
         $kurs = new Kurs();
         /*
          * Wenn Zertifizierer, dann soll er nur seine Kurse angezeigt bekommen.
@@ -94,6 +113,17 @@ class KursController extends AbstractActionController
      * zum Anzeigen von Archivierten Kursen
      */
     public function showarchivedkurseAction() {
+    	
+    	if(User::currentUser()->getBenutzername()==NULL){
+    		header("refresh:0; url=/user/login");
+    		exit;
+    	}
+    	
+    	if(User::currentUser()->istTeilnehmer()){
+    		header("refresh:0; url=/user/home");
+    		exit;
+    	}
+    	
         $kurs = new Kurs();
         $kurseladen = $kurs->loadarchivedKurse(User::currentUser()->getBenutzername());
         return new ViewModel(['result' => $kurseladen]);
@@ -106,6 +136,18 @@ class KursController extends AbstractActionController
      * @return Kurse des Teilnehmers an die View
      */
     public function showsignedkurseAction() {
+    	
+    	if(User::currentUser()->getBenutzername()==NULL){
+    		header("refresh:0; url=/user/login");
+    		exit;
+    	}
+    	 
+    	if(User::currentUser()->istAdmin() || User::currentUser()->istZertifizierer()){
+    		header("refresh:0; url=/user/home");
+    		exit;
+    	}
+    	
+    	
         $kurs = new Kurs();
         if(User::currentUser()->istTeilnehmer()) {
             $signedkurse = $kurs->loadsignedkurse(User::currentUser()->getBenutzername());
@@ -119,6 +161,18 @@ class KursController extends AbstractActionController
      * @return Status (Fehler/Erfolg) und Kursdaten 
      */
     public function changedataAction(){
+    	
+    	
+    	if(User::currentUser()->getBenutzername()==NULL){
+    		header("refresh:0; url=/user/login");
+    		exit;
+    	}
+    	 
+    	if(User::currentUser()->istTeilnehmer()){
+    		header("refresh:0; url=/user/home");
+    		exit;
+    	}
+    	
     	
     	$id = $_REQUEST["kurs_id"];
         //aus archivierte Kurse
@@ -181,6 +235,14 @@ class KursController extends AbstractActionController
     
     
     public function kursviewAction(){
+    	
+    	if(User::currentUser()->getBenutzername()==NULL){
+    		header("refresh:0; url=/user/login");
+    		exit;
+    	}
+    	
+    	
+    	
     	if(isset($_POST["back"]) && !empty($_POST["kurs_id"]))
     		$id = $_POST["kurs_id"];
     	else 
@@ -244,7 +306,7 @@ class KursController extends AbstractActionController
     		exit;
     	}
     	
-    	if(User::currentUser()->istTeilnehmer()==true){
+    	if(User::currentUser()->istTeilnehmer()){
     		header("refresh:0; url = /user/home");
     		exit;
     	}
@@ -352,6 +414,23 @@ class KursController extends AbstractActionController
 
     
     public function enterkursAction() {
+   	
+   	
+   	if(!isset($_REQUEST['kurs_id'])) {
+   		
+   		if(User::currentUser()->getBenutzername()==NULL){
+   			header("refresh:0; url= /user/login");
+   			exit;
+   		}
+   		else{
+   			header("refresh:0; url= /user/home");
+   			exit;
+   		}
+   	}
+   	
+   	
+   	
+   	
    	/* zeitliche G�ltigkeit des Kurses �berpr�fen
    	 * 2 - Kurs ist abgelaufen
    	 * 0 - Kurs startet in der Zukunft
@@ -443,7 +522,7 @@ class KursController extends AbstractActionController
 		exit;
 	}
 	 
-	if(User::currentUser()->istTeilnehmer()==true){
+	if(User::currentUser()->istTeilnehmer()){
 		header("refresh:0; url = /user/home");
 		exit;
 	}
@@ -529,6 +608,18 @@ class KursController extends AbstractActionController
   
   
     public function showdocumentsAction(){
+    	
+    	if(User::currentUser()->getBenutzername()==NULL){
+    		header("refresh:0; url= /user/login");
+    		exit;
+    	}
+    	
+    	if(!$_POST['site']=="kursview") {
+    		header("refresh:0; url= /user/home");
+    		exit;
+    	}
+    	
+    	
         $id = $_SESSION['kurs_id'];
        // $id = 12;
         $name = $_SESSION['kurs_name'];
@@ -549,6 +640,18 @@ class KursController extends AbstractActionController
     
     
     public function deleteAction(){
+    	
+    	if(User::currentUser()->getBenutzername()==NULL) {
+    		header("refresh:0; url = /user/login");
+    		exit;
+    	}
+    	
+    	if(User::currentUser()->istTeilnehmer()) {
+    		header("refresh:0; url = /user/home");
+    		exit;
+    	}
+    	
+    	
     		
     	if($_SERVER['REQUEST_METHOD'] == 'POST' && $_POST['thissite']) {
     		
@@ -567,6 +670,15 @@ class KursController extends AbstractActionController
     
     
     public function signoutkursAction(){
+    	
+    	if(User::currentUser()->getBenutzername()==NULL) {
+    		header("refresh:0; url = /user/login");
+    		exit;
+    	}
+    	
+    	
+    	
+    	
         if($_SERVER['REQUEST_METHOD'] == 'POST') {
             $benutzer_kurs = new Benutzer_Kurs();
             $id = $_REQUEST['kurs_id'];
@@ -581,7 +693,8 @@ class KursController extends AbstractActionController
                 return new ViewModel(['meldung' => 'fehlerhaft']);
             }
         }
-        return new ViewModel();
+        header("refresh:0; url = /user/home");
+        exit;
     }
 
 

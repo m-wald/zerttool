@@ -13,14 +13,14 @@ if (User::currentUser()->istZertifizierer() || User::currentUser()->istAdmin()) 
 }
 
 if ($message == 'erfolgt'){
-    echo "Daten konnten erfolgreich gespeichert werden. <br> 
-          Sie werden auf die Home-Seite weiterverbunden. <br>";
-    header("refresh:4; url = /user/home");
+    echo "<b><font color='green'>Kurs wurde erfolgreich angelegt!</font><br><br> 
+          Sie werden zu Ihren Kursen weitergeleitet</b> <br>";
+    header("refresh:2; url = /kurs/showkurse");
 }
 elseif ($error == 'falsedate'){
-    echo "<b><font color ='red'>Kursende wurde vor dem Kursbeginn erfasst.</font> <br>";
+    echo "<b><font color ='red'>Kursende wurde vor dem Kursbeginn erfasst.</font></b> <br>";
 }elseif ($error == 'nichterfolgt'){
-    echo "<b><font color ='red'>Daten konnten nicht gespeichert werden.</font> <br>";
+    echo "<b><font color ='red'>Daten konnten nicht gespeichert werden.</font></b> <br>";
 }
 		
 ?>
