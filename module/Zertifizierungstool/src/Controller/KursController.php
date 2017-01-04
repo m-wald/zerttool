@@ -750,7 +750,7 @@ class KursController extends AbstractActionController
      * 
      */
 
-	public function pdfAction(){
+    public function pdfAction(){
 		
 		$benutzer = User::currentUser()->getBenutzername();
 		$vorname = User::currentUser()->getVorname();
@@ -868,19 +868,19 @@ class KursController extends AbstractActionController
 		*/
 		
 	}
-	}
+    }
 	
 	
-	/** Anzeige der Kursstatistik mit Auflistung aller Prüfungen dieses Kurses
-	 * (Prüfungsname, Anzahl der Prüflinge, Bestehensquote der jeweiligen Prüfung)
+	/** Anzeige der Kursstatistik mit Auflistung aller Prï¿½fungen dieses Kurses
+	 * (Prï¿½fungsname, Anzahl der Prï¿½flinge, Bestehensquote der jeweiligen Prï¿½fung)
 	 */ 
 	
 	public function showstatisticAction() {
 		
-		/** Berechtigungsprüfung: falls nicht eingeloggt, Weiterleitung zum Login
+		/** Berechtigungsprï¿½fung: falls nicht eingeloggt, Weiterleitung zum Login
 		 * falls Admin bzw. Zertifizierer, dann nur Anzeige der Kursstatistik, falls man in Kursview auf Button
-		 * "Kursstatistik" geklickt hat (hier wird Session mit Kurs-ID gesetzt, die für richtige Statistik nötig ist
-		 * ansonsten Weiterleitung zur Übersicht aller selbst verwalteten Kurse
+		 * "Kursstatistik" geklickt hat (hier wird Session mit Kurs-ID gesetzt, die fï¿½r richtige Statistik nï¿½tig ist
+		 * ansonsten Weiterleitung zur ï¿½bersicht aller selbst verwalteten Kurse
 		 * falls Teilnehmer, Weiterleitung zur Home-Seite
 		 */
 		
