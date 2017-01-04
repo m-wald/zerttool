@@ -20,9 +20,10 @@ class Pruefung {
 	private $cutscore;
 	private $anzahlmitgeschrieben;
 	private $bestehensquote;
+	private $durchschnitt_versuche;
 	
 	
-	public function __construct($id = "", $name = "", $termin = "", $kursid = "", $cutscore = "", $anzahlmitgeschrieben="", $bestehensquote="") {
+	public function __construct($id = "", $name = "", $termin = "", $kursid = "", $cutscore = "", $anzahlmitgeschrieben="", $bestehensquote="", $durchschnitt_versuche="") {
 		$this->id		= $id;
 		$this->name		= $name;
 		$this->termin	= $termin;
@@ -30,6 +31,7 @@ class Pruefung {
 		$this->cutscore = $cutscore;
 		$this->anzahlmitgeschrieben = $anzahlmitgeschrieben;
 		$this->bestehensquote = $bestehensquote;
+		$this->durchschnitt_versuche = $durchschnitt_versuche;
 		
 	}
 	
@@ -173,8 +175,8 @@ class Pruefung {
 		$db = new Db_connection();
 		$conn = $db->getConnection();
 	
-		$query = "SELECT pruefung_id, pruefung_name, pruefung_ab, cutscore, kurs_id, anzahl_mitgeschrieben, bestehensquote FROM pruefung natural join anzahl_mitgeschrieben natural join bestehensquote where kurs_id=".$kurs_id."
-				  union all select pruefung_id, pruefung_name, pruefung_ab, cutscore, kurs_id, 0, 0 from pruefung where kurs_id=".$kurs_id." and pruefung_id not in (select pruefung_id from anzahl_mitgeschrieben) order by pruefung_id;";
+		$query = "SELECT pruefung_id, pruefung_name, pruefung_ab, cutscore, kurs_id, anzahl_mitgeschrieben, bestehensquote, durchschnitt_versuche FROM pruefung natural join anzahl_mitgeschrieben natural join bestehensquote natural join durchschnitt_versuche where kurs_id=".$kurs_id."
+				  union all select pruefung_id, pruefung_name, pruefung_ab, cutscore, kurs_id, 0, 0, 0 from pruefung where kurs_id=".$kurs_id." and pruefung_id not in (select pruefung_id from anzahl_mitgeschrieben) order by pruefung_id;";
 	
 		$result = mysqli_query($conn, $query);
 	
@@ -194,6 +196,8 @@ class Pruefung {
 						$row["cutscore"],
 						$row["anzahl_mitgeschrieben"],
 						$row["bestehensquote"]);
+						$row["durchschnitt_versuche"];
+				
 						
 	
 				array_push($return_array, $p);
@@ -216,6 +220,7 @@ class Pruefung {
 	public function getCutscore() {return $this->cutscore;}
 	public function getAnzahlMitgeschrieben() {return $this->anzahlmitgeschrieben;}
 	public function getBestehensquote() {return $this->bestehensquote;}
+	public function getDurchschnittVersuche() {return $this->durchschnitt_versuche;}
 	
 	
 	// Setter methods
