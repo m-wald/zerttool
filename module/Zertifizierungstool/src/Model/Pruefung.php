@@ -195,8 +195,8 @@ class Pruefung {
 						$row["kurs_id"],
 						$row["cutscore"],
 						$row["anzahl_mitgeschrieben"],
-						$row["bestehensquote"]);
-						$row["durchschnitt_versuche"];
+						$row["bestehensquote"],
+						$row["durchschnitt_versuche"]);
 				
 						
 	
