@@ -779,7 +779,7 @@ class KursController extends AbstractActionController
 		}
 		
 		else{
-			header("refresh:0; url= kurs/showkurse");
+			header("refresh:0; url= /kurs/showkurse");
 			exit;
 		}
 		
