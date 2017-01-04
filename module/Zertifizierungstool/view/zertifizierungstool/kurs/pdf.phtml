@@ -48,15 +48,15 @@ if(isset($_POST['pdflist'])) {
 		<?php
 			foreach($list as $row){ ?>
 			<tr>
-				<td><?=$row['kurs_id']?></td>
-				<td><?=$row['kurs_name']?></td>
+				<td><?=$row->getKurs_id()?></td>
+				<td><?=$row->getKurs_name()?></td>
 				
                                 
                                 					
 			<td> <form accept-charset="utf-8" method="POST" action="pdf">
 						<input type="hidden" value="pdf" name='pdf'>
-						<input type="hidden" value="<?=$row['kurs_name']?>"name="kurs_name">
-						<input type="hidden" value="<?=$row['kurs_id']?>"name="kurs_id">
+						<input type="hidden" value="<?=$row->getKurs_name()?>"name="kurs_name">
+						<input type="hidden" value="<?=$row->getKurs_id()?>"name="kurs_id">
 						<input size="70" maxlength="250" value="Zertifikat" type="submit">
 					</form> </td>
 			
