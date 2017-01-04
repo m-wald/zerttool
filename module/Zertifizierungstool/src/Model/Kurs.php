@@ -91,11 +91,6 @@ class Kurs {
     	
     	$result = $db->execute($query);
     
-        //if (mysqli_num_rows($result) > 0){
-        	// TODO Ihr �bergebt hier direkt das Ergebnis der Datenbankabfrage.
-        	// Besser w�rs, wenn ihr f�r jeden Datensatz ein neues Objekt von der Klasse "Kurs" anlegt und in ein Array speichert.
-        	// Am Ende k�nnt ihr dann das Array zur�ckgeben und in der View dann einfach die getter-Methoden f�r das jeweilige Objekt aufrufen.
-        	// #Objektorientierung ;)
         if (mysqli_num_rows($result) > 0) {
             $return_array = array();
             while ($row = mysqli_fetch_assoc($result)) {
@@ -109,20 +104,9 @@ class Kurs {
                     
                     array_push($return_array, $kurse);
             }
-            
-            /*foreach ($return_array as $row) {	
-                $this->kurs_id          = $row['kurs_id'];
-                $this->kurs_name        = $row['kurs_name'];
-                $this->kurs_start       = $row['kurs_start'];
-                $this->kurs_ende        = $row['kurs_ende'];
-                $this->sichtbarkeit     = $row['sichtbarkeit'];
-                $this->benutzername     = $row['benutzername'];
-                $this->teilnehmerzahl   = $row['teilnehmerzahl'];
-            }*/
-            
+                        
             return $return_array;
          
-            //return $result;
         } else {
             //kein Ergebnis gefunden
             return 0;
@@ -160,8 +144,31 @@ class Kurs {
     				;";
     		$result = $db->execute($query);
     	
-    		if (mysqli_num_rows($result) > 0) 	return $result;
+    		/*if (mysqli_num_rows($result) > 0) 	return $result;
     		else 								return 0;
+                 * 
+                 */
+                
+                if (mysqli_num_rows($result) > 0) {
+                    $return_array = array();
+                    while ($row = mysqli_fetch_assoc($result)) {
+                            $kurse = new Kurs(
+                                    $row["kurs_id"],
+                                    $row["kurs_name"],
+                                    $row["kurs_start"],
+                                    $row["kurs_ende"],
+                                    $row["sichtbarkeit"],
+                                    $row["benutzername"]);
+
+                            array_push($return_array, $kurse);
+                    }
+
+                    return $return_array;
+         
+                } else {
+                    //kein Ergebnis gefunden
+                    return 0;
+                }
     	}
     }
     
@@ -176,13 +183,6 @@ class Kurs {
                             AND (CURRENT_DATE > kurs_ende);";
         }    	
     	$result = $db->execute($query);
-        
-        /*if (mysqli_num_rows($result) > 0){
-            return $result;
-        } else {
-            //kein Ergebnis gefunden
-            return 0;
-        }*/
         
         if (mysqli_num_rows($result) > 0) {
             $return_array = array();
@@ -216,12 +216,6 @@ class Kurs {
             $query = "SELECT * FROM benutzer_kurs JOIN kurs USING (kurs_id) WHERE benutzer_kurs.benutzername = '".$benutzername."' and (CURRENT_DATE between kurs_start and kurs_ende);";
             $result = $db->execute($query);
         }
-
-        /*if (mysqli_num_rows($result) > 0){
-            return $result;
-        }else{
-            return 0;
-        }*/
         
         if (mysqli_num_rows($result) > 0) {
             $return_array = array();
