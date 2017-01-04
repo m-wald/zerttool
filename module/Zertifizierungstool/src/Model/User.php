@@ -76,6 +76,10 @@ class User
 	public function load($benutzername) {
 		$db = new Db_connection();
 		
+		$mysqli= $db->getConnection();
+		
+		$benutzername = $mysqli->real_escape_string($benutzername);
+		
 		$query = "SELECT * FROM benutzer where benutzername='".$benutzername."';";
 		
 		$result = $db->execute($query);
