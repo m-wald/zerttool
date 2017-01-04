@@ -14,6 +14,7 @@ class Kurs {
     private $benutzername;
     private $teilnehmerzahl;
     
+    /*
     public function __construct($kurs_name, $kurs_start, $kurs_ende, $sichtbarkeit, $benutzername, $beschreibung) {
         $this->kurs_id = "";
         $this->kurs_name = $kurs_name;
@@ -22,7 +23,19 @@ class Kurs {
         $this->sichtbarkeit = $sichtbarkeit;
         $this->benutzername = $benutzername;
         $this->beschreibung = $beschreibung;
-    }
+    }*/
+    
+    public function __construct($kurs_id = "", $kurs_name = "", $kurs_start = "", $kurs_ende = "", $sichtbarkeit = "", $benutzername="", $beschreibung="", $teilnehmeranzahl="") {
+	$this->kurs_id          = $kurs_id;
+        $this->kurs_name        = $kurs_name;
+        $this->kurs_start       = $kurs_start;
+        $this->kurs_ende        = $kurs_ende;
+        $this->sichtbarkeit     = $sichtbarkeit;
+        $this->benutzername     = $benutzername;
+        $this->beschreibung     = $beschreibung;
+        $this->teilnehmerzahl   = $teilnehmeranzahl;
+		
+	}
     
     /**
      * L�dt die Daten des Kurses mit der �bergebenen Id
@@ -86,13 +99,13 @@ class Kurs {
         if (mysqli_num_rows($result) > 0) {
             $return_array = array();
             while ($row = mysqli_fetch_assoc($result)) {
-                    $kurse = new Kurs();/*
+                    $kurse = new Kurs(
                             $row["kurs_id"],
                             $row["kurs_name"],
                             $row["kurs_start"],
                             $row["kurs_ende"],
                             $row["sichtbarkeit"],
-                            $row["benutzername"]);*/
+                            $row["benutzername"]);
                     
                     array_push($return_array, $kurse);
             }
