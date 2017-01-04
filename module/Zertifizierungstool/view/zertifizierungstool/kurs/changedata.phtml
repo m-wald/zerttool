@@ -46,10 +46,11 @@ else {
         		 <select name="benutzername">
         		 <option selected value='<?=$kurs->getBenutzername()?>'><?=$kurs->getBenutzername()?></option>
         		 <?php 
-        		 while($row = $result->fetch_assoc()){
-        		 	if($row['benutzername'] == $kurs->getBenutzername()) continue;
+                         foreach($result as $r) {
+        		 //while($row = $result->fetch_assoc()){
+        		 	if($r->getBenutzername() == $kurs->getBenutzername()) continue;
         		 ?>
-        		 	<option value='<?php echo $row['benutzername']; ?>'><?php echo $row['benutzername']; ?></option>  		 
+        		 	<option value='<?php echo $r->getBenutzername(); ?>'><?php echo $r->getBenutzername(); ?></option>  		 
         		 	
         		 <?php }  
         		 ?>
