@@ -779,9 +779,7 @@ class KursController extends AbstractActionController
 				exit;
 			}
 		
-			//$kurs_id = $_POST["kurs_id"];
-			//TODO kurs_id benutzen statt kurs_name
-			
+					
 			if(isset($_REQUEST["kurs_name"]))		$kurs_name = $_REQUEST["kurs_name"];
 			else 									$kurs_name = $_SESSION['kurs_name'];
 			
@@ -796,13 +794,14 @@ class KursController extends AbstractActionController
 			
 			
 			$fileName = $kurs_name.'_'.$vorname.'_'.$nachname;
-			//$extansion = '.pdf';
-			$imagePath = 'data/img/logo.png';
+			
+		
 		
 		
 			try{
 				// Create new PDF document.
 				$pdf = new PdfDocument();
+				$kurs = new Kurs();
 				 
 				// Add new page
 				$pdf->pages[0] = ($page1 = $pdf->newPage('A4'));			
@@ -812,7 +811,7 @@ class KursController extends AbstractActionController
 				$page1->setFont($font, 40);		
 					 
 				//Load Image
-				$image = Image::imageWithPath($imagePath);
+				$image = Image::imageWithPath('data/img/logo.png');
 				//Draw Image
 				$left = 262;
 				$bottom = 817;
@@ -853,7 +852,7 @@ class KursController extends AbstractActionController
 				$leiter = $kurs->getBenutzername();
 				$page1->drawText($leiter, 280, 450);
 				
-				$date = date('d. Month Year');
+				$date = date('d-m-Y');
 				$page1->setFont($font, 12);
 				$page1->drawText('Passau, den '.$date, 280, 350);
 				$page1->drawLine(280, 340, 400, 340);
