@@ -801,7 +801,7 @@ class KursController extends AbstractActionController
 			try{
 				// Create new PDF document.
 				$pdf = new PdfDocument();
-				$kurs = new Kurs();
+				
 				 
 				// Add new page
 				$pdf->pages[0] = ($page1 = $pdf->newPage('A4'));			
@@ -849,8 +849,16 @@ class KursController extends AbstractActionController
 				$page1->setFont($font, 14);
 				$page1->drawText('Kursleiter: ', 280, 470);
 				$page1->setFont($font, 22);
+				
+				$load_kurs = $kurs->load($kurs_id);
 				$leiter = $kurs->getBenutzername();
-				$page1->drawText($leiter, 280, 450);
+				$user = new User();
+				$load_user = $user->load($leiter);
+				$vorname = $user->getVorname();
+				$nachname = $user->getNachname();
+				$leiter_name = $vorname.' '.$nachname;
+				
+				$page1->drawText($leiter_name, 280, 450);
 				
 				$date = date('d-m-Y');
 				$page1->setFont($font, 12);
