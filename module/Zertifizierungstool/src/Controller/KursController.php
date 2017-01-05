@@ -653,7 +653,7 @@ class KursController extends AbstractActionController
     }
     
     
-    public function deleteAction(){
+    public function docDeleteAction(){
     	
     	if(User::currentUser()->getBenutzername()==NULL) {
     		header("refresh:0; url = /user/login");

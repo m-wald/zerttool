@@ -52,8 +52,10 @@
                     <input type="hidden" value="kursview" name="site">
                     <input size="70" maxlength="250" value="Kursdokumente anzeigen" type="submit">
                 </form> <br>
-                
-                <form method="post" action="pdf">
+     <?php 
+     //TODO loadCertificate sichtbar, wenn alle Prüfungen bestanden
+     ?>           
+                <form method="post" action="loadCertificate">
 				<input type="hidden" value="pdf" name='pdf'>
 				<input type="submit" value="Zertifikat herunterladen">
 				</form><br>
