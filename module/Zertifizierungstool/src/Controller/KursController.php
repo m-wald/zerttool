@@ -858,12 +858,12 @@ class KursController extends AbstractActionController
 				$nachname = $user->getNachname();
 				$leiter_name = $vorname.' '.$nachname;
 				
-				$page1->drawText($leiter_name, 280, 440);
+				$page1->drawText($leiter_name, 280, 430);
 				
 				$date = date('d. M Y');
 				$page1->setFont($font, 12);
 				$page1->drawText('Passau, den '.$date, 280, 350);
-				$page1->drawLine(280, 340, 400, 340);
+				$page1->drawLine(280, 340, 420, 340);
 				
 				$image = Image::imageWithPath('data/img/sign.jpg');
 				//Draw Image
