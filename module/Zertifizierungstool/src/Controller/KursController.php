@@ -750,7 +750,7 @@ class KursController extends AbstractActionController
      * 
      */
 
-    public function pdfAction(){
+    public function loadCertificateAction(){
 		
 		$benutzer = User::currentUser()->getBenutzername();
 		$vorname = User::currentUser()->getVorname();
@@ -758,12 +758,12 @@ class KursController extends AbstractActionController
 		
 		if($_SERVER['REQUEST_METHOD'] == 'POST' && $_POST['pdflist']) {
 			$kurs = new Kurs;
-			if(!$kurs->pdfList($benutzer)) {
+			if(!$kurs->certificateList($benutzer)) {
 				return new Viewmodel (['message' => 'access_error']);
 				exit;
 			}
 			else {
-				$list = $kurs->pdfList($benutzer);
+				$list = $kurs->certificateList($benutzer);
 				return new Viewmodel (['list' => $list]);		
 				}
 			}
@@ -789,7 +789,7 @@ class KursController extends AbstractActionController
 			else 									$kurs_id = $_SESSION['kurs_id'];
 			
 			$kurs = new Kurs;
-			if(!$kurs->kursResult($benutzer, $kurs_id)) {
+			if(!$kurs->checkCourseResult($benutzer, $kurs_id)) {
 				return new Viewmodel (['message' => 'access_error']);
 				exit;
 			}

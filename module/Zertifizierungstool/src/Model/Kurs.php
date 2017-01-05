@@ -119,7 +119,7 @@ class Kurs {
      * Pr�ft ob der User den KUrs bestanden hat
      */    
     
-    public function kursResult($benutzername, $kurs_id){
+    public function checkCourseResult($benutzername, $kurs_id){
     	$db = new Db_connection();
     	if((User::currentUser()->istTeilnehmer())){
     		$query = "SELECT bestanden FROM benutzer_kurs WHERE benutzername = '".$benutzername."' 
@@ -135,7 +135,7 @@ class Kurs {
      * List von alle bestandene Kurse vom Benutzer
      */
     
-    public function pdfList($benutzername){
+    public function certificateList($benutzername){
     	$db = new Db_connection();
     	if((User::currentUser()->istTeilnehmer())){
     		$query = "SELECT benutzer_kurs.kurs_id, kurs.kurs_name FROM benutzer_kurs
