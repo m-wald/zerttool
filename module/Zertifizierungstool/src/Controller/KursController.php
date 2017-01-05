@@ -848,21 +848,22 @@ class KursController extends AbstractActionController
 				$page1->setFont($font, 25);
 				$page1->drawText($kurs_name, 280, 520); 
 				$page1->setFont($font, 14);
-				$page1->drawText('Kursleiter: ', 280, 490);
+				$page1->drawText('Kursleiter: ', 280, 470);
 				$page1->setFont($font, 22);
-				$page1->drawText($kurs->getBenutzername(), 280, 470);
+				$leiter = $kurs->getBenutzername();
+				$page1->drawText($leiter, 280, 450);
 				
-				$date = date('d. Month Y');
+				$date = date('d. Month Year');
 				$page1->setFont($font, 12);
-				$page1->drawText('Passau, den '.$date, 280, 100);
-				$page1->drawLine(280, 90, 390, 90);
+				$page1->drawText('Passau, den '.$date, 280, 350);
+				$page1->drawLine(280, 340, 400, 340);
 				
 				$image = Image::imageWithPath('data/img/sign.jpg');
 				//Draw Image
 				$left = 450;
-				$bottom = 1;
-				$right = $page1->getWidth()-5;
-				$top = 90;
+				$bottom = 325;
+				$right = 620;
+				$top = 400;
 					
 				$page1->drawImage($image, $left, $bottom, $right, $top);
 				// Save document as a new file or rewrite existing document
