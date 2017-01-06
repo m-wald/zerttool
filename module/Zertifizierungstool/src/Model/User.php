@@ -119,6 +119,11 @@ class User
 	public function load_via_email ($email) {
 		$db = new Db_connection();
 		
+		$mysqli= $db->getConnection();
+		
+		$email = $mysqli->real_escape_string($email);
+		
+		
 		$query = "SELECT * FROM benutzer where email='".$email."';";
 		
 		$result = $db->execute($query);
@@ -292,6 +297,11 @@ class User
 	 */
 	public function passwortControll ($passwort) {
 		$db = new Db_connection();
+		
+		$mysqli= $db->getConnection();
+		
+		$passwort = $mysqli->real_escape_string($passwort);
+		
 		$query = "select passwort from benutzer where benutzername='".$this->benutzername."' and email_bestaetigt = 1;";
 		$result = $db->execute($query);
 		if (mysqli_num_rows($result) == 0){
@@ -383,6 +393,17 @@ class User
 	public function update($vorname, $nachname, $geburtsdatum, $strasse, $plz, $ort, $email) {
 		$db = new Db_connection();
 		
+		$mysqli= $db->getConnection();
+		
+		$vorname = $mysqli->real_escape_string($vorname);
+		$nachname = $mysqli->real_escape_string($nachname);
+		$geburtsdatum = $mysqli->real_escape_string($geburtsdatum);
+		$strasse = $mysqli->real_escape_string($strasse);
+		$plz = $mysqli->real_escape_string($plz);
+		$ort = $mysqli->real_escape_string($ort);
+		$email = $mysqli->real_escape_string($email);
+		
+		
 		$date = new \DateTime($geburtsdatum);
 		$geburtsdatum=$date->format('Y-m-d');
 		$query = "update benutzer set
@@ -405,8 +426,14 @@ class User
 	 */
 	public function  updatePassword($passwort) {
 		
-			$passwort = $this->saltPasswort($passwort);
 			$db = new Db_connection();
+			
+			$mysqli = $db->getConnection();
+			$passwort = $mysqli->real_escape_string($passwort);
+			
+		
+			$passwort = $this->saltPasswort($passwort);
+			
 			$query = "update benutzer set passwort = '".$passwort."', pruefzahl=NULL where benutzername ='".$this->benutzername."';";
 			$result = $db->execute($query);
 			return $result;
@@ -423,6 +450,10 @@ class User
 	public function  check_pruefzahl($pruefzahl) {
 	
 		$db = new Db_connection();
+		
+		$mysqli = $db->getConnection();
+		$pruefzahl = $mysqli->real_escape_string($pruefzahl);
+		
 		$query = "select * from benutzer where benutzername='".$this->benutzername."' and pruefzahl=".$pruefzahl.";";
 		$result = $db->execute($query);
 		if (mysqli_num_rows($result)<1){
