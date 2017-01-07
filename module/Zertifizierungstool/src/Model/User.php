@@ -302,7 +302,7 @@ class User
 		    
 			}else {
 			
-		return "E-Mail-Adresse ist bereits vergeben! Bitte andere E-Mail-Adresse benutzen";
+		return "E-Mail-Adresse ist bereits vergeben! Bitte andere E-Mail-Adresse benutzen!";
 		
 		}
 	} else {
@@ -418,7 +418,7 @@ class User
 	 * @param String $plz
 	 * @param String $ort
 	 * @param String $email
-	 * @return boolean true falls erfolgreich, false falls Datenbankfehler
+	 * @return boolean true falls erfolgreich, false falls Datenbankfehler oder E-Mail bereits vorhanden
 	 */
 	public function update($vorname, $nachname, $geburtsdatum, $strasse, $plz, $ort, $email) {
 		$db = new Db_connection();
@@ -433,20 +433,24 @@ class User
 		$ort = $mysqli->real_escape_string($ort);
 		$email = $mysqli->real_escape_string($email);
 		
+		if (!$this->mailAlreadyExist() && $this->email!=$email){
+			return false;
+		}else {
 		
-		$date = new \DateTime($geburtsdatum);
-		$geburtsdatum=$date->format('Y-m-d');
-		$query = "update benutzer set
-				vorname='".$vorname."',
-				nachname='".$nachname."',
-				geburtsdatum='".$geburtsdatum."',
-				strasse='".$strasse."',
-				plz='".$plz."',
-				ort='".$ort."',
-				email='".$email."' where benutzername='".$this->benutzername."';";
-	
-		$result=$db->execute($query);
-		return $result;
+			$date = new \DateTime($geburtsdatum);
+			$geburtsdatum=$date->format('Y-m-d');
+			$query = "update benutzer set
+					vorname='".$vorname."',
+					nachname='".$nachname."',
+					geburtsdatum='".$geburtsdatum."',
+					strasse='".$strasse."',
+					plz='".$plz."',
+					ort='".$ort."',
+					email='".$email."' where benutzername='".$this->benutzername."';";
+		
+			$result=$db->execute($query);
+			return $result;
+		}
 	}
 	
 	/**

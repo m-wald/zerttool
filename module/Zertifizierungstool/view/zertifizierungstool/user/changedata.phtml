@@ -26,4 +26,12 @@ else {?>
 <input type = "submit" value="Benutzerdaten jetzt &auml;ndern!"> 
 </form>
 
-<?php }?>
+<?php 
+
+if (isset($status)){
+
+	echo "<b><font color=red>E-Mail-Adresse bereits vorhanden. Bitte andere Mailadresse benutzen!</b></font>";
+
+}
+
+}?>
