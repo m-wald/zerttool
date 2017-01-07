@@ -26,14 +26,21 @@ class Kurs {
     }*/
     
     public function __construct($kurs_id = "", $kurs_name = "", $kurs_start = "", $kurs_ende = "", $sichtbarkeit = "", $benutzername="", $beschreibung="", $teilnehmeranzahl="") {
-	$this->kurs_id          = $kurs_id;
-        $this->kurs_name        = $kurs_name;
-        $this->kurs_start       = $kurs_start;
-        $this->kurs_ende        = $kurs_ende;
-        $this->sichtbarkeit     = $sichtbarkeit;
-        $this->benutzername     = $benutzername;
-        $this->beschreibung     = $beschreibung;
-        $this->teilnehmerzahl   = $teilnehmeranzahl;
+		
+    	$db = new Db_connection();
+    	
+    	$mysqli= $db->getConnection();
+    	
+    	
+    	
+    	$this->kurs_id          = $mysqli->real_escape_string($kurs_id);
+        $this->kurs_name        = $mysqli->real_escape_string($kurs_name);
+        $this->kurs_start       = $mysqli->real_escape_string($kurs_start);
+        $this->kurs_ende        = $mysqli->real_escape_string($kurs_ende);
+        $this->sichtbarkeit     = $mysqli->real_escape_string($sichtbarkeit);
+        $this->benutzername     = $mysqli->real_escape_string($benutzername);
+        $this->beschreibung     = $mysqli->real_escape_string($beschreibung);
+        $this->teilnehmerzahl   = $mysqli->real_escape_string($teilnehmeranzahl);
 		
 	}
     
@@ -47,6 +54,10 @@ class Kurs {
     
     public function load($id) {
         $db = new Db_connection();
+        
+        $mysqli = $db->getConnection();
+        $id = $mysqli->real_escape_string($id);
+        
         $query = "SELECT * FROM kurs join teilnehmerzahl using (kurs_id) WHERE kurs_id = ".$id.";";
         $result = $db->execute($query);       
 
@@ -80,6 +91,12 @@ class Kurs {
      */
     public function loadKurse($benutzername) {
     	$db = new Db_connection();
+    	
+    	$mysqli = $db->getConnection();
+    	
+    	$benutzername = $mysqli->real_escape_string($benutzername);
+    	
+    	
         if(User::currentUser()->istZertifizierer()){
             $query = "SELECT * FROM kurs WHERE benutzername = '".$benutzername."'
                             AND (CURRENT_DATE <= kurs_ende);";
@@ -121,6 +138,13 @@ class Kurs {
     
     public function checkCourseResult($benutzername, $kurs_id){
     	$db = new Db_connection();
+    	
+    	$mysqli = $db->getConnection();
+    	
+    	$benutzername = $mysqli->real_escape_string($benutzername);
+    	$kurs_id = $mysqli->real_escape_string($kurs_id);
+    	
+    	
     	if((User::currentUser()->istTeilnehmer())){
     		$query = "SELECT bestanden FROM benutzer_kurs WHERE benutzername = '".$benutzername."' 
     					AND kurs_id = ".$kurs_id." ;";
@@ -137,6 +161,11 @@ class Kurs {
     
     public function certificateList($benutzername){
     	$db = new Db_connection();
+    	
+    	$mysqli = $db->getConnection();
+    	
+    	$benutzername = $mysqli->real_escape_string($benutzername);
+    	
     	if((User::currentUser()->istTeilnehmer())){
     		$query = "SELECT benutzer_kurs.kurs_id, kurs.kurs_name FROM benutzer_kurs
     				JOIN kurs ON kurs.kurs_id = benutzer_kurs.kurs_id
@@ -178,6 +207,12 @@ class Kurs {
      */
     public function loadarchivedKurse($benutzername) {
         $db = new Db_connection();
+        
+        $mysqli = $db->getConnection();
+        
+        $benutzername = $mysqli->real_escape_string($benutzername);
+        
+        
         if(User::currentUser()->istZertifizierer() || User::currentUser()->istAdmin()){
             $query = "SELECT * FROM kurs WHERE benutzername = '".$benutzername."'
                             AND (CURRENT_DATE > kurs_ende);";
@@ -212,6 +247,12 @@ class Kurs {
      */
     public function loadsignedkurse($benutzername) {
         $db = new Db_connection();
+        
+        $mysqli = $db->getConnection();
+        
+        $benutzername = $mysqli->real_escape_string($benutzername);
+        
+        
         if(User::currentUser()->istTeilnehmer()) {
             $query = "SELECT * FROM benutzer_kurs JOIN kurs USING (kurs_id) WHERE benutzer_kurs.benutzername = '".$benutzername."' and (CURRENT_DATE between kurs_start and kurs_ende);";
             $result = $db->execute($query);
@@ -262,6 +303,18 @@ class Kurs {
     
     public function update($kursid, $kursname, $kursstart, $kursende, $sichtbarkeit, $beschreibung) {
         $db = new Db_connection();
+        
+        $mysqli = $db->getConnection();
+        
+        $kursid = $mysqli->real_escape_string($kursid);
+        $kursname = $mysqli->real_escape_string($kursname);
+        $kursstart = $mysqli->real_escape_string($kursstart);
+        $kursende = $mysqli->real_escape_string($kursende);
+        $sichtbarkeit = $mysqli->real_escape_string($sichtbarkeit);
+        $beschreibung = $mysqli->real_escape_string($beschreibung);
+        
+      
+        
         $query = "UPDATE kurs SET 
                     kurs_name = '".$kursname."',
                     kurs_start = '".$kursstart."',
@@ -277,6 +330,18 @@ class Kurs {
      */
     public function insert($kursname, $kursstart, $kursende, $sichtbarkeit, $benutzername, $beschreibung) {
         $db = new Db_connection();
+        
+        $mysqli = $db->getConnection();
+        
+        
+        $kursname = $mysqli->real_escape_string($kursname);
+        $kursstart = $mysqli->real_escape_string($kursstart);
+        $kursende = $mysqli->real_escape_string($kursende);
+        $sichtbarkeit = $mysqli->real_escape_string($sichtbarkeit);
+        $benutzername = $mysqli->real_escape_string($benutzername);
+        $beschreibung = $mysqli->real_escape_string($beschreibung);
+        
+        
 	$query = "INSERT INTO kurs (kurs_name, kurs_start, kurs_ende, sichtbarkeit, benutzername, beschreibung) VALUES ('".$kursname."','".$kursstart."', '".$kursende."', '".$sichtbarkeit."', '".$benutzername."', '".$beschreibung."')";
         
 	$result = $db->execute($query);
@@ -290,6 +355,11 @@ class Kurs {
      */
     public function active($kurs_id) {
     	$db = new Db_connection();
+    	
+    	$mysqli = $db->getConnection();
+    	
+    	$kurs_id = $mysqli->real_escape_string($kurs_id);
+    	
     	
     	$query_future = "select 1 from kurs where (CURRENT_DATE < kurs_start) and kurs_id=".$kurs_id;
     	$result_future= $db->execute($query_future);
