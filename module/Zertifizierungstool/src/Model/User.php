@@ -241,6 +241,25 @@ class User
 			return true;
 		}
 	}
+	
+	/**
+	 * Prüft ob ein Benutzer mit der Mailadresse dieses Objektes in der Datenbank schon
+	 * existiert.
+	 * @return Gibt true zurück falls er existiert und false falls nicht.
+	 */
+	public function mailAlreadyExist() {
+		$db = new Db_connection();
+	
+		$query = "Select * from benutzer where benutzername='".$this->email."';";
+		$result = $db->execute($query);
+		if (mysqli_num_rows($result) == 0) {
+			return false;
+		}else {
+			return true;
+		}
+	}
+	
+	
 	/**
 	 * Schreibt einen neuen Datensatz eines Benutzers in die Datenbank. Dabei wird
 	 * vorab geprüft, ob ein Datensatz mit dem Benutzernamen dieses Objektes schon 
@@ -259,32 +278,38 @@ class User
 		$this->geburtsdatum=$date->format('Y-m-d');
 		
 		if (!$this->alreadyExist()){
-		$query = "insert into benutzer (benutzername, passwort, vorname, nachname, geburtsdatum, strasse, plz, ort, email, email_bestaetigt, ist_admin, ist_zertifizierer, ist_teilnehmer) values ('"
-  				.$this->benutzername."', '".$this->passwort."', '".$this->vorname."', '".$this->nachname."', '"
-  				.$this->geburtsdatum."', '".$this->strasse."', '".$this->plz."', '".$this->ort."', '".$this->email."', ".$this->email_bestaetigt.", "
-  				.$this->ist_admin.", ".$this->ist_zertifizierer.", ".$this->ist_teilnehmer.");";
+			if (!$this->mailAlreadyExist()) {
 		
-		
-		$result = $db->execute($query);
-		
-		if ($invite){
+			$query = "insert into benutzer (benutzername, passwort, vorname, nachname, geburtsdatum, strasse, plz, ort, email, email_bestaetigt, ist_admin, ist_zertifizierer, ist_teilnehmer) values ('"
+	  				.$this->benutzername."', '".$this->passwort."', '".$this->vorname."', '".$this->nachname."', '"
+	  				.$this->geburtsdatum."', '".$this->strasse."', '".$this->plz."', '".$this->ort."', '".$this->email."', ".$this->email_bestaetigt.", "
+	  				.$this->ist_admin.", ".$this->ist_zertifizierer.", ".$this->ist_teilnehmer.");";
 			
-			$this->registerMailInvite();
 			
-		}else {
-		
-			$m = $this->registerMail();
+			$result = $db->execute($query);
+			
+			if ($invite){
+				
+				$this->registerMailInvite();
+				
+			}else {
+			
+				$m = $this->registerMail();
+			
+			}
+			return "Daten wurden erfolgreich gespeichert. Sie erhalten in K&uuml;rze eine E-Mail. Bitte folgen Sie dem darin enthaltenen Link, um Ihre Registrierung abzuschlie&szlig;en.";
+		    
+		    
+			}else {
+			
+		return "E-Mail-Adresse ist bereits vergeben! Bitte andere E-Mail-Adresse benutzen";
 		
 		}
-		return "Daten wurden erfolgreich gespeichert. Sie erhalten in K&uuml;rze eine E-Mail. Bitte folgen Sie dem darin enthaltenen Link, um Ihre Registrierung abzuschlie&szlig;en.";
-	    
-	    
-		}else {
-			
+	} else {
+		
 		return "Benutzername ist bereits vergeben! Bitte anderen Namen ausw&auml;hlen!";
-		
-		}
 	}
+}
 	/**
 	 * Verschlüsselt ein Passwort mit bcrypt Algorithmus
 	 * @param Passwort in clearform
@@ -330,7 +355,7 @@ class User
 		$empfaenger = $this->email;
 		$betreff = "Registrierung Zertifizierungstool";
 		$from = "user@zerttool.tk";
-		$text = "Hallo ".$this->vorname." ".$this->nachname.",\n\n bitte bestaetigen Sie folgenden Link:\n\n zerttool.tk/user/registerbest?benutzer=".$this->benutzername;
+		$text = "Hallo ".$this->vorname." ".$this->nachname.",\n\nbitte bestaetigen Sie folgenden Link:\n\n 132.231.36.205/user/registerbest?benutzer=".$this->benutzername;
 		$text = wordwrap($text, 70);
 		mail ($empfaenger, $betreff, $text); 
 	}
@@ -344,7 +369,7 @@ class User
 		
 		$empfaenger = $this->email;
 		$betreff = "Registrierung Zertifizierungstool";
-		$text = "Hallo ".$this->vorname." ".$this->nachname.",\n\n bitte bestaetigen Sie folgenden Link:\n\n zerttool.tk/user/registerbest?benutzer=".$this->benutzername."&kurs_id=".$_SESSION['kurs'];
+		$text = "Hallo ".$this->vorname." ".$this->nachname.",\n\nbitte bestaetigen Sie folgenden Link:\n\n 132.231.36.205/user/registerbest?benutzer=".$this->benutzername."&kurs_id=".$_SESSION['kurs'];
 		$text = wordwrap($text, 70);
 		mail ($empfaenger, $betreff, $text);
 		
@@ -369,7 +394,7 @@ class User
 		$empfaenger = $this->email;
 		$betreff = "Neues Passwort angefordert für Zertifizierungstool";
 		$from = "user@zerttool.tk";
-		$text = "Hallo ".$this->vorname." ".$this->nachname.",\n\n wenn Sie ein neues Passwort angefordert haben, folgenden Sie bitte diesem Link:\n\n zerttool.tk/user/passwordforgotten?benutzer=".$this->benutzername."&pruefzahl=".$pruefzahl;
+		$text = "Hallo ".$this->vorname." ".$this->nachname.",\n\n wenn Sie ein neues Passwort angefordert haben, folgenden Sie bitte diesem Link:\n\n 132.231.36.205/user/passwordforgotten?benutzer=".$this->benutzername."&pruefzahl=".$pruefzahl;
 		$text = wordwrap($text, 70);
 		mail ($empfaenger, $betreff, $text);
 				
