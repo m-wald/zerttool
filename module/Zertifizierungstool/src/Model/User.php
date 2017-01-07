@@ -49,17 +49,22 @@ class User
 		self::$currentUser = $this;
 	}
 	
-	public function __construct($benutzername, $passwort, $vorname, $nachname, $geburtsdatum, $strasse, $plz, $ort, $email, $email_bestaetigt, $ist_admin, $ist_zertifizierer, $ist_teilnehmer) {
-		$this->benutzername     = $benutzername;
-		$this->passwort         = $passwort;
-		$this->vorname          = $vorname;
-		$this->nachname         = $nachname;
-		$this->geburtsdatum     = $geburtsdatum;
-		$this->strasse          = $strasse;
-		$this->plz              = $plz;
-		$this->ort              = $ort;
-		$this->email            = $email;
-		$this->email_bestaetigt = $email_bestaetigt;
+	public function __construct($benutzername="", $passwort="", $vorname="", $nachname="", $geburtsdatum="", $strasse="", $plz="", $ort="", $email="", $email_bestaetigt="", $ist_admin="", $ist_zertifizierer="", $ist_teilnehmer="") {
+		
+		$db = new Db_connection();
+		
+		$mysqli= $db->getConnection();
+		
+		$this->benutzername     = $mysqli->real_escape_string($benutzername);
+		$this->passwort         = $mysqli->real_escape_string($passwort);
+		$this->vorname          = $mysqli->real_escape_string($vorname);
+		$this->nachname         = $mysqli->real_escape_string($nachname);
+		$this->geburtsdatum     = $mysqli->real_escape_string($geburtsdatum);
+		$this->strasse          = $mysqli->real_escape_string($strasse);
+		$this->plz              = $mysqli->real_escape_string($plz);
+		$this->ort              = $mysqli->real_escape_string($ort);
+		$this->email            = $mysqli->real_escape_string($email);
+		$this->email_bestaetigt = $mysqli->real_escape_string($email_bestaetigt);
 		$this->ist_admin         = $ist_admin;
 		$this->ist_zertifizierer = $ist_zertifizierer;
 		$this->ist_teilnehmer    = $ist_teilnehmer;
