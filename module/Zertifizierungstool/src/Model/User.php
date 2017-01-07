@@ -247,10 +247,14 @@ class User
 	 * existiert.
 	 * @return Gibt true zurück falls er existiert und false falls nicht.
 	 */
-	public function mailAlreadyExist() {
+	public function mailAlreadyExist($email=null) {
 		$db = new Db_connection();
-	
-		$query = "Select * from benutzer where email='".$this->email."';";
+		
+		if ($email==null) {
+			$query = "Select * from benutzer where email='".$this->email."';";
+		}else {
+			$query = "Select * from benutzer where email='".$email."';";
+		}
 		$result = $db->execute($query);
 		if (mysqli_num_rows($result) == 0) {
 			return false;
@@ -433,7 +437,7 @@ class User
 		$ort = $mysqli->real_escape_string($ort);
 		$email = $mysqli->real_escape_string($email);
 		
-		if (!$this->mailAlreadyExist()){
+		if ($this->mailAlreadyExist($email) && $this->email!=$email){
 			return false;
 		}else {
 		
