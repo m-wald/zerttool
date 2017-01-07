@@ -433,7 +433,7 @@ class User
 		$ort = $mysqli->real_escape_string($ort);
 		$email = $mysqli->real_escape_string($email);
 		
-		if (!$this->mailAlreadyExist() && $this->email!=$email){
+		if (!$this->mailAlreadyExist() || $this->email!=$email){
 			return false;
 		}else {
 		
