@@ -250,7 +250,7 @@ class User
 	public function mailAlreadyExist() {
 		$db = new Db_connection();
 	
-		$query = "Select * from benutzer where e-mail='".$this->email."';";
+		$query = "Select * from benutzer where email='".$this->email."';";
 		$result = $db->execute($query);
 		if (mysqli_num_rows($result) == 0) {
 			return false;
