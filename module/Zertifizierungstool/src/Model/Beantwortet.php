@@ -51,6 +51,30 @@ class Beantwortet {
 		}
 	}
 	
+	public function load($schreibt_pruefung, $antwort) {
+		$db = new Db_connection();
+	
+		$query = "SELECT * FROM beantwortet WHERE "
+					."schreibt_pruefung_id = " .$schreibt_pruefung
+					."AND antwort_id = "	   .$antwort;
+	
+		$result = $db->execute($query);
+	
+		if(!$result || !mysqli_num_rows($result) > 0) {
+			// Fehler bei der Datenbankabfrage oder keine Frage mit der Id gefunden
+			return false;
+		}
+			
+		$row = mysqli_fetch_assoc($result);
+	
+		$this->id		= $row["beantwortet_id"];
+		$this->schreibt_pruefung_id 	= $row["schreibt_pruefung_id"];
+		$this->antwort_id  = $row["antwort_id"];
+		$this->status = $row["status"];
+	
+		return true;
+	}
+	
 	//TODO zusammenfassen
 	/**
 	 * Setzt in der DB "True" als abgebene Antwort
@@ -94,5 +118,9 @@ class Beantwortet {
 		} else {
 			return true;
 		}
+	}
+	
+	public function getStatus() {
+		return $this->status;
 	}
 }

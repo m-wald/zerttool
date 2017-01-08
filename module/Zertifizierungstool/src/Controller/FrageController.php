@@ -14,7 +14,7 @@ use Zertifizierungstool\Model\Kurs;
 use Zertifizierungstool\Model\SchreibtPruefung;
 
 /**
- * Controller, der Aufgaben verarbeitet, die sich auf die Entität "Frage" und "Antwort" beziehen.
+ * Controller, der Aufgaben verarbeitet, die sich auf die Entitäten "Frage" und "Antwort" bzw. "Beantwortet" beziehen.
  * Beinhaltet Actions zum Anlegen, Bearbeiten, Beantworten und Löschen von Fragen und Antworten.
  *
  * @author martin
@@ -30,6 +30,7 @@ class FrageController extends AbstractActionController {
 		$schreibt_pruefung->load($schreibt_pruefung_id);
 		
 		$fragen = Frage::loadList($schreibt_pruefung->getPruefungId());
+		// TODO wenn leer oder Fehler
 		
 		// Array nach Id sortieren
 		array_multisort($fragen);
@@ -44,6 +45,15 @@ class FrageController extends AbstractActionController {
 		$frage = $fragen[$next_index];
 		// Alle Antworten zu dieser Frage laden
 		$antworten = Antwort::loadList($frage->getId());
+		// TODO wenn leer oder Fehler
+		
+		// Für jede Antwortmöglichkeit den Eintrag aus der Tabelle 'beantwortet' laden, um die Ankreuzfelder zu befüllen
+		$beantwortete = array();
+		foreach ($antworten as $antwort) {
+			$beantwortet = new Beantwortet();
+			$beantwortet->load($schreibt_pruefung_id, $antwort->getId());
+			array_push($beantwortete, array('antwort' => $antwort, 'status' => $beantwortet->getStatus()));
+		}
 		
 		// Nachdem Formular angesendet wurde:
 		if ($_REQUEST['speichern']) {
@@ -56,6 +66,7 @@ class FrageController extends AbstractActionController {
 				
 			} else {
 				// MC-Frage
+				$success = true;
 			}
 			
 			if ($success) {
@@ -63,13 +74,11 @@ class FrageController extends AbstractActionController {
 			}
 			
 		}
-			// Entsprechenden Eintrag in beantwortet ändern
-			// Ermitteln der nächsten Frage im Array
 			
 		return new ViewModel([
 				'frage'		=> $frage,
 				'fragen'	=> $fragen,
-				'antworten' => $antworten,
+				'antworten' => $beantwortete,
 				'next_index' => $next_index,
 				'schreibt_pruefung_id' => $schreibt_pruefung_id,
 		]);

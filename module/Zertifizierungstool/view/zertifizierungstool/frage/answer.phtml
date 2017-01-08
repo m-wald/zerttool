@@ -21,37 +21,38 @@
 	<h3>Fragen</h3>
 	<table>
 	<?php foreach ($fragen as $f) { ?>
-			<tr><td><?=$f->getText()?></td><td><a href="<?= $this->url('frage', ['action' => 'answer', 'id' => $f->getId()]) ?>"><button type="button">Antworten</button></a></td><td>Flag, ob schon geantwortet</td></tr>		
+			<tr><td><?=$f->getText()?></td><td><button type="button">Antworten</button></td><td>Flag, ob schon geantwortet</td></tr>		
 	<?php } ?>
 	</table>
 </div>
 
 <div id="Frage">
+	<form>
 	<?php 
 		echo $frage->getText();
-		echo $frage->getPunkte();
+		echo '<br>Punkte: ' .$frage->getPunkte();
 		
 		if ($frage->getTyp() == 'TF') {?>
-		<form>
 			<input type="hidden" name="typ" value="TF" >
-			<input type="hidden" name="antwort_id" value="<?=$antworten[0]->getId()?>">
-			<input type="radio"  name="tf" value="true"  <?php if ($antworten[0]->getStatus() == 1) echo "checked";?>> Wahr<br>
-			<input type="radio"  name="tf" value="false" <?php if ($antworten[0]->getStatus() == 0) echo "checked";?>> Falsch<br>
+			<input type="hidden" name="antwort_id" value="<?=$antworten[0]['antwort']->getId()?>">
+			<input type="radio"  name="tf" value="true"  <?php if ($antworten[0]['status'] == 1) echo "checked";?>> Wahr<br>
+			<input type="radio"  name="tf" value="false" <?php if ($antworten[0]['status'] == 0) echo "checked";?>> Falsch<br>
 			
-			<input type="hidden" name="next_index" value=<?=$next_index + 1 //als Link??>>
-			<input type="submit" name="speichern" value="Weiter">
-		</form>	
+			
 		
 		<?php }else {
-			// <input type="hidden" name="typ" value="MC" >
+			echo '<input type="hidden" name="typ" value="MC">';
 			foreach ($antworten as $antwort) {?>
-				Mc Frage...
+				<input type="hidden" name="antwort_id" value="<?=$antwort['antwort']->getId()?>">
+				<br><?php echo $antwort['antwort']->getText();?><br>
+				<input type="checkbox" name="check<?=$antwort['antwort']->getId()?>" <?php if ($antworten[0]['status'] == 1) echo "checked";?>>
 		<?php	
 			}
 		}
-	
 	?>
-	
+		<input type="hidden" name="next_index" value=<?=$next_index + 1?>>
+		<input type="submit" name="speichern" value="Weiter">
+	</form>	
 </div>
 
 <br>
