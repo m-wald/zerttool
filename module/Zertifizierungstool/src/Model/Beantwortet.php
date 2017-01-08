@@ -56,7 +56,7 @@ class Beantwortet {
 	
 		$query = "SELECT * FROM beantwortet WHERE "
 					."schreibt_pruefung_id = " .$schreibt_pruefung
-					."AND antwort_id = "	   .$antwort;
+					." AND antwort_id = "	   .$antwort;
 	
 		$result = $db->execute($query);
 	
@@ -85,7 +85,7 @@ class Beantwortet {
 		
 		$query = "UPDATE beantwortet SET status = 1 WHERE "
 					."schreibt_pruefung_id = " .$schreibt_pruefung
-					."AND antwort_id = "	   .$antwort;
+					." AND antwort_id = "	   .$antwort;
 				
 		$result = mysqli_query($conn, $query);
 			
@@ -107,7 +107,7 @@ class Beantwortet {
 							
 		$query = "UPDATE beantwortet SET status = 1 WHERE "
 					."schreibt_pruefung_id = " .$schreibt_pruefung
-					."AND antwort_id = "	   .$antwort;
+					." AND antwort_id = "	   .$antwort;
 									
 		$result = mysqli_query($conn, $query);
 									
