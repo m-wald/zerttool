@@ -35,8 +35,9 @@ class FrageController extends AbstractActionController {
 		// Array nach Id sortieren
 		array_multisort($fragen);
 		
-		// Ermitteln der nächsten Id nach der aktuellen im Array TODO Was bei letzter Id? Wieder zur ersten Frage?
-		if (isset($_REQUEST['next_index'])) {	
+		// Ermitteln der nächsten Frage im Array
+		
+		if (isset($_REQUEST['next_index']) && $_REQUEST['next_index'] < count($fragen)) {	
 			$next_index = $_REQUEST['next_index'];
 		} else {
 			$next_index = 0;
@@ -65,8 +66,13 @@ class FrageController extends AbstractActionController {
 				}
 				
 			} else {
-				// MC-Frage
-				$success = true;
+				foreach ($antworten as $antwort) {
+					if ($_REQUEST['check' .$antwort->getId()]) {
+						$success = Beantwortet::setTrue($schreibt_pruefung_id, $antwort->getId());
+					} else {
+						$success = Beantwortet::setFalse($schreibt_pruefung_id, $antwort->getId());
+					}
+				}
 			}
 			
 			if ($success) {

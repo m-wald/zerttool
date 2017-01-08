@@ -43,7 +43,6 @@
 		<?php }else {
 			echo '<input type="hidden" name="typ" value="MC">';
 			foreach ($antworten as $antwort) {?>
-				<input type="hidden" name="antwort_id" value="<?=$antwort['antwort']->getId()?>">
 				<br><?php echo $antwort['antwort']->getText();?>
 				<input type="checkbox" name="check<?=$antwort['antwort']->getId()?>" <?php if ($antworten[0]['status'] == 1) echo "checked";?>>
 		<?php	
