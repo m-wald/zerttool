@@ -83,7 +83,7 @@ class Beantwortet {
 		$db = new Db_connection();
 		$conn = $db->getConnection();
 		
-		$query = "UPDATE beantwortet SET status = 1 WHERE "
+		$query = "UPDATE beantwortet SET beantwortet_status = 1 WHERE "
 					."schreibt_pruefung_id = " .$schreibt_pruefung
 					." AND antwort_id = "	   .$antwort;
 				
@@ -105,7 +105,7 @@ class Beantwortet {
 		$db = new Db_connection();
 		$conn = $db->getConnection();
 							
-		$query = "UPDATE beantwortet SET status = 1 WHERE "
+		$query = "UPDATE beantwortet SET beantwortet_status = 0 WHERE "
 					."schreibt_pruefung_id = " .$schreibt_pruefung
 					." AND antwort_id = "	   .$antwort;
 									
