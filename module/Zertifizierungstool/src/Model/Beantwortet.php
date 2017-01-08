@@ -70,7 +70,7 @@ class Beantwortet {
 		$this->id		= $row["beantwortet_id"];
 		$this->schreibt_pruefung_id 	= $row["schreibt_pruefung_id"];
 		$this->antwort_id  = $row["antwort_id"];
-		$this->status = $row["status"];
+		$this->status = $row["beantwortet_status"];
 	
 		return true;
 	}
