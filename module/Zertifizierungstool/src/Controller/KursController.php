@@ -682,6 +682,25 @@ class KursController extends AbstractActionController
     	}
     }
     
+    public function docdownloadAction(){
+    	if(User::currentUser()->getBenutzername()==NULL) {
+    		header("refresh:0; url = /user/login");
+    		exit;
+    	}
+    	
+    	if(isset($_POST['download'])){
+    		$path		= $_REQUEST["path"];
+    		$document	= $_REQUEST["document"];
+    		$extension	= $_REQUEST["extension"];
+    		
+    		header("Content-Type: $extension");
+    		
+    		header("Content-Disposition: attachment; filename=\"$document\"");
+    		
+    		readfile($path."/".$document);
+    	}
+    }
+    
     
     public function signoutkursAction(){
     	
