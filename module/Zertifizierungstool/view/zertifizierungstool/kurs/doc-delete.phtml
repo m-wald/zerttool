@@ -8,5 +8,10 @@ use Zertifizierungstool\Model\Kurs;
 	if(isset($message)) {
 		echo $message;
 		header("refresh:2; url = /kurs/showdocuments");
+		?>
+		<form accept-charset="utf-8" method="POST" action="">
+		<input type="hidden" value="delete" name="site">
+		</form>
+		<?php 
 	}
  ?>
