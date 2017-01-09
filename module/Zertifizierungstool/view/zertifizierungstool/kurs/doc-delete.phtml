@@ -7,8 +7,9 @@ use Zertifizierungstool\Model\Kurs;
 	
 	if(isset($message)) {
 		echo $message;
-		header("refresh:2; url = /kurs/showdocuments");
-		$_SESSION['site'] = 'delete';
 		echo $_SESSION['site'];
+		header("refresh:2; url = /kurs/showdocuments");
+		$_SESSION['foo'] = 'delete';
+		
 	}
  ?>
