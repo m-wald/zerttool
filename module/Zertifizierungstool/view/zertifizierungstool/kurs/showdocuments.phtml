@@ -70,7 +70,18 @@
                     			<input size="70" maxlength="250" value="Delete document" type="submit">
                     			</form>
                     </td>
-                    	<?php }?>
+                    	<?php }
+                    	else
+                    	?>
+                    	 <td>
+                    			<form accept-charset="utf-8" method="POST" action="docDownload">
+                    			<input type="hidden" value="<?=$document	?>"name="document"> 
+                    			<input type="hidden" value="<?=$path	?>"name="path">
+                    			<input type="hidden" value="thissite" name='thissite'>
+                    			<input size="70" maxlength="250" value="Download dokument" type="submit">
+                    			</form>
+                    </td>
+                    	
              	</tr>
                     	<?php                     					
                     			}
