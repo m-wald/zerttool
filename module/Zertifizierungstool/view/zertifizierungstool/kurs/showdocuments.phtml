@@ -60,6 +60,8 @@
                                 echo $size;
                         ?>
                     </td>
+                    
+                    <?php  if(User::currentUser()->istAdmin() || User::currentUser()->istZertifizierer()) {?>
                     <td>
                     			<form accept-charset="utf-8" method="POST" action="docDelete">
                     			<input type="hidden" value="<?=$document	?>"name="document"> 
@@ -68,6 +70,7 @@
                     			<input size="70" maxlength="250" value="Delete document" type="submit">
                     			</form>
                     </td>
+                    	<?php }?>
              	</tr>
                     	<?php                     					
                     			}

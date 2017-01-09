@@ -11,8 +11,8 @@ elseif ($message == 'error') {
 }
 
 elseif($message == 'access_error'){
-	echo "Sie haben den Kurs nicht bestanden!";
-	header("refresh:2; url = /kurs/showkurse");
+	echo "Sie haben den Kurs noch nicht absolviert!";
+	header("refresh:2; url = /kurs/kursview");
 }
 }
 
