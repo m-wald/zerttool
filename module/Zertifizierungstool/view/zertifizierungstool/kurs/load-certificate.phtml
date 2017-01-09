@@ -30,7 +30,12 @@ if(isset($_POST['pdflist'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-    
+
+<form method="post" action="kursview">
+<input type="submit" value="zur&uuml;ck zur Kurs&uuml;bersicht" name="back">
+<input type="hidden" value="<?php echo $_SESSION['kurs_id']; ?>" name='kurs_id'>
+</form>
+
     <div class="container">
     	<h3>Erworbene Leistungen: </h3>
             <table class="table table-hover">
