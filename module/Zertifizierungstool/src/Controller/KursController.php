@@ -561,7 +561,7 @@ class KursController extends AbstractActionController
 			 
 		//�berpr�fung der Dateiendung
 		 
-		$allowed_extensions=array('pdf','word');
+		$allowed_extensions=array('pdf','doc','docx','xls','xlsx');
 		 
 		if(!in_array($extension, $allowed_extensions)) {
 			return new ViewModel(['meldung' => 'datentyp']);
@@ -679,6 +679,28 @@ class KursController extends AbstractActionController
     		}
     		else		return new ViewModel(['message'=>'Access denied!']);
     	
+    	}
+    }
+    
+    
+    
+    public function docdownloadAction(){
+    	if(User::currentUser()->getBenutzername()==NULL) {
+    		header("refresh:0; url = /user/login");
+    		exit;
+    	}
+    	
+    	if(isset($_POST['download'])){
+    		$path		= $_REQUEST["path"];
+    		$document	= $_REQUEST["document"];
+    		$extension	= $_REQUEST["extension"]; 
+    		
+    		if(file_exists($path."/".$document)){
+    			header("Content-Type: $extension");  		
+    			header("Content-Disposition: attachment; filename=\"$document\"");
+    			readfile($path."/".$document);
+    		}
+    //TODO else return VieModule (error) 
     	}
     }
     

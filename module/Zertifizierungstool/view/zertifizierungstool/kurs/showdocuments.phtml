@@ -45,8 +45,7 @@
                                 ?>
               	<tr>            
                     <td>
-                                <a href="<?php echo "../../../../../".$documentdetail['dirname']."/".$documentdetail['basename'];?>"><?php echo $documentdetail['filename']; ?></a>
-                            
+                                <?php echo $documentdetail['filename']; ?>
                     </td>
                     <td>
                         	<?php 
@@ -67,18 +66,19 @@
                     			<input type="hidden" value="<?=$document	?>"name="document"> 
                     			<input type="hidden" value="<?=$path	?>"name="path">
                     			<input type="hidden" value="thissite" name='thissite'>
-                    			<input size="70" maxlength="250" value="Delete document" type="submit">
+                    			<input size="70" maxlength="250" value="L&ouml;schen" type="submit">
                     			</form>
                     </td>
                     	<?php }
                     	else
                     	?>
                     	 <td>
-                    			<form accept-charset="utf-8" method="POST" action="docDownload">
-                    			<input type="hidden" value="<?=$document	?>"name="document"> 
-                    			<input type="hidden" value="<?=$path	?>"name="path">
-                    			<input type="hidden" value="thissite" name='thissite'>
-                    			<input size="70" maxlength="250" value="Download dokument" type="submit">
+                    			<form accept-charset="utf-8" method="POST" action="docdownload">
+                    			<input type="hidden" value="<?=$document					?>"name="document"> 
+                    			<input type="hidden" value="<?=$path						?>"name="path">
+                    			<input type="hidden" value="<?=$documentdetail['extension']	?>"name="extension">
+                    			<input type="hidden" value="download" name='download'>
+                    			<input size="70" maxlength="250" value="Herunterladen" type="submit">
                     			</form>
                     </td>
                     	
