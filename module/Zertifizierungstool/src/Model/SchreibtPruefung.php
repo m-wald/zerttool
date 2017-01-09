@@ -99,7 +99,7 @@ class SchreibtPruefung {
 		// Den Zeitpunkt des letzten Versuchs ermitteln
 		$query = "SELECT schreibt_pruefung_id FROM aktuellster_Versuch "
 				 ."WHERE pruefung_id = " .$pruefung_id
-				 ." AND benutzername = " .User::currentUser()->getBenutzername();
+				 ." AND benutzername = '" .User::currentUser()->getBenutzername() ."'";
 		
 		$result = $db->execute($query);
 		
