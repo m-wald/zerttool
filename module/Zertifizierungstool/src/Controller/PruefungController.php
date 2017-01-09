@@ -12,6 +12,7 @@ use Zertifizierungstool\Model\Frage;
 use Zertifizierungstool\Model\Antwort;
 use Zertifizierungstool\Model\SchreibtPruefung;
 use Zertifizierungstool\Model\Beantwortet;
+use Zertifizierungstool\Model\Benutzer_Kurs;
 
 /**
  * Controller, der Aufgaben verarbeitet, die sich auf die Entität "Prüfung" beziehen.
@@ -37,6 +38,7 @@ class PruefungController extends AbstractActionController {
 		// TODO Prüfen, ob Teilnehmer die Prüfung schon bestanden hat oder 3 mal nicht bestanden hat
 		
 		$errors = array();
+		
 		
 		// Prüfungs-Id aus URL laden
 		$pruefung_id = $this->params()->fromRoute('id');
@@ -79,14 +81,61 @@ class PruefungController extends AbstractActionController {
 	}
 	
 	/**
-	 * Überprüft, ob ein Teilnehmer eine Prüfung bestanden hat
+	 * Überprüft, ob ein Teilnehmer eine Prüfung und damit ggf. den Kurs bestanden hat
 	 */
 	public function resultAction() {
-		// aus schreibt_pruefung auslesen
-			// id aus route
-		// Abgebene Antworten prüfen und evtl "bestanden" in schreibt_pruefung auf 1 setzen
-		// Mit cutscore vergleichen
-		// Anbieten Zertifikat runterzuladen
+		$punkte_gesamt = 0;
+		$punkte = 0;
+		
+		$schreibt_pruefung_id = $this->params()->fromRoute('id');
+		$schreibt_pruefung = new SchreibtPruefung();
+		$schreibt_pruefung->load($schreibt_pruefung_id);
+		
+		
+		// Alle Fragen zur Prüfung laden
+		$fragen = Frage::loadList($schreibt_pruefung->getPruefungId());
+		
+		// Alle Fragen durchgehen
+		foreach ($fragen as $frage) {
+			// Punkte aufsummieren, um mögliche Gesamtpunktzahl zu ermitteln
+			$punkte_gesamt += $frage->getPunkte();
+			
+			
+			
+			// Wurde die Frage komplett richtig beantwortet, können die Punkte addiert werden
+			if (FrageController::check($frage->getId(), $schreibt_pruefung_id)) {
+				$punkte += $frage->getPunkte();
+			}
+		}
+
+		// Punktzahl mit benötigtem Cutscore vergleichen
+		$pruefung = new Pruefung();
+		$pruefung->load($schreibt_pruefung->getPruefungId());
+		
+		if (($punkte / $punkte_gesamt) >= $pruefung->getCutscore()) {
+			$schreibt_pruefung->bestanden();
+		
+			// Prüfen ob nun alle Prüfungen zum Kurs bestanden wurden
+			$kurs_bestanden = true;
+			$pruefungen = Pruefung::loadList($pruefung->getKursId());
+			foreach ($pruefungen as $p) {
+				$last_try = new SchreibtPruefung();
+				$last_try->loadLastTry($p->getId());
+				// TODO Fehler
+				if ($last_try->getBestanden() == 0) {
+					$kurs_bestanden = false;
+				}
+			}
+			
+			if ($kurs_bestanden) {
+				Benutzer_Kurs::bestanden($pruefung->getKursId());
+			}
+		}
+		
+		return new ViewModel([
+				'schreibt_pruefung'  => $schreibt_pruefung,
+				'kurs_bestanden' 	 => $kurs_bestanden
+		]);
 	}
 	
 	/**

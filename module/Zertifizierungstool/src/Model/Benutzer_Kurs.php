@@ -78,5 +78,20 @@ class Benutzer_Kurs {
             }
             //Wenn Methode hier ankommt, dann konnte die Zeile nicht gelöscht werden
             return false;
-        }	
+        }
+        
+        public static function bestanden($id) {
+        	$db = new Db_connection();
+        
+        	$query = "UPDATE benutzer_kurs SET bestanden = 1 WHERE kurs_id = " .$id;
+        
+        	$result = $db->execute($query);
+        
+        	if(!$result || !mysqli_num_rows($result) > 0) {
+        		// Fehler bei der Datenbankabfrage oder keine Frage mit der Id gefunden
+        		return false;
+        	}
+        		
+        	return true;
+        }
 }

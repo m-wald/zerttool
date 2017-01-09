@@ -78,6 +78,44 @@ class SchreibtPruefung {
 		return true;
 	}
 	
+	public function bestanden() {
+		$this->bestanden = 1;
+		$db = new Db_connection();
+		
+		$query = "UPDATE schreibt_pruefung SET bestanden = 1 WHERE schreibt_pruefung_id = " .$this->id;
+		
+		$result = $db->execute($query);
+		
+		if(!$result || !mysqli_num_rows($result) > 0) {
+			// Fehler bei der Datenbankabfrage oder keine Frage mit der Id gefunden
+			return false;
+		}
+			
+		return true;
+	}
+	
+	public function loadLastTry($pruefung_id) {
+		$db = new Db_connection();
+		// Den Zeitpunkt des letzten Versuchs ermitteln
+		$query = "SELECT schreibt_pruefung_id FROM aktuellster_Versuch "
+				 ."WHERE pruefung id = " .$pruefung_id
+				 ." AND benutzername = " .User::currentUser()->getBenutzername();
+		
+		$result = $db->execute($query);
+		
+		if(!$result || !mysqli_num_rows($result) > 0) {
+			// Fehler bei der Datenbankabfrage oder keine Frage mit der Id gefunden
+			return false;
+		}
+		
+		$row = mysqli_fetch_assoc($result);
+		
+		$this->load($row['schreibt_pruefung_id']);
+		
+		return true;
+		
+	}
+	
 	public function getId() { return $this->id; }
 	public function getPruefungId() { return $this->pruefung_id; }
 	public function getBenutzername() { return $this->benutzername; }

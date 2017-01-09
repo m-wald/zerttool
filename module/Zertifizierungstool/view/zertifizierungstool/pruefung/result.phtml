@@ -1,0 +1,11 @@
+<?php 
+if ($schreibt_pruefung->getBestanden()) {
+	echo 'Herzlichen Glückwunsch! Sie haben die Prüfung bestanden.';
+	
+	if ($kurs_bestanden) {
+		echo '<br>Sie haben nun alle Prüfungen, die zum Bestehen des Kurses nötig sind, erfolgreich absolviert. Über den folgenden Button können Sie Ihr Zertifikat herinterladen: <br>';
+	}
+} else {
+	echo 'Sie haben leider nicht die notwendige Punktzahl erreicht, um die Prüfung zu bestehen.';
+}
+?>

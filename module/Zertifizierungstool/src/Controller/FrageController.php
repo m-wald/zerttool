@@ -237,4 +237,31 @@ class FrageController extends AbstractActionController {
 		Antwort::delete($antwort->getId());
 		header ("refresh:5; url = /frage/create/" .$this->params()->fromRoute('id'));
 	}
+	
+	/**
+	 * Prüft, ob eine bestimmte Frage bei einem bestimmten Prüfungsversuch richtig beantwortet wurde.
+	 * 
+	 * @param $frage_id Id der Frage, die geprüft werden soll.
+	 * @param $schreibt_pruefung_id Id des Prüfungsversuches.
+	 * @return boolean true, falls die Frage richtig beantwortet wurde, sonst false.
+	 */
+	public static function check($frage_id, $schreibt_pruefung_id) {
+		// Alle Antwort(en) zur Frage laden
+		$antworten = Antwort::loadList($frage->getId());
+			
+		// Zu jeder Antwort den Eintrag in "beantwortet" laden und die abgegebene Antwort überprüfen
+		foreach ($antworten as $antwort) {
+			$beantwortet = new Beantwortet();
+			$beantwortet->load($schreibt_pruefung_id, $antwort->getId());
+		
+			// Wenn mindestens eine Antwort falsch ist, false zurückgeben 
+			if ($antwort->getStatus() != $beantwortet->getStatus()) {
+				return false;
+			}
+		}
+		
+		// Es wurde keine falsche Antwort abgegeben
+		return true;
+			
+	}
 }
