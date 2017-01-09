@@ -682,6 +682,8 @@ class KursController extends AbstractActionController
     	}
     }
     
+    
+    
     public function docdownloadAction(){
     	if(User::currentUser()->getBenutzername()==NULL) {
     		header("refresh:0; url = /user/login");
@@ -693,11 +695,12 @@ class KursController extends AbstractActionController
     		$document	= $_REQUEST["document"];
     		$extension	= $_REQUEST["extension"];
     		
-    		header("Content-Type: $extension");
-    		
-    		header("Content-Disposition: attachment; filename=\"$document\"");
-    		
-    		readfile($path."/".$document);
+    		if(file_exists($path."/".$document)){
+    			header("Content-Type: $extension");  		
+    			header("Content-Disposition: attachment; filename=\"$document\"");
+    			readfile($path."/".$document);
+    		}
+    //TODO else return VieModule (error) 
     	}
     }
     
