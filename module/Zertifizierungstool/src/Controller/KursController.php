@@ -693,7 +693,7 @@ class KursController extends AbstractActionController
     	if(isset($_POST['download'])){
     		$path		= $_REQUEST["path"];
     		$document	= $_REQUEST["document"];
-    		$extension	= $_REQUEST["extension"];
+    		$extension	= $_REQUEST["extension"]; 
     		
     		if(file_exists($path."/".$document)){
     			header("Content-Type: $extension");  		
