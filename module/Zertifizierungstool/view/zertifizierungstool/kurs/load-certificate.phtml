@@ -3,16 +3,16 @@
 if(isset($message)){
 
 if ($message == 'success') {
-	header("refresh:0; url = /kurs/kursview");
+	header("refresh:0; url = /kurs/showkurse");
 }
 elseif ($message == 'error') {
 	echo "Ein Fehler ist aufgetretten beim erstellen von PDF Datei!";
-	header("refresh:2; url = /kurs/kursview");
+	header("refresh:2; url = /kurs/showkurse");
 }
 
 elseif($message == 'access_error'){
 	echo "Sie haben den Kurs nicht bestanden!";
-	header("refresh:2; url = /kurs/kursview");
+	header("refresh:2; url = /kurs/showkurse");
 }
 }
 

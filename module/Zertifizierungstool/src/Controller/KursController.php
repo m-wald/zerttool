@@ -796,10 +796,7 @@ class KursController extends AbstractActionController
 			
 			
 			$fileName = $kurs_name.'_'.$vorname.'_'.$nachname;
-			
-		
-		
-		
+					
 			try{
 				// Create new PDF document.
 				$pdf = new PdfDocument();
