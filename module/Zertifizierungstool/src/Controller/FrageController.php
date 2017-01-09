@@ -247,7 +247,7 @@ class FrageController extends AbstractActionController {
 	 */
 	public static function check($frage_id, $schreibt_pruefung_id) {
 		// Alle Antwort(en) zur Frage laden
-		$antworten = Antwort::loadList($frage->getId());
+		$antworten = Antwort::loadList($frage_id);
 			
 		// Zu jeder Antwort den Eintrag in "beantwortet" laden und die abgegebene Antwort überprüfen
 		foreach ($antworten as $antwort) {
