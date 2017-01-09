@@ -628,17 +628,15 @@ class KursController extends AbstractActionController
     		exit;
     	}
     	
-    	if(!$_POST['site']=="kursview" && !$_POST['site']=="docDelete") {
+    	if(!$_POST['site']=="kursview" && !$_POST['site']=="docDelete" && !$_POST['site']=="doc-delete") {
     		header("refresh:0; url= /user/home");
     		exit;
     	}
     	
     	
         $id = $_SESSION['kurs_id'];
-       // $id = 12;
         $name = $_SESSION['kurs_name'];
-            //$kurs = new Kurs();
-            //if(!$kurs->load($id)) $status="Fehler beim Laden der Kursdokumente!";
+            
         //Pfad wo die uploads gespeichert wurden
         $path = "data/uploadsKurse/".$id."/";
         
