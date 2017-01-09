@@ -12,17 +12,14 @@ elseif ($message == 'error') {
 
 elseif($message == 'access_error'){
 	echo "Sie haben den Kurs nicht bestanden!";
-	header("refresh:2; url = /kurs/showkurse");
+	header("refresh:2; url = /kurs/kursview");
 }
 }
 
 
 if(isset($_POST['pdflist'])) {
 	
-	if($message == 'access_error'){
-		echo "Keine bestandene Kurse vorhanden!";
-		header("refresh:2; url = /kurs/showkurse");
-	}
+	
 	
 	
 
@@ -46,6 +43,14 @@ if(isset($_POST['pdflist'])) {
 		</tr>
 		
 		<?php
+		if($message == 'no_list'){
+		?>
+			<tr>
+				<td>Sie haben noch keine Leistungen erworben!</td>
+			</tr>	
+		<?php 
+		}
+		else {
 			foreach($list as $row){ ?>
 			<tr>
 				<td><?=$row->getKurs_id()?></td>
@@ -61,7 +66,10 @@ if(isset($_POST['pdflist'])) {
 					</form> </td>
 			
 			</tr>
-		<?php }?>
+		<?php 
+			}
+			}
+			?>
 		
 		</table>
 

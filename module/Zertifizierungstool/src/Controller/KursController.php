@@ -758,8 +758,8 @@ class KursController extends AbstractActionController
 		
 		if($_SERVER['REQUEST_METHOD'] == 'POST' && $_POST['pdflist']) {
 			$kurs = new Kurs;
-			if(!$kurs->certificateList($benutzer)) {
-				return new Viewmodel (['message' => 'access_error']);
+			if(!$kurs->certificateList($benutzer) || $kurs->certificateList($benutzer) == null) {
+				return new Viewmodel (['message' => 'no list']);
 				exit;
 			}
 			else {
