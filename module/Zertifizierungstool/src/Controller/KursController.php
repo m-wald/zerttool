@@ -628,7 +628,7 @@ class KursController extends AbstractActionController
     		exit;
     	}
     	
-    	if(!$_POST['site']=="kursview" || !$_POST['site']=="docDelete") {
+    	if(!$_POST['site']=="kursview" || !$_POST['site']=="doc-delete") {
     		header("refresh:0; url= /user/home");
     		exit;
     	}
