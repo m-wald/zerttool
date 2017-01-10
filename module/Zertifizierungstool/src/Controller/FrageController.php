@@ -50,8 +50,10 @@ class FrageController extends AbstractActionController {
 		}
 		
 		echo $current_question;
-		
+		echo 'printr:<br>';
 		print_r($fragen_map, true);
+		echo 'vardump:<br>';
+		var_dump($fragen_map);
 		
 		$frage_to_answer = $fragen_map[$current_question];
 		
