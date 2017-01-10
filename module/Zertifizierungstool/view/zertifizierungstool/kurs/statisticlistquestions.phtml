@@ -1,8 +1,11 @@
 <h1>Statistik der einzelnen Fragen</h1>
 
-<table>
-<tr><th>Frage</th><th>gesamt beantwortet</th><th>davon richtig</th><th>richtig in %</th></tr>
+<table class="table table-hover">
+<thead>
+<tr><th width = "40%"><font size="3">Frage</font></th><th width = "20%"><font size="3">gesamt beantwortet</font></th><th width = "20%"><font size="3">davon richtig</font></th><th width = "20%"><font size="3">richtig in %</font></th></tr>
+</thead>
 
+<tbody>
 <?php
 foreach($ergebnis as $e){
 	
@@ -12,20 +15,10 @@ foreach($ergebnis as $e){
 <?php 
 
 }
-
-
-
 ?>
 
 
 
-
-
-
-
-
-
-
-
+</tbody>
 
 </table>

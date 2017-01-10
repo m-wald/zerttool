@@ -990,7 +990,7 @@ class KursController extends AbstractActionController
 						$beantwortet++;
 						
 					}
-					$prozentual_richtig = ($richtig/$beantwortet)*100;
+					$prozentual_richtig = round(($richtig/$beantwortet)*100,2);
 					$inhalt = array($frage->getText(), $richtig, $beantwortet, $prozentual_richtig);
 					array_push($ergebnis, $inhalt);
 				}
