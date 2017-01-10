@@ -2,6 +2,8 @@
 
 <br><br>
 <?php
+use Zertifizierungstool\Model\User;
+
 if(isset($meldung)){
 	$error = $meldung;
 	echo $error;
@@ -18,15 +20,15 @@ else {
 <form method='post' action='register'>
 
 <table>
-<tr><td>Benutzername:</td><td> <input type="text" name="benutzername" required></td></tr>
-<tr><td>Passwort:</td><td> <input type="password" name="passwort" required></td></tr>
+<tr><td>Benutzername:</td><td> <input type="text" name="benutzername" required value ="<?php echo $user->getBenutzername();?>"></td></tr>
+<tr><td>Passwort:</td><td> <input type="password" name="passwort" required ></td></tr>
 <tr><td>Passwort best&auml;tigen:</td><td> <input type="password" name="passwort2" required></td></tr>
-<tr><td>Vorname:</td><td> <input type="text" name="vorname" required> </td></tr>
-<tr><td>Nachname:</td><td> <input type="text" name="nachname" required></td></tr>
-<tr><td>Geburtsdatum:</td><td> <input type="date" name="geburtsdatum" required></td></tr>
-<tr><td>Strasse:</td><td> <input type="text" name="strasse" required></td></tr>
-<tr><td>Postleitzahl:</td><td> <input type="text" name="plz" required></td></tr>
-<tr><td>Ort:</td><td> <input type="text" name="ort" required></td></tr>
+<tr><td>Vorname:</td><td> <input type="text" name="vorname" required value ="<?php echo $user->getVorname();?>"> </td></tr>
+<tr><td>Nachname:</td><td> <input type="text" name="nachname" required value ="<?php echo $user->getNachname();?>"></td></tr>
+<tr><td>Geburtsdatum:</td><td> <input type="date" name="geburtsdatum" required value ="<?php echo $user->getGeburtsdatum();?>"></td></tr>
+<tr><td>Strasse:</td><td> <input type="text" name="strasse" required value ="<?php echo $user->getStrasse();?>"></td></tr>
+<tr><td>Postleitzahl:</td><td> <input type="text" name="plz" required value ="<?php echo $user->getPLZ();?>"></td></tr>
+<tr><td>Ort:</td><td> <input type="text" name="ort" required value ="<?php echo $user->getOrt();?>"></td></tr>
 
 <!-- Falls E-Mail-Einladung gefolgt wird, und noch keine Registrierung vorgenommen wurde -->
 
@@ -37,7 +39,7 @@ else {
 
 <?php } else {?>
 
-<tr><td>E-Mail:</td><td> <input type="email" name="email" required></td></tr>
+<tr><td>E-Mail:</td><td> <input type="email" name="email" required value ="<?php echo $user->getEmail();?>"></td></tr>
 
 <?php }?>
 
@@ -73,5 +75,11 @@ else {
 if (isset($pw_kontrolle)) {
 	
 	echo "<b><font color='red'>Das best&auml;tigte Passwort stimmt nicht mit dem vergebenen Passwort &uuml;berein!</font></b>";
+}
+
+if (isset($datum)) {
+	
+	echo "<b><font color='red'>Kein g&uuml;ltiges Datum! Bitte korrigieren!</font></b>";
+	
 }
 ?>

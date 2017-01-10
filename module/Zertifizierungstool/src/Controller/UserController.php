@@ -42,76 +42,93 @@ class UserController extends AbstractActionController
 		}
 		else{
 		
+		$user = new User();
 		
 		if($_SERVER['REQUEST_METHOD'] == 'POST') {
 			
 			
+
+			//Falls ein Admin einen Benutzer anlegt wird hier geprüft, welche Rolle vergeben wurde
+			if (User::currentUser()->istAdmin()) {
+				
+				if ($_REQUEST['rolle']=='a') {
+				$user= new User($_REQUEST["benutzername"], $_REQUEST["passwort"], $_REQUEST["vorname"], $_REQUEST["nachname"], $_REQUEST["geburtsdatum"], $_REQUEST["strasse"], $_REQUEST["plz"], $_REQUEST["ort"], $_REQUEST["email"], $_REQUEST["email_bestaetigt"], 1,0,0);
+				}
+				
+				if ($_REQUEST['rolle']=='z') {
+					$user= new User($_REQUEST["benutzername"], $_REQUEST["passwort"], $_REQUEST["vorname"], $_REQUEST["nachname"], $_REQUEST["geburtsdatum"], $_REQUEST["strasse"], $_REQUEST["plz"], $_REQUEST["ort"], $_REQUEST["email"], $_REQUEST["email_bestaetigt"], 0,1,0);
+				}
+				
+				if ($_REQUEST['rolle']=='t') {
+					$user= new User($_REQUEST["benutzername"], $_REQUEST["passwort"], $_REQUEST["vorname"], $_REQUEST["nachname"], $_REQUEST["geburtsdatum"], $_REQUEST["strasse"], $_REQUEST["plz"], $_REQUEST["ort"], $_REQUEST["email"], $_REQUEST["email_bestaetigt"], 0,0,1);
+				}
+				
+				
+			} else {
+				//Falls Teilnehmer sich selbst registriert
+				$user= new User($_REQUEST["benutzername"], $_REQUEST["passwort"], $_REQUEST["vorname"], $_REQUEST["nachname"], $_REQUEST["geburtsdatum"], $_REQUEST["strasse"], $_REQUEST["plz"], $_REQUEST["ort"], $_REQUEST["email"], $_REQUEST["email_bestaetigt"], $_REQUEST["ist_admin"], $_REQUEST["ist_zertifizierer"], $_REQUEST["ist_teilnehmer"]);
+			
+			}
+				
+			//Fehlerausgabe bei falschen bestätigtem Passwort
+			
 			//Überprüfung ob Passwort und bestätigtes Passwort übereinstimmen
 			if ($_REQUEST['passwort']==$_REQUEST['passwort2']) {
-				//Falls ein Admin einen Benutzer anlegt wird hier geprüft, welche Rolle vergeben wurde
-				if (User::currentUser()->istAdmin()) {
+				if (strtotime($_REQUEST["geburtsdatum"])!=false) {
+				
+					//Bei Registrierung über invite, wird ein angepasster Registrierungslink
+					//generiert (Kurs_id wird mit übergeben) 
+					if (isset ($_REQUEST['invitemail'])) {
+						
+						$result = $user->register(true);
+					}
+					else {
 					
-					if ($_REQUEST['rolle']=='a') {
-					$user= new User($_REQUEST["benutzername"], $_REQUEST["passwort"], $_REQUEST["vorname"], $_REQUEST["nachname"], $_REQUEST["geburtsdatum"], $_REQUEST["strasse"], $_REQUEST["plz"], $_REQUEST["ort"], $_REQUEST["email"], $_REQUEST["email_bestaetigt"], 1,0,0);
+						$result = $user->register(false);
+					
 					}
 					
-					if ($_REQUEST['rolle']=='z') {
-						$user= new User($_REQUEST["benutzername"], $_REQUEST["passwort"], $_REQUEST["vorname"], $_REQUEST["nachname"], $_REQUEST["geburtsdatum"], $_REQUEST["strasse"], $_REQUEST["plz"], $_REQUEST["ort"], $_REQUEST["email"], $_REQUEST["email_bestaetigt"], 0,1,0);
-					}
-					
-					if ($_REQUEST['rolle']=='t') {
-						$user= new User($_REQUEST["benutzername"], $_REQUEST["passwort"], $_REQUEST["vorname"], $_REQUEST["nachname"], $_REQUEST["geburtsdatum"], $_REQUEST["strasse"], $_REQUEST["plz"], $_REQUEST["ort"], $_REQUEST["email"], $_REQUEST["email_bestaetigt"], 0,0,1);
-					}
-					
+					return new ViewModel(['meldung' => $result, 'user' => $user]);
 					
 				} else {
-					//Falls Teilnehmer sich selbst registriert
-					$user= new User($_REQUEST["benutzername"], $_REQUEST["passwort"], $_REQUEST["vorname"], $_REQUEST["nachname"], $_REQUEST["geburtsdatum"], $_REQUEST["strasse"], $_REQUEST["plz"], $_REQUEST["ort"], $_REQUEST["email"], $_REQUEST["email_bestaetigt"], $_REQUEST["ist_admin"], $_REQUEST["ist_zertifizierer"], $_REQUEST["ist_teilnehmer"]);
-				
-				}
-				
-				//Fehlerausgabe bei falschen bestätigtem Passwort
-			} else {
-				if (User::currentUser()->istAdmin()) {
-					//Falls Admin wird dies wieder an die View übergeben, email falls Registrierung über invitemail
-					return new ViewModel(['pw_kontrolle' => 'ungleiche passwoerter','status' => 'admin', 'email'=> $_REQUEST['email']]);
 					
-				} else {
-					return new ViewModel(['pw_kontrolle' => 'ungleiche passwoerter', 'email'=> $_REQUEST['email']]);
+					if (User::currentUser()->istAdmin()) {
+						//Falls Admin wird dies wieder an die View übergeben, email falls Registrierung über invitemail
+						return new ViewModel(['datum' => 'datum','status' => 'admin', 'email'=> $_REQUEST['email'], 'user' => $user]);
+					
+					} else {
+						return new ViewModel(['datum' => 'datum', 'email'=> $_REQUEST['email'], 'user' => $user]);
+					}
+					
 				}
-			}
 			
-			//Bei Registrierung über invite, wird ein angepasster Registrierungslink
-			//generiert (Kurs_id wird mit übergeben) 
-			if (isset ($_REQUEST['invitemail'])) {
-				
-				$result = $user->register(true);
 			}
 			else {
-			
-				$result = $user->register(false);
-			
+				if (User::currentUser()->istAdmin()) {
+					//Falls Admin wird dies wieder an die View übergeben, email falls Registrierung über invitemail
+					return new ViewModel(['pw_kontrolle' => 'ungleiche passwoerter','status' => 'admin', 'email'=> $_REQUEST['email'], 'user' => $user]);
+						
+				} else {
+					return new ViewModel(['pw_kontrolle' => 'ungleiche passwoerter', 'email'=> $_REQUEST['email'], 'user' => $user]);
+				}
 			}
-			
-			return new ViewModel(['meldung' => $result]);
-			
 		}
 		//Ausgabe des Formulars, bei erstem Aufruf der Seite
 		else {
 			if (User::currentUser()->istAdmin()) {
-				return new ViewModel(['status' => 'admin']);
+				return new ViewModel(['status' => 'admin', 'user' => $user]);
 			} else {
 				
 				//Falls per invite Seite aufgerufen wird, wird die Mailadresse vorbelegt
 				if (isset($_GET['inviteuser'])) {
 					
-					return new ViewModel(['email'=> $_GET['inviteuser']]);
+					return new ViewModel(['email'=> $_GET['inviteuser'], 'user' => $user]);
 					
 				}else {
 				
 				
 				
-				 return new ViewModel();
+				 return new ViewModel(['user' => $user]);
 				}
 			}
 		}

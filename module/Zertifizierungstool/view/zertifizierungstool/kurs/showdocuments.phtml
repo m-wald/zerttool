@@ -34,7 +34,7 @@
     <div class="container">
     	<h3>Dokumente zum Kurs <?php echo $kursname;?>: </h3>
             <table class="table table-hover">
-                <tr><th>Dateinname</th><th>Dateiformat</th><th>Dateigröße</th><th>Aktion</th></tr>
+                <tr><th>Dateinname</th><th>Dateiformat</th><th>Dateigröße</th></tr>
                 
                    
                         <?php
@@ -45,8 +45,7 @@
                                 ?>
               	<tr>            
                     <td>
-                                <a href="<?php echo $documentdetail['dirname']."/".$documentdetail['basename'];?>"><?php echo $documentdetail['filename']; ?></a>
-                            
+                                <?php echo $documentdetail['filename']; ?>
                     </td>
                     <td>
                         	<?php 
@@ -60,14 +59,29 @@
                                 echo $size;
                         ?>
                     </td>
+                    
+                    <?php  if(User::currentUser()->istAdmin() || User::currentUser()->istZertifizierer()) {?>
                     <td>
                     			<form accept-charset="utf-8" method="POST" action="docDelete">
                     			<input type="hidden" value="<?=$document	?>"name="document"> 
                     			<input type="hidden" value="<?=$path	?>"name="path">
                     			<input type="hidden" value="thissite" name='thissite'>
-                    			<input size="70" maxlength="250" value="Delete document" type="submit">
+                    			<input size="70" maxlength="250" value="L&ouml;schen" type="submit">
                     			</form>
                     </td>
+                    	<?php }
+                    	else
+                    	?>
+                    	 <td>
+                    			<form accept-charset="utf-8" method="POST" action="docdownload">
+                    			<input type="hidden" value="<?=$document					?>"name="document"> 
+                    			<input type="hidden" value="<?=$path						?>"name="path">
+                    			<input type="hidden" value="<?=$documentdetail['extension']	?>"name="extension">
+                    			<input type="hidden" value="download" name='download'>
+                    			<input size="70" maxlength="250" value="Herunterladen" type="submit">
+                    			</form>
+                    </td>
+                    	
              	</tr>
                     	<?php                     					
                     			}

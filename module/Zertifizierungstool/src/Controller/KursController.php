@@ -561,7 +561,7 @@ class KursController extends AbstractActionController
 			 
 		//�berpr�fung der Dateiendung
 		 
-		$allowed_extensions=array('pdf','word');
+		$allowed_extensions=array('pdf','doc','docx','xls','xlsx');
 		 
 		if(!in_array($extension, $allowed_extensions)) {
 			return new ViewModel(['meldung' => 'datentyp']);
@@ -628,17 +628,15 @@ class KursController extends AbstractActionController
     		exit;
     	}
     	
-    	if(!$_POST['site']=="kursview") {
+    	if(!$_POST['site']=="kursview" && !$_SESSION['site'] == 'delete') {
     		header("refresh:0; url= /user/home");
     		exit;
     	}
     	
     	
         $id = $_SESSION['kurs_id'];
-       // $id = 12;
         $name = $_SESSION['kurs_name'];
-            //$kurs = new Kurs();
-            //if(!$kurs->load($id)) $status="Fehler beim Laden der Kursdokumente!";
+            
         //Pfad wo die uploads gespeichert wurden
         $path = "data/uploadsKurse/".$id."/";
         
@@ -679,6 +677,28 @@ class KursController extends AbstractActionController
     		}
     		else		return new ViewModel(['message'=>'Access denied!']);
     	
+    	}
+    }
+    
+    
+    
+    public function docdownloadAction(){
+    	if(User::currentUser()->getBenutzername()==NULL) {
+    		header("refresh:0; url = /user/login");
+    		exit;
+    	}
+    	
+    	if(isset($_POST['download'])){
+    		$path		= $_REQUEST["path"];
+    		$document	= $_REQUEST["document"];
+    		$extension	= $_REQUEST["extension"]; 
+    		
+    		if(file_exists($path."/".$document)){
+    			header("Content-Type: $extension");  		
+    			header("Content-Disposition: attachment; filename=\"$document\"");
+    			readfile($path."/".$document);
+    		}
+    //TODO else return VieModule (error) 
     	}
     }
     
@@ -756,21 +776,23 @@ class KursController extends AbstractActionController
 		$vorname = User::currentUser()->getVorname();
 		$nachname = User::currentUser()->getNachname();
 		
+		
+		/*
+		 *  Button "Meine Zertifikate anzeigen" wird gedruckt
+		 *  Funtkion gibt list an View zuruck
+		 */
 		if($_SERVER['REQUEST_METHOD'] == 'POST' && $_POST['pdflist']) {
 			$kurs = new Kurs;
-			if(!$kurs->certificateList($benutzer)) {
-				return new Viewmodel (['message' => 'access_error']);
-				exit;
-			}
-			else {
-				$list = $kurs->certificateList($benutzer);
-				return new Viewmodel (['list' => $list]);		
-				}
+			$list = $kurs->certificateList($benutzer);
+			return new Viewmodel (['list' => $list]);		
 			}
 			
+			
 		else {
-		
-		
+	
+		/*
+		 * Button "Zertifikat" erstellt einen PDF Zertifikat
+		 */
 		if($_SERVER['REQUEST_METHOD'] == 'POST' && $_POST['pdf']) {
 			 
 			// Zugriff auf Action ist nur erlaubt, falls Zertifizierer oder Admin und Zugang �ber Button in kursview
@@ -794,10 +816,7 @@ class KursController extends AbstractActionController
 			
 			
 			$fileName = $kurs_name.'_'.$vorname.'_'.$nachname;
-			
-		
-		
-		
+					
 			try{
 				// Create new PDF document.
 				$pdf = new PdfDocument();

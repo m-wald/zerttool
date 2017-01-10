@@ -3,26 +3,23 @@
 if(isset($message)){
 
 if ($message == 'success') {
-	header("refresh:0; url = /kurs/kursview");
+	header("refresh:0; url = /kurs/showkurse");
 }
 elseif ($message == 'error') {
 	echo "Ein Fehler ist aufgetretten beim erstellen von PDF Datei!";
-	header("refresh:2; url = /kurs/kursview");
+	header("refresh:2; url = /kurs/showkurse");
 }
 
 elseif($message == 'access_error'){
-	echo "Sie haben den Kurs nicht bestanden!";
-	header("refresh:2; url = /kurs/showkurse");
+	echo "Sie haben den Kurs noch nicht absolviert!";
+	header("refresh:2; url = /kurs/kursview");
 }
 }
 
 
 if(isset($_POST['pdflist'])) {
 	
-	if($message == 'access_error'){
-		echo "Keine bestandene Kurse vorhanden!";
-		header("refresh:2; url = /kurs/showkurse");
-	}
+	
 	
 	
 
@@ -33,7 +30,12 @@ if(isset($_POST['pdflist'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-    
+
+<form method="post" action="kursview">
+<input type="submit" value="zur&uuml;ck zur Kurs&uuml;bersicht" name="back">
+<input type="hidden" value="<?php echo $_SESSION['kurs_id']; ?>" name='kurs_id'>
+</form>
+
     <div class="container">
     	<h3>Erworbene Leistungen: </h3>
             <table class="table table-hover">
@@ -46,6 +48,14 @@ if(isset($_POST['pdflist'])) {
 		</tr>
 		
 		<?php
+		if($list == null){
+		?>
+			<tr>
+				<td>Sie haben noch keine Leistungen erworben!</td>
+			</tr>	
+		<?php 
+		}
+		else {
 			foreach($list as $row){ ?>
 			<tr>
 				<td><?=$row->getKurs_id()?></td>
@@ -61,7 +71,10 @@ if(isset($_POST['pdflist'])) {
 					</form> </td>
 			
 			</tr>
-		<?php }?>
+		<?php 
+			}
+			}
+			?>
 		
 		</table>
 
