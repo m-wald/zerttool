@@ -994,7 +994,7 @@ class KursController extends AbstractActionController
 					$inhalt = array($frage->getText(), $richtig, $beantwortet, $prozentual_richtig);
 					array_push($ergebnis, $inhalt);
 				}
-			return new ViewModel(['ergebnis' => $ergebnis]);
+			return new ViewModel(['ergebnis' => $ergebnis, 'pruefung_name' => $_REQUEST['pruefung_name']]);
 		
 		
 		} else{
