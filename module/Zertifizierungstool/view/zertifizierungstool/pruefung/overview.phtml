@@ -1,5 +1,8 @@
 <?php
 use Zertifizierungstool\Model\User;
+
+$path_edit 	 = 'data/images/edit.png';
+$path_delete = 'data/images/delete.png'; 
 ?>
 <table>
 	<tr><th width="150">Name<th width="100">Termin<th>Cutscore</tr>
@@ -12,8 +15,8 @@ use Zertifizierungstool\Model\User;
 		<td><?=$pruefung->getCutscore() * 100?></td>
 		
 	<?php if (strtotime($pruefung->getTermin()) > time() && (User::currentUser()->istAdmin() || User::currentUser()->istZertifizierer())) {?>
-		<td><a href="<?= $this->url('pruefung', ['action' => 'edit',   'id' => $pruefung->getId()])?>"><button type="button">Bearbeiten</button></a></td>
-		<td><a href="<?= $this->url('pruefung', ['action' => 'delete', 'id' => $pruefung->getId()])?>"><button type="button">L&ouml;schen</button></a></td>
+		<td><a href="<?= $this->url('pruefung', ['action' => 'edit',   'id' => $pruefung->getId()])?>"><button type="button"><img id='editPng'  src='<?=$path_edit?>'  width="20px" height="40px"></button></a></td>
+		<td><a href="<?= $this->url('pruefung', ['action' => 'delete', 'id' => $pruefung->getId()])?>"><button type="button"><img id='deletPng' src='<?=$path_delete?>'width="20px" height="40px"></button></a></td>
 		</tr>
 	<?php }elseif (strtotime($pruefung->getTermin()) <= time() && (User::currentUser()->istAdmin() || User::currentUser()->istTeilnehmer())) {?>
 		<td><a href="<?= $this->url('pruefung', ['action' => 'take', 'id' => $pruefung->getId()])?>"><button type="button">Absolvieren</button></a></td>

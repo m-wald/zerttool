@@ -20,8 +20,9 @@
 <div id="FragenListe">
 	<h3>Fragen</h3>
 	<table>
-	<?php foreach ($fragen as $f) { ?>
-			<tr><td><?=$f->getText()?></td><td><button type="button">Antworten</button></td><td>Flag, ob schon geantwortet</td></tr>		
+	<?php foreach ($fragen as $f) { 
+			$path = '/frage/answer/' .$schreibt_pruefung_id .'?next_id=' .$f->getId(); ?>
+			<tr><td><?=$f->getText()?></td><td><a href="<?=$path?>"><button type="button">Antworten</button></a></td></tr>		
 	<?php } ?>
 	</table>
 </div>
@@ -49,7 +50,6 @@
 			}
 		}
 	?>
-		<input type="hidden" name="next_index" value=<?=$next_index + 1?>>
 		<input type="submit" name="speichern" value="Weiter">
 	</form>	
 </div>

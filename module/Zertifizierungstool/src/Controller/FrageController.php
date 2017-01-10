@@ -32,18 +32,25 @@ class FrageController extends AbstractActionController {
 		$fragen = Frage::loadList($schreibt_pruefung->getPruefungId());
 		// TODO wenn leer oder Fehler
 		
-		// Array nach Id sortieren
-		array_multisort($fragen);
+		// Fragen sortieren und in einem Array speichern mit der Frage-Id als Schlüssel
+		$fragen_map = array();
 		
-		// Ermitteln der nächsten Frage im Array
-		
-		if (isset($_REQUEST['next_index']) && $_REQUEST['next_index'] < count($fragen)) {	
-			$next_index = $_REQUEST['next_index'];
-		} else {
-			$next_index = 0;
+		foreach ($fragen as $frage) {
+			$fragen_map[(string)$frage->getId()] = $frage;
 		}
-
-		$frage = $fragen[$next_index];
+		
+		ksort($fragen_map);
+		
+		if (isset($_REQUEST['next_id'])) {
+			// 
+			$current_question = $_REQUEST['next_id'];
+		} else {
+			// Es wurde noch keine Frage beantwortet -> Schlüssel = Id der ersten Frage im Array
+			$current_question = key($fragen_map);
+		}
+				
+		$frage_to_answer = $fragen_map[$current_question];
+		
 		// Alle Antworten zu dieser Frage laden
 		$antworten = Antwort::loadList($frage->getId());
 		// TODO wenn leer oder Fehler
@@ -54,6 +61,15 @@ class FrageController extends AbstractActionController {
 			$beantwortet = new Beantwortet();
 			$beantwortet->load($schreibt_pruefung_id, $antwort->getId());
 			array_push($beantwortete, array('antwort' => $antwort, 'status' => $beantwortet->getStatus()));
+		}
+		
+		// Ermitteln der nächsten Frage in der Reihenfolge
+		while (key($fragen_map) !== $current_question) {
+			next($fragen_map);
+		}
+		if (!next($fragen_map)) {
+			// Ende des Array wurde erreicht -> Wieder zurück zur ersten Frage
+			reset($fragen_map);
 		}
 		
 		// Nachdem Formular angesendet wurde:
@@ -76,16 +92,15 @@ class FrageController extends AbstractActionController {
 			}
 			
 			if ($success) {
-				header ("refresh:0; url = /frage/answer/" .$schreibt_pruefung_id);
+				header ("refresh:0; url = /frage/answer/" .$schreibt_pruefung_id .'?next_id=' .key($fragen_map));
 			}
 			
 		}
 			
 		return new ViewModel([
-				'frage'		=> $frage,
+				'frage'		=> $frage_to_answer,
 				'fragen'	=> $fragen,
 				'antworten' => $beantwortete,
-				'next_index' => $next_index,
 				'schreibt_pruefung_id' => $schreibt_pruefung_id,
 		]);
 	}

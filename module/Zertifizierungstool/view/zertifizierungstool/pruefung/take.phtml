@@ -1,6 +1,7 @@
-Sie wollten eine Prüfung ablegen. Dabei sind folgende Fehler aufgetreten:
 <?php 
 if (isset($errors)) {
+	echo 'Sie wollten eine Prüfung ablegen. Dabei sind folgende Fehler aufgetreten:';
+			
 	foreach ($errors as $err) {
 		echo "<br>Fehler: " . $err;
 	}
