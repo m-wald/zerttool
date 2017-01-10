@@ -78,6 +78,37 @@ class SchreibtPruefung {
 		return true;
 	}
 	
+	public static function loadlist ($pruefung_id) {
+		
+		$db = new Db_connection();
+		
+		$query = "SELECT * FROM schreibt_pruefung WHERE pruefung_id = " .$pruefung_id;
+		
+		$result = $db->execute($query);
+		
+		if(!$result) {
+			// Fehler bei der Datenbankabfrage
+			return false;
+		
+		} else {
+			$return_array = array();
+			//frage_id, frage_text, punkte, pruefung_id, frage_typ
+			while ($row = mysqli_fetch_assoc($result)) {
+				$schreibtPruefung = new SchreibtPruefung(
+						$row["schreibt_pruefung_id"],
+						$row["pruefung_id"],
+						$row["benutzername"],
+						$row["zeitpunkt"],
+						$row["bestanden"]);
+		
+				array_push($return_array, $schreibtPruefung);
+			}
+				
+			return $return_array;
+		}
+		
+	}
+	
 	public function bestanden() {
 		$this->bestanden = 1;
 		$db = new Db_connection();

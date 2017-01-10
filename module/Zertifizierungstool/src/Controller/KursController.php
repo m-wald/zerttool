@@ -14,6 +14,8 @@ use ZendPdf\Exception;
 use ZendPdf\Style;
 use ZendPdf\Image;
 use Zertifizierungstool\Model\Pruefung;
+use Zertifizierungstool\Model\Frage;
+use Zertifizierungstool\Model\SchreibtPruefung;
 
 class KursController extends AbstractActionController
 {   
@@ -955,6 +957,56 @@ class KursController extends AbstractActionController
 		}
 		
 	}
+	
+	public function statisticlistquestionsAction() {
+		
+		if(User::currentUser()->getBenutzername()==NULL){
+			header("refresh:0; url= /user/login");
+			exit;
+		}
+		
+		if(User::currentUser()->istTeilnehmer()){
+			header("refresh:0; url= /user/home");
+			exit;
+		}
+		
+		if((User::currentUser()->istZertifizierer() || User::currentUser()->istAdmin()) && $_POST['site']=='showstatistic') {			
+				
+				$fragen = array();
+				$fragen = Frage::loadList($_REQUEST['pruefung_id']);
+				$ergebnis = array();
+				
+				foreach ($fragen as $frage) {
+					
+					$schreibt_pruefung_list = array();
+					$schreibt_pruefung_list = SchreibtPruefung::loadlist($frage->getPruefungId());
+					$richtig = 0;
+					$beantwortet = 0;
+					foreach ($schreibt_pruefung_list as $schreibt_pruefung) {
+						
+						if (FrageController::check($frage->getId(), $schreibt_pruefung->getId())){
+							$richtig++;
+						}
+						$beantwortet++;
+						
+					}
+					$prozentual_richtig = ($richtig/$beantwortet)*100;
+					array_push($ergebnis, [$frage->getText(), $richtig, $beantwortet, $prozentual_richtig]);
+				}
+			return new ViewModel(['ergebnis' => $ergebnis]);
+		
+		
+		} else{
+			header("refresh:0; url= /kurs/showkurse");
+			exit;
+		}
+	}
+
+
+
+
+
+
 }
 
    				

@@ -1,0 +1,31 @@
+<h1>Statistik der einzelnen Fragen</h1>
+
+<table>
+<tr><th>Frage</th><th>gesamt beantwortet</th><th>davon richtig</th><th>richtig in %</th></tr>
+
+<?php
+$i = 0;
+foreach($ergebnis as $e){
+	
+	?>
+	
+	<tr><td><?php echo $e[$i][0]?></td><td><?php echo $e[$i][1]?></td><td><?php echo $e[$i][2]?></td><td><?php echo $e[$i][3]?></td></tr>
+<?php 
+$i++;
+}
+
+
+?>
+
+
+
+
+
+
+
+
+
+
+
+
+</table>
