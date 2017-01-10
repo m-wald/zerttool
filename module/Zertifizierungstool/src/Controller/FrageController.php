@@ -48,7 +48,9 @@ class FrageController extends AbstractActionController {
 			// Es wurde noch keine Frage beantwortet -> Schlüssel = Id der ersten Frage im Array
 			$current_question = key($fragen_map);
 		}
-				
+		
+		echo $current_question;
+		
 		$frage_to_answer = $fragen_map[$current_question];
 		
 		// Alle Antworten zu dieser Frage laden
