@@ -991,7 +991,8 @@ class KursController extends AbstractActionController
 						
 					}
 					$prozentual_richtig = ($richtig/$beantwortet)*100;
-					array_push($ergebnis, [$frage->getText(), $richtig, $beantwortet, $prozentual_richtig]);
+					$inhalt = array($frage->getText(), $richtig, $beantwortet, $prozentual_richtig);
+					array_push($ergebnis, $inhalt);
 				}
 			return new ViewModel(['ergebnis' => $ergebnis]);
 		
