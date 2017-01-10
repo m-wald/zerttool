@@ -51,6 +51,8 @@ class FrageController extends AbstractActionController {
 		
 		echo $current_question;
 		
+		print_r($fragen_map, true);
+		
 		$frage_to_answer = $fragen_map[$current_question];
 		
 		// Alle Antworten zu dieser Frage laden
