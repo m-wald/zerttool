@@ -52,7 +52,7 @@ class FrageController extends AbstractActionController {
 		$frage_to_answer = $fragen_map[$current_question];
 		
 		// Alle Antworten zu dieser Frage laden
-		$antworten = Antwort::loadList($frage->getId());
+		$antworten = Antwort::loadList($frage_to_answer->getId());
 		// TODO wenn leer oder Fehler
 		
 		// Für jede Antwortmöglichkeit den Eintrag aus der Tabelle 'beantwortet' laden, um die Ankreuzfelder zu befüllen

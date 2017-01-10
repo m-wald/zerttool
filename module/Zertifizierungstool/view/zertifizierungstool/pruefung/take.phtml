@@ -1,9 +1,9 @@
 <?php 
-if (isset($errors)) {
+if (empty($errors)) {
 	echo 'Sie wollten eine Prüfung ablegen. Dabei sind folgende Fehler aufgetreten:';
 			
 	foreach ($errors as $err) {
-		echo "<br>Fehler: " . $err;
+		echo "<br>" . $err;
 	}
 }
 ?>

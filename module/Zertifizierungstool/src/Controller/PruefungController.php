@@ -52,7 +52,9 @@ class PruefungController extends AbstractActionController {
 		
 		// Alle Fragen zur Prüfung laden
 		$fragen = Frage::loadList($pruefung_id);
-		// TODO Fehler oder leeres Array
+		if (!$fragen || empty($fragen)) {
+			array_push($errors, "Fehler: Es konnten keine Prüfungsfragen geladen werden!");
+		}
 		
 		// Für jede Frage:
 		foreach ($fragen as $frage) {
@@ -206,9 +208,8 @@ class PruefungController extends AbstractActionController {
 	 * @return \Zend\View\Model\ViewModel
 	 */
 	public function createAction() {
-		// Berechtigungsprüfung TODO weiterleitung auf fehlerseite
 		if (!User::currentUser()->istAdmin() && !User::currentUser()->istZertifizierer()) {
-			header ("refresh:0; url = /user/login/");
+			header ("refresh:0; url = /user/home/");
 		}
 		
 		if (empty($_REQUEST["kursid"])) {
@@ -228,9 +229,8 @@ class PruefungController extends AbstractActionController {
 	 * @return \Zend\View\Model\ViewModel
 	 */
 	public function editAction() {
-		// Berechtigungsprüfung TODO weiterleitung auf fehlerseite
 		if (!User::currentUser()->istAdmin() && !User::currentUser()->istZertifizierer()) {
-			header ("refresh:0; url = /user/login/");
+			header ("refresh:0; url = /user/home/");
 		}
 		
 		if (empty($_REQUEST["pruefid"])) {
@@ -246,7 +246,7 @@ class PruefungController extends AbstractActionController {
 		$kurs->load($this->pruefung->getKursId());
 		
 		if (!$kurs->getBenutzername() == User::currentUser()->getBenutzername()) {
-			header ("refresh:0; url = /user/login/");
+			header ("refresh:0; url = /user/home/");
 		}
 		
 		// Was wenn Fehler? Zurückleiten auf Übersicht?
