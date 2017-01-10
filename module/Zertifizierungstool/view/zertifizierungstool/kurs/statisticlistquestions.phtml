@@ -4,14 +4,14 @@
 <tr><th>Frage</th><th>gesamt beantwortet</th><th>davon richtig</th><th>richtig in %</th></tr>
 
 <?php
-$i = 0;
-foreach($ergebnis as $e){
+foreach($ergebnis as $erg){
 	
 	?>
-	
-	<tr><td><?php echo $e[$i][0]?></td><td><?php echo $e[$i][1]?></td><td><?php echo $e[$i][2]?></td><td><?php echo $e[$i][3]?></td></tr>
+	<?php foreach ($erg as $e){?>
+	<tr><td><?php echo $e[0]?></td><td><?php echo $e[1]?></td><td><?php echo $e[2]?></td><td><?php echo $e[3]?></td></tr>
 <?php 
-$i++;
+
+}
 }
 
 
