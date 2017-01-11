@@ -122,7 +122,7 @@ class UserController extends AbstractActionController
 				//Falls per invite Seite aufgerufen wird, wird die Mailadresse vorbelegt
 				if (isset($_GET['inviteuser'])) {
 					
-					return new ViewModel(['email'=> $_GET['inviteuser'], 'user' => $user]);
+					return new ViewModel(['emailinvitation'=> $_GET['inviteuser'], 'user' => $user]);
 					
 				}else {
 				
