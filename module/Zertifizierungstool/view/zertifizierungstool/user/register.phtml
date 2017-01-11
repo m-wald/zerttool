@@ -23,35 +23,53 @@ else {
 <div class="form-group">
 <label> Benutzername </label>
 <input type="text" class= "form-control" name="benutzername" required value ="<?php echo $user->getBenutzername();?>" placeholder = "Ihr gew&uuml;nschter Benutzername">
+</div>
+<div>
 <label> Passwort</label>
 <input type="password" class = "form-control" name="passwort" required placeholder="Passwort eingeben">
+</div>
+<div class="form-group">
 <label> Passwort best&auml;tigen</label>
 <input type="password" class = "form-control" name="passwort2" required placeholder="Passwort erneut eingeben">
+</div>
+<div class="form-group">
 <label> Vorname</label>
 <input type="text" class="form-control" name="vorname" required value ="<?php echo $user->getVorname();?>" placeholder="Vorname">
+</div>
+<div class="form-group">
 <label> Nachname</label>
 <input type="text" class="form-control" name="nachname" required value ="<?php echo $user->getNachname();?>" placeholder="Nachname">
+</div>
+<div class="form-group">
 <label> Geburtsdatum</label>
 <input type="date" class="form-control" name="geburtsdatum" required value ="<?php echo $user->getGeburtsdatum();?>" placeholder="TT.MM.JJJJ">
+</div>
+<div class="form-group">
 <label> Stra&szlig;e</label>
 <input type="text" class="form-control" name="strasse" required value ="<?php echo $user->getStrasse();?>" placeholder="Stra&szlig;e & Hausnummer">
+</div>
+<div class="form-group">
 <label> Postleitzahl</label>
 <input type="text" class="form-control" name="plz" required value ="<?php echo $user->getPLZ();?>" placeholder="Postleitzahl">
+</div>
+<div class="form-group">
 <label> Ort</label>
 <input type="text" class="form-control" name="ort" required value ="<?php echo $user->getOrt();?>" placeholder="Ort">
-
+</div>
 <!-- Falls E-Mail-Einladung gefolgt wird, und noch keine Registrierung vorgenommen wurde -->
 
 <?php if (isset($email)) {?>
+<div class="form-group">
 <label> E-Mail</label>
-<input type="email" class="form-control" name="email" value="<?php echo $email?>" readonly required></td></tr>
+<input type="email" class="form-control" name="email" value="<?php echo $email?>" readonly required>
 <input type="hidden" name="invitemail" value="true">
-
+</div>
 <?php } else {?>
 
+<div class="form-group">
 <label> E-Mail</label>
 <input type="email" class="form-control" name="email" required value ="<?php echo $user->getEmail();?>" placeholder="Ihre E-Mail-Adresse">
-
+</div>
 <?php }?>
 
 <input type="hidden" value = 0 name="email_bestaetigt">
@@ -60,12 +78,14 @@ else {
 
  <?php if ($status == 'admin') {?>
 
+<div class="form-group">
 <label> Rolle</label> 
 <select name="rolle">
 			<option value='a'>Administrator</option>
 			<option value='z'>Zertifizierer</option>
 			<option value='t'>Teilnehmer</option>
 </select>
+</div>
 <br><br>
 
 <?php } else {?>
