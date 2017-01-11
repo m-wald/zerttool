@@ -61,7 +61,7 @@ class CSV_invite {
 			$betreff = "Einladung zu Kurs ".$kurs->getKurs_name();
 			$text = "Hallo ".$user->getVorname()." ".$user->getNachname().",\n\n Sie wurden in den Kurs ".$kurs->getKurs_name()." eigeladen.\n
 					Bitte folgen Sie diesem Link um sich einzutragen:\n\n
-					132.231.36.205/kurs/enterkurs?benutzername=".$user->getBenutzername()."&kurs_id=".$kurs_id;
+					http://132.231.36.205/kurs/enterkurs?benutzername=".$user->getBenutzername()."&kurs_id=".$kurs_id;
 			$text = wordwrap($text, 70);
 			mail ($empfaenger, $betreff, $text);
 		}else {
@@ -71,7 +71,7 @@ class CSV_invite {
 			$text = "Hallo zukünftiger Teilnehmer,\n\n Sie wurden in den Kurs ".$kurs->getKurs_name()." eigeladen.\n
 					Für diese E-Mail-Adresse wurde bisher keine Registrierung festgestellt.
 					Bitte folgen Sie diesem Link um sich zu registrieren:\n\n
-					www.zerttool.tk/kurs/enterkurs?email=".$email."&kurs_id=".$kurs_id."
+					http://132.231.36.205/kurs/enterkurs?email=".$email."&kurs_id=".$kurs_id."
 					\n\n Sie werden nach der Registrierung automatisch in den Kurs eingetragen.";
 					
 			$text = wordwrap($text, 70);
