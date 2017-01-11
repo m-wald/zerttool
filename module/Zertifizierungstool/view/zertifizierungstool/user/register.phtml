@@ -4,11 +4,8 @@
 <?php
 use Zertifizierungstool\Model\User;
 
-if(isset($meldung)){
-	$error = $meldung;
-	echo $error;
-}
-if ($error == "Daten wurden erfolgreich gespeichert. Sie erhalten in K&uuml;rze eine E-Mail. Bitte folgen Sie dem darin enthaltenen Link, um Ihre Registrierung abzuschlie&szlig;en.") {
+
+if ($meldung == "Daten wurden erfolgreich gespeichert. Sie erhalten in K&uuml;rze eine E-Mail. Bitte folgen Sie dem darin enthaltenen Link, um Ihre Registrierung abzuschlie&szlig;en.") {
 	header("refresh:2; url=/user/login");
 }
 else {
@@ -139,6 +136,12 @@ if (isset($datum)) {
 	
 	echo "<center><b><font color='red'>Kein g&uuml;ltiges Datum! Bitte korrigieren!</font></b></center>";
 	
+}
+
+//Rückmeldung aus Model, falls Benutzername oder E-Mail bereits vergeben sind
+
+if($meldung != "Daten wurden erfolgreich gespeichert. Sie erhalten in K&uuml;rze eine E-Mail. Bitte folgen Sie dem darin enthaltenen Link, um Ihre Registrierung abzuschlie&szlig;en."){
+	echo "<center><b><font color='red'>".$meldung."</font></b></center>";
 }
 
 
