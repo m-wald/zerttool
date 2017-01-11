@@ -74,7 +74,16 @@ class UserController extends AbstractActionController
 			
 			//Überprüfung ob Passwort und bestätigtes Passwort übereinstimmen
 			if ($_REQUEST['passwort']==$_REQUEST['passwort2']) {
-				if (strtotime($_REQUEST["geburtsdatum"])!=false) {
+				if(strtotime($_REQUEST["geburtsdatum"])) {
+					
+					//Überprüfung, ob Geburtsdatum in der Vergangenheit liegt
+					
+					$currentdate = date('Y-m-d');
+					if(strtotime($_REQUEST["geburtsdatum"])<strtotime($currentdate)){
+						$birthdaycheck = true;
+					}
+					else $birthdaycheck = false;
+				
 				
 					//Bei Registrierung über invite, wird ein angepasster Registrierungslink
 					//generiert (Kurs_id wird mit übergeben) 
@@ -94,10 +103,10 @@ class UserController extends AbstractActionController
 					
 					if (User::currentUser()->istAdmin()) {
 						//Falls Admin wird dies wieder an die View übergeben, email falls Registrierung über invitemail
-						return new ViewModel(['datum' => 'datum','status' => 'admin', 'email'=> $_REQUEST['email'], 'user' => $user]);
+						return new ViewModel(['datum' => 'datum', 'birthdaycheck' => $birthdaycheck, 'status' => 'admin', 'email'=> $_REQUEST['email'], 'user' => $user]);
 					
 					} else {
-						return new ViewModel(['datum' => 'datum', 'email'=> $_REQUEST['email'], 'user' => $user]);
+						return new ViewModel(['datum' => 'datum', 'birthdaycheck' => $birthdaycheck, 'email'=> $_REQUEST['email'], 'user' => $user]);
 					}
 					
 				}
