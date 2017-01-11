@@ -76,13 +76,12 @@ class UserController extends AbstractActionController
 			if ($_REQUEST['passwort']==$_REQUEST['passwort2']) {
 				if(strtotime($_REQUEST["geburtsdatum"])) {
 					
-					//Überprüfung, ob Geburtsdatum in der Vergangenheit liegt
+					//Überprüfung, ob Geburtsdatum in der Zukunft liegt
 					
 					$currentdate = date('Y-m-d');
-					if(strtotime($_REQUEST["geburtsdatum"])<strtotime($currentdate)){
-						$birthdaycheck = true;
-					}
-					else $birthdaycheck = false;
+					if(strtotime($_REQUEST["geburtsdatum"])>=strtotime($currentdate)){
+						$birthdayfailure = true;
+					
 				
 				
 					//Bei Registrierung über invite, wird ein angepasster Registrierungslink
@@ -94,19 +93,21 @@ class UserController extends AbstractActionController
 					else {
 					
 						$result = $user->register(false);
-					
+						
 					}
 					
 					return new ViewModel(['meldung' => $result, 'user' => $user]);
-					
-				} else {
+					}
+					else $birthdayfailure = false;
+				}
+				else {
 					
 					if (User::currentUser()->istAdmin()) {
 						//Falls Admin wird dies wieder an die View übergeben, email falls Registrierung über invitemail
-						return new ViewModel(['datum' => 'datum', 'birthdaycheck' => $birthdaycheck, 'status' => 'admin', 'email'=> $_REQUEST['email'], 'user' => $user]);
+						return new ViewModel(['datum' => 'datum', 'birthdayfailure' => $birthdayfailure, 'status' => 'admin', 'email'=> $_REQUEST['email'], 'user' => $user]);
 					
 					} else {
-						return new ViewModel(['datum' => 'datum', 'birthdaycheck' => $birthdaycheck, 'email'=> $_REQUEST['email'], 'user' => $user]);
+						return new ViewModel(['datum' => 'datum', 'birthdayfailure' => $birthdayfailure, 'email'=> $_REQUEST['email'], 'user' => $user]);
 					}
 					
 				}
