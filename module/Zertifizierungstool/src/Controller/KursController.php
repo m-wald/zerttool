@@ -49,6 +49,13 @@ class KursController extends AbstractActionController
             
             //todo Enddatum in der Zukunft abprüfen?
             
+            //
+                $name = $_REQUEST["kursname"];
+                $sicht = $_REQUEST["sichtbarkeit"];
+                $besch = $_REQUEST["beschreibung"];
+            //
+            
+            
             $kurs = new Kurs(
                     $_REQUEST["kursname"], 
                     $_REQUEST["kursstart"], 
@@ -61,7 +68,7 @@ class KursController extends AbstractActionController
             $createkurs = $kurs->save();
             
             if(isset($createkurs))
-            	return new ViewModel(['message' => 'erfolgt']);
+            	return new ViewModel(['message' => 'erfolgt', 'kursname' => $name, 'kursstart' => $start, 'kursende' => $ende, 'sichtbarkeit' => $sicht, 'beschreibung' => $besch]);
             else 
             	return new ViewModel(['error' => 'nichtangelegt']);
 	}	
