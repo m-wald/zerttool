@@ -30,9 +30,6 @@ class KursController extends AbstractActionController
     		header("refresh:0; url= /user/home");
     		exit;
     	}
-    	
-    		
-    	
         
         if($_SERVER['REQUEST_METHOD'] == 'POST') {
             
@@ -49,14 +46,8 @@ class KursController extends AbstractActionController
             
             //todo Enddatum in der Zukunft abprüfen?
             
-            //
-                $name = $_REQUEST["kursname"];
-                $sicht = $_REQUEST["sichtbarkeit"];
-                $besch = $_REQUEST["beschreibung"];
-            //
-            
-            
             $kurs = new Kurs(
+                    NULL,
                     $_REQUEST["kursname"], 
                     $_REQUEST["kursstart"], 
                     $_REQUEST["kursende"], 
@@ -68,7 +59,7 @@ class KursController extends AbstractActionController
             $createkurs = $kurs->save();
             
             if(isset($createkurs))
-            	return new ViewModel(['message' => 'erfolgt', 'kursname' => $name, 'kursstart' => $start, 'kursende' => $ende, 'sichtbarkeit' => $sicht, 'beschreibung' => $besch]);
+            	return new ViewModel(['message' => 'erfolgt']);
             else 
             	return new ViewModel(['error' => 'nichtangelegt']);
 	}	

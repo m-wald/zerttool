@@ -25,7 +25,7 @@ class Kurs {
         $this->beschreibung = $beschreibung;
     }*/
     
-    public function __construct($kurs_id = "", $kurs_name = "", $kurs_start = "", $kurs_ende = "", $sichtbarkeit = "", $benutzername="", $beschreibung="", $teilnehmeranzahl="") {
+    public function __construct($kurs_id, $kurs_name, $kurs_start, $kurs_ende, $sichtbarkeit, $benutzername, $beschreibung, $teilnehmeranzahl) {
 		
     	$db = new Db_connection();
     	
