@@ -1,6 +1,6 @@
 <h1>Registrierung</h1>
 
-<br><br>
+<br>
 <?php
 use Zertifizierungstool\Model\User;
 
@@ -16,7 +16,7 @@ else {
 		
 ?>
 
-<br><br>
+<br>
 <form class="form-horizontal" method='post' action='register'>
 
 
@@ -111,7 +111,7 @@ else {
 		</select>
 	</div>
 </div>
-<br><br>
+<br>
 
 <?php } else {?>
       
@@ -121,23 +121,23 @@ else {
 
 <?php }?>
 
-<br><br>
+<br>
 <input type = "submit" class="btn btn-default" value="Best&auml;tigen">
 
 </form>
-<br><br>
+<br>
 
 <?php 
 }
 
 if (isset($pw_kontrolle)) {
 	
-	echo "<b><font color='red'>Das best&auml;tigte Passwort stimmt nicht mit dem vergebenen Passwort &uuml;berein!</font></b>";
+	echo "<center><b><font color='red'>Das best&auml;tigte Passwort stimmt nicht mit dem vergebenen Passwort &uuml;berein!</font></b></center>";
 }
 
 if (isset($datum)) {
 	
-	echo "<b><font color='red'>Kein g&uuml;ltiges Datum! Bitte korrigieren!</font></b>";
+	echo "<center><b><font color='red'>Kein g&uuml;ltiges Datum! Bitte korrigieren!</font></b></center>";
 	
 }
 ?>
