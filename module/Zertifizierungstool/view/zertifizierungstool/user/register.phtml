@@ -19,27 +19,38 @@ else {
 <br><br>
 <form method='post' action='register'>
 
-<table>
-<tr><td>Benutzername:</td><td> <input type="text" name="benutzername" required value ="<?php echo $user->getBenutzername();?>"></td></tr>
-<tr><td>Passwort:</td><td> <input type="password" name="passwort" required ></td></tr>
-<tr><td>Passwort best&auml;tigen:</td><td> <input type="password" name="passwort2" required></td></tr>
-<tr><td>Vorname:</td><td> <input type="text" name="vorname" required value ="<?php echo $user->getVorname();?>"> </td></tr>
-<tr><td>Nachname:</td><td> <input type="text" name="nachname" required value ="<?php echo $user->getNachname();?>"></td></tr>
-<tr><td>Geburtsdatum:</td><td> <input type="date" name="geburtsdatum" required value ="<?php echo $user->getGeburtsdatum();?>"></td></tr>
-<tr><td>Strasse:</td><td> <input type="text" name="strasse" required value ="<?php echo $user->getStrasse();?>"></td></tr>
-<tr><td>Postleitzahl:</td><td> <input type="text" name="plz" required value ="<?php echo $user->getPLZ();?>"></td></tr>
-<tr><td>Ort:</td><td> <input type="text" name="ort" required value ="<?php echo $user->getOrt();?>"></td></tr>
+
+<div class="form-group">
+<label> Benutzername </label>
+<input type="text" class= "form-control" name="benutzername" required value ="<?php echo $user->getBenutzername();?>" placeholder = "Ihr gew&uuml;nschter Benutzername">
+<label> Passwort</label>
+<input type="password" class = "form-control" name="passwort" required placeholder="Passwort eingeben">
+<label> Passwort best&auml;tigen</label>
+<input type="password" class = "form-control" name="passwort2" required placeholder="Passwort erneut eingeben">
+<label> Vorname</label>
+<input type="text" class="form-control" name="vorname" required value ="<?php echo $user->getVorname();?>" placeholder="Vorname">
+<label> Nachname</label>
+<input type="text" class="form-control" name="nachname" required value ="<?php echo $user->getNachname();?>" placeholder="Nachname">
+<label> Geburtsdatum</label>
+<input type="date" class="form-control" name="geburtsdatum" required value ="<?php echo $user->getGeburtsdatum();?>" placeholder="TT.MM.JJJJ">
+<label> Stra&szlig;e</label>
+<input type="text" class="form-control" name="strasse" required value ="<?php echo $user->getStrasse();?>" placeholder="Stra&szlig;e & Hausnummer">
+<label> Postleitzahl</label>
+<input type="text" class="form-control" name="plz" required value ="<?php echo $user->getPLZ();?>" placeholder="Postleitzahl">
+<label> Ort</label>
+<input type="text" class="form-control" name="ort" required value ="<?php echo $user->getOrt();?>" placeholder="Ort">
 
 <!-- Falls E-Mail-Einladung gefolgt wird, und noch keine Registrierung vorgenommen wurde -->
 
 <?php if (isset($email)) {?>
-
-<tr><td>E-Mail:</td><td> <input type="email" name="email" value="<?php echo $email?>" readonly required></td></tr>
+<label> E-Mail</label>
+<input type="email" class="form-control" name="email" value="<?php echo $email?>" readonly required></td></tr>
 <input type="hidden" name="invitemail" value="true">
 
 <?php } else {?>
 
-<tr><td>E-Mail:</td><td> <input type="email" name="email" required value ="<?php echo $user->getEmail();?>"></td></tr>
+<label> E-Mail</label>
+<input type="email" class="form-control" name="email" required value ="<?php echo $user->getEmail();?>" placeholder="Ihre E-Mail-Adresse">
 
 <?php }?>
 
@@ -48,12 +59,14 @@ else {
 
 
  <?php if ($status == 'admin') {?>
- 
-<tr><td>Rolle:</td><td><select name="rolle">
-					   <option value='a'>Administrator</option>
-					   <option value='z'>Zertifizierer</option>
-					   <option value='t'>Teilnehmer</option></select>
-</td></tr><br><br>
+
+<label> Rolle</label> 
+<select name="rolle">
+			<option value='a'>Administrator</option>
+			<option value='z'>Zertifizierer</option>
+			<option value='t'>Teilnehmer</option>
+</select>
+<br><br>
 
 <?php } else {?>
       
@@ -62,9 +75,9 @@ else {
 <input type="hidden" value = 1 name="ist_teilnehmer"> <br> <br>
 
 <?php }?>
-</table>
+
 <br><br>
-<input type = "submit" value="Best&auml;tigen">
+<input type = "submit" class="btn btn-default" value="Best&auml;tigen">
 
 </form>
 <br><br>
