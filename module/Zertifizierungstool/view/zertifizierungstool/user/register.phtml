@@ -17,14 +17,14 @@ else {
 ?>
 
 <br><br>
-<form method='post' action='register'>
+<form class="form-horizontal" method='post' action='register'>
 
 
 <div class="form-group">
-<label> Benutzername </label>
+<label class="control-label"> Benutzername </label>
 <input type="text" class= "form-control" name="benutzername" required value ="<?php echo $user->getBenutzername();?>" placeholder = "Ihr gew&uuml;nschter Benutzername">
 </div>
-<div>
+<div class="form-group">
 <label> Passwort</label>
 <input type="password" class = "form-control" name="passwort" required placeholder="Passwort eingeben">
 </div>
