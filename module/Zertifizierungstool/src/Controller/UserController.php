@@ -76,11 +76,11 @@ class UserController extends AbstractActionController
 			if ($_REQUEST['passwort']==$_REQUEST['passwort2']) {
 				if(strtotime($_REQUEST["geburtsdatum"])) {
 					
-					//Überprüfung, ob Geburtsdatum in der Zukunft liegt
+					//Überprüfung, ob Geburtsdatum in der Vergangenheit liegt
 					
 					$currentdate = date('Y-m-d');
-					if(strtotime($_REQUEST["geburtsdatum"])>=strtotime($currentdate)){
-						$birthdayfailure = true;
+					if(strtotime($_REQUEST["geburtsdatum"])<=strtotime($currentdate)){
+						$birthdayfailure = false;
 					
 				
 				
@@ -97,9 +97,14 @@ class UserController extends AbstractActionController
 					}
 					
 					return new ViewModel(['meldung' => $result, 'user' => $user]);
-					}
-					else $birthdayfailure = false;
+					
+				
 				}
+				else $birthdayfailure = true;
+			
+			
+			}
+			
 				else {
 					
 					if (User::currentUser()->istAdmin()) {
@@ -113,6 +118,7 @@ class UserController extends AbstractActionController
 				}
 			
 			}
+		
 			else {
 				if (User::currentUser()->istAdmin()) {
 					//Falls Admin wird dies wieder an die View übergeben, email falls Registrierung über invitemail
