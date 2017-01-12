@@ -70,7 +70,9 @@ class FrageController extends AbstractActionController {
 			array_push($beantwortete, array('antwort' => $antwort, 'status' => $beantwortet->getStatus()));
 		}
 		
+		
 		// Ermitteln der nächsten Frage in der Reihenfolge
+		/*
 		while (key($fragen_map) !== $current_question) {
 			next($fragen_map);
 		}
@@ -78,6 +80,7 @@ class FrageController extends AbstractActionController {
 			// Ende des Array wurde erreicht -> Wieder zurück zur ersten Frage
 			reset($fragen_map);
 		}
+		*/
 		
 		// Nachdem Formular angesendet wurde:
 		if ($_REQUEST['speichern']) {
@@ -99,7 +102,7 @@ class FrageController extends AbstractActionController {
 			}
 			
 			if ($success) {
-				header ("refresh:0; url = /frage/answer/" .$schreibt_pruefung_id .'?next_id=' .key($fragen_map));
+				header ("refresh:0; url = /frage/answer/" .$schreibt_pruefung_id .'?next_id=24'); //.key($fragen_map));
 			}
 			
 		}
