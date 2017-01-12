@@ -51,12 +51,12 @@ class FrageController extends AbstractActionController {
 
 		echo $current_question;
 		echo 'vardump:<br>';
-		print_r($fragen_map, true);
+		var_dump($fragen_map);
 		
 		$frage_to_answer = $fragen_map[(string)$current_question];
 		
-		echo '<br><br>';
-		print_r($frage_to_answer, true);
+		echo '<br><br>FrageToAnswer';
+		echo $frage_to_answer->getText();
 		
 		// Alle Antworten zu dieser Frage laden
 		$antworten = Antwort::loadList($frage_to_answer->getId());
