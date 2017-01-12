@@ -359,7 +359,7 @@ class User
 		$empfaenger = $this->email;
 		$betreff = "Registrierung Zertifizierungstool";
 		$from = "user@zerttool.tk";
-		$text = "Hallo ".$this->vorname." ".$this->nachname.",\n\nbitte bestaetigen Sie folgenden Link:\n\n 132.231.36.205/user/registerbest?benutzer=".$this->benutzername;
+		$text = "Hallo ".$this->vorname." ".$this->nachname.",\n\nbitte bestaetigen Sie folgenden Link:\n\n http://132.231.36.205/user/registerbest?benutzer=".$this->benutzername;
 		$text = wordwrap($text, 70);
 		mail ($empfaenger, $betreff, $text); 
 	}
@@ -373,7 +373,7 @@ class User
 		
 		$empfaenger = $this->email;
 		$betreff = "Registrierung Zertifizierungstool";
-		$text = "Hallo ".$this->vorname." ".$this->nachname.",\n\nbitte bestaetigen Sie folgenden Link:\n\n 132.231.36.205/user/registerbest?benutzer=".$this->benutzername."&kurs_id=".$_SESSION['kurs'];
+		$text = "Hallo ".$this->vorname." ".$this->nachname.",\n\nbitte bestaetigen Sie folgenden Link:\n\n http://132.231.36.205/user/registerbest?benutzer=".$this->benutzername."&kurs_id=".$_SESSION['kurs'];
 		$text = wordwrap($text, 70);
 		mail ($empfaenger, $betreff, $text);
 		
@@ -398,7 +398,7 @@ class User
 		$empfaenger = $this->email;
 		$betreff = "Neues Passwort angefordert für Zertifizierungstool";
 		$from = "user@zerttool.tk";
-		$text = "Hallo ".$this->vorname." ".$this->nachname.",\n\n wenn Sie ein neues Passwort angefordert haben, folgenden Sie bitte diesem Link:\n\n 132.231.36.205/user/passwordforgotten?benutzer=".$this->benutzername."&pruefzahl=".$pruefzahl;
+		$text = "Hallo ".$this->vorname." ".$this->nachname.",\n\n wenn Sie ein neues Passwort angefordert haben, folgenden Sie bitte diesem Link:\n\n http://132.231.36.205/user/passwordforgotten?benutzer=".$this->benutzername."&pruefzahl=".$pruefzahl;
 		$text = wordwrap($text, 70);
 		mail ($empfaenger, $betreff, $text);
 				

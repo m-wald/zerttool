@@ -1,14 +1,12 @@
 <h1>Registrierung</h1>
 
-<br><br>
+<br>
 <?php
 use Zertifizierungstool\Model\User;
 
-if(isset($meldung)){
-	$error = $meldung;
-	echo $error;
-}
-if ($error == "Daten wurden erfolgreich gespeichert. Sie erhalten in K&uuml;rze eine E-Mail. Bitte folgen Sie dem darin enthaltenen Link, um Ihre Registrierung abzuschlie&szlig;en.") {
+
+if ($meldung == "Daten wurden erfolgreich gespeichert. Sie erhalten in K&uuml;rze eine E-Mail. Bitte folgen Sie dem darin enthaltenen Link, um Ihre Registrierung abzuschlie&szlig;en.") {
+		echo "Daten wurden erfolgreich gespeichert. Sie erhalten in K&uuml;rze eine E-Mail. Bitte folgen Sie dem darin enthaltenen Link, um Ihre Registrierung abzuschlie&szlig;en.";
 	header("refresh:2; url=/user/login");
 }
 else {
@@ -16,31 +14,83 @@ else {
 		
 ?>
 
-<br><br>
-<form method='post' action='register'>
+<br>
+<form class="form-horizontal" method='post' action='register'>
 
-<table>
-<tr><td>Benutzername:</td><td> <input type="text" name="benutzername" required value ="<?php echo $user->getBenutzername();?>"></td></tr>
-<tr><td>Passwort:</td><td> <input type="password" name="passwort" required ></td></tr>
-<tr><td>Passwort best&auml;tigen:</td><td> <input type="password" name="passwort2" required></td></tr>
-<tr><td>Vorname:</td><td> <input type="text" name="vorname" required value ="<?php echo $user->getVorname();?>"> </td></tr>
-<tr><td>Nachname:</td><td> <input type="text" name="nachname" required value ="<?php echo $user->getNachname();?>"></td></tr>
-<tr><td>Geburtsdatum:</td><td> <input type="date" name="geburtsdatum" required value ="<?php echo $user->getGeburtsdatum();?>"></td></tr>
-<tr><td>Strasse:</td><td> <input type="text" name="strasse" required value ="<?php echo $user->getStrasse();?>"></td></tr>
-<tr><td>Postleitzahl:</td><td> <input type="text" name="plz" required value ="<?php echo $user->getPLZ();?>"></td></tr>
-<tr><td>Ort:</td><td> <input type="text" name="ort" required value ="<?php echo $user->getOrt();?>"></td></tr>
 
+<div class="form-group">
+	<label class="control-label col-sm-2"> Benutzername </label>
+	<div class="col-sm-10">
+		<input type="text" class= "form-control" name="benutzername" required value ="<?php echo $user->getBenutzername();?>" placeholder = "Ihr gew&uuml;nschter Benutzername">
+	</div>
+</div>
+<div class="form-group">
+	<label class="control-label col-sm-2"> Passwort</label>
+	<div class="col-sm-10">
+		<input type="password" class = "form-control" name="passwort" required placeholder="Passwort eingeben">
+	</div>
+</div>
+<div class="form-group">
+	<label class="control-label col-sm-2"> Passwort best&auml;tigen</label>
+	<div class="col-sm-10">
+		<input type="password" class = "form-control" name="passwort2" required placeholder="Passwort erneut eingeben">
+	</div>
+</div>
+<div class="form-group">
+	<label class="control-label col-sm-2"> Vorname</label>
+	<div class="col-sm-10">
+		<input type="text" class="form-control" name="vorname" required value ="<?php echo $user->getVorname();?>" placeholder="Vorname">
+	</div>
+</div>
+<div class="form-group">
+	<label class="control-label col-sm-2"> Nachname</label>
+	<div class="col-sm-10">
+		<input type="text" class="form-control" name="nachname" required value ="<?php echo $user->getNachname();?>" placeholder="Nachname">
+	</div>
+</div>
+<div class="form-group">
+	<label class="control-label col-sm-2"> Geburtsdatum</label>
+	<div class="col-sm-10">
+		<input type="date" class="form-control" name="geburtsdatum" required value ="<?php echo $user->getGeburtsdatum();?>" placeholder="TT.MM.JJJJ">
+	</div>
+</div>
+<div class="form-group">
+	<label class="control-label col-sm-2"> Stra&szlig;e</label>
+	<div class="col-sm-10">
+		<input type="text" class="form-control" name="strasse" required value ="<?php echo $user->getStrasse();?>" placeholder="Stra&szlig;e & Hausnummer">
+	</div>
+</div>
+<div class="form-group">
+	<label class="control-label col-sm-2"> Postleitzahl</label>
+	<div class="col-sm-10">
+		<input type="text" class="form-control" name="plz" required value ="<?php echo $user->getPLZ();?>" placeholder="Postleitzahl">
+	</div>
+</div>
+<div class="form-group">
+	<label class="control-label col-sm-2"> Ort</label>
+	<div class="col-sm-10">
+		<input type="text" class="form-control" name="ort" required value ="<?php echo $user->getOrt();?>" placeholder="Ort">
+	</div>
+</div>
 <!-- Falls E-Mail-Einladung gefolgt wird, und noch keine Registrierung vorgenommen wurde -->
 
-<?php if (isset($email)) {?>
+<?php if (isset($emailinvitation)) {?>
 
-<tr><td>E-Mail:</td><td> <input type="email" name="email" value="<?php echo $email?>" readonly required></td></tr>
-<input type="hidden" name="invitemail" value="true">
-
+<div class="form-group">
+	<label class="control-label col-sm-2"> E-Mail</label>
+	<div class="col-sm-10">
+		<input type="email" class="form-control" name="email" value="<?php echo $emailinvitation?>" readonly required>
+		<input type="hidden" name="invitemail" value="true">
+	</div>
+</div>
 <?php } else {?>
 
-<tr><td>E-Mail:</td><td> <input type="email" name="email" required value ="<?php echo $user->getEmail();?>"></td></tr>
-
+<div class="form-group">
+	<label class="control-label col-sm-2"> E-Mail</label>
+	<div class="col-sm-10">
+		<input type="email" class="form-control" name="email" required value ="<?php echo $user->getEmail();?>" placeholder="Ihre E-Mail-Adresse">
+	</div>
+</div>
 <?php }?>
 
 <input type="hidden" value = 0 name="email_bestaetigt">
@@ -48,12 +98,18 @@ else {
 
 
  <?php if ($status == 'admin') {?>
- 
-<tr><td>Rolle:</td><td><select name="rolle">
-					   <option value='a'>Administrator</option>
-					   <option value='z'>Zertifizierer</option>
-					   <option value='t'>Teilnehmer</option></select>
-</td></tr><br><br>
+
+<div class="form-group">
+	<label class="control-label col-sm-2"> Rolle</label> 
+	<div class="col-sm-10">
+		<select name="rolle">
+			<option value='a'>Administrator</option>
+			<option value='z'>Zertifizierer</option>
+			<option value='t'>Teilnehmer</option>
+		</select>
+	</div>
+</div>
+<br>
 
 <?php } else {?>
       
@@ -62,24 +118,32 @@ else {
 <input type="hidden" value = 1 name="ist_teilnehmer"> <br> <br>
 
 <?php }?>
-</table>
-<br><br>
-<input type = "submit" value="Best&auml;tigen">
+
+
+<input type = "submit" class="btn btn-default" value="Jetzt registrieren!">
 
 </form>
-<br><br>
+
 
 <?php 
 }
 
 if (isset($pw_kontrolle)) {
 	
-	echo "<b><font color='red'>Das best&auml;tigte Passwort stimmt nicht mit dem vergebenen Passwort &uuml;berein!</font></b>";
+	echo "<center><b><font color='red'>Das best&auml;tigte Passwort stimmt nicht mit dem vergebenen Passwort &uuml;berein!</font></b></center>";
 }
 
 if (isset($datum)) {
 	
-	echo "<b><font color='red'>Kein g&uuml;ltiges Datum! Bitte korrigieren!</font></b>";
+	echo "<center><b><font color='red'>Kein g&uuml;ltiges Datum! Bitte korrigieren!</font></b></center>";
 	
 }
+
+//Rückmeldung aus Model, falls Benutzername oder E-Mail bereits vergeben sind
+
+if($meldung != "Daten wurden erfolgreich gespeichert. Sie erhalten in K&uuml;rze eine E-Mail. Bitte folgen Sie dem darin enthaltenen Link, um Ihre Registrierung abzuschlie&szlig;en."){
+	echo "<center><b><font color='red'>".$meldung."</font></b></center>";
+}
+
+
 ?>

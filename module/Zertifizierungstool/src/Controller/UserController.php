@@ -74,8 +74,10 @@ class UserController extends AbstractActionController
 			
 			//Überprüfung ob Passwort und bestätigtes Passwort übereinstimmen
 			if ($_REQUEST['passwort']==$_REQUEST['passwort2']) {
-				if (strtotime($_REQUEST["geburtsdatum"])!=false) {
-				
+				$currentdate = date('Y-m-d');
+				if(strtotime($_REQUEST["geburtsdatum"])!=false && (strtotime($_REQUEST["geburtsdatum"])<=strtotime($currentdate))) {
+					
+					
 					//Bei Registrierung über invite, wird ein angepasster Registrierungslink
 					//generiert (Kurs_id wird mit übergeben) 
 					if (isset ($_REQUEST['invitemail'])) {
@@ -85,16 +87,19 @@ class UserController extends AbstractActionController
 					else {
 					
 						$result = $user->register(false);
-					
+						
 					}
 					
 					return new ViewModel(['meldung' => $result, 'user' => $user]);
-					
-				} else {
+				
+			
+			}
+			
+				else {
 					
 					if (User::currentUser()->istAdmin()) {
 						//Falls Admin wird dies wieder an die View übergeben, email falls Registrierung über invitemail
-						return new ViewModel(['datum' => 'datum','status' => 'admin', 'email'=> $_REQUEST['email'], 'user' => $user]);
+						return new ViewModel(['datum' => 'datum', 'status' => 'admin', 'email'=> $_REQUEST['email'], 'user' => $user]);
 					
 					} else {
 						return new ViewModel(['datum' => 'datum', 'email'=> $_REQUEST['email'], 'user' => $user]);
@@ -103,6 +108,7 @@ class UserController extends AbstractActionController
 				}
 			
 			}
+		
 			else {
 				if (User::currentUser()->istAdmin()) {
 					//Falls Admin wird dies wieder an die View übergeben, email falls Registrierung über invitemail
@@ -122,7 +128,7 @@ class UserController extends AbstractActionController
 				//Falls per invite Seite aufgerufen wird, wird die Mailadresse vorbelegt
 				if (isset($_GET['inviteuser'])) {
 					
-					return new ViewModel(['email'=> $_GET['inviteuser'], 'user' => $user]);
+					return new ViewModel(['emailinvitation'=> $_GET['inviteuser'], 'user' => $user]);
 					
 				}else {
 				
