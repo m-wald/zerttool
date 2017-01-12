@@ -48,14 +48,15 @@ class FrageController extends AbstractActionController {
 			// Es wurde noch keine Frage beantwortet -> Schlüssel = Id der ersten Frage im Array
 			$current_question = key($fragen_map);
 		}
-		
+
 		echo $current_question;
-		echo 'printr:<br>';
-		print_r($fragen_map, true);
 		echo 'vardump:<br>';
-		var_dump($fragen_map);
+		print_r($fragen_map, true);
 		
-		$frage_to_answer = $fragen_map[$current_question];
+		$frage_to_answer = $fragen_map[(string)$current_question];
+		
+		echo '<br><br>';
+		print_r($frage_to_answer, true);
 		
 		// Alle Antworten zu dieser Frage laden
 		$antworten = Antwort::loadList($frage_to_answer->getId());
