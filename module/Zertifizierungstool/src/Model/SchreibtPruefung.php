@@ -166,10 +166,10 @@ class SchreibtPruefung {
 	 */
 	public static function attempts($benutzername, $pruefung_id) {
 		$db = new Db_connection();
-		$query = 'SELECT count(schreibt_pruefung_id) AS anzahl FROM schreibt_pruefung '
-				.'WHERE benutzername = ' .$benutzername
-				.' AND pruefung_id = '   .$pruefung_id
-				.' GROUP BY benutzername, pruefung_id';
+		$query = "SELECT count(schreibt_pruefung_id) AS anzahl FROM schreibt_pruefung "
+				."WHERE benutzername = '" .$benutzername
+				."' AND pruefung_id = "   .$pruefung_id
+				." GROUP BY benutzername, pruefung_id";
 		
 		$result = $db->execute($query);
 		
