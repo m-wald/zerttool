@@ -175,24 +175,29 @@ class UserController extends AbstractActionController
 						
 			$user = new User();
 			
-			$user->load($_POST['benutzername']);
+			$load_status=$user->load($_POST['benutzername']);
+			
+			if ($load_status){
 
-			$result = $user->passwortControll($_POST['passwort']);
-			if ($result){
-				User::currentUser()->load($_POST['benutzername']);
-				$_SESSION["currentUser"] = serialize(User::currentUser());
-				if (isset ($_POST['inviteuser'])) {
+				$result = $user->passwortControll($_POST['passwort']);
+				if ($result){
+					User::currentUser()->load($_POST['benutzername']);
+					$_SESSION["currentUser"] = serialize(User::currentUser());
+					if (isset ($_POST['inviteuser'])) {
+						
+						header("refresh:0; url=/kurs/enterkurs?benutzername=".$_POST['inviteuser']."&kurs_id=".$_SESSION['kurs']);
+						exit;
 					
-					header("refresh:0; url=/kurs/enterkurs?benutzername=".$_POST['inviteuser']."&kurs_id=".$_SESSION['kurs']);
-					exit;
-				
-				
-				
+					
+					
+					}
+					return new ViewModel(['anmeldestatus' => true]);
 				}
-				return new ViewModel(['anmeldestatus' => true]);
-			}
-			else {
-				return new ViewModel(['anmeldestatus' => false]);
+				else {
+					return new ViewModel(['anmeldestatus' => false]);
+				}
+			}else {
+				return new ViewModel(['benutzer_nicht_gefunden' => '']);
 			}
 		}
 		 

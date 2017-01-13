@@ -1,40 +1,56 @@
-<h1>Login</h1>
+
 
 <?php 
 	if ($anmeldestatus==true) {
-		header ("refresh:0; url = /user/home");				//hier muss eine Weiterleitung auf die jeweilige "Homeseite" des Nutzers erfolgen! --> dazu homeAction ?? 
+		header ("refresh:0; url = /user/home");	
+		exit;										 
 	}
-	else{
-		
-		if (isset($anmeldestatus) && $anmeldestatus==false) {
-			echo "<b>Benutzername und Passwort stimmen nicht &uuml;berein!</b>";
-		}
 	
-
 ?>
 
 <br><br>
-
-<form method="POST" action="login">
-
-<table>
-<tr><td>Benutzername:</td><td> <input type="text" name="benutzername" required></td></tr>
-<tr><td>Passwort:</td><td> <input type="password" name="passwort" required> </td></tr>
-
+<div class="center-block" style="width:600px; border-color: black; border:1px solid; border-radius: 25px; box-shadow: 5px 0px 41px 2px rgba(173,166,173,1); padding:20px">
+<center><h1>Login</h1>
+<br><br><br>
+	<form class="form-horizontal" method="POST" action="login">
+	<div class ="center-block" style="width:400px";>
+	<div class="form-group">
+		<label class="control-label col-sm-3"> Benutzername </label>
+		<div class="col-sm-6">
+			<input type="text" class= "form-control" name="benutzername" required>
+		</div>
+	</div>	
+	<div class="form-group">
+		<label class="control-label col-sm-3"> Passwort </label>
+		<div class="col-sm-6">
+			<input type="password" class= "form-control" name="passwort" required>
+		</div>
+	</div>
+	</div>
 <?php if (isset($inviteuser)) { ?>
 	<input type='hidden' name="inviteuser" value='<?php echo $inviteuser?>'>
 <?php }?>
 
-</table><br><br>
-<input type="submit" value="Jetzt anmelden">
+<br><br>
+<input type="submit" class="btn btn-default" value="Jetzt anmelden">
 
 
 </form>
 <br>
-
 <a href="/user/passwordforgotten">Passwort vergessen?</a>
+</center>
+</div>
+<br><br>
+
+
 
 <?php 
 
-	}
+if (isset($anmeldestatus) && $anmeldestatus==false) {
+	echo "<center><b><font color='red'>Benutzername und Passwort stimmen nicht &uuml;berein!</font></b></center>";
+}
+
+if (isset($benutzer_nicht_gefunden)) {
+	echo "<center><b><font color='red'>Benutzer existiert nicht!</font></b></center>";
+}
 ?>

@@ -94,7 +94,7 @@ class User
 				array_push($return_array, $row);
 			}
 		} else {
-			echo "Kein Ergebnis gefunden.";
+			return false;
 		}
 		
 		foreach ($return_array as $row) {	
@@ -112,7 +112,7 @@ class User
 			$this->ist_teilnehmer    = $row['ist_teilnehmer'];
 		}
 		
-		// Fehler prüfen
+		return true;
 	}
 	
 	/**
@@ -177,6 +177,11 @@ class User
 	}
 	
 	public function getGeburtsdatum() {
+		
+		if (strpos($_SERVER['HTTP_USER_AGENT'], 'Firefox')){
+			$date = new \DateTime($this->geburtsdatum);
+			$this->geburtsdatum=$date->format('d.m.Y');
+		}
 		return $this->geburtsdatum; 
 	}
 	

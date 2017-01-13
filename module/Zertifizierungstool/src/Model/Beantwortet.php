@@ -15,10 +15,14 @@ class Beantwortet {
 	private $status;
 
 	public function __construct($id = "", $schreibt_pruefung_id = "", $antwort_id = "", $status = "") {
-		$this->id			= $id;
-		$this->schreibt_pruefung_id	= $schreibt_pruefung_id;
-		$this->antwort_id	= $antwort_id;
-		$this->status    	= $status;
+		
+		$db = new Db_connection();
+		$mysqli = $db->getConnection();
+		
+		$this->id					= $mysqli->real_escape_string($id);
+		$this->schreibt_pruefung_id	= $mysqli->real_escape_string($schreibt_pruefung_id);
+		$this->antwort_id			= $mysqli->real_escape_string($antwort_id);
+		$this->status    			= $mysqli->real_escape_string($status);
 	}
 	
 	/**
@@ -53,6 +57,11 @@ class Beantwortet {
 	
 	public function load($schreibt_pruefung, $antwort) {
 		$db = new Db_connection();
+		$mysqli = $db->getConnection();
+		
+		$schreibt_pruefung = $mysqli->real_escape_string($schreibt_pruefung);
+		$antwort = $mysqli->real_escape_string($antwort);
+		
 	
 		$query = "SELECT * FROM beantwortet WHERE "
 					."schreibt_pruefung_id = " .$schreibt_pruefung
@@ -83,6 +92,9 @@ class Beantwortet {
 		$db = new Db_connection();
 		$conn = $db->getConnection();
 		
+		$schreibt_pruefung = $conn->real_escape_string($schreibt_pruefung);
+		$antwort = $conn->real_escape_string($antwort);
+		
 		$query = "UPDATE beantwortet SET beantwortet_status = 1 WHERE "
 					."schreibt_pruefung_id = " .$schreibt_pruefung
 					." AND antwort_id = "	   .$antwort;
@@ -104,6 +116,9 @@ class Beantwortet {
 	public static function setFalse($schreibt_pruefung, $antwort) {
 		$db = new Db_connection();
 		$conn = $db->getConnection();
+		
+		$schreibt_pruefung = $conn->real_escape_string($schreibt_pruefung);
+		$antwort = $conn->real_escape_string($antwort);
 							
 		$query = "UPDATE beantwortet SET beantwortet_status = 0 WHERE "
 					."schreibt_pruefung_id = " .$schreibt_pruefung

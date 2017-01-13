@@ -20,55 +20,55 @@ else {
 
 <div class="form-group">
 	<label class="control-label col-sm-2"> Benutzername </label>
-	<div class="col-sm-10">
+	<div class="col-sm-5">
 		<input type="text" class= "form-control" name="benutzername" required value ="<?php echo $user->getBenutzername();?>" placeholder = "Ihr gew&uuml;nschter Benutzername">
 	</div>
 </div>
 <div class="form-group">
 	<label class="control-label col-sm-2"> Passwort</label>
-	<div class="col-sm-10">
+	<div class="col-sm-5">
 		<input type="password" class = "form-control" name="passwort" required placeholder="Passwort eingeben">
 	</div>
 </div>
 <div class="form-group">
 	<label class="control-label col-sm-2"> Passwort best&auml;tigen</label>
-	<div class="col-sm-10">
+	<div class="col-sm-5">
 		<input type="password" class = "form-control" name="passwort2" required placeholder="Passwort erneut eingeben">
 	</div>
 </div>
 <div class="form-group">
 	<label class="control-label col-sm-2"> Vorname</label>
-	<div class="col-sm-10">
+	<div class="col-sm-5">
 		<input type="text" class="form-control" name="vorname" required value ="<?php echo $user->getVorname();?>" placeholder="Vorname">
 	</div>
 </div>
 <div class="form-group">
 	<label class="control-label col-sm-2"> Nachname</label>
-	<div class="col-sm-10">
+	<div class="col-sm-5">
 		<input type="text" class="form-control" name="nachname" required value ="<?php echo $user->getNachname();?>" placeholder="Nachname">
 	</div>
 </div>
 <div class="form-group">
 	<label class="control-label col-sm-2"> Geburtsdatum</label>
-	<div class="col-sm-10">
+	<div class="col-sm-5">
 		<input type="date" class="form-control" name="geburtsdatum" required value ="<?php echo $user->getGeburtsdatum();?>" placeholder="TT.MM.JJJJ">
 	</div>
 </div>
 <div class="form-group">
 	<label class="control-label col-sm-2"> Stra&szlig;e</label>
-	<div class="col-sm-10">
+	<div class="col-sm-5">
 		<input type="text" class="form-control" name="strasse" required value ="<?php echo $user->getStrasse();?>" placeholder="Stra&szlig;e & Hausnummer">
 	</div>
 </div>
 <div class="form-group">
 	<label class="control-label col-sm-2"> Postleitzahl</label>
-	<div class="col-sm-10">
+	<div class="col-sm-5">
 		<input type="text" class="form-control" name="plz" required value ="<?php echo $user->getPLZ();?>" placeholder="Postleitzahl">
 	</div>
 </div>
 <div class="form-group">
 	<label class="control-label col-sm-2"> Ort</label>
-	<div class="col-sm-10">
+	<div class="col-sm-5">
 		<input type="text" class="form-control" name="ort" required value ="<?php echo $user->getOrt();?>" placeholder="Ort">
 	</div>
 </div>
@@ -78,7 +78,7 @@ else {
 
 <div class="form-group">
 	<label class="control-label col-sm-2"> E-Mail</label>
-	<div class="col-sm-10">
+	<div class="col-sm-5">
 		<input type="email" class="form-control" name="email" value="<?php echo $emailinvitation?>" readonly required>
 		<input type="hidden" name="invitemail" value="true">
 	</div>
@@ -87,7 +87,7 @@ else {
 
 <div class="form-group">
 	<label class="control-label col-sm-2"> E-Mail</label>
-	<div class="col-sm-10">
+	<div class="col-sm-5">
 		<input type="email" class="form-control" name="email" required value ="<?php echo $user->getEmail();?>" placeholder="Ihre E-Mail-Adresse">
 	</div>
 </div>
@@ -101,7 +101,7 @@ else {
 
 <div class="form-group">
 	<label class="control-label col-sm-2"> Rolle</label> 
-	<div class="col-sm-10">
+	<div class="col-sm-5">
 		<select name="rolle">
 			<option value='a'>Administrator</option>
 			<option value='z'>Zertifizierer</option>

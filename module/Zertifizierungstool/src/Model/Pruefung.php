@@ -24,14 +24,20 @@ class Pruefung {
 	
 	
 	public function __construct($id = "", $name = "", $termin = "", $kursid = "", $cutscore = "", $anzahlmitgeschrieben="", $bestehensquote="", $durchschnitt_versuche="") {
-		$this->id		= $id;
-		$this->name		= $name;
-		$this->termin	= $termin;
-		$this->kurs_id  = $kursid;
-		$this->cutscore = $cutscore;
-		$this->anzahlmitgeschrieben = $anzahlmitgeschrieben;
-		$this->bestehensquote = $bestehensquote;
-		$this->durchschnitt_versuche = $durchschnitt_versuche;
+		
+		$db = new Db_connection();
+		$mysqli = $db->getConnection();
+		
+		
+		
+		$this->id						= $mysqli->real_escape_string($id);
+		$this->name						= $mysqli->real_escape_string($name);
+		$this->termin					= $mysqli->real_escape_string($termin);
+		$this->kurs_id 					= $mysqli->real_escape_string($kursid);
+		$this->cutscore 				= $mysqli->real_escape_string($cutscore);
+		$this->anzahlmitgeschrieben 	= $mysqli->real_escape_string($anzahlmitgeschrieben);
+		$this->bestehensquote 			= $mysqli->real_escape_string($bestehensquote);
+		$this->durchschnitt_versuche	= $mysqli->real_escape_string($durchschnitt_versuche);
 		
 	}
 	
@@ -112,6 +118,10 @@ class Pruefung {
 	 */
 	public function load($id) {
 		$db = new Db_connection();
+		$mysqli = $db->getConnection();
+		
+		$id = $mysqli->real_escape_string($id);
+		
 		
 		$query = "SELECT * FROM pruefung WHERE pruefung_id = " .$id;
 		
@@ -142,6 +152,8 @@ class Pruefung {
 	public static function loadList($kurs_id) {
 		$db = new Db_connection();
 		$conn = $db->getConnection();
+		
+		$kurs_id = $conn->real_escape_string($kurs_id);
 	
 		$query = "SELECT * FROM pruefung WHERE kurs_id = " .$kurs_id;
 	
@@ -174,6 +186,8 @@ class Pruefung {
 	public static function loadstatistics($kurs_id) {
 		$db = new Db_connection();
 		$conn = $db->getConnection();
+		
+		$kurs_id = $conn->real_escape_string($kurs_id);
 	
 		$query = "SELECT pruefung_id, pruefung_name, pruefung_ab, cutscore, kurs_id, anzahl_mitgeschrieben, bestehensquote, durchschnitt_versuche FROM pruefung natural join anzahl_mitgeschrieben natural join bestehensquote natural join durchschnitt_versuche where kurs_id=".$kurs_id."
 				  union all select pruefung_id, pruefung_name, pruefung_ab, cutscore, kurs_id, 0, 0, 0 from pruefung where kurs_id=".$kurs_id." and pruefung_id not in (select pruefung_id from anzahl_mitgeschrieben) order by pruefung_id;";
@@ -225,22 +239,47 @@ class Pruefung {
 	
 	// Setter methods
 	public function setId($id) {
+		
+		$db = new Db_connection();
+		$mysqli = $db->getConnection();
+		
+		$id = $mysqli->real_escape_string($id);
 		$this->id = $id;
 	}
 	
 	public function setName($name) {
+		
+		$db = new Db_connection();
+		$mysqli = $db->getConnection();
+		
+		$name = $mysqli->real_escape_string($name);
 		$this->name = $name;
 	}
 	
 	public function setTermin($termin) {
+		
+		$db = new Db_connection();
+		$mysqli = $db->getConnection();
+		
+		$termin = $mysqli->real_escape_string($termin);
 		$this->termin = $termin;
 	}
 	
 	public function setKursId($kursId) {
+		
+		$db = new Db_connection();
+		$mysqli = $db->getConnection();
+		
+		$kursId = $mysqli->real_escape_string($kursId);
 		$this->kurs_id = $kursId;
 	}
 	
 	public function setCutscore($cutscore) {
+		
+		$db = new Db_connection();
+		$mysqli = $db->getConnection();
+		
+		$cutscore = $mysqli->real_escape_string($cutscore);
 		$this->cutscore = $cutscore;
 	}
 
