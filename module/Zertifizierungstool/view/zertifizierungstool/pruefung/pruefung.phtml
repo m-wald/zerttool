@@ -230,9 +230,8 @@ input[type=number]{
 
 <?php } elseif ($mode == PruefungController::editFragen) { ?>
 	<h3>Frage bearbeiten</h3>
-	<script type="text/javascript">
-		showTest();
-	</script>
+	<button type="button" onclick="showFormMC()">Multiple Choice</button>
+	<button type="button" onclick="showFormTF()">True / False   </button>
 
 
 <?php } ?>
