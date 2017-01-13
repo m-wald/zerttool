@@ -177,8 +177,11 @@ class User
 	}
 	
 	public function getGeburtsdatum() {
-		$date = new \DateTime($this->geburtsdatum);
-		$this->geburtsdatum=$date->format('d.m.Y');
+		
+		if (strpos($_SERVER['HTTP_USER_AGENT'], 'Firefox')){
+			$date = new \DateTime($this->geburtsdatum);
+			$this->geburtsdatum=$date->format('d.m.Y');
+		}
 		return $this->geburtsdatum; 
 	}
 	
