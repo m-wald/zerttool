@@ -223,15 +223,17 @@ input[type=number]{
 	<h3>Frage anlegen</h3>
 	<button type="button" onclick="showFormMC()">Multiple Choice</button>
 	<button type="button" onclick="showFormTF()">True / False   </button>
-	<p id="formular"></p>
 
 <?php } elseif ($mode == PruefungController::editFragen) { ?>
 	<h3>Frage bearbeiten</h3>
-	<p id="formular" onload="showForm<?php echo $frageToEdit->getTyp() .'()';?>"></p>
+	<script type="text/javascript">
+		showFormMC();
+	</script>
+
 
 <?php } ?>
 	
-	
+<p id="formular"></p>
 </div>
 
 
