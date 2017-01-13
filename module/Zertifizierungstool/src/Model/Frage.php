@@ -45,7 +45,8 @@ class Frage {
 		$result = mysqli_query($conn, $query);
 		
 		if(!$result) {
-			// Fehler bei der Datenbankabfrage
+			echo $query;
+			echo '<br>' .mysqli_error($conn);
 			return false;
 				
 		} else {
