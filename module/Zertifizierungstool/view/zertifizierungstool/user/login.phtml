@@ -2,39 +2,46 @@
 
 <?php 
 	if ($anmeldestatus==true) {
-		header ("refresh:0; url = /user/home");				//hier muss eine Weiterleitung auf die jeweilige "Homeseite" des Nutzers erfolgen! --> dazu homeAction ?? 
+		header ("refresh:0; url = /user/home");	
+		exit;										 
 	}
-	else{
-		
-		if (isset($anmeldestatus) && $anmeldestatus==false) {
-			echo "<b>Benutzername und Passwort stimmen nicht &uuml;berein!</b>";
-		}
 	
-
 ?>
 
 <br><br>
+<div class="center-block">
+	<form class="form-horizontal" method="POST" action="login">
 
-<form method="POST" action="login">
-
-<table>
-<tr><td>Benutzername:</td><td> <input type="text" name="benutzername" required></td></tr>
-<tr><td>Passwort:</td><td> <input type="password" name="passwort" required> </td></tr>
+	<div class="form-group">
+		<label class="control-label col-sm-2"> Benutzername </label>
+		<div class="col-sm-10">
+			<input type="text" class= "form-control" name="benutzername" required>
+		</div>
+	</div>	
+	<div class="form-group">
+		<label class="control-label col-sm-2"> Passwort </label>
+		<div class="col-sm-10">
+			<input type="password" class= "form-control" name="passwort" required>
+		</div>
+	</div>
 
 <?php if (isset($inviteuser)) { ?>
 	<input type='hidden' name="inviteuser" value='<?php echo $inviteuser?>'>
 <?php }?>
 
-</table><br><br>
+<br>
 <input type="submit" value="Jetzt anmelden">
 
 
 </form>
+</div>
 <br>
 
 <a href="/user/passwordforgotten">Passwort vergessen?</a>
 
 <?php 
 
-	}
+if (isset($anmeldestatus) && $anmeldestatus==false) {
+	echo "<center><b><font color='red'>Benutzername und Passwort stimmen nicht &uuml;berein!</font></b></center>";
+}
 ?>
