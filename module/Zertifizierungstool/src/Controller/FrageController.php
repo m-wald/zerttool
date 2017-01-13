@@ -180,9 +180,7 @@ class FrageController extends AbstractActionController {
 				
 					case "MC":
 						// Alle Schlüssel aus dem Request-Array auslesen, die sich auf die Antworten beziehen
-						//$id_keys	= preg_grep('/^antwort_id[\d]*/',      array_keys($_REQUEST));
 						$text_keys  = preg_grep('/^antwort_text[\d]*/',    array_keys($_REQUEST));
-						//$check_keys = preg_grep('/^antwort_checked[\d]*/', array_keys($_REQUEST));
 						
 						echo '<br>Texte Keys: <br>';
 						print_r($text_keys);
@@ -196,26 +194,7 @@ class FrageController extends AbstractActionController {
 							echo '<br>Id' .$request["antwort_id .$key_index"];
 							
 						
-						//if (!$antwort->save()) array_push($errors, "Fehler beim Speichern der Antwort. Bitte erneut versuchen!");
-						
-						
-						/*
-						while (next($id_keys)) {
-							$status = 0;
-							if ($request[next($check_keys)]) {
-								$status = 1;
-							}
-							
-							
-							echo 'Status: ' .$request[current($check_keys)];
-							
-							$antwort = new Antwort(
-									$request[current($id_keys)],
-									$request[next($text_keys)],
-									$this->frage->getId(),
-									$status);
-						*/
-							//if (!$antwort->save()) array_push($errors, "Fehler beim Speichern der Antwort. Bitte erneut versuchen!");
+							if (!$antwort->save()) array_push($errors, "Fehler beim Speichern der Antwort. Bitte erneut versuchen!");
 						}
 				}
 
