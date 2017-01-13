@@ -221,21 +221,17 @@ input[type=number]{
 <div id="Frage" <?=$frageBackground?>>
 <?php if ($mode == PruefungController::createFragen) { ?>
 	<h3>Frage anlegen</h3>
-	W&auml;hlen Sie einen Frage-Typ aus, um die Eingabemaske anzuzeigen.
 	<button type="button" onclick="showFormMC()">Multiple Choice</button>
 	<button type="button" onclick="showFormTF()">True / False   </button>
-
+	<p id="formular"></p>
 
 <?php } elseif ($mode == PruefungController::editFragen) { ?>
 	<h3>Frage bearbeiten</h3>
-	<script>
-		<?php if       ($frageToEdit->getTyp() == 'MC'){ ?> showFormMC();
-		<?php } elseif ($frageToEdit->getTyp() == 'TF'){ ?> showFormTF();
-	</script>
+	<p id="formular" onload="showForm<?php echo $frageToEdit->getTyp() .'()';?>"></p>
 
-<?php }} ?>
+<?php } ?>
 	
-<p id="formular"></p>	
+	
 </div>
 
 
