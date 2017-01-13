@@ -11,7 +11,7 @@ class Frage {
 	private $pruefung_id;
 	private $typ;
 	
-	public function __construct($id = "", $text = "", $punkte = "", $pruefung_id = "", $typ = "" ) {
+	public function __construct($id = "", $text = "", $punkte = 0, $pruefung_id = "", $typ = "" ) {
 		$this->id 		   = $id;
 		$this->text  	   = $text;
 		$this->punkte 	   = $punkte;

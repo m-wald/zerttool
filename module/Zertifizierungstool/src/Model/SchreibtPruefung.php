@@ -134,7 +134,7 @@ class SchreibtPruefung {
 		
 		$result = $db->execute($query);
 		
-		if(!$result || !mysqli_num_rows($result) > 0) {
+		if(!$result || mysqli_num_rows($result) != 1) {
 			// Fehler bei der Datenbankabfrage oder keine Frage mit der Id gefunden
 			return false;
 		}
@@ -145,6 +145,28 @@ class SchreibtPruefung {
 		
 		return true;
 		
+	}
+	
+	/**
+	 * Gibt zurück, wie oft sich ein Benutzer an einer bestimmten Prüfung bereits versucht hat.
+	 */
+	public static function attempts($benutzername, $pruefung_id) {
+		$db = new Db_connection();
+		$query = 'SELECT count(schreibt_pruefung_id) AS anzahl FROM schreibt_pruefung '
+				.'WHERE benutzername = ' .$benutzername
+				.' AND pruefung_id = '   .$pruefung_id
+				.' GROUP BY benutzername, pruefung_id';
+		
+		$result = $db->execute($query);
+		
+		if(!$result || mysqli_num_rows($result) != 1) {
+			// Fehler bei der Datenbankabfrage oder keine Frage mit der Id gefunden
+			return false;
+		}
+		
+		$row = mysqli_fetch_assoc($result);
+		
+		return $row['anzahl'];
 	}
 	
 	public function getId() { return $this->id; }

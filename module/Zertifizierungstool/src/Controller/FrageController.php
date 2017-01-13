@@ -73,7 +73,7 @@ class FrageController extends AbstractActionController {
 		
 		// Ermitteln der nächsten Frage in der Reihenfolge
 		while (key($fragen_map) !== (string)$current_question) {
-			echo '<br>Nächste Frage..';
+			echo '<br>' .key($fragen_map) != $current_question;
 			next($fragen_map);
 		}
 		if (!next($fragen_map)) {
@@ -151,7 +151,7 @@ class FrageController extends AbstractActionController {
 			array_push($errors, "Der Prüfungszeitraum hat bereits begonnen. Die Prüfung kann nicht mehr bearbeitet werden!");
 		}
 		
-		if (isset($request['speichernFrage'])) {
+		if (empty($errors) && isset($request['speichernFrage'])) {
 			// Neues Frage-Objekt mit den Daten aus dem gesendeten Formular erzeugen und in der DB speichern bzw. aktualisieren
 			$this->frage = new Frage(
 							$request["id"],
@@ -164,40 +164,67 @@ class FrageController extends AbstractActionController {
 				array_push($errors, "Fehler beim Speichern der Frage. Bitte erneut versuchen!");
 				
 			}else {
-				// Frage konnte gespeichert werden -> Speichern der zugehöregen Antwort(en)
+				// Frage konnte gespeichert werden -> Speichern der zugehöregen Antwort(en)				
 				switch ($request["frage_typ"]) {
 					case "TF":
 						$status = 0;
 						if ($request["tf"] == "true") {
 							$status = 1;
 						}
-						
+				
 						$antwort = new Antwort($request["antwort_id"], "", $this->frage->getId(), $status);
-						
+				
 						if (!$antwort->save()) array_push($errors, "Fehler beim Speichern der Antwort. Bitte erneut versuchen!");
-	
+				
 						break;
-		
+				
 					case "MC":
+						// Alle Schlüssel aus dem Request-Array auslesen, die sich auf die Antworten beziehen
+						$id_keys	= preg_grep('/^antwort_id[\d]*/',      array_keys($_REQUEST));
+						$text_keys  = preg_grep('/^antwort_text[\d]*/',    array_keys($_REQUEST));
+						$check_keys = preg_grep('/^antwort_checked[\d]*/', array_keys($_REQUEST));
+						
+						print_r($id_keys);
+						print_r($text_keys);
+						print_r($check_keys);
+						
+						while (next($id_keys)) {
+							$status = 0;
+							if ($request[next($check_keys)]) {
+								$status = 1;
+							}
+							
+							
+							echo 'Status: ' .$request[current($check_keys)];
+							
+							$antwort = new Antwort(
+									$request[current($id_keys)],
+									$request[next($text_keys)],
+									$this->frage->getId(),
+									$status);
+						}
+						/*
 						$index = 1;
 						while (!empty($request["antwort_text" .$index])) {
 							$status = 0;
 							if ($request["antwort_checked" .$index]) {
 								$status = 1;
 							}
-		
+				
 							$antwort = new Antwort(
-										$request["antwort_id" .$index],
-										$request["antwort_text" .$index],
-										$this->frage->getId(),
-										$status);
-			
+									$request["antwort_id" .$index],
+									$request["antwort_text" .$index],
+									$this->frage->getId(),
+									$status);
+								
 							if (!$antwort->save()) array_push($errors, "Fehler beim Speichern der Antwort. Bitte erneut versuchen!");
-							
+								
 							$index++;
-							}
+						}
 						break;
+						*/
 				}
+
 			}
 	
 			if (empty($errors)) {
@@ -259,7 +286,7 @@ class FrageController extends AbstractActionController {
 	
 	public function deleteAntwortAction() {
 		Antwort::delete($antwort->getId());
-		header ("refresh:5; url = /frage/create/" .$this->params()->fromRoute('id'));
+		header ("refresh:5; url = /frage/edit/" .$this->params()->fromRoute('id'));
 	}
 	
 	/**

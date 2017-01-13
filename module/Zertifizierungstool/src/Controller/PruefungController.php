@@ -32,16 +32,45 @@ class PruefungController extends AbstractActionController {
 	private $pruefung;
 	
 	public function takeAction() {
-		// TODO Prüfen ob Teilnehmer im Kurs eingetragen ist
-		// TODO Prüfen, ob Kursende schon erreicht
-		// TODO Prüfen, ob letzter Versuch schon 24 Stunden her ist
-		// TODO Prüfen, ob Teilnehmer die Prüfung schon bestanden hat oder 3 mal nicht bestanden hat
-		
 		$errors = array();
-		
-		
-		// Prüfungs-Id aus URL laden
+		// Prüfung laden
 		$pruefung_id = $this->params()->fromRoute('id');
+		$pruefung = new Pruefung();
+		$pruefung->load($pruefung_id);
+		
+		// Kurs laden
+		$kurs = new Kurs();
+		$kurs->load($pruefung->getKursId());
+		
+		// Prüfen ob Teilnehmer im Kurs eingetragen ist
+		$benutzer_kurs = new Benutzer_Kurs();
+		if (!$benutzer_kurs->alreadyexist(User::currentUser()->getBenutzername(), $pruefung->getKursId())) {
+			array_push($errors, 'Fehler: Sie sind nicht im Kurs eingetragen.');
+		}
+		// Prüfen, ob Kursende schon erreicht
+		if ($kurs->getKurs_ende() < time()) {
+			array_push($errors, 'Fehler: Der Kurs ist bereits beendet.');
+		}
+		
+		// Falls der Benutzer die Prüfung schon geschrieben hat
+		$last_try = new SchreibtPruefung();
+		if ($last_try->loadLastTry($pruefung->getId())) {
+			
+			if ($last_try->getBestanden() == 1) {
+				array_push($errors, 'Fehler: Sie haben die Prüfung bereits bestanden.');
+			}
+			
+			if (SchreibtPruefung::attempts(User::currentUser()->getBenutzername(), $pruefung->getId()) >= 3) {
+				array_push($errors, 'Fehler: Sie haben die Prüfung bereits 3 mal nicht bestanden und sind daher nicht mehr zur Prüfung zugelassen.');
+			}
+			
+			if (time()) {
+				array_push($errors, 'Fehler: Sie können die Prüfung erst 24 Stunden nach Ihrem letzten Versuch wiederholen.');
+			}
+		}
+		
+		if (!empty($errors)) return new ViewModel(['errors' => $errors]);
+		
 
 		// Eintrag in Tabelle schreibt_pruefung
 		$schreibt_pruefung = new SchreibtPruefung("", $pruefung_id);

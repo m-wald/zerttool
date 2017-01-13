@@ -22,7 +22,7 @@
 	<table>
 	<?php foreach ($fragen as $f) { 
 			$path = '/frage/answer/' .$schreibt_pruefung_id .'?next_id=' .$f->getId(); ?>
-			<tr><td><?=$f->getText()?></td><td><a href="<?=$path?>"><button type="button">Antworten</button></a></td></tr>		
+			<tr><td><?=$f->getText()?></td><td><a href="<?=$path?>"><button type="button">Beantworten</button></a></td></tr>		
 	<?php } ?>
 	</table>
 </div>
@@ -42,16 +42,18 @@
 			
 		
 		<?php }else {
-			echo '<input type="hidden" name="typ" value="MC">';
+			echo '<table><input type="hidden" name="typ" value="MC">';
 			foreach ($antworten as $antwort) {?>
-				<br><?php echo $antwort['antwort']->getText();?>
-				<input type="checkbox" name="check<?=$antwort['antwort']->getId()?>" <?php if ($antwort['status'] == 1) echo "checked";?>>
+				<tr>
+				<td><br><?php echo $antwort['antwort']->getText();?>
+				<td><input type="checkbox" name="check<?=$antwort['antwort']->getId()?>" <?php if ($antwort['status'] == 1) echo "checked";?>>
+				</tr>
 		<?php	
-			}
-		}
-	?>
+			} echo '</table>'; }
+		?>
+		
 		<input type="submit" name="speichern" value="Weiter">
-	</form>	
+	</form>
 </div>
 
 <br>

@@ -59,96 +59,99 @@ input[type=number]{
 </style>
 
 <script type="text/javascript">
-	var AntwortAnzahl;
-
-	var frage_text = '';
-	var frage_punkte = 0;
-
-	var antwort_id;
-	var antwort_text = '';
-	var antwort_status = 0;
+<!-- Doku //-->
+	var AntwortAnzahl = 0;
 	
 	var formStart =
-		'Frage: <br> <textarea rows="3" cols="50" name="frage_text" form="frageForm" required>' + frage_text + '</textarea>' +
-		'<form method="POST" id="frageForm">' + 
-			'Punkte: <input type="number" name="punkte" min="0" required value="' + frage_punkte + '"> <br>';
+		'Frage:<br>'
+		+ '<textarea rows="3" cols="50" name="frage_text" form="frageForm" required> <?=$frage->getText()?> </textarea>'
+		+ '<form method="POST" id="frageForm">'
+		
+		+ 'Punkte: '
+		+ '<input type="number" name="punkte" min="0" required value="<?=$frage->getPunkte()?>"> <br>';
 
 	var formEnd = 
-		'<input type="hidden" name="id" 		 readonly="readonly">' +
-		'<input type="hidden" name="pruefung_id" readonly="readonly" value="<?=$pruefung->getId()?>">' +
-		'<input type="submit" name="speichernFrage" value="Speichern">' +
-		'<input type="reset" value="Felder zur&uuml;cksetzen">' +
-		'</form> <br>';
+		  '<input type="hidden" name="id" 		   readonly="readonly">'
+		+ '<input type="hidden" name="pruefung_id" readonly="readonly" value="<?=$frage->getPruefungId()?>">'
+		+ '<input type="submit" name="speichernFrage" value="Speichern">'
+		+ '<input type="reset" value="Felder zur&uuml;cksetzen">'
+		+ '</form><br>';
 
+		
 	var formMC = 
-		'Multiple Choice - Frage: <br>' + formStart +
-
-		'<input type="hidden" name="frage_typ" readonly="readonly" value="MC">' +
+		'<input type="hidden" name="frage_typ" readonly="readonly" value="MC">'
 		
-		'Antwortm&ouml;glichkeiten:<br>' +
-		'<input type="text"     name="antwort_text1" required> ' +
-		'<input type="checkbox" name="antwort_checked1">' +
+		<?php
+		$i = 1;
+		foreach ($antworten as $antwort) { ?>
+		+ '<input type="hidden"   name="antwort_id<?=$i?>"   value="<?=$antwort->getId()  ?>" readonly="readonly">'
+		+ '<input type="text"     name="antwort_text<?=$i?>" value="<?=$antwort->getText()?>" required >'
+		+ '<input type="checkbox" name="antwort_checked<?=$i?>" <?php if ($antwort->getStatus() == 1) echo "checked";?>>'
 		
-		'<p id="ant2"></p>' +
-
-		'<button type="button" onclick="newAntwort()">Neue Antwort</button>' +		
-
-		formEnd;
+		+ '<a href="<?= $this->url('frage', ['action' => 'deleteAntwort', 'id' => $antwort->getId()])?>"><button type="button"> - </button></a>'
+		<?php 
+			$i++;
+		}
+		?>
+		
+		+ '<p id="' + (AntwortAnzahl + 1) + '"></p>'
+		+ '<button type="button" onclick="newAntwort()">Antwortoption hinzufügen</button>';
 		
 	var formTF = 
-		'True / False - Frage: <br>' + formStart +
+		  '<input type="hidden" name="frage_typ"  readonly="readonly" value="TF">'
+		+ '<input type="hidden" name="antwort_id" readonly="readonly" value="<?=$antwort->getId()?>">'
+		+ '<input type="radio"  name="tf" 		  value="true" <?php if ($antwort->getStatus() == 1) echo "checked";?>> Wahr  <br>'
+		+ '<input type="radio"  name="tf" 	 	  value="false"<?php if ($antwort->getStatus() == 0) echo "checked";?>> Falsch<br>';
 
-		'<input type="hidden" name="frage_typ" readonly="readonly" value="TF">' +
-		
-		'<input type="radio" name="tf" value="true" checked> Wahr<br>' +
-		'<input type="radio" name="tf" value="false"> Falsch<br>' +
-		
-		formEnd;
+
 	
 	function showFormMC() {
-		AntwortAnzahl = 1;
-		<?php if ($mode == PruefungController::createFragen) {?>
-		document.getElementById("formular").innerHTML = formMC;
+		<?php 
+		$frage   = new Frage();
+		if ($mode == PruefungController::editFragen) {
+			$antworten = Antwort::loadList($frageToEdit->getId());
+						
+			$frage = $frageToEdit;
+			?>
 
-		<?php } elseif ($mode == PruefungController::editFragen) { ?>
-		frage_text 	 = <?=$frageToEdit->getText()  ?>;
-		frage_punkte = <?=$frageToEdit->getPunkte()?>;
-		<?php $antworten = Antwort::loadList($frageToEdit->getId()); ?>
+			AntwortAnzahl = <?=count($antworten)?>
 		
-		document.getElementById("formular").innerHTML = formMC;
-		<?php }?>
+		<?php } ?>
+		
+		document.getElementById("formular").innerHTML =
+			'Multiple Choice - Frage: <br>' + formStart + formMC + formEnd;
 	}
 
 	function showFormTF() {
-		<?php if ($mode == PruefungController::createFragen) {?>
-		document.getElementById("formular").innerHTML = formTF;
-
-		<?php } elseif ($mode == PruefungController::editFragen) { ?>
-		frage_text 	 = <?=$frageToEdit->getText()  ?>;
-		frage_punkte = <?=$frageToEdit->getPunkte()?>;
-		<?php $antworten = Antwort::loadList($frageToEdit->getId()); ?>
+		<?php 
+		$antwort = new Antwort();
+		$frage   = new Frage();
 		
-		document.getElementById("formular").innerHTML = formTF;
-		<?php }?>
+		if ($mode == PruefungController::editFragen) {
+			$antworten = Antwort::loadList($frageToEdit->getId());
+			$frage 	   = $frageToEdit;
+			if (!empty($antworten[0])) $antwort = $antworten[0];
+		} ?>
+
+		document.getElementById("formular").innerHTML = 
+			'True / False - Frage: <br>' + formStart + formTF + formEnd;
 	}
 
 	function newAntwort() {
 		AntwortAnzahl = AntwortAnzahl + 1;
-		
-		var aktStelle = AntwortAnzahl;
-		var neuStelle = AntwortAnzahl + 1;
-		
-		document.getElementById("ant" + aktStelle).innerHTML =
-			'<input type="text"     name="antwort_text'    + AntwortAnzahl + '" required> ' +
-			'<input type="checkbox" name="antwort_checked' + AntwortAnzahl + '">  ' +
-			'<button type="button" onclick="deleteAntwort(' + AntwortAnzahl + ')"> - </button>' +
-			'<p id="ant' + neuStelle +'"></p>';
+
+		document.getElementById(AntwortAnzahl).innerHTML =
+			  '<input type="text"     name="antwort_text'    + AntwortAnzahl + '" required> '
+			+ '<input type="checkbox" name="antwort_checked' + AntwortAnzahl + '">  '
+			
+			+ '<button type="button" onclick="deleteAntwort(' + AntwortAnzahl + ')"> - </button>'
+			+ '<p id="' + (AntwortAnzahl + 1) +'"></p>';
 	}
 
 
 	function deleteAntwort(nummer) {
 		for (i = nummer; i <= AntwortAnzahl; i++) {
-			document.getElementById("ant" + i).innerHTML = document.getElementById("ant" + (i+1)).innerHTML; 
+			document.getElementById(i).innerHTML = document.getElementById(i + 1).innerHTML; 
 		}
 
 		AntwortAnzahl = AntwortAnzahl - 1;
@@ -179,6 +182,8 @@ input[type=number]{
 
 
 
+
+
 <div id="FragenListe" <?=$frageBackground?>>
 	<h3>Angelegte Fragen</h3>
 	<table>
@@ -198,51 +203,26 @@ input[type=number]{
 	<a href="<?= $this->url('pruefung', ['action' => 'edit', 'id' => $pruefung->getId()]) ?>"><button type="button" <?=$frageDisabled?>>Kopfdaten der Pr&uuml;fung bearbeiten</button></a>
 </div>
 
+
+
 <div id="Frage" <?=$frageBackground?>>
 <?php if ($mode == PruefungController::createFragen) { ?>
+	<h3>Frage anlegen</h3>
+	W&auml;hlen Sie einen Frage-Typ aus, um die Eingabemaske anzuzeigen.
+	<button type="button" onclick="showFormMC()">Multiple Choice</button>
+	<button type="button" onclick="showFormTF()">True / False   </button>
 
-<h3>Frage anlegen</h3>
-	<table><tr><td><button type="button" onclick="showFormMC()">Multiple Choice</button></td><td><button type="button" onclick="showFormTF()">True / False</button></td></tr></table>
-	<p id="formular">W&auml;hlen Sie einen Frage-Typ aus, um die Eingabemaske anzuzeigen.</p>
 
 <?php } elseif ($mode == PruefungController::editFragen) { ?>
-<h3>Frage bearbeiten</h3>
-	Frage: <br> <textarea rows="3" cols="50" name="frage_text" form="frageForm" required><?=$frageToEdit->getText()?></textarea>
-	<form method="POST" id="frageForm">
-	<br>Punkte <input type="number" name="punkte" min="0" required value="<?=$frageToEdit->getPunkte()?>"><br>
+	<h3>Frage bearbeiten</h3>
+	<script>
+		<?php if       ($frageToEdit->getTyp() == 'MC'){ ?> showFormMC();
+		<?php } elseif ($frageToEdit->getTyp() == 'TF'){ ?> showFormTF();
+	</script>
 
+<?php }} ?>
 	
-	<?php 
-	$antworten = Antwort::loadList($frageToEdit->getId());
-	
-	if ($frageToEdit->getTyp() == "TF") { ?>
-		<input type="hidden" name="frage_typ" readonly="readonly" value="TF">
-		<input type="radio" name="tf" value="true"  <?php if ($antworten[0]->getStatus() == 1) echo "checked";?>> Wahr<br>
-		<input type="radio" name="tf" value="false" <?php if ($antworten[0]->getStatus() == 0) echo "checked";?>> Falsch<br>
-		<input type="hidden"   name="antwort_id" value="<?=$antworten[0]->getId()?>">
-	
-	<?php } else {
-		echo '<input type="hidden" name="frage_typ" readonly="readonly" value="MC"> Antwortm&ouml;glichkeiten:';
-		$i = 1;
-		foreach ($antworten as $antwort) { echo '<br>' ?>
-		<input type="text"     name="antwort_text<?=$i?>" required value="<?=$antwort->getText()?>">
-		<input type="checkbox" name="antwort_checked<?=$i?>" <?php if ($antwort->getStatus() == 1) echo "checked"?>>
-		<input type="hidden"   name="antwort_id<?=$i?>" value="<?=$antwort->getId()?>">
-		<a href="<?= $this->url('frage', ['action' => 'deleteAntwort', 'id' => $antwort->getId()])?>"><button type="button"> - </button></a>
-	<?php 
-		$i++;}
-	}
-	?>
-	
-	<input type="hidden" name="id" 		    readonly="readonly" value="<?=$frageToEdit->getId()?>">
-	<input type="hidden" name="pruefung_id" readonly="readonly" value="<?=$frageToEdit->getPruefungId()?>">
-	<input type="submit" name="speichernFrage" value="Speichern">
-	<input type="reset" value="Felder zur&uuml;cksetzen">
-	</form>
-<?php } ?>
-	
-	
-	
+<p id="formular"></p>	
 </div>
 
 
