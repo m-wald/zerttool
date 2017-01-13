@@ -442,30 +442,65 @@ class Kurs {
     }
 
     function setKurs_id($kurs_id) {
+    	
+    	$db = new Db_connection();
+    	$mysqli = $db->getConnection();
+    	
+    	$kurs_id = $mysqli->real_escape_string($kurs_id);
         $this->kurs_id = $kurs_id;
     }
 
     function setKurs_name($kurs_name) {
+    	
+    	$db = new Db_connection();
+    	$mysqli = $db->getConnection();
+    	
+    	$kurs_name = $mysqli->real_escape_string($kurs_name);
         $this->kurs_name = $kurs_name;
     }
 
     function setKurs_start($kurs_start) {
+    	
+    	$db = new Db_connection();
+    	$mysqli = $db->getConnection();
+    	
+    	$kurs_start = $mysqli->real_escape_string($kurs_start);
         $this->kurs_start = $kurs_start;
     }
 
     function setKurs_ende($kurs_ende) {
+    	
+    	$db = new Db_connection();
+    	$mysqli = $db->getConnection();
+    	
+    	$kurs_ende = $mysqli->real_escape_string($kurs_ende);
         $this->kurs_ende = $kurs_ende;
     }
 
     function setSichtbarkeit($sichtbarkeit) {
+    	
+    	$db = new Db_connection();
+    	$mysqli = $db->getConnection();
+    	
+    	$sichtbarkeit = $mysqli->real_escape_string($sichtbarkeit);
         $this->sichtbarkeit = $sichtbarkeit;
     }
 
     function setBenutzername($benutzername) {
+    	
+    	$db = new Db_connection();
+    	$mysqli = $db->getConnection();
+    	
+    	$benutzername = $mysqli->real_escape_string($benutzername);
         $this->benutzername = $benutzername;
     }
     
     function setBeschreibung($beschreibung) {
+    	
+    	$db = new Db_connection();
+    	$mysqli = $db->getConnection();
+    	
+    	$beschreibung = $mysqli->real_escape_string($beschreibung);
         $this->beschreibung = $beschreibung;
     }
 }

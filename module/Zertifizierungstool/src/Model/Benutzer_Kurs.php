@@ -26,6 +26,11 @@ class Benutzer_Kurs {
 		
 		$db=new Db_connection();
 		
+		$mysqli = $db->getConnection();
+		
+		$benutzer = $mysqli->real_escape_string($benutzer);
+		$kurs_id  = $mysqli->real_escape_string($kurs_id);
+		
 		//Pr�fung, ob Benutzer bereits im Kurs ist
 		$query="select * from benutzer_kurs where benutzername='".$benutzer."' and kurs_id=".$kurs_id.";";
 		
@@ -56,6 +61,10 @@ class Benutzer_Kurs {
         
         public function alreadyexist($benutzername, $kursid) {
             $db = new Db_connection();
+            $mysqli = $db->getConnection();
+            
+            $benutzername = $mysqli->real_escape_string($benutzername);
+            $kursid = $mysqli->real_escape_string($kursid);
             
             //Pr�fung, ob Benutzer bereits im Kurs ist
             $query = "select * from benutzer_kurs where benutzername = '".$benutzername."' and kurs_id = ".$kursid.";";
@@ -70,6 +79,10 @@ class Benutzer_Kurs {
         
         public function signindelete($kursid, $benutzername) {
             $db = new Db_connection();
+            $mysqli = $db->getConnection();
+            
+            $kursid = $mysqli->real_escape_string($kursid);
+            $benutzername = $mysqli->real_escape_string($benutzername);
             
             if($this->alreadyexist($benutzername, $kursid)) {
                 $query = "delete from benutzer_kurs where benutzername = '".$benutzername."' and kurs_id = ".$kursid.";";
@@ -82,6 +95,9 @@ class Benutzer_Kurs {
         
         public static function bestanden($id) {
         	$db = new Db_connection();
+        	$mysqli = $db->getConnection();
+        	
+        	$id = $mysqli->real_escape_string($id);
         
         	$query = "UPDATE benutzer_kurs SET bestanden = 1 WHERE kurs_id = " .$id;
         

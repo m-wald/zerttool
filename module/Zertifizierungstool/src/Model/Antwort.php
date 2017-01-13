@@ -11,10 +11,14 @@ class Antwort {
 	private $status;
 	
 	public function __construct($id = "", $text = "", $frage_id = "", $status = "" ) {
-		$this->id 	    = $id;
-		$this->text 	= $text;
-		$this->frage_id = $frage_id;
-		$this->status 	= $status;
+		
+		$db = new Db_connection();
+		$mysqli= $db->getConnection();
+		
+		$this->id 	    = $mysqli->real_escape_string($id);
+		$this->text 	= $mysqli->real_escape_string($text);
+		$this->frage_id = $mysqli->real_escape_string($frage_id);
+		$this->status 	= $mysqli->real_escape_string($status);
 	}
 	
 	/**
@@ -75,6 +79,8 @@ class Antwort {
 		$db = new Db_connection();
 		$conn = $db->getConnection();
 		
+		$id = $conn->real_escape_string($id);
+		
 		$query = "DELETE FROM antwort WHERE antwort_id = " .$id;
 		
 		$result = mysqli_query($conn, $query);
@@ -91,6 +97,8 @@ class Antwort {
 	public static function loadList($frage_id) {
 		$db = new Db_connection();
 		$conn = $db->getConnection();
+		
+		$frage_id = $conn->real_escape_string($frage_id);
 	
 		$query = "SELECT * FROM antwort WHERE frage_id = " .$frage_id;
 	
