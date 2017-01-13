@@ -85,7 +85,7 @@ input[type=number]{
 
 		var formEnd = 
 				  '<input type="hidden" name="id" 		   readonly="readonly" value="<?=$frage->getId()?>">'
-				+ '<input type="hidden" name="pruefung_id" readonly="readonly" value="<?=$frage->getPruefungId()?>">'
+				+ '<input type="hidden" name="pruefung_id" readonly="readonly" value="<?=$pruefung->getId()?>">'
 				+ '<input type="submit" name="speichernFrage" value="Speichern">'
 				+ '<input type="reset" value="Felder zur&uuml;cksetzen">'
 				+ '</form><br>';
@@ -136,7 +136,7 @@ input[type=number]{
 
 		var formEnd = 
 				  '<input type="hidden" name="id" 		   readonly="readonly" value="<?=$frage->getId()?>">'
-				+ '<input type="hidden" name="pruefung_id" readonly="readonly" value="<?=$frage->getPruefungId()?>">'
+				+ '<input type="hidden" name="pruefung_id" readonly="readonly" value="<?=$pruefung->getId()?>">'
 				+ '<input type="submit" name="speichernFrage" value="Speichern">'
 				+ '<input type="reset" value="Felder zur&uuml;cksetzen">'
 				+ '</form><br>';

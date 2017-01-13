@@ -153,13 +153,6 @@ class FrageController extends AbstractActionController {
 		
 		if (empty($errors) && isset($request['speichernFrage'])) {
 			// Neues Frage-Objekt mit den Daten aus dem gesendeten Formular erzeugen und in der DB speichern bzw. aktualisieren
-			echo $request["id"];
-			echo $request["frage_text"];
-			echo $request["punkte"];
-			echo $request["pruefung_id"];
-			echo $request["frage_typ"];
-			
-			
 			$this->frage = new Frage(
 							$request["id"],
 							$request["frage_text"],
