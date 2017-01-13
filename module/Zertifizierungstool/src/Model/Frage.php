@@ -12,11 +12,15 @@ class Frage {
 	private $typ;
 	
 	public function __construct($id = "", $text = "", $punkte = "", $pruefung_id = "", $typ = "" ) {
-		$this->id 		   = $id;
-		$this->text  	   = $text;
-		$this->punkte 	   = $punkte;
-		$this->pruefung_id = $pruefung_id;
-		$this->typ		   = $typ;
+		
+		$db = new Db_connection();
+		$mysqli = $db->getConnection();
+		
+		$this->id 		   = $mysqli->real_escape_string($id);
+		$this->text  	   = $mysqli->real_escape_string($text);
+		$this->punkte 	   = $mysqli->real_escape_string($punkte);
+		$this->pruefung_id = $mysqli->real_escape_string($pruefung_id);
+		$this->typ		   = $mysqli->real_escape_string($typ);
 	}
 	
 	/**
@@ -80,6 +84,9 @@ class Frage {
 	
 	public function load($id) {
 		$db = new Db_connection();
+		$mysqli = $db->getConnection();
+		
+		$id = $mysqli->real_escape_string($id);
 		
 		$query = "SELECT * FROM frage WHERE frage_id = " .$id;
 		
@@ -104,6 +111,8 @@ class Frage {
 	public static function loadList($pruefung_id) {
 		$db = new Db_connection();
 		$conn = $db->getConnection();
+		
+		$pruefung_id = $conn->real_escape_string($pruefung_id);
 		
 		$query = "SELECT * FROM frage WHERE pruefung_id = " .$pruefung_id;
 		
@@ -134,6 +143,8 @@ class Frage {
 	public static function delete($id) {
 		$db = new Db_connection();
 		$conn = $db->getConnection();
+		
+		$id = $conn->real_escape_string($id);
 		
 		$query = "DELETE FROM frage WHERE frage_id = " .$id;
 		

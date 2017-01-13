@@ -17,11 +17,15 @@ class SchreibtPruefung {
 	private $bestanden;
 
 	public function __construct($id = "", $pruefung_id = "", $benutzername = "", $zeitpunkt = "", $bestanden = "") {
-		$this->id			= $id;
-		$this->pruefung_id	= $pruefung_id;
-		$this->benutzername	= $benutzername;
-		$this->zeitpunkt    = $zeitpunkt;
-		$this->bestanden 	= $bestanden;
+		
+		$db = new Db_connection();
+		$mysqli = $db->getConnection();
+		
+		$this->id			= $mysqli->real_escape_string($id);
+		$this->pruefung_id	= $mysqli->real_escape_string($pruefung_id);
+		$this->benutzername	= $mysqli->real_escape_string($benutzername);
+		$this->zeitpunkt    = $mysqli->real_escape_string($zeitpunkt);
+		$this->bestanden 	= $mysqli->real_escape_string($bestanden);
 	}
 	
 	/**
@@ -57,6 +61,9 @@ class SchreibtPruefung {
 	
 	public function load($id) {
 		$db = new Db_connection();
+		$mysqli = $db->getConnection();
+		
+		$id = $mysqli->real_escape_string($id);
 	
 		$query = "SELECT * FROM schreibt_pruefung WHERE schreibt_pruefung_id = " .$id;
 	
@@ -81,6 +88,9 @@ class SchreibtPruefung {
 	public static function loadlist ($pruefung_id) {
 		
 		$db = new Db_connection();
+		$mysqli = $db->getConnection();
+		
+		$pruefung_id = $mysqli->real_escape_string($pruefung_id);
 		
 		$query = "SELECT * FROM schreibt_pruefung WHERE pruefung_id = " .$pruefung_id;
 		
@@ -127,6 +137,10 @@ class SchreibtPruefung {
 	
 	public function loadLastTry($pruefung_id) {
 		$db = new Db_connection();
+		$mysqli = $db->getConnection();
+		
+		$pruefung_id = $mysqli->real_escape_string($pruefung_id);
+		
 		// Den Zeitpunkt des letzten Versuchs ermitteln
 		$query = "SELECT schreibt_pruefung_id FROM aktuellster_Versuch "
 				 ."WHERE pruefung_id = " .$pruefung_id

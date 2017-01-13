@@ -21,13 +21,17 @@ class CSV_invite {
 	 */
 	public function insert_data($email,$kurs_id) {
 		
-		$this->email   = $email;
-		$this->kurs_id = $kurs_id;
+		$db = new Db_connection();
+		$mysqli = $db->getConnection();
+		
+				
+		$this->email   = $mysqli->real_escape_string($email);
+		$this->kurs_id = $mysqli->real_escape_string($kurs_id);
 		
 		
 		//Daten in DB schreiben
 		
-		$db = new Db_connection();
+		
 		
 		$query= "select * from eingeladen where email = '".$email."' and kurs_id = ".$kurs_id.";";
 		$result=$db->execute($query);
@@ -51,6 +55,12 @@ class CSV_invite {
 	 * @param number $kurs_id Kurs zu den eingeladen wird
 	 */
 	public function inviteMail($email, $kurs_id) {
+		
+		$db = new Db_connection();
+		$mysqli = $db->getConnection();
+		
+		$email = $mysqli->real_escape_string($email);
+		$kurs_id = $mysqli->real_escape_string($kurs_id);
 		
 		$kurs = new Kurs();
 		$kurs->load($kurs_id);
