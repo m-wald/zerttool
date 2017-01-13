@@ -157,7 +157,7 @@ class FrageController extends AbstractActionController {
 							$request["id"],
 							$request["frage_text"],
 							$request["punkte"],
-							$request["pruefung_id"],
+							$request["pruefid"],
 							$request["frage_typ"]);
 		
 			if (!$this->frage->save()) {
