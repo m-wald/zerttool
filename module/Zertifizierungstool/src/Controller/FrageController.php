@@ -193,6 +193,12 @@ class FrageController extends AbstractActionController {
 							echo '<br>Check' .$request["antwort_checked" .$key_index];
 							echo '<br>Id' .$request["antwort_id .$key_index"];
 							
+							
+							$antwort = new Antwort(
+									$request["antwort_id .$key_index"],
+									$request["antwort_checked" .$key_index],
+									$this->frage->getId(),
+									$status);
 						
 							if (!$antwort->save()) array_push($errors, "Fehler beim Speichern der Antwort. Bitte erneut versuchen!");
 						}
