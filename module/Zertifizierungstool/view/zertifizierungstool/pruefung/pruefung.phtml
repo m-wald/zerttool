@@ -172,6 +172,10 @@ input[type=number]{
 		AntwortAnzahl = AntwortAnzahl - 1;
 	}
 
+	function showTest() {
+		document.getElementById("formular").innerHTML = "hallo";
+	}
+
 </script>
 
 
@@ -227,7 +231,7 @@ input[type=number]{
 <?php } elseif ($mode == PruefungController::editFragen) { ?>
 	<h3>Frage bearbeiten</h3>
 	<script type="text/javascript">
-		document.getElementById('formular').innerHTML = 'qwertz'; 
+		showTest();
 	</script>
 
 
