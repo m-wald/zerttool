@@ -177,6 +177,8 @@ class User
 	}
 	
 	public function getGeburtsdatum() {
+		$date = new \DateTime($this->geburtsdatum);
+		$this->geburtsdatum=$date->format('d.m.Y');
 		return $this->geburtsdatum; 
 	}
 	
