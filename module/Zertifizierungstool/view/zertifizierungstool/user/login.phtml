@@ -49,4 +49,8 @@
 if (isset($anmeldestatus) && $anmeldestatus==false) {
 	echo "<center><b><font color='red'>Benutzername und Passwort stimmen nicht &uuml;berein!</font></b></center>";
 }
+
+if (isset($benutzer_nicht_gefunden)) {
+	echo "<center><b><font color='red'>Benutzer existiert nicht!</font></b></center>";
+}
 ?>

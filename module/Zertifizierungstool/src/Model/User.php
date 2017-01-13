@@ -94,7 +94,7 @@ class User
 				array_push($return_array, $row);
 			}
 		} else {
-			echo "Kein Ergebnis gefunden.";
+			return false;
 		}
 		
 		foreach ($return_array as $row) {	
@@ -112,7 +112,7 @@ class User
 			$this->ist_teilnehmer    = $row['ist_teilnehmer'];
 		}
 		
-		// Fehler prüfen
+		return true;
 	}
 	
 	/**
