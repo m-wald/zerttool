@@ -205,6 +205,8 @@ class FrageController extends AbstractActionController {
 									$request[next($text_keys)],
 									$this->frage->getId(),
 									$status);
+							
+							if (!$antwort->save()) array_push($errors, "Fehler beim Speichern der Antwort. Bitte erneut versuchen!");
 						}
 						/*
 						$index = 1;
