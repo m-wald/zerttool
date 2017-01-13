@@ -180,17 +180,26 @@ class FrageController extends AbstractActionController {
 				
 					case "MC":
 						// Alle Schlüssel aus dem Request-Array auslesen, die sich auf die Antworten beziehen
-						$id_keys	= preg_grep('/^antwort_id[\d]*/',      array_keys($_REQUEST));
+						//$id_keys	= preg_grep('/^antwort_id[\d]*/',      array_keys($_REQUEST));
 						$text_keys  = preg_grep('/^antwort_text[\d]*/',    array_keys($_REQUEST));
-						$check_keys = preg_grep('/^antwort_checked[\d]*/', array_keys($_REQUEST));
+						//$check_keys = preg_grep('/^antwort_checked[\d]*/', array_keys($_REQUEST));
 						
-						echo 'Ids: <br>';
-						print_r($id_keys);
-						echo 'Texte: <br>';
+						echo '<br>Texte Keys: <br>';
 						print_r($text_keys);
-						echo 'Checks: <br>';
-						print_r($check_keys);
 						
+						foreach ($text_keys as $text_key) {
+							$key_index = substr($text_key, 12);
+							
+							echo '<br>Key index' .$key_index;
+							
+							echo '<br>Check' .$request["antwort_checked" .$key_index];
+							echo '<br>Id' .$request["antwort_id .$key_index"];
+							
+						
+						//if (!$antwort->save()) array_push($errors, "Fehler beim Speichern der Antwort. Bitte erneut versuchen!");
+						
+						
+						/*
 						while (next($id_keys)) {
 							$status = 0;
 							if ($request[next($check_keys)]) {
@@ -205,29 +214,9 @@ class FrageController extends AbstractActionController {
 									$request[next($text_keys)],
 									$this->frage->getId(),
 									$status);
-							
-							if (!$antwort->save()) array_push($errors, "Fehler beim Speichern der Antwort. Bitte erneut versuchen!");
-						}
-						/*
-						$index = 1;
-						while (!empty($request["antwort_text" .$index])) {
-							$status = 0;
-							if ($request["antwort_checked" .$index]) {
-								$status = 1;
-							}
-				
-							$antwort = new Antwort(
-									$request["antwort_id" .$index],
-									$request["antwort_text" .$index],
-									$this->frage->getId(),
-									$status);
-								
-							if (!$antwort->save()) array_push($errors, "Fehler beim Speichern der Antwort. Bitte erneut versuchen!");
-								
-							$index++;
-						}
-						break;
 						*/
+							//if (!$antwort->save()) array_push($errors, "Fehler beim Speichern der Antwort. Bitte erneut versuchen!");
+						}
 				}
 
 			}
