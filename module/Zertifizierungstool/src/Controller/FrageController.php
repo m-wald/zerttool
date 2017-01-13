@@ -233,7 +233,7 @@ class FrageController extends AbstractActionController {
 			}
 	
 			if (empty($errors)) {
-				header ("refresh:0; url = /frage/create/" .$this->frage->getPruefungId());
+				//header ("refresh:0; url = /frage/create/" .$this->frage->getPruefungId());
 			}
 		}
 		
