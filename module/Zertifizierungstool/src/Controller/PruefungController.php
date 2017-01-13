@@ -57,15 +57,15 @@ class PruefungController extends AbstractActionController {
 		if ($last_try->loadLastTry($pruefung->getId())) {
 			
 			if ($last_try->getBestanden() == 1) {
-				array_push($errors, 'Fehler: Sie haben die Prüfung bereits bestanden.');
+				array_push($errors, 'Fehler: Sie haben die Pr&uuml;fung bereits bestanden.');
 			}
 			
 			if (SchreibtPruefung::attempts(User::currentUser()->getBenutzername(), $pruefung->getId()) >= 3) {
-				array_push($errors, 'Fehler: Sie haben die Prüfung bereits 3 mal nicht bestanden und sind daher nicht mehr zur Prüfung zugelassen.');
+				array_push($errors, 'Fehler: Sie haben die Pr&uuml;fung bereits 3 mal nicht bestanden und sind daher nicht mehr zur Pr&uuml;fung zugelassen.');
 			}
 			
 			if (time()) {
-				array_push($errors, 'Fehler: Sie können die Prüfung erst 24 Stunden nach Ihrem letzten Versuch wiederholen.');
+				array_push($errors, 'Fehler: Sie können die Pr&uuml;fung erst 24 Stunden nach Ihrem letzten Versuch wiederholen.');
 			}
 		}
 		
@@ -76,13 +76,13 @@ class PruefungController extends AbstractActionController {
 		$schreibt_pruefung = new SchreibtPruefung("", $pruefung_id);
 		
 		if (!$schreibt_pruefung->saveNew()) {
-			array_push($errors, "Fehler beim Vorbereiten der Prüfung!");
+			array_push($errors, "Fehler beim Vorbereiten der Pr&uuml;fung!");
 		}
 		
 		// Alle Fragen zur Prüfung laden
 		$fragen = Frage::loadList($pruefung_id);
 		if (!$fragen || empty($fragen)) {
-			array_push($errors, "Fehler: Es konnten keine Prüfungsfragen geladen werden!");
+			array_push($errors, "Fehler: Es konnten keine Pr&uuml;fungsfragen geladen werden!");
 		}
 		
 		// Für jede Frage:
@@ -97,7 +97,7 @@ class PruefungController extends AbstractActionController {
 				$beantwortet = new Beantwortet("", $schreibt_pruefung->getId(), $antwort->getId(), 0);
 				
 				if (!$beantwortet->saveNew()) {
-					array_push($errors, "Fehler beim Vorbereiten der Prüfungsfragen!");
+					array_push($errors, "Fehler beim Vorbereiten der Pr&uuml;fungsfragen!");
 					continue;
 				}
 			}
@@ -280,7 +280,7 @@ class PruefungController extends AbstractActionController {
 		
 		// Was wenn Fehler? Zurückleiten auf Übersicht?
 		if ($this->pruefung->getTermin() <= time()) {
-			array_push($errors, "Der Prüfungszeitraum wurde bereits erreicht. Die Prüfung kann nicht mehr bearbeitet werden!");
+			array_push($errors, "Der Pr&uuml;fungszeitraum wurde bereits erreicht. Die Pr&uuml;fung kann nicht mehr bearbeitet werden!");
 		}
 		
 		return $this->handleForm($_REQUEST, Frage::loadList($this->pruefung->getId()));

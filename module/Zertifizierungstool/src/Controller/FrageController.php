@@ -137,7 +137,7 @@ class FrageController extends AbstractActionController {
 		}
 			
 		if (!$pruefung->load($pruefungid)) {
-			array_push($errors, "Fehler beim Laden der Prüfung!");
+			array_push($errors, "Fehler beim Laden der Pr&uuml;fung!");
 		}
 		
 		$kurs = new Kurs();
@@ -148,7 +148,7 @@ class FrageController extends AbstractActionController {
 		}
 		
 		if (strtotime($pruefung->getTermin()) <= time() ) {
-			array_push($errors, "Der Prüfungszeitraum hat bereits begonnen. Die Prüfung kann nicht mehr bearbeitet werden!");
+			array_push($errors, "Der Pr&uuml;fungszeitraum hat bereits begonnen. Die Pr&uuml;fung kann nicht mehr bearbeitet werden!");
 		}
 		
 		if (empty($errors) && isset($request['speichernFrage'])) {
@@ -184,8 +184,11 @@ class FrageController extends AbstractActionController {
 						$text_keys  = preg_grep('/^antwort_text[\d]*/',    array_keys($_REQUEST));
 						$check_keys = preg_grep('/^antwort_checked[\d]*/', array_keys($_REQUEST));
 						
+						echo 'Ids: <br>';
 						print_r($id_keys);
+						echo 'Texte: <br>';
 						print_r($text_keys);
+						echo 'Checks: <br>';
 						print_r($check_keys);
 						
 						while (next($id_keys)) {
