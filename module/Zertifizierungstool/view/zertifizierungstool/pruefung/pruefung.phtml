@@ -60,7 +60,7 @@ input[type=number]{
 
 <script type="text/javascript">
 <!-- Doku //-->
-	var AntwortAnzahl = 0;
+	var AntwortAnzahl;
 
 
 	
@@ -86,7 +86,11 @@ input[type=number]{
 		?>
 
 		
-		
+		AntwortAnzahl     = <?=count($antworten)?>;
+		var frage_text 	  = <?=$frage->getText()?>;
+		var frage_punkte  = <?=$frage->getPunkte()?>;
+		var frage_id	  = <?=$frage->getId()?>;
+		var pruefung_id   = <?=$frage->getPruefungId()?>;
 		
 
 		document.getElementById("formular").innerHTML = 'test Typ: ' + type;
