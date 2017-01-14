@@ -263,7 +263,7 @@ class FrageController extends AbstractActionController {
 		header ("refresh:5; url = /frage/create/" .$frage->getPruefungId());
 	}
 	
-	public function deleteAntwortAction() {
+	public function deleteantwortAction() {
 		$antwort = new Antwort();
 		$antwort->loadList($this->params()->fromRoute('id'));
 		Antwort::delete($antwort->getId());

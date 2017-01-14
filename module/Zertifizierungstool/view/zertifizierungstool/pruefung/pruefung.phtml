@@ -101,7 +101,7 @@ input[type=number]{
 				+ '<input type="text"     name="antwort_text<?=$i?>" value="<?=$antwort->getText()?>" required >'
 				+ '<input type="checkbox" name="antwort_checked<?=$i?>" <?php if ($antwort->getStatus() == 1) echo "checked";?>>'
 				
-				+ '<a href="<?= $this->url('frage', ['action' => 'delete-antwort', 'id' => $antwort->getId()])?>"><button type="button"> - </button></a><br>'
+				+ '<a href="<?= $this->url('frage', ['action' => 'deleteantwort', 'id' => $antwort->getId()])?>"><button type="button"> - </button></a><br>'
 
 				
 				<?php 
@@ -109,7 +109,7 @@ input[type=number]{
 				}
 				?>
 				
-				+ '<p id="' + (AntwortAnzahl + 1) + '"></p>'
+				+ '<p id="antworten"></p>'
 				+ '<button type="button" onclick="newAntwort()">Antwortoption hinzufügen</button>';
 		
 		document.getElementById("formular").innerHTML =
@@ -157,17 +157,19 @@ input[type=number]{
 	function newAntwort() {
 		AntwortAnzahl = AntwortAnzahl + 1;
 
-		document.getElementById(AntwortAnzahl).innerHTML =
-			  '<input type="text"     name="antwort_text'    + AntwortAnzahl + '" required> '
+		document.getElementById("antworten").innerHTML = document.getElementById("antworten").innerHTML
+			+ '<p id="' + (AntwortAnzahl) +'">'
+			+ '<input type="text"     name="antwort_text'    + AntwortAnzahl + '" required> '
 			+ '<input type="checkbox" name="antwort_checked' + AntwortAnzahl + '">  '
 			
 			+ '<button type="button" onclick="deleteAntwort(' + AntwortAnzahl + ')"> - </button>'
-			+ '<p id="' + (AntwortAnzahl + 1) +'"></p>';
+			+ '</p><br>';
+			
 	}
 
 
 	function deleteAntwort(nummer) {
-		document.getElementById(nummer).innerHTML = 'entfernt<br><p id="' + (nummer + 1) + '"></p>'; 
+		document.getElementById(nummer).innerHTML = "entfernt"; 
 	}
 </script>
 
