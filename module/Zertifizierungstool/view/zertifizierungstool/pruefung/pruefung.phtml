@@ -108,9 +108,9 @@ input[type=number]{
 					$i++;
 				}
 				?>
-				
-				+ '<p id="antworten_liste"></p>'
-				+ '<button type="button" onclick="newAntwort()">Antwortoption hinzufügen</button>';
+
+				+ '<ul id="antwortenListe"></ul>'
+				+ '<br><button type="button" onclick="newAntwort()">Antwortoption hinzufügen</button>';
 		
 		document.getElementById("formular").innerHTML =
 			'Multiple Choice - Frage: <br>' + formStart + formMC + formEnd;
@@ -157,16 +157,22 @@ input[type=number]{
 	function newAntwort() {
 		AntwortAnzahl = AntwortAnzahl + 1;
 
-		var antworten_liste = document.getElementById("antworten_liste");
-		var neue_antwort	= document.createTextNode(
-			+ '<p id="' + (AntwortAnzahl) +'">'
+		var neue_antwort	= 
+			  '<p id="' + (AntwortAnzahl) +'">'
 			+ '<input type="text"     name="antwort_text'    + AntwortAnzahl + '" required> '
 			+ '<input type="checkbox" name="antwort_checked' + AntwortAnzahl + '">  '
 		
 			+ '<button type="button" onclick="deleteAntwort(' + AntwortAnzahl + ')"> - </button>'
-			+ '</p><br>');
+			+ '</p><br>';
 
-		antworten_liste.appendChild(neue_antwort);
+			
+		var node = document.createElement("LI");                 // Create a <li> node
+		var textnode = document.createTextNode("Water");         // Create a text node
+		node.appendChild(textnode);                              // Append the text to <li>
+		document.getElementById("antwortenListe").appendChild(node);     // Append <li> to <ul> with id="myList"
+
+
+		
 	}
 
 
