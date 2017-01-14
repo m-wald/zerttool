@@ -82,7 +82,9 @@ input[type=number]{
 		+ '<input type="reset" value="Felder zur&uuml;cksetzen">'
 		+ '</form><br>';
 
-	function showFormMC() { showForm('MC'); }
+	function showFormMC() { 
+		document.getElementById("formular").innerHTML = 'testtest';;
+		//showForm('MC'); }
 	function showFormTF() { showForm('TF'); }
 	
 	function showForm(type) {
