@@ -268,7 +268,7 @@ class FrageController extends AbstractActionController {
 		$antwort = new Antwort();
 		$antwort->load($antwort_id);
 		Antwort::delete($antwort->getId());
-		header ("refresh:0; url = /frage/edit/" .$antwort->getFrageId());
+		header ("refresh:10; url = /frage/edit/" .$antwort->getFrageId());
 	}
 	
 	/**
