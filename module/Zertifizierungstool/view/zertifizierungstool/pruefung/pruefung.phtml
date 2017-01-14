@@ -109,7 +109,7 @@ input[type=number]{
 				}
 				?>
 
-				+ '<ul id="antwortenListe"></ul>'
+				+ '<p id="antwortenListe"></p>'
 				+ '<br><button type="button" onclick="newAntwort()">Antwortoption hinzufügen</button>';
 		
 		document.getElementById("formular").innerHTML =
@@ -158,19 +158,20 @@ input[type=number]{
 		AntwortAnzahl = AntwortAnzahl + 1;
 
 		var neue_antwort	= 
-			  '<p id="' + (AntwortAnzahl) +'">'
+			 // '<p id="' + (AntwortAnzahl) +'">'
 			+ '<input type="text"     name="antwort_text'    + AntwortAnzahl + '" required> '
 			+ '<input type="checkbox" name="antwort_checked' + AntwortAnzahl + '">  '
 		
-			+ '<button type="button" onclick="deleteAntwort(' + AntwortAnzahl + ')"> - </button>'
-			+ '</p><br>';
+			+ '<button type="button" onclick="deleteAntwort(' + AntwortAnzahl + ')"> - </button>';
+			//+ '</p><br>';
 
 			
-		var node = document.createElement("LI");                 // Create a <li> node
-		var textnode = document.createTextNode(neue_antwort);         // Create a text node
-		node.appendChild(textnode);                              // Append the text to <li>
-		document.getElementById("antwortenListe").appendChild(node);     // Append <li> to <ul> with id="myList"
-
+		var new_para = document.createElement("p"); 
+		new_para.id = AntwortAnzahl;                
+		var text 	 = document.createTextNode(neue_antwort);         
+		new_para.appendChild(text);
+		                           
+		document.getElementById("antwortenListe").appendChild(new_para);     
 
 		
 	}
