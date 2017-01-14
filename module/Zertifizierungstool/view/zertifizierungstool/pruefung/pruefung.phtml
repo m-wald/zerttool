@@ -101,7 +101,9 @@ input[type=number]{
 				+ '<input type="text"     name="antwort_text<?=$i?>" value="<?=$antwort->getText()?>" required >'
 				+ '<input type="checkbox" name="antwort_checked<?=$i?>" <?php if ($antwort->getStatus() == 1) echo "checked";?>>'
 				
-				+ '<a href="<?= $this->url('frage', ['action' => 'deleteAntwort', 'id' => $antwort->getId()])?>"><button type="button"> - </button></a><br>'
+				+ '<a href="<?= $this->url('frage', ['action' => 'delete-antwort', 'id' => $antwort->getId()])?>"><button type="button"> - </button></a><br>'
+
+				
 				<?php 
 					$i++;
 				}
@@ -165,11 +167,7 @@ input[type=number]{
 
 
 	function deleteAntwort(nummer) {
-		for (i = nummer; i <= AntwortAnzahl; i++) {
-			document.getElementById(i).innerHTML = 'entfernt'; 
-		}
-
-		
+		document.getElementById(nummer).innerHTML = 'entfernt<br><p id="' + (nummer + 1) '"></p>'; 
 	}
 </script>
 
