@@ -158,12 +158,10 @@ input[type=number]{
 		AntwortAnzahl = AntwortAnzahl + 1;
 
 		var neue_antwort	= 
-			 // '<p id="' + (AntwortAnzahl) +'">'
-			+ '<input type="text"     name="antwort_text'    + AntwortAnzahl + '" required> '
+			  '<input type="text"     name="antwort_text'    + AntwortAnzahl + '" required> '
 			+ '<input type="checkbox" name="antwort_checked' + AntwortAnzahl + '">  '
 		
 			+ '<button type="button" onclick="deleteAntwort(' + AntwortAnzahl + ')"> - </button>';
-			//+ '</p><br>';
 
 			
 		var new_para = document.createElement("p"); 
