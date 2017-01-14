@@ -182,9 +182,6 @@ class FrageController extends AbstractActionController {
 						// Alle Schlüssel aus dem Request-Array auslesen, die sich auf die Antworten beziehen
 						$text_keys  = preg_grep('/^antwort_text[\d]*/',    array_keys($_REQUEST));
 						
-						echo '<br>Texte Keys: <br>';
-						print_r($text_keys);
-						
 						foreach ($text_keys as $text_key) {
 							$key_index = substr($text_key, 12);
 							
@@ -210,7 +207,7 @@ class FrageController extends AbstractActionController {
 			}
 	
 			if (empty($errors)) {
-				//header ("refresh:0; url = /frage/create/" .$this->frage->getPruefungId());
+				header ("refresh:0; url = /frage/create/" .$this->frage->getPruefungId());
 			}
 		}
 		
@@ -267,8 +264,10 @@ class FrageController extends AbstractActionController {
 	}
 	
 	public function deleteAntwortAction() {
+		$antwort = new Antwort();
+		$antwort->loadList($this->params()->fromRoute('id'));
 		Antwort::delete($antwort->getId());
-		header ("refresh:5; url = /frage/edit/" .$this->params()->fromRoute('id'));
+		header ("refresh:5; url = /frage/edit/" .$antwort->getFrageId());
 	}
 	
 	/**
