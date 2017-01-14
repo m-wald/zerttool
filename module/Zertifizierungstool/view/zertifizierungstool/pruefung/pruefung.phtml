@@ -168,8 +168,7 @@ input[type=number]{
 			
 		var new_para = document.createElement("p"); 
 		new_para.id = AntwortAnzahl;                
-		var text 	 = document.createTextNode(neue_antwort);         
-		new_para.appendChild(text);
+		new_para.innerHTML = neue_antwort;
 		                           
 		document.getElementById("antwortenListe").appendChild(new_para);     
 
