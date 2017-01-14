@@ -85,11 +85,7 @@ input[type=number]{
 		$antwort = $antworten[0]; // Für TF
 		?>
 
-		AntwortAnzahl     = <?php echo count($antworten);?>;
-		var frage_text 	  = <?php echo $frage->getText();?>;
-		var frage_punkte  = <?php echo $frage->getPunkte();?>;
-		var frage_id	  = <?php echo $frage->getId();?>;
-		var pruefung_id   = <?php echo $frage->getPruefungId();?>;
+		AntwortAnzahl     = <?=count($antworten)?>
 		
 
 		document.getElementById("formular").innerHTML = 'test Typ: ' + type;
