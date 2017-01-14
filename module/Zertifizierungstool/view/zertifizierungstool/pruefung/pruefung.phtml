@@ -62,10 +62,10 @@ input[type=number]{
 <!-- Doku //-->
 	var AntwortAnzahl = 0;
 
-	var frage_text;
-	var frage_punkte;
-	var frage_id;
-	var pruefung_id;
+	var frage_text = '';
+	var frage_punkte = 0;
+	var frage_id = '';
+	var pruefung_id = '';
 	
 	var formStart =  
 		'Frage:<br>'
@@ -105,6 +105,7 @@ input[type=number]{
 		frage_text 	  = <?=$frage->getText()?>;
 		frage_punkte  = <?=$frage->getPunkte()?>;
 		frage_id	  = <?=$frage->getId()?>;
+		pruefung_id   = <?=$frage->getPruefungId()?>;
 
 		var form = '';
 		
