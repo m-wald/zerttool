@@ -62,25 +62,11 @@ input[type=number]{
 <!-- Doku //-->
 	var AntwortAnzahl = 0;
 
-	var frage_text = '';
-	var frage_punkte = 0;
-	var frage_id = '';
-	var pruefung_id = '';
-	
-	var formStart =  
-		'Frage:<br>'
-		+ '<textarea rows="3" cols="50" name="frage_text" form="frageForm" required> ' + frage_text + '</textarea>'
-		+ '<form method="POST" id="frageForm">'
-		
-		+ 'Punkte: '
-		+ '<input type="number" name="punkte" min="0" required value="' + frage_punkte + '"> <br>';
 
-	var formEnd = 
-		  '<input type="hidden" name="id" 		   readonly="readonly" value="' + frage_id + '">'
-		+ '<input type="hidden" name="pruefung_id" readonly="readonly" value="' + pruefung_id + '">'
-		+ '<input type="submit" name="speichernFrage" value="Speichern">'
-		+ '<input type="reset" value="Felder zur&uuml;cksetzen">'
-		+ '</form><br>';
+	
+	
+
+	
  
 	function showFormMC() { showForm('MC'); }
 	function showFormTF() { showForm('TF'); }
@@ -100,12 +86,25 @@ input[type=number]{
 		?>
 
 		AntwortAnzahl = <?=count($antworten)?>;
-		frage_text 	  = <?=$frage->getText()?>;
-		frage_punkte  = <?=$frage->getPunkte()?>;
-		frage_id	  = <?=$frage->getId()?>;
-		pruefung_id   = <?=$frage->getPruefungId()?>;
+		var frage_text 	  = <?=$frage->getText()?>;
+		var frage_punkte  = <?=$frage->getPunkte()?>;
+		var frage_id	  = <?=$frage->getId()?>;
+		var pruefung_id   = <?=$frage->getPruefungId()?>;
 
 		var form = '';
+		var formStart =  
+			'Frage:<br>'
+			+ '<textarea rows="3" cols="50" name="frage_text" form="frageForm" required> ' + frage_text + '</textarea>'
+			+ '<form method="POST" id="frageForm">'
+			
+			+ 'Punkte: '
+			+ '<input type="number" name="punkte" min="0" required value="' + frage_punkte + '"> <br>';
+		var formEnd = 
+				  '<input type="hidden" name="id" 		   readonly="readonly" value="' + frage_id + '">'
+				+ '<input type="hidden" name="pruefung_id" readonly="readonly" value="' + pruefung_id + '">'
+				+ '<input type="submit" name="speichernFrage" value="Speichern">'
+				+ '<input type="reset" value="Felder zur&uuml;cksetzen">'
+				+ '</form><br>';
 		
 		switch (type) {
 		case 'MC':
