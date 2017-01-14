@@ -67,7 +67,7 @@ input[type=number]{
 	var frage_id = '';
 	var pruefung_id = '';
 	
-	/* var formStart =  
+	var formStart =  
 		'Frage:<br>'
 		+ '<textarea rows="3" cols="50" name="frage_text" form="frageForm" required> ' + frage_text + '</textarea>'
 		+ '<form method="POST" id="frageForm">'
@@ -81,14 +81,93 @@ input[type=number]{
 		+ '<input type="submit" name="speichernFrage" value="Speichern">'
 		+ '<input type="reset" value="Felder zur&uuml;cksetzen">'
 		+ '</form><br>';
- */
-	function showFormMC() { 
-		var type = 'MC';
-		showForm('MC'); }
+ 
+	function showFormMC() { showForm('MC'); }
 	function showFormTF() { showForm('TF'); }
 	
 	function showForm(type) {
-		document.getElementById("formular").innerHTML = 'testtest Typ: ' + type;
+		<?php 
+		$frage   = new Frage();
+		$antworten = array();
+		array_push($antworten, new Antwort());
+		
+		if ($mode == PruefungController::editFragen) {
+			$antworten = Antwort::loadList($frageToEdit->getId());			
+			$frage = $frageToEdit;
+			
+		}
+		$antwort = $antworten[0]; // Für TF
+		?>
+
+		AntwortAnzahl = <?=count($antworten)?>;
+		frage_text 	  = <?=$frage->getText()?>;
+		frage_punkte  = <?=$frage->getPunkte()?>;
+		frage_id	  = <?=$frage->getId()?>;
+		pruefung_id   = <?=$frage->getPruefungId()?>;
+
+		var form = '';
+		
+		switch (type) {
+		case 'MC':
+			form +=
+				'<input type="hidden" name="frage_typ" readonly="readonly" value="MC">'
+				
+				<?php
+				$i = 1;
+				foreach ($antworten as $antwort) { ?>
+				+ '<input type="hidden"   name="antwort_id<?=$i?>"   value="<?=$antwort->getId()  ?>" readonly="readonly">'
+				+ '<input type="text"     name="antwort_text<?=$i?>" value="<?=$antwort->getText()?>" required >'
+				+ '<input type="checkbox" name="antwort_checked<?=$i?>" <?php if ($antwort->getStatus() == 1) echo "checked";?>>'
+				
+				+ '<a href="<?= $this->url('frage', ['action' => 'deleteantwort', 'id' => $antwort->getId()])?>"><button type="button"> - </button></a><br><br>'
+
+				
+				<?php 
+					$i++;
+				}
+				?>
+
+				+ '<p id="antwortenListe"></p>'
+				+ '<br><button type="button" onclick="newAntwort()">Antwortoption hinzufügen</button>';
+				
+			break;
+
+		case 'TF':
+			form +=
+				  '<input type="hidden" name="frage_typ"  readonly="readonly" value="TF">'
+				+ '<input type="hidden" name="antwort_id" readonly="readonly" value="<?=$antwort->getId()?>">'
+				+ '<input type="radio"  name="tf" 		  value="true" <?php if ($antwort->getStatus() == 1) echo "checked";?>> Wahr  <br>'
+				+ '<input type="radio"  name="tf" 	 	  value="false"<?php if ($antwort->getStatus() == 0) echo "checked";?>> Falsch<br>';
+			
+			break;
+		default:
+			form += 'Kein Typ ausgewählt';
+			break;
+		}
+
+		document.getElementById("formular").innerHTML = formStart + form + formEnd;
+	}
+	
+	function newAntwort() {
+		AntwortAnzahl = AntwortAnzahl + 1;
+
+		var neue_antwort	= 
+			  '<input type="text"     name="antwort_text'    + AntwortAnzahl + '" required> '
+			+ '<input type="checkbox" name="antwort_checked' + AntwortAnzahl + '">  '
+		
+			+ '<button type="button" onclick="deleteAntwort(' + AntwortAnzahl + ')"> - </button>';
+
+			
+		var new_para = document.createElement("p"); 
+		new_para.id = AntwortAnzahl;                
+		new_para.innerHTML = neue_antwort;
+		                           
+		document.getElementById("antwortenListe").appendChild(new_para);
+	}
+
+
+	function deleteAntwort(nummer) {
+		document.getElementById("antwortenListe").removeChild(nummer);
 	}
 	
 </script>
