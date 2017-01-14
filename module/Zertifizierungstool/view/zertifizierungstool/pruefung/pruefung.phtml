@@ -109,7 +109,7 @@ input[type=number]{
 				}
 				?>
 				
-				+ '<p id="antworten"></p>'
+				+ '<p id="antworten_liste"></p>'
 				+ '<button type="button" onclick="newAntwort()">Antwortoption hinzufügen</button>';
 		
 		document.getElementById("formular").innerHTML =
@@ -157,14 +157,16 @@ input[type=number]{
 	function newAntwort() {
 		AntwortAnzahl = AntwortAnzahl + 1;
 
-		document.getElementById("antworten").innerHTML = document.getElementById("antworten").innerHTML
+		var antworten_liste = document.getElementById("antworten_liste");
+		var neue_antwort	= document.createTextNode(
 			+ '<p id="' + (AntwortAnzahl) +'">'
 			+ '<input type="text"     name="antwort_text'    + AntwortAnzahl + '" required> '
 			+ '<input type="checkbox" name="antwort_checked' + AntwortAnzahl + '">  '
-			
+		
 			+ '<button type="button" onclick="deleteAntwort(' + AntwortAnzahl + ')"> - </button>'
-			+ '</p><br>';
-			
+			+ '</p><br>');
+
+		antworten_liste.appendChild(neue_antwort);
 	}
 
 

@@ -264,8 +264,9 @@ class FrageController extends AbstractActionController {
 	}
 	
 	public function deleteantwortAction() {
+		$antwort_id = $this->params()->fromRoute('id');
 		$antwort = new Antwort();
-		$antwort->loadList($this->params()->fromRoute('id'));
+		$antwort->load($antwort_id);
 		Antwort::delete($antwort->getId());
 		header ("refresh:5; url = /frage/edit/" .$antwort->getFrageId());
 	}
