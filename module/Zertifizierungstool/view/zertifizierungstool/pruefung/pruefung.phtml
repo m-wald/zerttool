@@ -162,7 +162,7 @@ input[type=number]{
 
 
 	function deleteAntwort(nummer) {
-		document.getElementById("antwortenListe").removeChild(nummer);
+		document.getElementById("antwortenListe").removeChild(document.getElementById(nummer));
 	}
 	
 </script>
@@ -218,7 +218,7 @@ input[type=number]{
 	<button type="button" onclick="showFormTF()">True / False   </button>
 
 <?php } elseif ($mode == PruefungController::editFragen) { ?>
-	<h3>Frage bearbeiten</h3>
+	<h3 onload="showFormMC()">Frage bearbeiten</h3>
 	<button type="button" onclick="showFormMC()">Multiple Choice</button>
 	<button type="button" onclick="showFormTF()">True / False   </button>
 

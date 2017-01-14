@@ -64,8 +64,10 @@ class PruefungController extends AbstractActionController {
 				array_push($errors, 'Fehler: Sie haben die Pr&uuml;fung bereits 3 mal nicht bestanden und sind daher nicht mehr zur Pr&uuml;fung zugelassen.');
 			}
 			
-			if (time()) {
-				array_push($errors, 'Fehler: Sie können die Pr&uuml;fung erst 24 Stunden nach Ihrem letzten Versuch wiederholen.');
+			$min_timestamp = strtotime($last_try->getZeitpunkt()) + (60 * 60 * 24);
+			
+			if (time() < $min_timestamp) {
+				array_push($errors, 'Fehler: Sie können die Pr&uuml;fung erst 24 Stunden nach Ihrem letzten Versuch wiederholen.' .strftime('%F %T', $min_timestamp));
 			}
 		}
 		
