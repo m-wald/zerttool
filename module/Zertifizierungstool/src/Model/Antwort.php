@@ -124,6 +124,32 @@ class Antwort {
 		}
 	}
 	
+	public function load($id) {
+		$db = new Db_connection();
+		$mysqli = $db->getConnection();
+	
+		$id = $mysqli->real_escape_string($id);
+	
+	
+		$query = "SELECT * FROM antwort WHERE antwort_id = " .$id;
+	
+		$result = $db->execute($query);
+	
+		if(!$result || mysqli_num_rows($result) != 1) {
+			// Fehler bei der Datenbankabfrage oder keine Prüfung mit der Id gefunden
+			return false;
+		}
+			
+		$row = mysqli_fetch_assoc($result);
+	
+		$this->id		= $id;
+		$this->text   = $row["antwort_text"];
+		$this->frage_id  = $row["frage_id"];
+		$this->status = $row["status"];
+	
+		return true;
+	}
+	
 	public function getId() 	 {return $this->id;}
 	public function getText() 	 {return $this->text;}
 	public function getFrageId() {return $this->frage_id;}

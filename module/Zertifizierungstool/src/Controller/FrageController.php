@@ -260,7 +260,7 @@ class FrageController extends AbstractActionController {
 		Frage::delete($frage_id_toDelete);
 		// TODO Fehler abfangen
 		
-		header ("refresh:5; url = /frage/create/" .$frage->getPruefungId());
+		header ("refresh:0; url = /frage/create/" .$frage->getPruefungId());
 	}
 	
 	public function deleteantwortAction() {
@@ -268,7 +268,7 @@ class FrageController extends AbstractActionController {
 		$antwort = new Antwort();
 		$antwort->load($antwort_id);
 		Antwort::delete($antwort->getId());
-		header ("refresh:5; url = /frage/edit/" .$antwort->getFrageId());
+		header ("refresh:0; url = /frage/edit/" .$antwort->getFrageId());
 	}
 	
 	/**
