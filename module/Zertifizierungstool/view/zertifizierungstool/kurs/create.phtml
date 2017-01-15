@@ -13,8 +13,15 @@ if (User::currentUser()->istZertifizierer() || User::currentUser()->istAdmin()) 
 }
 
 if ($message == 'erfolgt'){
-    echo "<b><font color='green'>Kurs wurde erfolgreich angelegt!</font><br><br> 
+    ?>
+    <div class="alert alert-success" role="alert">
+        <p> Kurs wurde <strong>erfolgreich</strong> angelegt </p><br>
+        <p> Sie werden zu Ihren Kursen weitergeleitet </p>
+    </div>
+    <?php
+   /* echo "<b><font color='green'>Kurs wurde erfolgreich angelegt!</font><br><br> 
           Sie werden zu Ihren Kursen weitergeleitet</b> <br>";
+    */
     header("refresh:2; url = /kurs/showkurse");
 }elseif ($error == 'falsedate'){
     echo "<b><font color ='red'>Kursende wurde vor dem Kursbeginn erfasst.</font></b> <br>";
