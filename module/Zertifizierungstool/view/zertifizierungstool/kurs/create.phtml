@@ -16,11 +16,16 @@ if ($message == 'erfolgt'){
     echo "<b><font color='green'>Kurs wurde erfolgreich angelegt!</font><br><br> 
           Sie werden zu Ihren Kursen weitergeleitet</b> <br>";
     header("refresh:2; url = /kurs/showkurse");
-}
-elseif ($error == 'falsedate'){
+}elseif ($error == 'falsedate'){
     echo "<b><font color ='red'>Kursende wurde vor dem Kursbeginn erfasst.</font></b> <br>";
 }elseif ($error == 'nichterfolgt'){
     echo "<b><font color ='red'>Daten konnten nicht gespeichert werden.</font></b> <br>";
+}elseif ($error == 'endbeforecurrent'){
+    ?>
+    <div class="alert alert-danger" role="alert">
+        <strong>Fehler!</strong> Kursende vor dem aktuellem Datum erfasst.
+    </div>
+    <?php
 }
 		
 ?>
