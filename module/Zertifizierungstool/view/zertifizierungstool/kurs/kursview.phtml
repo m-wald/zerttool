@@ -3,14 +3,6 @@
     use Zertifizierungstool\Model\User;
     use Zertifizierungstool\Model\Benutzer_Kurs;
     
-    //Nur eingeloggte Benutzer hab auf diese Seite Zugriff
-    if (User::currentUser()->istZertifizierer() || User::currentUser()->istAdmin() || User::currentUser()->istTeilnehmer()) {
-        //mach nix
-    } else {
-        header("Location: /user/home");
-        exit();
-    }
-    
     if (isset($status)) {
     	echo $status;
     }
@@ -56,7 +48,7 @@
                 </form> <br>
      <?php 
 				}
-     //TODO loadCertificate sichtbar, wenn alle Prüfungen bestanden
+     //TODO loadCertificate sichtbar, wenn alle Prï¿½fungen bestanden
     /*          
                 <form method="post" action="loadCertificate">
 				<input type="hidden" value="pdf" name='pdf'>

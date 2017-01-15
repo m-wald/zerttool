@@ -4,14 +4,6 @@
 
 use Zertifizierungstool\Model\User;
 
-//Nur eingeloggte Benutzer hab auf diese Seite Zugriff
-if (User::currentUser()->istZertifizierer() || User::currentUser()->istAdmin()) {
-    //mach nix
-} else {
-    header("Location: /user/home");
-    exit();
-}
-
 if ($message == 'erfolgt'){
     ?>
     <div class="alert alert-success" role="alert">
@@ -24,9 +16,17 @@ if ($message == 'erfolgt'){
     */
     header("refresh:2; url = /kurs/showkurse");
 }elseif ($error == 'falsedate'){
-    echo "<b><font color ='red'>Kursende wurde vor dem Kursbeginn erfasst.</font></b> <br>";
+    ?>
+    <div class="alert alert-danger" role="alert">
+        <strong>Fehler!</strong> Kursende wurde vor dem Kursbeginn erfasst.
+    </div>
+    <?php
 }elseif ($error == 'nichterfolgt'){
-    echo "<b><font color ='red'>Daten konnten nicht gespeichert werden.</font></b> <br>";
+    ?>
+    <div class="alert alert-danger" role="alert">
+        <strong>Fehler!</strong> Daten konnten nicht gespeichert werden.
+    </div>
+    <?php
 }elseif ($error == 'endbeforecurrent'){
     ?>
     <div class="alert alert-danger" role="alert">
