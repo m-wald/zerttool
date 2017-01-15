@@ -4,7 +4,7 @@
 <?php 
 if($status == "erfolgreich") { ?>
 	
-<a><style='font color=green'> Benutzerdaten wurden erfolgreich ge&auml;ndert</style></a>
+<p style="color:green"> Benutzerdaten wurden erfolgreich ge&auml;ndert</p>
 
 <?php 
 
@@ -17,43 +17,43 @@ else {?>
 <div class="form-group">
 	<label class="control-label col-sm-2"> Vorname</label>
 	<div class="col-sm-5">
-		<input type="text" name="vorname" required value='<?php echo $benutzerdaten[1]?>'>
+		<input type="text" class= "form-control" name="vorname" required value='<?php echo $benutzerdaten[1]?>'>
 	</div>
 </div>
 <div class="form-group">
 	<label class="control-label col-sm-2"> Nachname</label>
 	<div class="col-sm-5">
-		<input type="text" name="nachname" required value='<?php echo $benutzerdaten[2]?>'>
+		<input type="text" class= "form-control" name="nachname" required value='<?php echo $benutzerdaten[2]?>'>
 	</div>
 </div>
 <div class="form-group">	
 	<label class="control-label col-sm-2"> Geburtsdatum</label>
 	<div class="col-sm-5">
-		<input type="date" name="geburtsdatum" required value='<?php echo $benutzerdaten[3]?>'>
+		<input type="date" class= "form-control" name="geburtsdatum" required value='<?php echo $benutzerdaten[3]?>'>
 	</div>
 </div>
 <div class="form-group">
 	<label class="control-label col-sm-2"> Stra&szlig;e</label>
 	<div class="col-sm-5">
-		<input type="text" name="strasse" required value='<?php echo $benutzerdaten[4]?>'>
+		<input type="text" class= "form-control" name="strasse" required value='<?php echo $benutzerdaten[4]?>'>
 	</div>
 </div>
 <div class="form-group">
 	<label class="control-label col-sm-2"> Postleitzahl</label>
 	<div class="col-sm-5">
-		<input type="text" name="plz" required value='<?php echo $benutzerdaten[5]?>'>
+		<input type="text" class= "form-control" name="plz" required value='<?php echo $benutzerdaten[5]?>'>
 	</div>
 </div>
 <div class="form-group">
 	<label class="control-label col-sm-2"> Ort</label>
 	<div class="col-sm-5">
-		<input type="text" name="ort" required value='<?php echo $benutzerdaten[6]?>'>
+		<input type="text" class= "form-control" name="ort" required value='<?php echo $benutzerdaten[6]?>'>
 	</div>
 </div>
 <div class="form-group">
 	<label class="control-label col-sm-2"> E-Mail</label>
 	<div class="col-sm-5">
-		<input type="email" name="email" required value='<?php echo $benutzerdaten[7]?>'>
+		<input type="email" class= "form-control" name="email" required value='<?php echo $benutzerdaten[7]?>'>
 	</div>
 </div>
 
