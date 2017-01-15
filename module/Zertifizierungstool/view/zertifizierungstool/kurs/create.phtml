@@ -12,7 +12,7 @@ if (User::currentUser()->istZertifizierer() || User::currentUser()->istAdmin()) 
     exit();
 }
 
-if ($message == 'erfolgt'){
+if ($message == 'erfolgt' && !isset($error)){
     echo "<b><font color='green'>Kurs wurde erfolgreich angelegt!</font><br><br> 
           Sie werden zu Ihren Kursen weitergeleitet</b> <br>";
     header("refresh:2; url = /kurs/showkurse");
@@ -30,30 +30,6 @@ if ($message == 'erfolgt'){
 		
 ?>
 <br>
-
-<?php /* 
-<form action="anlegen" method="POST">
-    <table>
-        <tr><td> Kursname:</td>
-            <td><input name='kursname' size="40" maxlength="250" type='text' required></td></tr>
-        <tr><td> Kursstart:</td>
-            <td><input name='kursstart' size="40" maxlength="250" type='date' required></td></tr>
-        <tr><td> Kursende:</td>
-            <td><input name='kursende' size="40" maxlength="250" type='date' required></td></tr>
-        <tr><td> Sichtbarkeit:</td>
-            <td><select name="sichtbarkeit">
-			<option value= 1 >sichtbar</option>
-			<option value= 0 selected>nicht sichtbar</option>
-                </select></td></tr>
-        <tr><td> Beschreibung:</td>
-            <td><input name='beschreibung' type='text' required></td></tr>
-    </table><br><br>
-    <input type = "submit" value="Bestätigen">
-</form>
-<br><br>
- * 
- */
-?>
 <form action="create" method="POST">
     <div class="form-group">
         <label for="kursname"> Kursname </label>
