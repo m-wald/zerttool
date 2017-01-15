@@ -48,15 +48,8 @@ class FrageController extends AbstractActionController {
 			// Es wurde noch keine Frage beantwortet -> Schlüssel = Id der ersten Frage im Array
 			$current_question = key($fragen_map);
 		}
-
-		echo $current_question;
-		echo 'vardump:<br>';
-		var_dump($fragen_map);
 		
 		$frage_to_answer = $fragen_map[(string)$current_question];
-		
-		echo '<br><br>FrageToAnswer';
-		echo $frage_to_answer->getText();
 		
 		// Alle Antworten zu dieser Frage laden
 		$antworten = Antwort::loadList($frage_to_answer->getId());
@@ -73,14 +66,12 @@ class FrageController extends AbstractActionController {
 		
 		// Ermitteln der nächsten Frage in der Reihenfolge
 		while (current($fragen_map)->getId() != $frage_to_answer->getId()) {
-			echo '<br>' .key($fragen_map) .'!=' .$current_question;
-			echo current($fragen_map)->getId() .'!='. $frage_to_answer->getId();
-			next($fragen_map);
+			if (!next($fragen_map)) {
+				// Ende des Array wurde erreicht -> Wieder zurück zur ersten Frage
+				reset($fragen_map);
+			}
 		}
-		if (!next($fragen_map)) {
-			// Ende des Array wurde erreicht -> Wieder zurück zur ersten Frage
-			reset($fragen_map);
-		}
+		
 		
 		// Nachdem Formular angesendet wurde:
 		if ($_REQUEST['speichern']) {
