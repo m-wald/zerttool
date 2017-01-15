@@ -4,7 +4,11 @@
     use Zertifizierungstool\Model\Benutzer_Kurs;
     
     if (isset($status)) {
-    	echo $status;
+        ?>
+        <div class="alert alert-danger" role="alert">
+            <strong>Fehler!</strong> Kurs konnte nicht geladen werden.
+        </div>
+        <?php
     }
     else{
 ?>
