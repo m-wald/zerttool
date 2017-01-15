@@ -165,9 +165,15 @@ class PruefungController extends AbstractActionController {
 			}
 		}
 		
+		// Falls der Kurs bestanden ist, wird ein Link zum Download des Zertifikats angeboten. Dazu sind Daten des Kurses nötig
+		$kurs = new Kurs();
+		$kurs->load($pruefung->getKursId());
+		
+		
 		return new ViewModel([
 				'schreibt_pruefung'  => $schreibt_pruefung,
-				'kurs_bestanden' 	 => $kurs_bestanden
+				'kurs_bestanden' 	 => $kurs_bestanden,
+				'kurs'			 	 => $kurs
 		]);
 	}
 	
