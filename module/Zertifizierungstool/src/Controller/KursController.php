@@ -44,29 +44,31 @@ class KursController extends AbstractActionController
                 return new ViewModel(['error' => 'falsedate']);
             }
 
-            //Prüfung, ob Kursstart- und Kursende vor dem heutigem Datum 
+            //Prüfung, ob Kursende vor dem heutigem Datum 
             if($endtimestamp < $currentdate){
                 return new ViewModel(['error' => 'endbeforecurrent']);
             }
             
-            //todo Enddatum in der Zukunft abprüfen?
-            
-            $kurs = new Kurs(
-                    NULL,
-                    $_REQUEST["kursname"], 
-                    $_REQUEST["kursstart"], 
-                    $_REQUEST["kursende"], 
-                    $_REQUEST["sichtbarkeit"],
-                    User::currentUser()->getBenutzername(),
-                    $_REQUEST["beschreibung"]);
-            
-            unset($createkurs);
-            $createkurs = $kurs->save();
-            
-            if(isset($createkurs))
-            	return new ViewModel(['message' => 'erfolgt']);
-            else 
-            	return new ViewModel(['error' => 'nichtangelegt']);
+            //Wenn Kursende und Kursstart sich vor dem Currentdate befinden 
+            if(($starttimestamp && $endtimestamp) < $currentdate) {
+
+                $kurs = new Kurs(
+                        NULL,
+                        $_REQUEST["kursname"], 
+                        $_REQUEST["kursstart"], 
+                        $_REQUEST["kursende"], 
+                        $_REQUEST["sichtbarkeit"],
+                        User::currentUser()->getBenutzername(),
+                        $_REQUEST["beschreibung"]);
+
+                unset($createkurs);
+                $createkurs = $kurs->save();
+
+                if(isset($createkurs))
+                    return new ViewModel(['message' => 'erfolgt']);
+                else 
+                    return new ViewModel(['error' => 'nichterfolgt']);
+            }
 	}	
 	return new ViewModel();   
     }
