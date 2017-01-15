@@ -1,30 +1,67 @@
 <h1>Benutzerdaten &auml;ndern</h1>
+<br><br>
 
 <?php 
 if($status == "erfolgreich") { ?>
 	
-<a>Benutzerdaten wurden erfolgreich ge&auml;ndert</a>
+<p style="color:green"><b> Benutzerdaten wurden erfolgreich ge&auml;ndert!</b></p>
 
 <?php 
 
-header("refresh:2; url = /user/home");}
+header("refresh:2; url = /");}
+//header("refresh:2; url = /user/home");}
 
 else {?>
 
-<form method="post" action="changedata">
-<table>
-<tr><td>Vorname:</td><td> <input type="text" name="vorname" required value='<?php echo $benutzerdaten[1]?>'></td></tr>
-<tr><td>Nachname:</td><td> <input type="text" name="nachname" required value='<?php echo $benutzerdaten[2]?>'></td></tr>
-<tr><td>Geburtsdatum:</td><td> <input type="date" name="geburtsdatum" required value='<?php echo $benutzerdaten[3]?>'></td></tr>
-<tr><td>Strasse:</td><td> <input type="text" name="strasse" required value='<?php echo $benutzerdaten[4]?>'></td></tr>
-<tr><td>Postleitzahl:</td><td> <input type="text" name="plz" required value='<?php echo $benutzerdaten[5]?>'></td></tr>
-<tr><td>Ort:</td><td> <input type="text" name="ort" required value='<?php echo $benutzerdaten[6]?>'></td></tr>
-<tr><td>E-Mail:</td><td> <input type="email" name="email" required value='<?php echo $benutzerdaten[7]?>'></td></tr>
+<form class="form-horizontal" method="post" action="changedata">
 
-</table>
+<div class="form-group">
+	<label class="control-label col-sm-2"> Vorname</label>
+	<div class="col-sm-5">
+		<input type="text" class= "form-control" name="vorname" required value='<?php echo $benutzerdaten[1]?>'>
+	</div>
+</div>
+<div class="form-group">
+	<label class="control-label col-sm-2"> Nachname</label>
+	<div class="col-sm-5">
+		<input type="text" class= "form-control" name="nachname" required value='<?php echo $benutzerdaten[2]?>'>
+	</div>
+</div>
+<div class="form-group">	
+	<label class="control-label col-sm-2"> Geburtsdatum</label>
+	<div class="col-sm-5">
+		<input type="date" class= "form-control" name="geburtsdatum" required value='<?php echo $benutzerdaten[3]?>'>
+	</div>
+</div>
+<div class="form-group">
+	<label class="control-label col-sm-2"> Stra&szlig;e</label>
+	<div class="col-sm-5">
+		<input type="text" class= "form-control" name="strasse" required value='<?php echo $benutzerdaten[4]?>'>
+	</div>
+</div>
+<div class="form-group">
+	<label class="control-label col-sm-2"> Postleitzahl</label>
+	<div class="col-sm-5">
+		<input type="text" class= "form-control" name="plz" required value='<?php echo $benutzerdaten[5]?>'>
+	</div>
+</div>
+<div class="form-group">
+	<label class="control-label col-sm-2"> Ort</label>
+	<div class="col-sm-5">
+		<input type="text" class= "form-control" name="ort" required value='<?php echo $benutzerdaten[6]?>'>
+	</div>
+</div>
+<div class="form-group">
+	<label class="control-label col-sm-2"> E-Mail</label>
+	<div class="col-sm-5">
+		<input type="email" class= "form-control" name="email" required value='<?php echo $benutzerdaten[7]?>'>
+	</div>
+</div>
+
 <br><br>
-<input type = "submit" value="Benutzerdaten jetzt &auml;ndern!"> 
+<input type = "submit" class="btn btn-default" value="Benutzerdaten jetzt &auml;ndern!"> 
 </form>
+<br><br><br>
 
 <?php 
 

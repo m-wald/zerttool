@@ -4,51 +4,39 @@
 
 use Zertifizierungstool\Model\User;
 
-//Nur eingeloggte Benutzer hab auf diese Seite Zugriff
-if (User::currentUser()->istZertifizierer() || User::currentUser()->istAdmin()) {
-    //mach nix
-} else {
-    header("Location: /user/home");
-    exit();
-}
-
 if ($message == 'erfolgt'){
-    echo "<b><font color='green'>Kurs wurde erfolgreich angelegt!</font><br><br> 
+    ?>
+    <div class="alert alert-success" role="alert">
+        <p> Kurs wurde <strong>erfolgreich</strong> angelegt </p><br>
+        <p> Sie werden zu Ihren Kursen weitergeleitet </p>
+    </div>
+    <?php
+   /* echo "<b><font color='green'>Kurs wurde erfolgreich angelegt!</font><br><br> 
           Sie werden zu Ihren Kursen weitergeleitet</b> <br>";
+    */
     header("refresh:2; url = /kurs/showkurse");
-}
-elseif ($error == 'falsedate'){
-    echo "<b><font color ='red'>Kursende wurde vor dem Kursbeginn erfasst.</font></b> <br>";
+}elseif ($error == 'falsedate'){
+    ?>
+    <div class="alert alert-danger" role="alert">
+        <strong>Fehler!</strong> Kursende wurde vor dem Kursbeginn erfasst.
+    </div>
+    <?php
 }elseif ($error == 'nichterfolgt'){
-    echo "<b><font color ='red'>Daten konnten nicht gespeichert werden.</font></b> <br>";
+    ?>
+    <div class="alert alert-danger" role="alert">
+        <strong>Fehler!</strong> Daten konnten nicht gespeichert werden.
+    </div>
+    <?php
+}elseif ($error == 'endbeforecurrent'){
+    ?>
+    <div class="alert alert-danger" role="alert">
+        <strong>Fehler!</strong> Kursende vor dem aktuellem Datum erfasst.
+    </div>
+    <?php
 }
 		
 ?>
 <br>
-
-<?php /* 
-<form action="anlegen" method="POST">
-    <table>
-        <tr><td> Kursname:</td>
-            <td><input name='kursname' size="40" maxlength="250" type='text' required></td></tr>
-        <tr><td> Kursstart:</td>
-            <td><input name='kursstart' size="40" maxlength="250" type='date' required></td></tr>
-        <tr><td> Kursende:</td>
-            <td><input name='kursende' size="40" maxlength="250" type='date' required></td></tr>
-        <tr><td> Sichtbarkeit:</td>
-            <td><select name="sichtbarkeit">
-			<option value= 1 >sichtbar</option>
-			<option value= 0 selected>nicht sichtbar</option>
-                </select></td></tr>
-        <tr><td> Beschreibung:</td>
-            <td><input name='beschreibung' type='text' required></td></tr>
-    </table><br><br>
-    <input type = "submit" value="Bestätigen">
-</form>
-<br><br>
- * 
- */
-?>
 <form action="create" method="POST">
     <div class="form-group">
         <label for="kursname"> Kursname </label>

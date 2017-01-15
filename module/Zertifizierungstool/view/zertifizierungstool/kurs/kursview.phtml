@@ -3,16 +3,12 @@
     use Zertifizierungstool\Model\User;
     use Zertifizierungstool\Model\Benutzer_Kurs;
     
-    //Nur eingeloggte Benutzer hab auf diese Seite Zugriff
-    if (User::currentUser()->istZertifizierer() || User::currentUser()->istAdmin() || User::currentUser()->istTeilnehmer()) {
-        //mach nix
-    } else {
-        header("Location: /user/home");
-        exit();
-    }
-    
     if (isset($status)) {
-    	echo $status;
+        ?>
+        <div class="alert alert-danger" role="alert">
+            <strong>Fehler!</strong> Kurs konnte nicht geladen werden.
+        </div>
+        <?php
     }
     else{
 ?>
@@ -56,7 +52,7 @@
                 </form> <br>
      <?php 
 				}
-     //TODO loadCertificate sichtbar, wenn alle Prüfungen bestanden
+     //TODO loadCertificate sichtbar, wenn alle Prï¿½fungen bestanden
     /*          
                 <form method="post" action="loadCertificate">
 				<input type="hidden" value="pdf" name='pdf'>
@@ -120,13 +116,20 @@
                     </form>
                     <br><br>
                     
-                    <form accept-charset="utf-8" method="POST" action="showstatistic">
+                    
+
+                <?php } ?>
+                
+                <form accept-charset="utf-8" method="POST" action="showstatistic">
                        <input type="hidden" value="kursview" name="site">    
                        <input size="70" maxlength="250" value="zur Kursstatistik" type="submit">
                     </form>
                     <br><br>
-
-                <?php }} ?>
+                    
+                   <?php 
+                
+                
+                } ?>
                 
                 <a href="<?= $this->url('pruefung', ['action' => 'overview', 'id' => $kurs->getKurs_id()])?>"><button type="button">Zu den Pr&uuml;fungen</button></a>
                         

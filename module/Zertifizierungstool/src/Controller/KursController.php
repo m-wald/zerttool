@@ -33,35 +33,43 @@ class KursController extends AbstractActionController
         
         if($_SERVER['REQUEST_METHOD'] == 'POST') {
             
-            //Pr�fung, ob Kursstartdatum vor -enddatum
+            $currentdate = date('Y-m-d');
             $start  = $_REQUEST["kursstart"];
             $end    = $_REQUEST["kursende"];
             $starttimestamp = strtotime($start);
             $endtimestamp   = strtotime($end);
+            $currentdatetimestamp = strtotime($currentdate);
             
+            //Pr�fung, ob Kursstartdatum vor -enddatum
             if($starttimestamp > $endtimestamp){
                 return new ViewModel(['error' => 'falsedate']);
             }
 
+            //Prüfung, ob Kursende vor dem heutigem Datum 
+            if($endtimestamp < $currentdatetimestamp){
+                return new ViewModel(['error' => 'endbeforecurrent']);
+            }
             
-            //todo Enddatum in der Zukunft abprüfen?
-            
-            $kurs = new Kurs(
-                    NULL,
-                    $_REQUEST["kursname"], 
-                    $_REQUEST["kursstart"], 
-                    $_REQUEST["kursende"], 
-                    $_REQUEST["sichtbarkeit"],
-                    User::currentUser()->getBenutzername(),
-                    $_REQUEST["beschreibung"]);
-            
-            unset($createkurs);
-            $createkurs = $kurs->save();
-            
-            if(isset($createkurs))
-            	return new ViewModel(['message' => 'erfolgt']);
-            else 
-            	return new ViewModel(['error' => 'nichtangelegt']);
+            //Wenn Kursende vor dem Currentdate befinden 
+            if($endtimestamp > $currentdatetimestamp) {
+
+                $kurs = new Kurs(
+                        NULL,
+                        $_REQUEST["kursname"], 
+                        $_REQUEST["kursstart"], 
+                        $_REQUEST["kursende"], 
+                        $_REQUEST["sichtbarkeit"],
+                        User::currentUser()->getBenutzername(),
+                        $_REQUEST["beschreibung"]);
+
+                unset($createkurs);
+                $createkurs = $kurs->save();
+
+                if(isset($createkurs))
+                    return new ViewModel(['message' => 'erfolgt']);
+                else 
+                    return new ViewModel(['error' => 'nichterfolgt']);
+            }
 	}	
 	return new ViewModel();   
     }
