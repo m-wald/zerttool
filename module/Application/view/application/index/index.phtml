@@ -1,5 +1,36 @@
-<h1>Herzlich willkommen!</h1>
+<?php 
 
-<p>Eventuell Beschreibung des Tools</p>
+use Zertifizierungstool\Model\User;
+
+if(User::currentUser()->getBenutzername()!=NULL){
+
+?>
+
+<h1>Herzlich willkommen <?php User::currentUser()->getBenutzername()?>!</h1>
+<br>
+<p>	Sie befinden sich auf einem Portal zur pers&ouml;nlichen Weiterbildung. <br>
+	Team Zert4Tool w&uuml;nscht Ihnen viel Spa&szlig;!</p>
+
+
+<?php }
+		else { ?>
+		
+		<h1>Herzlich Willkommen!</h1>
+		<br>
+		
+		<p>Sie befinden sich auf einem Portal zur pers&ouml;nlichen Weiterbildung. <br>
+		
+		W&auml;hlen Sie aus unseren verschiedenen Kursangeboten aus und lassen Sie sich durch unsere Partner zertifizieren! <br>
+		Um zu starten, <b>loggen Sie sich ein</b> oder erstellen Sie <b>ein neues Benutzerkonto</b>.<br>
+		Team Zert4Tool w&uuml;nscht Ihnen viel Spa&szlig;!</p>
+		
+		<?php }?>
+		
+
+
+	
+	
+
+
 
 <br>
