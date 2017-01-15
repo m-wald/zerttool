@@ -72,8 +72,8 @@ class FrageController extends AbstractActionController {
 		
 		
 		// Ermitteln der nächsten Frage in der Reihenfolge
-		while (key($fragen_map) !== (string)$current_question) {
-			echo '<br>' .key($fragen_map) != $current_question;
+		while (key($fragen_map) != $current_question) {
+			echo '<br>' .key($fragen_map) .'!=' .$current_question;
 			next($fragen_map);
 		}
 		if (!next($fragen_map)) {
