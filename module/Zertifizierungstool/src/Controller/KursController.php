@@ -33,7 +33,7 @@ class KursController extends AbstractActionController
         
         if($_SERVER['REQUEST_METHOD'] == 'POST') {
             
-            $currentdate = date('d-m-Y');
+            $currentdate = date('Y-m-d');
             $start  = $_REQUEST["kursstart"];
             $end    = $_REQUEST["kursende"];
             $starttimestamp = strtotime($start);
