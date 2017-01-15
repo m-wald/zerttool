@@ -50,8 +50,8 @@ class KursController extends AbstractActionController
                 return new ViewModel(['error' => 'endbeforecurrent']);
             }
             
-            //Wenn Kursende und Kursstart sich vor dem Currentdate befinden 
-            if(($starttimestamp < $currentdatetimestamp) && ($endtimestamp < $currentdatetimestamp)) {
+            //Wenn Kursende vor dem Currentdate befinden 
+            if($endtimestamp > $currentdatetimestamp) {
 
                 $kurs = new Kurs(
                         NULL,
