@@ -116,13 +116,20 @@
                     </form>
                     <br><br>
                     
-                    <form accept-charset="utf-8" method="POST" action="showstatistic">
+                    
+
+                <?php } ?>
+                
+                <form accept-charset="utf-8" method="POST" action="showstatistic">
                        <input type="hidden" value="kursview" name="site">    
                        <input size="70" maxlength="250" value="zur Kursstatistik" type="submit">
                     </form>
                     <br><br>
-
-                <?php }} ?>
+                    
+                   <?php 
+                
+                
+                } ?>
                 
                 <a href="<?= $this->url('pruefung', ['action' => 'overview', 'id' => $kurs->getKurs_id()])?>"><button type="button">Zu den Pr&uuml;fungen</button></a>
                         
