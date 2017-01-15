@@ -50,7 +50,7 @@ class KursController extends AbstractActionController
             }
             
             //Wenn Kursende und Kursstart sich vor dem Currentdate befinden 
-            if(($starttimestamp && $endtimestamp) < $currentdate) {
+            if(($starttimestamp < $currentdate) && ($endtimestamp < $currentdate)) {
 
                 $kurs = new Kurs(
                         NULL,
