@@ -12,7 +12,7 @@ if (User::currentUser()->istZertifizierer() || User::currentUser()->istAdmin()) 
     exit();
 }
 
-if ($message == 'erfolgt' && !isset($error)){
+if ($message == 'erfolgt'){
     echo "<b><font color='green'>Kurs wurde erfolgreich angelegt!</font><br><br> 
           Sie werden zu Ihren Kursen weitergeleitet</b> <br>";
     header("refresh:2; url = /kurs/showkurse");
