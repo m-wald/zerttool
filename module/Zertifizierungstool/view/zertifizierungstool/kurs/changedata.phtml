@@ -5,15 +5,41 @@
 use Zertifizierungstool\Model\Kurs;
 use Zertifizierungstool\Model\User;
 
-if (isset($status)) {
+if ($error == 'unabletoload') {
     ?>
     <div class="alert alert-danger" role="alert">
-        <?php echo $status; ?>
+        <strong>Fehler!</strong> Kursdaten können nicht geladen werden!
     </div>
     <?php
-}
-if($status == "Erfolgreich geändert.") {
-	header("refresh:2; url = /kurs/showkurse");	
+}elseif ($error == 'coursealreadystarted') {
+    ?>
+    <div class="alert alert-danger" role="alert">
+        <strong>Fehler!</strong> Kurszeitraum kann nicht geändert werden, da der Kurs schon begonnen hat!
+    </div>
+    <?php
+}elseif ($error == 'dateerror') {
+    ?>
+    <div class="alert alert-danger" role="alert">
+        <strong>Fehler!</strong> Überprüfen Sie den Start- und Enddatum des Kurses!
+    </div>
+    <?php
+}elseif($status == "erfolgreich geändert") {
+    ?>
+    <div class="alert alert-success" role="alert">
+        <p> Kurs konnte <strong>erfolgreich</strong> geändert werden </p>
+        <p> Sie werden zu Ihren Kursen weitergeleitet. </p>
+    </div>
+    <?php
+    header("refresh:2; url = /kurs/showkurse");	
+    
+}elseif($status == "erfolgreich übernommen") {
+    ?>
+    <div class="alert alert-success" role="alert">
+        <p> Kurs konnte <strong>erfolgreich</strong> übernommen werden </p>
+        <p> Sie werden zu Ihren Kursen weitergeleitet. </p>
+    </div>
+    <?php
+    header("refresh:2; url = /kurs/showkurse");	
 }
 
 else {
