@@ -170,7 +170,6 @@ class KursController extends AbstractActionController
      */
     public function changedataAction(){
     	
-    	
     	if(User::currentUser()->getBenutzername()==NULL){
     		header("refresh:0; url=/user/login");
     		exit;
@@ -181,8 +180,8 @@ class KursController extends AbstractActionController
     		exit;
     	}
     	
-    	
     	$id = $_REQUEST["kurs_id"];
+        
         //aus archivierte Kurse
         if($_REQUEST["archiv"] == 1) {
             $archiviert = "gesetzt";
@@ -214,15 +213,15 @@ class KursController extends AbstractActionController
                     return new ViewModel(['error' => 'coursealreadystarted']);
                 }
                 
-            $kurs->update($_REQUEST["kurs_id"], $_REQUEST["kursname"], $_REQUEST["kursstart"], $_REQUEST["kursende"], $_REQUEST["sichtbarkeit"], $_REQUEST["beschreibung"]);
-            $kurs = new Kurs(
-                    $_REQUEST["kurs_id"],
-                    $_REQUEST["kursname"],
-                    $_REQUEST["kursstart"],
-                    $_REQUEST["kursende"],
-                    $_REQUEST["sichtbarkeit"],
-                    $_REQUEST["beschreibung"]); 
-            $status = "erfolgreich geändert"; 
+                $kurs->update($_REQUEST["kurs_id"], $_REQUEST["kursname"], $_REQUEST["kursstart"], $_REQUEST["kursende"], $_REQUEST["sichtbarkeit"], $_REQUEST["beschreibung"]);
+                $kurs = new Kurs(
+                        $_REQUEST["kurs_id"],
+                        $_REQUEST["kursname"],
+                        $_REQUEST["kursstart"],
+                        $_REQUEST["kursende"],
+                        $_REQUEST["sichtbarkeit"],
+                        $_REQUEST["beschreibung"]); 
+                $status = "erfolgreich geändert"; 
             }
             else {
                 //$status = "�berpr�fen Sie bitte Start- und End-Datum des Kurses!";
@@ -256,7 +255,7 @@ class KursController extends AbstractActionController
             }
         }
         
-              return new ViewModel(['kurs' => $kurs, 'result' => $zertladen, 'archiv' => $archiviert, 'status' => $status]);    
+        return new ViewModel(['kurs' => $kurs, 'result' => $zertladen, 'archiv' => $archiviert, 'status' => $status]);    
     }
     
     
