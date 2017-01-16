@@ -195,6 +195,9 @@ class KursController extends AbstractActionController
             //$status="Fehler beim Laden des Kurses!";
         }
         
+        $kursstartalt = $kurs->getKurs_start();
+        $starttimestampalt = strtotime($kursstartalt);
+        
     	$zertladen = $kurs->loadZertifizierer();
         
     	//Zum ändern der Kursdaten von aktuellen Kursen
@@ -206,9 +209,9 @@ class KursController extends AbstractActionController
             $endtimestamp   = strtotime($end);
             $today = strtotime(date(d-m-Y));
             
-            if($endtimestamp > $starttimestamp && $endtimestamp > $today) {
+            if($endtimestamp > $starttimestamp && $endtimestamp > $today && $starttimestamp >= $today) {
             
-                if($starttimestamp >= $today) {
+                if($starttimestampalt != $starttimestamp) {
                     //$status = "Kursdatum nicht änderbar, da Kurs schon begonnen hat!";
                     return new ViewModel(['error' => 'coursealreadystarted']);
                 }
