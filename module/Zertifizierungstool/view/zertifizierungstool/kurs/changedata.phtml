@@ -23,7 +23,7 @@ if ($error == 'unabletoload') {
         <strong>Fehler!</strong> Überprüfen Sie den Start- und Enddatum des Kurses!
     </div>
     <?php
-}elseif($status == "erfolgreich geändert") {
+}elseif($status == 'erfolgreich geändert') {
     ?>
     <div class="alert alert-success" role="alert">
         <p> Kurs konnte <strong>erfolgreich</strong> geändert werden </p>
@@ -32,7 +32,7 @@ if ($error == 'unabletoload') {
     <?php
     header("refresh:2; url = /kurs/showkurse");	
     
-}elseif($status == "erfolgreich übernommen") {
+}elseif($status == 'erfolgreich übernommen') {
     ?>
     <div class="alert alert-success" role="alert">
         <p> Kurs konnte <strong>erfolgreich</strong> übernommen werden </p>
@@ -41,9 +41,8 @@ if ($error == 'unabletoload') {
     <?php
     header("refresh:2; url = /kurs/showkurse");	
 }
-
-else {
-	unset($status);
+//else {
+	//unset($status);
 ?>
 	
     <h5> Passen Sie die Kursdaten entsprechend an.</h5>
@@ -104,7 +103,7 @@ else {
 </form>
     
 <?php
-}
+//}
 ?>
 
 <a href="<?= $this->url('pruefung', ['action' => 'overview', 'id' => $kurs->getKurs_id()])?>"><button type="button">Zu den Pr&uuml;fungen</button></a>
