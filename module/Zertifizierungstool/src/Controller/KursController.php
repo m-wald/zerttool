@@ -193,7 +193,8 @@ class KursController extends AbstractActionController
     	$kurs = new Kurs();
     	if(!$kurs->load($id)) $status="Fehler beim Laden des Kurses!";
     	$zertladen = $kurs->loadZertifizierer();
-    	
+        
+    	//Zum ändern der Kursdaten von aktuellen Kursen
         if($_REQUEST["speichern"]) {
         	
             $start  = $_REQUEST["kursstart"];
@@ -202,12 +203,12 @@ class KursController extends AbstractActionController
             $endtimestamp   = strtotime($end);
             $today = strtotime(date(d-m-Y));
             
-            if($starttimestamp > $today) {
+            if($starttimestamp >= $today) {
                 $status = "Kursdatum nicht änderbar, da Kurs schon begonnen hat!";
                 return new ViewModel(['status' => $status]);
             }
         	
-            if($endtimestamp > $starttimestamp && $endtimestamp > $today && $starttimestamp >= $today) {
+            if($endtimestamp > $starttimestamp && $endtimestamp > $today) {
             $kurs->update($_REQUEST["kurs_id"], $_REQUEST["kursname"], $_REQUEST["kursstart"], $_REQUEST["kursende"], $_REQUEST["sichtbarkeit"], $_REQUEST["beschreibung"]);
             $kurs = new Kurs(
                     $_REQUEST["kurs_id"],
@@ -221,6 +222,7 @@ class KursController extends AbstractActionController
             else $status = "�berpr�fen Sie bitte Start- und End-Datum des Kurses!";
         }
         
+        //Zum ändern und archivieren der Kursdaten von archivierten Kursen
         if($_REQUEST["übernehmen"]) {
         	
             $start  = $_REQUEST["kursstart"];
