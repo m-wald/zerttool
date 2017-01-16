@@ -191,7 +191,11 @@ class KursController extends AbstractActionController
         }
        
     	$kurs = new Kurs();
-    	if(!$kurs->load($id)) $status="Fehler beim Laden des Kurses!";
+        if(!$kurs->load($id)) {
+            return new ViewModel(['error' => 'unabletoload']);
+            //$status="Fehler beim Laden des Kurses!";
+        }
+        
     	$zertladen = $kurs->loadZertifizierer();
         
     	//Zum ändern der Kursdaten von aktuellen Kursen
@@ -206,8 +210,8 @@ class KursController extends AbstractActionController
             if($endtimestamp > $starttimestamp && $endtimestamp > $today) {
             
                 if($starttimestamp >= $today) {
-                    $status = "Kursdatum nicht änderbar, da Kurs schon begonnen hat!";
-                    return new ViewModel(['status' => $status]);
+                    //$status = "Kursdatum nicht änderbar, da Kurs schon begonnen hat!";
+                    return new ViewModel(['error' => 'coursealreadystarted']);
                 }
                 
             $kurs->update($_REQUEST["kurs_id"], $_REQUEST["kursname"], $_REQUEST["kursstart"], $_REQUEST["kursende"], $_REQUEST["sichtbarkeit"], $_REQUEST["beschreibung"]);
@@ -218,9 +222,12 @@ class KursController extends AbstractActionController
                     $_REQUEST["kursende"],
                     $_REQUEST["sichtbarkeit"],
                     $_REQUEST["beschreibung"]); 
-            $status = "Erfolgreich geändert."; 
+            $status = "erfolgreich geändert"; 
             }
-            else $status = "�berpr�fen Sie bitte Start- und End-Datum des Kurses!";
+            else {
+                //$status = "�berpr�fen Sie bitte Start- und End-Datum des Kurses!";
+                return new ViewModel(['error' => 'dateerror']);
+            }
         }
         
         //Zum ändern und archivieren der Kursdaten von archivierten Kursen
@@ -241,9 +248,12 @@ class KursController extends AbstractActionController
                     $_REQUEST["kursende"],
                     $_REQUEST["sichtbarkeit"],
                     $_REQUEST["beschreibung"]); 
-            $status = "Erfolgreich geändert."; 
+            $status = "erfolgreich übernommen"; 
             }
-            else $status = "�berpr�fen Sie bitte Start- und End-Datum des Kurses!";
+            else {
+                //$status = "�berpr�fen Sie bitte Start- und End-Datum des Kurses!";
+                return new ViewModel(['error' => 'dateerror']);
+            }
         }
         
               return new ViewModel(['kurs' => $kurs, 'result' => $zertladen, 'archiv' => $archiviert, 'status' => $status]);    
