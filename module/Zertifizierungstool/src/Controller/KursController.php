@@ -213,7 +213,7 @@ class KursController extends AbstractActionController
             
                 if($starttimestampalt != $starttimestamp) {
                     //$status = "Kursdatum nicht änderbar, da Kurs schon begonnen hat!";
-                    return new ViewModel(['error' => 'coursealreadystarted']);
+                    return new ViewModel(['error' => 'coursealreadystarted', 'neu' => $starttimestamp, 'alt' => $starttimestampalt]);
                 }
                 
                 $kurs->update($_REQUEST["kurs_id"], $_REQUEST["kursname"], $_REQUEST["kursstart"], $_REQUEST["kursende"], $_REQUEST["sichtbarkeit"], $_REQUEST["beschreibung"]);
