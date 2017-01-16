@@ -6,7 +6,11 @@ use Zertifizierungstool\Model\Kurs;
 use Zertifizierungstool\Model\User;
 
 if (isset($status)) {
-	echo $status;
+    ?>
+    <div class="alert alert-danger" role="alert">
+        <?php echo $status; ?>
+    </div>
+    <?php
 }
 if($status == "Erfolgreich geändert.") {
 	header("refresh:2; url = /kurs/showkurse");	
