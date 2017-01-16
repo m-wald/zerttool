@@ -191,7 +191,7 @@ class KursController extends AbstractActionController
        
     	$kurs = new Kurs();
         if(!$kurs->load($id)) {
-            return new ViewModel(['error' => 'unabletoload']);
+            return new ViewModel(['error' => 'unabletoload', 'kurs' => $kurs]);
             //$status="Fehler beim Laden des Kurses!";
         }
         
@@ -213,7 +213,7 @@ class KursController extends AbstractActionController
             
                 if($starttimestampalt != $starttimestamp) {
                     //$status = "Kursdatum nicht änderbar, da Kurs schon begonnen hat!";
-                    return new ViewModel(['error' => 'coursealreadystarted', 'neu' => $starttimestamp, 'alt' => $starttimestampalt]);
+                    return new ViewModel(['error' => 'coursealreadystarted', 'kurs' => $kurs, 'neu' => $starttimestamp, 'alt' => $starttimestampalt]);
                 }
                 
                 $kurs->update($_REQUEST["kurs_id"], $_REQUEST["kursname"], $_REQUEST["kursstart"], $_REQUEST["kursende"], $_REQUEST["sichtbarkeit"], $_REQUEST["beschreibung"]);
@@ -228,7 +228,7 @@ class KursController extends AbstractActionController
             }
             else {
                 //$status = "�berpr�fen Sie bitte Start- und End-Datum des Kurses!";
-                return new ViewModel(['error' => 'dateerror']);
+                return new ViewModel(['error' => 'dateerror', 'kurs' => $kurs]);
             }
         }
         
@@ -254,7 +254,7 @@ class KursController extends AbstractActionController
             }
             else {
                 //$status = "�berpr�fen Sie bitte Start- und End-Datum des Kurses!";
-                return new ViewModel(['error' => 'dateerror']);
+                return new ViewModel(['error' => 'dateerror', 'kurs' => $kurs]);
             }
         }
         
