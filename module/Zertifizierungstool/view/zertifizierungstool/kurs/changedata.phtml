@@ -47,9 +47,9 @@ if ($error == 'unabletoload') {
 	//unset($status);
 ?>
 	
-    <h5> Passen Sie die Kursdaten entsprechend an.</h5>
+<h5> Passen Sie die Kursdaten entsprechend an.</h5>
 
-    <form accept-charset="utf-8" method="post" action="changedata">
+<form accept-charset="utf-8" method="post" action="changedata">
     <div class="form-group">
         <label for="kursname"> Kursname </label>
         <input name="kursname" type="text" class="form-control" value='<?=$kurs->getKurs_name()?>' required>
@@ -91,7 +91,7 @@ if ($error == 'unabletoload') {
     </div>
     <div class="form-group">
         <label for="beschreibung"> Beschreibung </label>
-        <textarea style="resize:vertical" name="beschreibung" class="form-control" required> <?=$kurs->getBeschreibung()?> </textarea>
+        <textarea style="resize:vertical" name="beschreibung" class="form-control" required><?=$kurs->getBeschreibung()?></textarea>
     </div>  
   <?php 
     if($archiv == "gesetzt") { ?>
