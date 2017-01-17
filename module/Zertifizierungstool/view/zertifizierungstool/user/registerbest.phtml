@@ -1,6 +1,12 @@
+<?php if (isset($bestaetigt)) {?>
+<h1>Ihre Registrierung wurde bereits best&auml;tigt! ! Sie werden jetzt zum Login weitergeleitet.</h1>
+
+<?php }else {?>
 <h1>Registrierung erfolgreich best&auml;tigt! Sie werden jetzt zum Login weitergeleitet.</h1>
 
-<?php if (isset($benutzername)) {
+
+
+<?php } if (isset($benutzername)) {
 
 	header("refresh:2; url=/kurs/enterkurs?benutzername=".$benutzername."&kurs_id=".$kurs_id);
 	exit;
