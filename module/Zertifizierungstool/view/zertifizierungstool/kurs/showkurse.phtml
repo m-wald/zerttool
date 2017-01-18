@@ -20,6 +20,7 @@
                         <th> KursName </th>
                         <th> Kursstart </th>
                         <th> Kursende </th>
+                        <th> </th>
                         <?php if (User::currentUser()->istTeilnehmer()) {?>
                         <th> Beigetreten </th>
                         <?php }?>
@@ -34,18 +35,7 @@
 				<td><?=$r->getKurs_ende()?></td>
 				
 				
-				<?php 
-				$benutzer_kurs = new Benutzer_Kurs();
-				if ($benutzer_kurs->alreadyexist(User::currentUser()->getBenutzername(), $r->getKurs_id())) {?>
-                                
-                          <td><span class="glyphicon glyphicon-ok"></span></td>      
-                                
-                                <?php }
-                                else {?>
-                                
-                          <td> </td>
-                                
-                                <?php }?>
+
                                 
                                 <?php 
                                 if(User::currentUser()->istAdmin() || User::currentUser()->istZertifizierer()) { ?>
@@ -61,6 +51,14 @@
 						<input size="70" maxlength="250" value="anzeigen" type="submit">
                                      </form> 
                                 </td>
+               
+               				<?php 
+								$benutzer_kurs = new Benutzer_Kurs();
+								if ($benutzer_kurs->alreadyexist(User::currentUser()->getBenutzername(), $r->getKurs_id())) {?>
+                                
+                        			  <td><span class="glyphicon glyphicon-ok"></span></td>      
+                                
+                                <?php } ?>
 			
 			</tr>
                         <?php }?>
