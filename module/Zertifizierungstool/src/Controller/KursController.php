@@ -27,7 +27,7 @@ class KursController extends AbstractActionController
     	}
     	
     	if(User::currentUser()->istTeilnehmer()){
-    		header("refresh:0; url= /user/home");
+    		header("refresh:0; url= /");
     		exit;
     	}
         
@@ -128,7 +128,7 @@ class KursController extends AbstractActionController
     	}
     	
     	if(User::currentUser()->istTeilnehmer()){
-    		header("refresh:0; url=/user/home");
+    		header("refresh:0; url= /");
     		exit;
     	}
     	
@@ -151,7 +151,7 @@ class KursController extends AbstractActionController
     	}
     	 
     	if(User::currentUser()->istAdmin() || User::currentUser()->istZertifizierer()){
-    		header("refresh:0; url=/user/home");
+    		header("refresh:0; url= /");
     		exit;
     	}
     	
@@ -176,7 +176,7 @@ class KursController extends AbstractActionController
     	}
     	 
     	if(User::currentUser()->istTeilnehmer()){
-    		header("refresh:0; url=/user/home");
+    		header("refresh:0; url= /");
     		exit;
     	}
     	
@@ -296,7 +296,7 @@ class KursController extends AbstractActionController
     	}
     	 
     	if(User::currentUser()->istTeilnehmer()==true){
-    		header("refresh:0; url = /user/home");
+    		header("refresh:0; url = /");
     		exit;
     	}
     	
@@ -335,7 +335,7 @@ class KursController extends AbstractActionController
     	}
     	
     	if(User::currentUser()->istTeilnehmer()){
-    		header("refresh:0; url = /user/home");
+    		header("refresh:0; url = /");
     		exit;
     	}
     	
@@ -451,7 +451,7 @@ class KursController extends AbstractActionController
    			exit;
    		}
    		else{
-   			header("refresh:0; url= /user/home");
+   			header("refresh:0; url= /");
    			exit;
    		}
    	}
@@ -565,7 +565,7 @@ class KursController extends AbstractActionController
 	}
 	 
 	if(User::currentUser()->istTeilnehmer()){
-		header("refresh:0; url = /user/home");
+		header("refresh:0; url = /");
 		exit;
 	}
 				 
@@ -657,7 +657,7 @@ class KursController extends AbstractActionController
     	}
     	
     	if(!$_POST['site']=="kursview" && !$_SESSION['site'] == 'delete') {
-    		header("refresh:0; url= /user/home");
+    		header("refresh:0; url= /");
     		exit;
     	}
     	
@@ -687,7 +687,7 @@ class KursController extends AbstractActionController
     	}
     	
     	if(User::currentUser()->istTeilnehmer()) {
-    		header("refresh:0; url = /user/home");
+    		header("refresh:0; url = /");
     		exit;
     	}
     	
@@ -755,7 +755,7 @@ class KursController extends AbstractActionController
                 return new ViewModel(['meldung' => 'fehlerhaft']);
             }
         }
-        header("refresh:0; url = /user/home");
+        header("refresh:0; url = /");
         exit;
     }
 
@@ -961,7 +961,7 @@ class KursController extends AbstractActionController
 		}
 		
 		if(User::currentUser()->istTeilnehmer()){
-			header("refresh:0; url= /user/home");
+			header("refresh:0; url= /");
 			exit;
 		}
 		
@@ -991,7 +991,7 @@ class KursController extends AbstractActionController
 		}
 		
 		if(User::currentUser()->istTeilnehmer()){
-			header("refresh:0; url= /user/home");
+			header("refresh:0; url= /");
 			exit;
 		}
 		
