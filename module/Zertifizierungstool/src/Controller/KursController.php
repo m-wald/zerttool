@@ -271,7 +271,7 @@ class KursController extends AbstractActionController
     	
     	
     	
-    	if(isset($_POST["back"]) && !empty($_POST["kurs_id"]))
+    	if((isset($_POST["back"]) && !empty($_POST["kurs_id"])) || $_POST['site']=="showstatistic")
     		$id = $_POST["kurs_id"];
     	else 
     		$id = $_REQUEST["kurs_id"];
@@ -965,7 +965,7 @@ class KursController extends AbstractActionController
 			exit;
 		}
 		
-		if((User::currentUser()->istZertifizierer() || User::currentUser()->istAdmin()) && $_POST['site']=='kursview') {
+		if((User::currentUser()->istZertifizierer() || User::currentUser()->istAdmin()) && $_POST['site']=='kursview' || $_POST['site']=='statisticlistquestions') {
 		
 		$pruefung = new Pruefung();
 		
