@@ -40,8 +40,8 @@ class Benutzer_Kurs {
 			return -1;
 		}
 		
-		$query_anzahl_pruefungen = "select count(*) from pruefung where kurs_id = .$kurs_id.";
-		$query_anzahl_bestandene_pruefungen = "select count(*) from schreibt_pruefung join pruefung using (pruefung_id) where kurs_id =".$kurs_id." and benutzername = '.$benutzer.' and bestanden=1";
+		$query_anzahl_pruefungen = "select count(*) from pruefung where kurs_id = ".$kurs_id;
+		$query_anzahl_bestandene_pruefungen = "select count(*) from schreibt_pruefung join pruefung using (pruefung_id) where kurs_id =".$kurs_id." and benutzername = '".$benutzer."' and bestanden=1";
 		$anzahl_pruefungen = $db->execute($query_anzahl_pruefungen);
 		$anzahl_bestandene_pruefungen = $db->execute($query_anzahl_bestandene_pruefungen);
 		
