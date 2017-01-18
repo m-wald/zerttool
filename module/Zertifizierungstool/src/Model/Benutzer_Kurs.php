@@ -50,7 +50,7 @@ class Benutzer_Kurs {
 		$anzahl_bestandene_pruefungen = mysqli_fetch_row($anzahl_bestandene_pruefungen);
 		
 		
-		if ($anzahl_bestandene_pruefungen[0]<$anzahl_pruefungen[0]) {
+		if ($anzahl_bestandene_pruefungen[0]<$anzahl_pruefungen[0] || $anzahl_pruefungen==0) {
 		//Insert der Daten
 		
 			$query1="insert into benutzer_kurs(benutzername,kurs_id) values('".$benutzer."',".$kurs_id.");";
