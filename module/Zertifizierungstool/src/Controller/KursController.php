@@ -965,7 +965,7 @@ class KursController extends AbstractActionController
 			exit;
 		}
 		
-		if((User::currentUser()->istZertifizierer() || User::currentUser()->istAdmin()) && $_POST['site']=='kursview') {
+		if((User::currentUser()->istZertifizierer() || User::currentUser()->istAdmin()) && $_POST['site']=='kursview' || $_POST['site']=='statisticlistquestions') {
 		
 		$pruefung = new Pruefung();
 		
