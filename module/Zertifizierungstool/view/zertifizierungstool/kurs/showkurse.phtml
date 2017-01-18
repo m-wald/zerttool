@@ -2,6 +2,7 @@
 <?php
     use Zertifizierungstool\Model\Kurs;
     use Zertifizierungstool\Model\User;
+    use Zertifizierungstool\Model\Benutzer_Kurs;
     
 ?>
 
@@ -19,6 +20,9 @@
                         <th> KursName </th>
                         <th> Kursstart </th>
                         <th> Kursende </th>
+                        <?php if (User::currentUser()->istTeilnehmer()) {?>
+                        <th> Beigetreten </th>
+                        <?php }?>
                 </tr>
 		
 		<?php
@@ -28,6 +32,15 @@
 				<td><?=$r->getKurs_name()?></td>
 				<td><?=$r->getKurs_start()?></td>
 				<td><?=$r->getKurs_ende()?></td>
+				
+				
+				<?php 
+				$benutzer_kurs = new Benutzer_Kurs();
+				if ($benutzer_kurs->alreadyexist(User::currentUser()->getBenutzername(), $r->kursid_id())) {?>
+                                
+                          <td><span class="glyphicon glyphicon-ok"></span></td>      
+                                
+                                <?php }?>
                                 
                                 <?php 
                                 if(User::currentUser()->istAdmin() || User::currentUser()->istZertifizierer()) { ?>
