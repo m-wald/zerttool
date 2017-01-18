@@ -36,7 +36,7 @@
 				
 				<?php 
 				$benutzer_kurs = new Benutzer_Kurs();
-				if ($benutzer_kurs->alreadyexist(User::currentUser()->getBenutzername(), $r->kursid_id())) {?>
+				if ($benutzer_kurs->alreadyexist(User::currentUser()->getBenutzername(), $r->getKurs_id())) {?>
                                 
                           <td><span class="glyphicon glyphicon-ok"></span></td>      
                                 
