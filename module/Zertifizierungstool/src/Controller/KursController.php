@@ -804,17 +804,6 @@ class KursController extends AbstractActionController
 		$vorname = User::currentUser()->getVorname();
 		$nachname = User::currentUser()->getNachname();
 		
-                /*
-                 * Wenn Akteur den Menüpunkt Zertifikatsübersicht auswählt, 
-                 * list wird an View weitergegeben.
-                 */
-		$route_pdflist = $this->params()->fromRoute('pdflist');
-                if($route_pdflist == 'pdflist') {
-                    $kurs = new Kurs;
-                    $list = $kurs->certificateList($benutzer);
-                    return new Viewmodel (['list' => $list]);
-                }
-                
 		/*
 		 *  Button "Meine Zertifikate anzeigen" wird gedruckt
 		 *  Funtkion gibt list an View zuruck
