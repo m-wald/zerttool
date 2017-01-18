@@ -40,7 +40,7 @@
                 </div>
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav">
-                        <li class="dropdown"><a href="<?= $this->url('home') ?>">Home</a></li>
+                        <li class="dropdown"><a href="<?= $this->url('home') ?>"><span class="glyphicon glyphicon-home"></span> Home</a></li>
                         
                         <?php 
                         	if (User::currentUser()->istAdmin()) { ?>
@@ -55,7 +55,7 @@
                         <?php	
                         	}elseif(User::currentUser()->istZertifizierer()) { ?>
                         
-                        		<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#"> Kursverwaltung </a>
+                        		<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-education"></span> Kursverwaltung </a>
           					        <ul class="dropdown-menu">
                                                                 <li><a href="http://132.231.36.205/kurs/showkurse"> Übersicht aktueller Kurse </a></li>
                                                                 <li><a href="http://132.231.36.205/kurs/showarchivedkurse"> Übersicht archivierte Kurse </a></li>
@@ -66,7 +66,7 @@
                         		
                         <?php	
                         	}elseif (User::currentUser()->istTeilnehmer()) { ?>
-                        		<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#"> Kurse </a>
+                        		<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-education"></span> Kurse </a>
                         			<ul class="dropdown-menu">
                                                     <li><a href="http://132.231.36.205/kurs/showkurse">öffentliche Kurse</a></li>
                                                     <li><a href="http://132.231.36.205/kurs/showsignedkurse">meine Kurse</a></li>
