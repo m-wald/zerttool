@@ -27,21 +27,26 @@
     	<tr><td>Kursname:</td><td> 	<?=$kurs->getKurs_name()?>		</td></tr>
         <tr><td>Kursstart:</td><td> <?=$kurs->getKurs_start()?>	</td></tr>
         <tr><td>Kursende:</td><td>	<?=$kurs->getKurs_ende()?>		</td></tr>
-        <tr><td>Sichtbarkeit:</td>
-        	<td> 
-                     <?php
-                        if($kurs->getSichtbarkeit() == 1)   	echo "öffentlich";
-                      	else              						echo "privat";
-                     ?> 
-           </td>
-       	</tr>
+        
+        <?php
+        if(User::currentUser()->istAdmin() || User::currentUser()->istZertifizierer()){ ?>
+            <tr><td>Sichtbarkeit:</td>
+                    <td> 
+                         <?php
+                            if($kurs->getSichtbarkeit() == 1)   	echo "öffentlich";
+                            else              						echo "privat";
+                         ?> 
+               </td>
+            </tr>
+        <?php } ?>
+        
         <tr><td>Kursleiter:</td><td><?=$kurs->getBenutzername()?></td></tr>
         <tr><td>Teilnehmeranzahl:</td><td><?=$kurs->getTeilnehmerzahl()?></td></tr>
         <tr><td>Beschreibung:</td><td><?=$kurs->getBeschreibung()?></td></tr>
         </table>
         
 		<?php  } 
-			if(User::currentUser()->istAdmin() || User::currentUser()->istAdmin() || $benutzer_kurs->alreadyexist(User::currentUser()->getBenutzername(), $kurs->getKurs_id())) {
+			if(User::currentUser()->istAdmin() || User::currentUser()->istTeilnehmer() || $benutzer_kurs->alreadyexist(User::currentUser()->getBenutzername(), $kurs->getKurs_id())) {
 		?>
         
                 <form accept-charset="utf-8" method="POST" action="showdocuments">
