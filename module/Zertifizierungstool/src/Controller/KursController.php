@@ -827,17 +827,17 @@ class KursController extends AbstractActionController
 		 *  Button "Meine Zertifikate anzeigen" wird gedruckt
 		 *  Funtkion gibt list an View zuruck
 		 */
-		if($_SERVER['REQUEST_METHOD'] == 'POST' && $_POST['pdflist']) {
+		elseif($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['pdflist'])) {
 			$kurs = new Kurs;
 			$list = $kurs->certificateList($benutzer);
 			return new Viewmodel (['list' => $list]);		 
                 }	
-		else {
+		elseif($_SERVER['REQUEST_METHOD'] == 'POST' && $_POST['pdf']) {
 	
 		/*
 		 * Button "Zertifikat" erstellt einen PDF Zertifikat
 		 */
-		if($_SERVER['REQUEST_METHOD'] == 'POST' && $_POST['pdf']) {
+		//if($_SERVER['REQUEST_METHOD'] == 'POST' && $_POST['pdf']) {
 			 
 			// Zugriff auf Action ist nur erlaubt, falls Zertifizierer oder Admin und Zugang �ber Button in kursview
 			if(User::currentUser()->getBenutzername()==null) {
@@ -955,7 +955,7 @@ class KursController extends AbstractActionController
 			exit;
 		*/
 		
-	}
+	
     }
 	
 	
