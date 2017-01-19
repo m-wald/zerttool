@@ -1,5 +1,5 @@
 <?php
-
+namespace Zertifizierungstool\Model;
 class Db_connection
 {
 	private $server    	= "localhost";
