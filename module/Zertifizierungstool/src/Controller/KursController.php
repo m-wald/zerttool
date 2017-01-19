@@ -800,6 +800,16 @@ class KursController extends AbstractActionController
 
     public function loadCertificateAction(){
 		
+                if(User::currentUser()->getBenutzername()==NULL) {
+                        header("refresh:0; url = /user/login");
+                        exit;
+                }
+
+                if(!User::currentUser()->istTeilnehmer() || !User::currentUser()->istAdmin()) {
+                        header("refresh:0; url = /");
+                        exit;
+                }
+                
 		$benutzer = User::currentUser()->getBenutzername();
 		$vorname = User::currentUser()->getVorname();
 		$nachname = User::currentUser()->getNachname();
