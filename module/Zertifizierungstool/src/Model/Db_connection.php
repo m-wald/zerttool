@@ -1,5 +1,4 @@
 <?php
-namespace Zertifizierungstool\Model;
 
 class Db_connection
 {

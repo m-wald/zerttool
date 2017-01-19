@@ -39,11 +39,27 @@ class Benutzer_Kurs {
 		if(mysqli_num_rows($result)>0){
 			return -1;
 		}
+		//Überprüfung ob der Teilnehmer schon alle benötigten Prüfungen bestanden hat. (Falls Teilnehmer sich aus Kurs ausgetragen hat und sich noch mal einträgt)
+		$query_anzahl_pruefungen = "select count(*) from pruefung where kurs_id = ".$kurs_id; //Anzahl der Prüfungen im Kurs
+		$query_anzahl_bestandene_pruefungen = "select count(*) from schreibt_pruefung join pruefung using (pruefung_id) where kurs_id =".$kurs_id." and benutzername = '".$benutzer."' and bestanden=1";
 		
+		$anzahl_pruefungen = $db->execute($query_anzahl_pruefungen);
+		$anzahl_bestandene_pruefungen = $db->execute($query_anzahl_bestandene_pruefungen);
+		
+		$anzahl_pruefungen = mysqli_fetch_row($anzahl_pruefungen);
+		$anzahl_bestandene_pruefungen = mysqli_fetch_row($anzahl_bestandene_pruefungen);
+		
+		
+		if ($anzahl_bestandene_pruefungen[0]<$anzahl_pruefungen[0] || $anzahl_pruefungen[0]==0) {
 		//Insert der Daten
 		
-		$query1="insert into benutzer_kurs(benutzername,kurs_id) values('".$benutzer."',".$kurs_id.");";
+			$query1="insert into benutzer_kurs(benutzername,kurs_id) values('".$benutzer."',".$kurs_id.");";
 		
+		} else {
+			
+			$query1="insert into benutzer_kurs(benutzername,kurs_id, bestanden) values('".$benutzer."',".$kurs_id.", 1);";
+			
+		}
 		if($db->execute($query1)){
 			return 1;
 		}

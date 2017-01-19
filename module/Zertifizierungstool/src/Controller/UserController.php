@@ -37,7 +37,7 @@ class UserController extends AbstractActionController
 	{
 		
 		if(User::currentUser()->getBenutzername()!=NULL && User::currentUser()->istZertifizierer()){
-			header("refresh:0; url= /user/home");
+			header("refresh:0; url= /");
 			exit;
 		}
 		else{
@@ -150,12 +150,16 @@ class UserController extends AbstractActionController
 		$user = new User();
 		$user->load($_GET['benutzer']);
 		$user->registerbest();
-		if (isset($_GET['kurs_id'])) {
-			
-			return new ViewModel(['benutzername'=>$user->getBenutzername(), 'kurs_id'=>$_GET['kurs_id']]);
-			
+		if (!$user->istBestaetigt()){
+			if (isset($_GET['kurs_id'])) {
+				
+				return new ViewModel(['benutzername'=>$user->getBenutzername(), 'kurs_id'=>$_GET['kurs_id']]);
+				
+			}
+			return new ViewModel();
+		}else {
+			return new ViewModel(['bestaetigt'=>'']);
 		}
-		return new ViewModel();
 	}
 	
 	
@@ -166,7 +170,7 @@ class UserController extends AbstractActionController
 	{
 		
 		if(User::currentUser()->getBenutzername()!=NULL){
-			header("refresh:0; url= /user/home");
+			header("refresh:0; url= /");
 			exit;
 		}
 		else{
@@ -237,7 +241,7 @@ class UserController extends AbstractActionController
 		}
 	}
 	
-	/** leitet nach erfolgreichem Login auf eine benutzerspezifische Startseite weiter */
+	/* leitet nach erfolgreichem Login auf eine benutzerspezifische Startseite weiter 
 	
 	public function homeAction() {
 		
@@ -250,6 +254,7 @@ class UserController extends AbstractActionController
 		
 		}
 	}
+	*/
 	
 	
 	/** liest aktuelle Benutzerdaten aus und übergibt diese an ein Formular. Darin können die Daten dann geändert werden und in der Datenbank aktualisiert werden. */

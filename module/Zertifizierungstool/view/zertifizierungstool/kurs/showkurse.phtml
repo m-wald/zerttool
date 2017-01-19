@@ -2,6 +2,7 @@
 <?php
     use Zertifizierungstool\Model\Kurs;
     use Zertifizierungstool\Model\User;
+    use Zertifizierungstool\Model\Benutzer_Kurs;
     
 ?>
 
@@ -12,13 +13,17 @@
 <body>
     
     <div class="container">
-    	<h3>Aktuell verf&uuml;gbare Kurse: </h3>
+    	<h3>Aktuell verf&uuml;gbare Kurse: </h3><br>
+    	<div style= "height:600px; overflow-y:scroll">
             <table class="table table-hover">
                 <tr>
                         <th> KursID </th>
                         <th> KursName </th>
                         <th> Kursstart </th>
                         <th> Kursende </th>
+                        <?php if (User::currentUser()->istTeilnehmer()) {?>
+                        <th> Beigetreten </th>
+                        <?php }?>
                 </tr>
 		
 		<?php
@@ -28,6 +33,19 @@
 				<td><?=$r->getKurs_name()?></td>
 				<td><?=$r->getKurs_start()?></td>
 				<td><?=$r->getKurs_ende()?></td>
+				
+				               				<?php 
+								$benutzer_kurs = new Benutzer_Kurs();
+								if ($benutzer_kurs->alreadyexist(User::currentUser()->getBenutzername(), $r->getKurs_id())) {?>
+                                
+                        			  <td align="center"><span class="glyphicon glyphicon-ok"></span></td>      
+                                
+                                <?php } else { ?>
+                                
+                                <td> </td>
+                                
+                                <?php }?>
+
                                 
                                 <?php 
                                 if(User::currentUser()->istAdmin() || User::currentUser()->istZertifizierer()) { ?>
@@ -43,11 +61,14 @@
 						<input size="70" maxlength="250" value="anzeigen" type="submit">
                                      </form> 
                                 </td>
+               
+
 			
 			</tr>
                         <?php }?>
-		
+				
             </table>
+            </div>
 
     </div>
 </body>

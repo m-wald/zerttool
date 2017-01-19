@@ -246,7 +246,8 @@ class PruefungController extends AbstractActionController {
 	 */
 	public function createAction() {
 		if (!User::currentUser()->istAdmin() && !User::currentUser()->istZertifizierer()) {
-			header ("refresh:0; url = /user/home/");
+			header ("refresh:0; url = /");
+			exit;
 		}
 		
 		if (empty($_REQUEST["kursid"])) {
@@ -267,7 +268,8 @@ class PruefungController extends AbstractActionController {
 	 */
 	public function editAction() {
 		if (!User::currentUser()->istAdmin() && !User::currentUser()->istZertifizierer()) {
-			header ("refresh:0; url = /user/home/");
+			header ("refresh:0; url = /");
+			exit;
 		}
 		
 		if (empty($_REQUEST["pruefid"])) {
@@ -283,7 +285,8 @@ class PruefungController extends AbstractActionController {
 		$kurs->load($this->pruefung->getKursId());
 		
 		if (!$kurs->getBenutzername() == User::currentUser()->getBenutzername()) {
-			header ("refresh:0; url = /user/home/");
+			header ("refresh:0; url = /");
+			exit;
 		}
 		
 		// Was wenn Fehler? Zurückleiten auf Übersicht?

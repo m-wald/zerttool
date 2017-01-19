@@ -27,7 +27,7 @@ class KursController extends AbstractActionController
     	}
     	
     	if(User::currentUser()->istTeilnehmer()){
-    		header("refresh:0; url= /user/home");
+    		header("refresh:0; url= /");
     		exit;
     	}
         
@@ -128,7 +128,7 @@ class KursController extends AbstractActionController
     	}
     	
     	if(User::currentUser()->istTeilnehmer()){
-    		header("refresh:0; url=/user/home");
+    		header("refresh:0; url= /");
     		exit;
     	}
     	
@@ -151,7 +151,7 @@ class KursController extends AbstractActionController
     	}
     	 
     	if(User::currentUser()->istAdmin() || User::currentUser()->istZertifizierer()){
-    		header("refresh:0; url=/user/home");
+    		header("refresh:0; url= /");
     		exit;
     	}
     	
@@ -170,19 +170,18 @@ class KursController extends AbstractActionController
      */
     public function changedataAction(){
     	
-    	
     	if(User::currentUser()->getBenutzername()==NULL){
     		header("refresh:0; url=/user/login");
     		exit;
     	}
     	 
     	if(User::currentUser()->istTeilnehmer()){
-    		header("refresh:0; url=/user/home");
+    		header("refresh:0; url= /");
     		exit;
     	}
     	
-    	
     	$id = $_REQUEST["kurs_id"];
+        
         //aus archivierte Kurse
         if($_REQUEST["archiv"] == 1) {
             $archiviert = "gesetzt";
@@ -191,9 +190,17 @@ class KursController extends AbstractActionController
         }
        
     	$kurs = new Kurs();
-    	if(!$kurs->load($id)) $status="Fehler beim Laden des Kurses!";
+        if(!$kurs->load($id)) {
+            return new ViewModel(['error' => 'unabletoload', 'kurs' => $kurs]);
+            //$status="Fehler beim Laden des Kurses!";
+        }
+        
+        $kursstartalt = $kurs->getKurs_start();
+        $starttimestampalt = strtotime($kursstartalt);
+        
     	$zertladen = $kurs->loadZertifizierer();
-    	
+        
+    	//Zum ändern der Kursdaten von aktuellen Kursen
         if($_REQUEST["speichern"]) {
         	
             $start  = $_REQUEST["kursstart"];
@@ -201,21 +208,31 @@ class KursController extends AbstractActionController
             $starttimestamp = strtotime($start);
             $endtimestamp   = strtotime($end);
             $today = strtotime(date(d-m-Y));
-        	
+            
             if($endtimestamp > $starttimestamp && $endtimestamp > $today && $starttimestamp >= $today) {
-            $kurs->update($_REQUEST["kurs_id"], $_REQUEST["kursname"], $_REQUEST["kursstart"], $_REQUEST["kursende"], $_REQUEST["sichtbarkeit"], $_REQUEST["beschreibung"]);
-            $kurs = new Kurs(
-                    $_REQUEST["kurs_id"],
-                    $_REQUEST["kursname"],
-                    $_REQUEST["kursstart"],
-                    $_REQUEST["kursende"],
-                    $_REQUEST["sichtbarkeit"],
-                    $_REQUEST["beschreibung"]); 
-            $status = "Erfolgreich geändert."; 
+            
+                if($starttimestampalt != $starttimestamp) {
+                    //$status = "Kursdatum nicht änderbar, da Kurs schon begonnen hat!";
+                    return new ViewModel(['error' => 'coursealreadystarted', 'kurs' => $kurs, 'neu' => $starttimestamp, 'alt' => $starttimestampalt]);
+                }
+                
+                $kurs->update($_REQUEST["kurs_id"], $_REQUEST["kursname"], $_REQUEST["kursstart"], $_REQUEST["kursende"], $_REQUEST["sichtbarkeit"], $_REQUEST["beschreibung"]);
+                $kurs = new Kurs(
+                        $_REQUEST["kurs_id"],
+                        $_REQUEST["kursname"],
+                        $_REQUEST["kursstart"],
+                        $_REQUEST["kursende"],
+                        $_REQUEST["sichtbarkeit"],
+                        $_REQUEST["beschreibung"]); 
+                $status = "erfolgreich geändert"; 
             }
-            else $status = "�berpr�fen Sie bitte Start- und End-Datum des Kurses!";
+            else {
+                //$status = "�berpr�fen Sie bitte Start- und End-Datum des Kurses!";
+                return new ViewModel(['error' => 'dateerror', 'kurs' => $kurs]);
+            }
         }
         
+        //Zum ändern und archivieren der Kursdaten von archivierten Kursen
         if($_REQUEST["übernehmen"]) {
         	
             $start  = $_REQUEST["kursstart"];
@@ -233,12 +250,15 @@ class KursController extends AbstractActionController
                     $_REQUEST["kursende"],
                     $_REQUEST["sichtbarkeit"],
                     $_REQUEST["beschreibung"]); 
-            $status = "Erfolgreich geändert."; 
+            $status = "erfolgreich übernommen"; 
             }
-            else $status = "�berpr�fen Sie bitte Start- und End-Datum des Kurses!";
+            else {
+                //$status = "�berpr�fen Sie bitte Start- und End-Datum des Kurses!";
+                return new ViewModel(['error' => 'dateerror', 'kurs' => $kurs]);
+            }
         }
         
-              return new ViewModel(['kurs' => $kurs, 'result' => $zertladen, 'archiv' => $archiviert, 'status' => $status]);    
+        return new ViewModel(['kurs' => $kurs, 'result' => $zertladen, 'archiv' => $archiviert, 'status' => $status]);    
     }
     
     
@@ -251,7 +271,7 @@ class KursController extends AbstractActionController
     	
     	
     	
-    	if(isset($_POST["back"]) && !empty($_POST["kurs_id"]))
+    	if((isset($_POST["back"]) && !empty($_POST["kurs_id"])) || $_POST['site']=="showstatistic")
     		$id = $_POST["kurs_id"];
     	else 
     		$id = $_REQUEST["kurs_id"];
@@ -276,7 +296,7 @@ class KursController extends AbstractActionController
     	}
     	 
     	if(User::currentUser()->istTeilnehmer()==true){
-    		header("refresh:0; url = /user/home");
+    		header("refresh:0; url = /");
     		exit;
     	}
     	
@@ -315,7 +335,7 @@ class KursController extends AbstractActionController
     	}
     	
     	if(User::currentUser()->istTeilnehmer()){
-    		header("refresh:0; url = /user/home");
+    		header("refresh:0; url = /");
     		exit;
     	}
     	
@@ -431,7 +451,7 @@ class KursController extends AbstractActionController
    			exit;
    		}
    		else{
-   			header("refresh:0; url= /user/home");
+   			header("refresh:0; url= /");
    			exit;
    		}
    	}
@@ -545,7 +565,7 @@ class KursController extends AbstractActionController
 	}
 	 
 	if(User::currentUser()->istTeilnehmer()){
-		header("refresh:0; url = /user/home");
+		header("refresh:0; url = /");
 		exit;
 	}
 				 
@@ -637,7 +657,7 @@ class KursController extends AbstractActionController
     	}
     	
     	if(!$_POST['site']=="kursview" && !$_SESSION['site'] == 'delete') {
-    		header("refresh:0; url= /user/home");
+    		header("refresh:0; url= /");
     		exit;
     	}
     	
@@ -667,7 +687,7 @@ class KursController extends AbstractActionController
     	}
     	
     	if(User::currentUser()->istTeilnehmer()) {
-    		header("refresh:0; url = /user/home");
+    		header("refresh:0; url = /");
     		exit;
     	}
     	
@@ -735,7 +755,7 @@ class KursController extends AbstractActionController
                 return new ViewModel(['meldung' => 'fehlerhaft']);
             }
         }
-        header("refresh:0; url = /user/home");
+        header("refresh:0; url = /");
         exit;
     }
 
@@ -783,7 +803,6 @@ class KursController extends AbstractActionController
 		$benutzer = User::currentUser()->getBenutzername();
 		$vorname = User::currentUser()->getVorname();
 		$nachname = User::currentUser()->getNachname();
-		
 		
 		/*
 		 *  Button "Meine Zertifikate anzeigen" wird gedruckt
@@ -942,11 +961,11 @@ class KursController extends AbstractActionController
 		}
 		
 		if(User::currentUser()->istTeilnehmer()){
-			header("refresh:0; url= /user/home");
+			header("refresh:0; url= /");
 			exit;
 		}
 		
-		if((User::currentUser()->istZertifizierer() || User::currentUser()->istAdmin()) && $_POST['site']=='kursview') {
+		if((User::currentUser()->istZertifizierer() || User::currentUser()->istAdmin()) && $_POST['site']=='kursview' || $_POST['site']=='statisticlistquestions') {
 		
 		$pruefung = new Pruefung();
 		
@@ -972,7 +991,7 @@ class KursController extends AbstractActionController
 		}
 		
 		if(User::currentUser()->istTeilnehmer()){
-			header("refresh:0; url= /user/home");
+			header("refresh:0; url= /");
 			exit;
 		}
 		

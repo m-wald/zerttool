@@ -201,6 +201,14 @@ class User
 		return $this->email;
 	}
 	
+	public function istBestaetigt() {
+		if ($this->email_bestaetigt==1){
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
 	
 	public function istAdmin() {
 		if ($this->ist_admin==1){
