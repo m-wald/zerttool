@@ -87,6 +87,8 @@
                                                 <input size="70" maxlength="250" value="Kurs beitreten" type="submit" class="btn btn-default">
                                             </form> <br>
                                             
+                                            <a href="<?= $this->url('pruefung', ['action' => 'overview', 'id' => $kurs->getKurs_id()])?>"><button type="button" class="btn btn-default">Zu den Pr&uuml;fungen</button></a>
+                                            
                                         
                                             <?php
                                         }
@@ -137,12 +139,7 @@
                 
                 
                 } ?>
-<<<<<<< HEAD
-=======
-                
-                <a href="<?= $this->url('pruefung', ['action' => 'overview', 'id' => $kurs->getKurs_id()])?>"><button type="button" class="btn btn-default">Zu den Pr&uuml;fungen</button></a>
->>>>>>> fefae624f920dc32ab1b7a5f5457a94537717c29
-                        
+                     
     </div>
     </body>
     
