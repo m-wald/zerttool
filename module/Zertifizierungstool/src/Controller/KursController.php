@@ -808,7 +808,7 @@ class KursController extends AbstractActionController
                  * Wenn der Akteur seine Zertifikate über die Startseite auswählt
                  * Funktion gibt list an View zurück
                  */
-                if($_GET['pdflist'] == 112) {
+                if(isset($_GET['pdflist'])) {
                         $kurs = new Kurs;
 			$list = $kurs->certificateList($benutzer);
 			return new Viewmodel (['list' => $list]);
