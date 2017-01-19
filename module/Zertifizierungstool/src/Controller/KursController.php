@@ -804,6 +804,15 @@ class KursController extends AbstractActionController
 		$vorname = User::currentUser()->getVorname();
 		$nachname = User::currentUser()->getNachname();
 		
+                /*
+                 * Wenn der Akteur seine Zertifikate über die Startseite auswählt
+                 * Funktion gibt list an View zurück
+                 */
+                if($_GET['pdflist'] == 112) {
+                        $kurs = new Kurs;
+			$list = $kurs->certificateList($benutzer);
+			return new Viewmodel (['list' => $list]);
+                }
 		/*
 		 *  Button "Meine Zertifikate anzeigen" wird gedruckt
 		 *  Funtkion gibt list an View zuruck
@@ -811,10 +820,8 @@ class KursController extends AbstractActionController
 		if($_SERVER['REQUEST_METHOD'] == 'POST' && $_POST['pdflist']) {
 			$kurs = new Kurs;
 			$list = $kurs->certificateList($benutzer);
-			return new Viewmodel (['list' => $list]);		
-			}
-			
-			
+			return new Viewmodel (['list' => $list]);		 
+                }	
 		else {
 	
 		/*
