@@ -809,6 +809,7 @@ class KursController extends AbstractActionController
                  * Funktion gibt list an View zurück
                  */
                 if(isset($_GET['pdflist'])) {
+                	echo "test";
                         $kurs = new Kurs;
 			$list = $kurs->certificateList($benutzer);
 			return new Viewmodel (['list' => $list]);
