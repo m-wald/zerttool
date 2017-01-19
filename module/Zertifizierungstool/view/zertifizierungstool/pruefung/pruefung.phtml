@@ -184,7 +184,7 @@ input[type=number]{
     
     <div class="form-group">
         <label for="termin"> Termin </label>
-        <input name="termin" type="date" class="form-control" <?=$pruefung->getTermin()  ?>" required>
+        <input name="termin" type="date" class="form-control" value="<?=$pruefung->getTermin()?>" required>
     </div>
     
     <div class="form-group">
@@ -195,7 +195,7 @@ input[type=number]{
     <input type="hidden" name="pruefid"  readonly="readonly" value="<?=$pruefung->getId()?>" >
 	<input type="hidden" name="kursid"   readonly="readonly" value="<?=$pruefung->getKursId()?>" >
     
-    <button type="submit" class="btn btn-default">Speichern & weiter zu den Fragen</button>
+    <input type="submit" name="speichernPruefung" value="Speichern & weiter zu den Fragen">
 </form>
 </div>
 
