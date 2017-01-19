@@ -805,7 +805,7 @@ class KursController extends AbstractActionController
                         exit;
                 }
 
-                if(User::currentUser()->istZertifizierer) {
+                if(User::currentUser()->istZertifizierer()) {
                         header("refresh:0; url = /");
                         exit;
                 }
