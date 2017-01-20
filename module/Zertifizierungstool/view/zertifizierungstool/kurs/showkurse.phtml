@@ -21,10 +21,15 @@
                         <th> KursName </th>
                         <th> Kursstart </th>
                         <th> Kursende </th>
+                        
                         <?php if (User::currentUser()->istTeilnehmer()) {?>
                         <th> Beigetreten </th>
                         <?php }?>
+                        
+                        <?php if(User::currentUser()->istAdmin() || User::currentUser()->istZertifizierer()) { ?>
                         <th> edit </th>
+                        <?php }?>
+                        
                         <th> show </th>
                 </tr>
 		
@@ -53,7 +58,7 @@
                                 if(User::currentUser()->istAdmin() || User::currentUser()->istZertifizierer()) { ?>
 				<td> <form accept-charset="utf-8" method="POST" action="changedata">
 						<input type="hidden" value="<?=$r->getKurs_id()?>" name="kurs_id">
-                                                <button type="submit" class="btn btn-info">
+                                                <button type="submit" class="btn btn-warning">
                                                         <span class="glyphicon glyphicon-edit"></span>
                                                 </button>  
                                      </form> 
@@ -62,7 +67,9 @@
 					
                                 <td> <form accept-charset="utf-8" method="POST" action="kursview">
 						<input type="hidden" value="<?=$r->getKurs_id()?>" name="kurs_id">
-						<input size="70" maxlength="250" value="anzeigen" class="btn btn-info" type="submit">
+						<button type="submit" class="btn btn-info">
+                                                        <span class="glyphicon glyphicon-eye-open"></span>
+                                                </button> 
                                      </form> 
                                 </td>
                
