@@ -99,6 +99,7 @@ if ($error == 'unabletoload') {
     <?php } else { ?>
         <input type="hidden" name="kurs_id" readonly="readonly" value="<?=$kurs->getKurs_id()?>">
         <input type = "submit" class="btn btn-default" name="speichern" value="Kursdaten ändern!">
+        <br><br>
     <?php } ?>
         
 </form>
@@ -107,4 +108,4 @@ if ($error == 'unabletoload') {
 //}
 ?>
 
-<a href="<?= $this->url('pruefung', ['action' => 'overview', 'id' => $kurs->getKurs_id()])?>"><button type="button">Zu den Pr&uuml;fungen</button></a>
+<a href="<?= $this->url('pruefung', ['action' => 'overview', 'id' => $kurs->getKurs_id()])?>"><button class="btn btn-default" type="button">Zu den Pr&uuml;fungen</button></a>

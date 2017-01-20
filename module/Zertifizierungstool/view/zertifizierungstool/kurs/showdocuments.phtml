@@ -1,5 +1,5 @@
 <form method="post" action="kursview">
-<input type="submit" value="zur&uuml;ck zur Kurs&uuml;bersicht" name="back">
+<input type="submit" class="btn btn-default" value="zur&uuml;ck zur Kurs&uuml;bersicht" name="back">
 <input type="hidden" value="<?php echo $_SESSION['kurs_id']; ?>" name='kurs_id'>
 </form>
 <br>
@@ -26,7 +26,17 @@
     <div class="container">
     	<h3>Dokumente zum Kurs <?php echo $kursname;?>: </h3>
             <table class="table table-hover">
-                <tr><th>Dateinname</th><th>Dateiformat</th><th>Dateigröße</th><th>Download</th></tr>
+                <tr>
+                    <th>Dateinname</th>
+                    <th>Dateiformat</th>
+                    <th>Dateigröße</th>
+                    
+                    <?php if(User::currentUser()->istAdmin() || User::currentUser()->istZertifizierer()) { ?>
+                    <th> löschen </th>
+                    <?php } ?>
+                    
+                    <th> runterladen </th>
+                </tr>
                 
                    
                         <?php
