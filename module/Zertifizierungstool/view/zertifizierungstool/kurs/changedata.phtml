@@ -94,10 +94,11 @@ if ($error == 'unabletoload') {
   <?php 
     if($archiv == "gesetzt") { ?>
         <input type="hidden" name="kurs_id" readonly="readonly" value="<?=$kurs->getKurs_id()?>">
-        <input type = "submit" name="übernehmen" value="Kursdaten kopieren"> 
+        <input type = "submit" class="btn btn-default" name="übernehmen" value="Kursdaten kopieren"> 
+        <br><br>
     <?php } else { ?>
         <input type="hidden" name="kurs_id" readonly="readonly" value="<?=$kurs->getKurs_id()?>">
-        <input type = "submit" name="speichern" value="Kursdaten ändern!">
+        <input type = "submit" class="btn btn-default" name="speichern" value="Kursdaten ändern!">
     <?php } ?>
         
 </form>

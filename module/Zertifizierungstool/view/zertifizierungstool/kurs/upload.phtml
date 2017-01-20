@@ -6,7 +6,7 @@
 Dokument: <input type='file' name='datei' id='datei'><br>
 
 <input type="hidden" value="thissite" name='thissite'> <br><br>
-<input type='submit' value='Upload ' name='submit'>
+<input type='submit' class="btn btn-default" value='Upload ' name='submit'>
 </form><br><br>
 <?php 
 if(isset($meldung)){
@@ -19,7 +19,7 @@ if(isset($meldung)){
 		
 ?>
 <form method="post" action="kursview">
-<input type="submit" value="zur&uuml;ck zur Kurs&uuml;bersicht" name="back">
+<input type="submit" class="btn btn-default" value="zur&uuml;ck zur Kurs&uuml;bersicht" name="back">
 <input type="hidden" value="<?php echo $_SESSION['kurs_id']; ?>" name='kurs_id'>
 
 </form>
