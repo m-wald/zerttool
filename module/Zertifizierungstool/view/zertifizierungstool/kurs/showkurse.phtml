@@ -51,14 +51,14 @@
                                 if(User::currentUser()->istAdmin() || User::currentUser()->istZertifizierer()) { ?>
 				<td> <form accept-charset="utf-8" method="POST" action="changedata">
 						<input type="hidden" value="<?=$r->getKurs_id()?>" name="kurs_id">
-						<input size="70" maxlength="250" value="ändern" type="submit">
+						<input size="70" maxlength="250" value="ändern" class="btn btn-info" type="submit">
                                      </form> 
                                 </td>
                                 <?php } ?>
 					
                                 <td> <form accept-charset="utf-8" method="POST" action="kursview">
 						<input type="hidden" value="<?=$r->getKurs_id()?>" name="kurs_id">
-						<input size="70" maxlength="250" value="anzeigen" type="submit">
+						<input size="70" maxlength="250" value="anzeigen" class="btn btn-info" type="submit">
                                      </form> 
                                 </td>
                
