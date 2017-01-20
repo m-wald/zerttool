@@ -68,7 +68,9 @@
                     			<input type="hidden" value="<?=$document	?>"name="document"> 
                     			<input type="hidden" value="<?=$path	?>"name="path">
                     			<input type="hidden" value="thissite" name='thissite'>
-                    			<input size="70" maxlength="250" value="L&ouml;schen" type="submit">
+                    			<button type="submit" class="btn btn-danger">
+                                                        <span class="glyphicon glyphicon-thrash"></span>
+                                        </button>
                     			</form>
                     </td>
                     	<?php }
@@ -82,7 +84,7 @@
                     			<input type="hidden" value="download" name='download'>
                     			<button type="submit" class="btn btn-info">
                                                         <span class="glyphicon glyphicon-download-alt"></span>
-                                                </button>
+                                        </button>
                     			</form>
                     </td>
                     	
