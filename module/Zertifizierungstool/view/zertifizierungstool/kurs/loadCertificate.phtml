@@ -46,7 +46,7 @@ elseif($message == 'access_error'){
         <tr>
         	<th> KursID </th>
 			<th> KursName </th>
-			<th> Leistung</th>
+			<th> Zertifikat</th>
 			
 		</tr>
 		
@@ -70,7 +70,9 @@ elseif($message == 'access_error'){
 						<input type="hidden" value="pdf" name='pdf'>
 						<input type="hidden" value="<?=$row->getKurs_name()?>"name="kurs_name">
 						<input type="hidden" value="<?=$row->getKurs_id()?>"name="kurs_id">
-						<input size="70" maxlength="250" value="Zertifikat" type="submit">
+						<button type="submit" class="btn btn-info">
+                                                        <span class="glyphicon glyphicon-download-alt"></span>
+                                                </button>
 					</form> </td>
 			
 			</tr>
