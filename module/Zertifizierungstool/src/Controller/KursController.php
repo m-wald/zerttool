@@ -269,7 +269,10 @@ class KursController extends AbstractActionController
     		exit;
     	}
     	
-    	
+    	if(!isset($_REQUEST['kurs_id'])) {
+                header("refresh:0; url= /");
+                exit;
+        }
     	
     	if((isset($_POST["back"]) && !empty($_POST["kurs_id"])) || $_POST['site']=="showstatistic")
     		$id = $_POST["kurs_id"];
@@ -279,8 +282,11 @@ class KursController extends AbstractActionController
     	$_SESSION['kurs_id']=$id;
     	$kurs = new Kurs();
         $benutzer_kurs = new Benutzer_Kurs();
+        
     	if(!$kurs->load($id)) $status="Fehler beim Laden des Kurses!";
+        
     	$_SESSION['kurs_name']=$kurs->getKurs_name();
+        
         return new ViewModel(['kurs' => $kurs,
         		'status' => $status,
                         'benutzer_kurs' => $benutzer_kurs]);
