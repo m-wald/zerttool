@@ -42,6 +42,7 @@
 				<td><?=$r->getKurs_ende()?></td>
 				
 				               				<?php 
+				          if (User::currentUser()->istTeilnehmer()){
 								$benutzer_kurs = new Benutzer_Kurs();
 								if ($benutzer_kurs->alreadyexist(User::currentUser()->getBenutzername(), $r->getKurs_id())) {?>
                                 
@@ -51,7 +52,7 @@
                                 
                                 <td> </td>
                                 
-                                <?php }?>
+                                <?php }}?>
 
                                 
                                 <?php 
