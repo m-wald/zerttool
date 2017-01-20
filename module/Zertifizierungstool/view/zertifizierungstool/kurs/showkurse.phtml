@@ -24,6 +24,8 @@
                         <?php if (User::currentUser()->istTeilnehmer()) {?>
                         <th> Beigetreten </th>
                         <?php }?>
+                        <th> edit </th>
+                        <th> show </th>
                 </tr>
 		
 		<?php
@@ -51,7 +53,9 @@
                                 if(User::currentUser()->istAdmin() || User::currentUser()->istZertifizierer()) { ?>
 				<td> <form accept-charset="utf-8" method="POST" action="changedata">
 						<input type="hidden" value="<?=$r->getKurs_id()?>" name="kurs_id">
-						<input size="70" maxlength="250" value="ändern" class="btn btn-info" type="submit">
+                                                <button type="submit" class="btn btn-info">
+                                                        <span class="glyphicon glyphicon-edit"></span>
+                                                </button>  
                                      </form> 
                                 </td>
                                 <?php } ?>
