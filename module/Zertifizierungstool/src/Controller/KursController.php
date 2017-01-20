@@ -103,11 +103,6 @@ class KursController extends AbstractActionController
          * 
          * TODO Admin hat doch auch alle Funktionen eines Zertifizierers oder?
          * 		Dann kann er ja theorethisch auch Kurse haben, in denen er Kursleiter ist
-         * TODO Es werden momentan ja nur die Kurse geladen und angezeigt, die schon gestartet sind.
-         * 		Ein Zertifizierer will aber vielleicht noch vor Kursbeginn irgendwelche Daten �ndern oder
-         * 		Teilnehmer wollen auch Kurse sehen, die sie sp�ter belegen wollen.
-         * 		Deswegen mein Vorschlag: Alle Kurse laden, die noch nicht beendet sind.
-         * Sind aber nur Ideen, also falls ihr da anderer Meinung seid, gebt Bescheid ;)
          */
         if(User::currentUser()->istZertifizierer()){
             $kurseladen = $kurs->loadKurse(User::currentUser()->getBenutzername());
@@ -180,6 +175,11 @@ class KursController extends AbstractActionController
     		exit;
     	}
     	
+        if(!isset($_REQUEST['kurs_id'])) {
+                header("refresh:0; url= /");
+                exit;
+        }
+        
     	$id = $_REQUEST["kurs_id"];
         
         //aus archivierte Kurse
