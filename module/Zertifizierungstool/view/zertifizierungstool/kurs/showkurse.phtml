@@ -14,7 +14,7 @@
     
     <div class="container">
     	<h3>Aktuell verf&uuml;gbare Kurse: </h3><br>
-            <table class="table table-hover table-fixed">
+            <table class="table table-hover">
                 <tr>
                         <th> KursID </th>
                         <th> KursName </th>
@@ -85,30 +85,21 @@
 
 
 <style type="text/css">
-.table-fixed{
+tr {
     width: 100%;
-    background-color: #f3f3f3;
-    tbody{
-        height:200px;
-        overflow-y:auto;
-        width: 100%;
-    }
-    thead,tbody,tr,td,th{
-        display:block;
-    }
-    tbody{
-        td{
-            float:left;
-        }
-    }
-    thead {
-        tr{
-            th{
-                float:left;
-                background-color: #f39c12;
-                border-color:#e67e22;
-            }
-        }
-    }
+    display: inline-table;
+    height:60px;
+    table-layout: fixed;
+}
+
+table{
+    height:300px; 
+    display: -moz-groupbox;
+}
+tbody{
+    overflow-y: scroll;
+    height: 200px;
+    width: 100%;
+    position: absolute;
 }
 </style>
