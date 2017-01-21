@@ -617,7 +617,7 @@ class KursController extends AbstractActionController
 			 
 		//�berpr�fung der Dateiendung
 		 
-		$allowed_extensions=array('pdf','doc','docx','xls','xlsx');
+		$allowed_extensions=array('pdf','doc','docx','xls','xlsx', 'jpeg', 'png');
 		 
 		if(!in_array($extension, $allowed_extensions)) {
 			return new ViewModel(['meldung' => 'datentyp']);
