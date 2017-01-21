@@ -40,26 +40,49 @@ if ($message == 'erfolgt'){
 <form action="create" method="POST">
     <div class="form-group">
         <label for="kursname"> Kursname </label>
-        <input name="kursname" type="text" class="form-control" placeholder="Musterkurs" required>
+        <input name="kursname" type="text" class="form-control" placeholder="Musterkurs" value="<?php echo $kurs->getKurs_name();?>" required>
     </div>
     <div class="form-group">
         <label for="kursstart"> Kursstart </label>
-        <input name="kursstart" type="date" class="form-control" placeholder="JJJJ-MM-TT" required>
+        <input name="kursstart" type="date" class="form-control" placeholder="JJJJ-MM-TT" value="<?php echo $kurs->getKurs_start();?>" required>
     </div>
     <div class="form-group">
         <label for="kursende"> Kursende </label>
-        <input name="kursende" type="date" class="form-control" placeholder="JJJJ-MM-TT" required>
+        <input name="kursende" type="date" class="form-control" placeholder="JJJJ-MM-TT" value="<?php echo $kurs->getKurs_ende();?>" required>
     </div>
-    <div class="form-group">
-        <label for="sichtbarkeit"> Sichtbarkeit </label>
-        <select name="sichtbarkeit" class="form-control">
-			<option value= 1 >sichtbar</option>
-			<option value= 0 selected>nicht sichtbar</option>
-        </select>
-    </div>
+    
+    <?php if(isset($kurs->getSichtbarkeit())) { 
+        if($kurs->getSichtbarkeit() === 1) { ?>
+            <div class="form-group">
+                <label for="sichtbarkeit"> Sichtbarkeit </label>
+                <select name="sichtbarkeit" class="form-control">
+                                <option value= 1 >sichtbar</option>
+                                <option value= 0 selected>nicht sichtbar</option>
+                </select>
+            </div>
+        <?php }elseif($kurs->getSichtbarkeit() === 0) { ?>
+            <div class="form-group">
+                <label for="sichtbarkeit"> Sichtbarkeit </label>
+                <select name="sichtbarkeit" class="form-control">
+                                <option value= 1 >sichtbar</option>
+                                <option value= 0 selected>nicht sichtbar</option>
+                </select>
+            </div>
+        <?php } ?>
+    <?php }else { ?>
+        <div class="form-group">
+                <label for="sichtbarkeit"> Sichtbarkeit </label>
+                <select name="sichtbarkeit" class="form-control">
+                                <option value= 1 >sichtbar</option>
+                                <option value= 0 selected>nicht sichtbar</option>
+                </select>
+            </div>
+    <?php } ?>
+    
+    
     <div class="form-group">
         <label for="beschreibung"> Beschreibung </label>
-        <textarea style="resize:vertical" name="beschreibung" class="form-control" placeholder="Kursbeschreibung" required></textarea>
+        <textarea style="resize:vertical" name="beschreibung" class="form-control" placeholder="Kursbeschreibung" required><?php echo $kurs->getBeschreibung();?></textarea>
     </div>
   <button type="submit" class="btn btn-default">Kurs anlegen</button>
 </form>
