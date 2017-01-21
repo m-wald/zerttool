@@ -204,7 +204,7 @@ class KursController extends AbstractActionController
         
     	$id = $_REQUEST["kurs_id"];
         
-        //aus archivierte Kurse
+        //aus showarchivedkurse
         if($_REQUEST["archiv"] == 1) {
             $archiviert = "gesetzt";
         } else {
@@ -222,7 +222,7 @@ class KursController extends AbstractActionController
         
     	$zertladen = $kurs->loadZertifizierer();
         
-    	//Zum ändern der Kursdaten von aktuellen Kursen
+    	//Zum Ändern der Kursdaten von aktuellen Kursen
         if($_REQUEST["speichern"]) {
         	
             $start  = $_REQUEST["kursstart"];
@@ -254,7 +254,7 @@ class KursController extends AbstractActionController
             }
         }
         
-        //Zum ändern und archivieren der Kursdaten von archivierten Kursen
+        //Zum Ändern der Kursdaten von archivierten Kursen
         if($_REQUEST["übernehmen"]) {
         	
             $start  = $_REQUEST["kursstart"];
