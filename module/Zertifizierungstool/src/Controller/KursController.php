@@ -93,7 +93,7 @@ class KursController extends AbstractActionController
                     return new ViewModel(['error' => 'nichterfolgt']);
             }
 	}	
-	return new ViewModel();   
+	return new ViewModel(['kurs' => $kurs]); 
     }
     
     public function anlegentestAction()
