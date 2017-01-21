@@ -728,10 +728,10 @@ class KursController extends AbstractActionController
     		
     		if(is_writeable($path.$document)){
     			if(unlink(realpath($path.$document)))
-    					return new ViewModel(['message'=>'Document deleted!']);
-    			else 	return new ViewModel(['message'=>'Error by deleting the document!']);
+    					return new ViewModel(['message'=>'Document deleted']);
+    			else 	return new ViewModel(['message'=>'Error deleting']);
     		}
-    		else		return new ViewModel(['message'=>'Access denied!']);
+    		else		return new ViewModel(['message'=>'Access denied']);
     	
     	}
     }
