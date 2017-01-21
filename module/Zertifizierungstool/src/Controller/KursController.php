@@ -31,6 +31,8 @@ class KursController extends AbstractActionController
     		exit;
     	}
         
+        $kurs = new Kurs();
+        
         if($_SERVER['REQUEST_METHOD'] == 'POST') {
             
             $currentdate = date('Y-m-d');
@@ -42,15 +44,35 @@ class KursController extends AbstractActionController
             
             //Pr�fung, ob Kursstartdatum vor -enddatum
             if($starttimestamp > $endtimestamp){
-                return new ViewModel(['error' => 'falsedate']);
+                
+                $kurs = new Kurs(
+                        NULL,
+                        $_REQUEST["kursname"], 
+                        NULL, 
+                        NULL, 
+                        $_REQUEST["sichtbarkeit"],
+                        User::currentUser()->getBenutzername(),
+                        $_REQUEST["beschreibung"]);
+                
+                return new ViewModel(['error' => 'falsedate', 'kurs' => $kurs]);
             }
 
             //Prüfung, ob Kursende vor dem heutigem Datum 
             if($endtimestamp < $currentdatetimestamp){
-                return new ViewModel(['error' => 'endbeforecurrent']);
+                
+                $kurs = new Kurs(
+                        NULL,
+                        $_REQUEST["kursname"], 
+                        NULL, 
+                        NULL, 
+                        $_REQUEST["sichtbarkeit"],
+                        User::currentUser()->getBenutzername(),
+                        $_REQUEST["beschreibung"]);
+                
+                return new ViewModel(['error' => 'endbeforecurrent', 'kurs' => $kurs]);
             }
             
-            //Wenn Kursende vor dem Currentdate befinden 
+            //Wenn Kursende nach dem Currentdate befinden 
             if($endtimestamp > $currentdatetimestamp) {
 
                 $kurs = new Kurs(
