@@ -51,8 +51,7 @@ if ($message == 'erfolgt'){
         <input name="kursende" type="date" class="form-control" placeholder="JJJJ-MM-TT" value="<?php echo $kurs->getKurs_ende();?>" required>
     </div>
     
-    <?php if(isset($kurs->getSichtbarkeit())) { 
-        if($kurs->getSichtbarkeit() === 1) { ?>
+    <?php if($kurs->getSichtbarkeit() === 1) { ?>
             <div class="form-group">
                 <label for="sichtbarkeit"> Sichtbarkeit </label>
                 <select name="sichtbarkeit" class="form-control">
@@ -68,14 +67,13 @@ if ($message == 'erfolgt'){
                                 <option value= 0 selected>nicht sichtbar</option>
                 </select>
             </div>
-        <?php } ?>
-    <?php }else { ?>
-        <div class="form-group">
-                <label for="sichtbarkeit"> Sichtbarkeit </label>
-                <select name="sichtbarkeit" class="form-control">
+        <?php }else { ?>
+            <div class="form-group">
+                    <label for="sichtbarkeit"> Sichtbarkeit </label>
+                    <select name="sichtbarkeit" class="form-control">
                                 <option value= 1 >sichtbar</option>
                                 <option value= 0 selected>nicht sichtbar</option>
-                </select>
+                    </select>
             </div>
     <?php } ?>
     
