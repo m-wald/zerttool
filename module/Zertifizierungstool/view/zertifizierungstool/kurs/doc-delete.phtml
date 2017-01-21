@@ -6,8 +6,19 @@
 use Zertifizierungstool\Model\Kurs;
 	
 	if(isset($message)) {
-		echo $message;
+                ?>
+                <div class="alert alert-success" role="alert">
+                    <?php echo $message; ?>
+                </div>
+                <?php
 		$_SESSION['foo'] = 'delete';
 		header("refresh:2; url = /kurs/showdocuments");
-	}
+        }else { ?>
+                <div class="alert alert-danger" role="alert">
+                    <?php echo $message; ?>
+                </div>
+                <?php
+                $_SESSION['foo'] = 'delete';
+		header("refresh:2; url = /kurs/showdocuments");
+        }
  ?>
