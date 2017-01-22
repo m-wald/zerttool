@@ -176,15 +176,11 @@ class FrageController extends AbstractActionController {
 						$text_keys  = preg_grep('/^antwort_text[\d]*/',    array_keys($_REQUEST));
 						
 						
-						var_dump($_REQUEST);
+					
 						
 						foreach ($text_keys as $text_key) {
 							$key_index = substr($text_key, 12);							
-							echo '<br>Key index: ' .$key_index;
-							
-							echo '<br>Check: ' .$request["antwort_checked" .$key_index];
-							echo '<br>Id: ' .$request["antwort_id .$key_index"];
-							
+						
 							$status = 0;
 							if ($request["antwort_checked" .$key_index]) {
 								$status = 1;
@@ -202,7 +198,7 @@ class FrageController extends AbstractActionController {
 			}
 	
 			if (empty($errors)) {
-				//header ("refresh:0; url = /frage/create/" .$this->frage->getPruefungId());
+				header ("refresh:0; url = /frage/create/" .$this->frage->getPruefungId());
 			}
 		}
 		
