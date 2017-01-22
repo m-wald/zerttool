@@ -21,15 +21,10 @@ class KursController extends AbstractActionController
 {   
     public function createAction(){
     	
-    	if(User::currentUser()->getBenutzername()==NULL){
-    		header("refresh:0; url= /user/login");
-    		exit;
-    	}
-    	
-    	if(User::currentUser()->istTeilnehmer()){
+    	if(User::currentUser()->istTeilnehmer() || User::currentUser()->getBenutzername()==NULL){
     		header("refresh:0; url= /");
     		exit;
-    	}
+    	}else{
         
         $kurs = new Kurs();
         
@@ -94,6 +89,7 @@ class KursController extends AbstractActionController
             }
 	}	
 	return new ViewModel(['kurs' => $kurs]); 
+        }
     }
     
     public function anlegentestAction()
