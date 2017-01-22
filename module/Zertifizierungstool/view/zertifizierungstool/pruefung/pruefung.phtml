@@ -90,7 +90,7 @@ input[type=number]{
 				<?php
 				$i = 1;
 				foreach ($antworten as $antwort) { ?>
-				+ '<input type="hidden"   name="antwort_id<?=$i?>"   value="<?=$antwort->getId()  ?>" readonly="readonly">'
+				+ '<input type="hidden"   name="antwort_id<?=$i?>"   value="test" readonly="readonly">'
 				+ '<input type="text"     name="antwort_text<?=$i?>" value="<?=$antwort->getText()?>" required >'
 				+ '<input type="checkbox" name="antwort_checked<?=$i?>" <?php if ($antwort->getStatus() == 1) echo "checked";?>>'
 				
