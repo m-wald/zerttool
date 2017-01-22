@@ -70,13 +70,13 @@ input[type=number]{
 		$frage   = new Frage();
 		$antworten = array();
 		array_push($antworten, new Antwort());
+		$antwort = $antworten[0]; // Für TF
 		
 		if ($mode == PruefungController::editFragen) {
 			$antworten = Antwort::loadList($frageToEdit->getId());			
 			$frage = $frageToEdit;
 			
 		}
-		$antwort = $antworten[0]; // Für TF
 		?>
 
 		AntwortAnzahl     = <?=count($antworten)?>
