@@ -186,7 +186,7 @@ class FrageController extends AbstractActionController {
 								$status = 1;
 							}
 							$antwort = new Antwort(
-									$request["antwort_id .$key_index"],
+									$request["antwort_id" .$key_index],
 									$request["antwort_text" .$key_index],
 									$this->frage->getId(),
 									$status);
