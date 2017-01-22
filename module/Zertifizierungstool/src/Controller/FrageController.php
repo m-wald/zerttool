@@ -103,6 +103,7 @@ class FrageController extends AbstractActionController {
 				'fragen'	=> $fragen,
 				'antworten' => $beantwortete,
 				'schreibt_pruefung_id' => $schreibt_pruefung_id,
+				'next_id'	=> key($fragen_map)
 		]);
 	}
 	private function handleForm($request, $mode) {
@@ -174,9 +175,10 @@ class FrageController extends AbstractActionController {
 						// Alle Schlüssel aus dem Request-Array auslesen, die sich auf die Antworten beziehen
 						$text_keys  = preg_grep('/^antwort_text[\d]*/',    array_keys($_REQUEST));
 						
+						var_dump($text_keys);
+						
 						foreach ($text_keys as $text_key) {
-							$key_index = substr($text_key, 12);
-							
+							$key_index = substr($text_key, 12);							
 							echo '<br>Key index' .$key_index;
 							
 							echo '<br>Check' .$request["antwort_checked" .$key_index];
