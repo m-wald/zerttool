@@ -175,7 +175,8 @@ class FrageController extends AbstractActionController {
 						// Alle Schlüssel aus dem Request-Array auslesen, die sich auf die Antworten beziehen
 						$text_keys  = preg_grep('/^antwort_text[\d]*/',    array_keys($_REQUEST));
 						
-						var_dump($text_keys);
+						
+						var_dump($_REQUEST);
 						
 						foreach ($text_keys as $text_key) {
 							$key_index = substr($text_key, 12);							
