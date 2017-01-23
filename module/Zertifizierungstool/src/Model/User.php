@@ -249,8 +249,8 @@ class User
 			$query = "SELECT 1 FROM kurs WHERE kurs_id=".$kurs_id."
 	    				AND benutzername=".$zertifizierer.";	";
 			$result = $db->execute($query);
-			 
-			return $result;
+			if($result>0)	return true; 
+			else 			return false;
 		}
 	}
 
