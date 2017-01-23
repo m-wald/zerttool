@@ -56,7 +56,7 @@
 
                                 
                                 <?php 
-                                if(User::currentUser()->istAdmin() || User::currentUser()->istZertifizierer()) { ?>
+                                if(User::currentUser()->istAdmin() || User::currentUser()->istKursleiter($r->getKurs_id())) { ?>
 				<td> <form accept-charset="utf-8" method="POST" action="changedata">
 						<input type="hidden" value="<?=$r->getKurs_id()?>" name="kurs_id">
                                                 <button type="submit" class="btn btn-warning">

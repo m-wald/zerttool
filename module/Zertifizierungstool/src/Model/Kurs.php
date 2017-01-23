@@ -406,6 +406,8 @@ class Kurs {
             return 0;
         }
     }
+    
+   
     	
    
 

@@ -237,6 +237,22 @@ class User
 		}
 	}
 	
+	function istKursleiter($kurs_id){
+		if ($this->ist_zertifizierer==1){
+			$zertifizierer = $this->benutzername;
+		
+			$db = new Db_connection();
+			 
+			$kurs_id = $mysqli->real_escape_string($kurs_id);
+			//$zertifizierer = $mysqli->real_escape_string($zertifizierer);
+			
+			$query = "SELECT 1 FROM kurs WHERE kurs_id=".$kurs_id."
+	    				AND benutzername=".$zertifizierer.";	";
+			$result = $db->execute($query);
+			 
+			return $result;
+		}
+	}
 
 	/**
 	 * Prüft ob ein Benutzer mit dem Nutzernamen dieses Objektes in der Datenbank schon
