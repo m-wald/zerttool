@@ -97,7 +97,7 @@ class Kurs {
     	$benutzername = $mysqli->real_escape_string($benutzername);
     	
     	
-        if(User::currentUser()->istZertifizierer() && ($benutzername == NULL)){
+        if(User::currentUser()->istZertifizierer()){
         	$query = "SELECT * FROM kurs WHERE (CURRENT_DATE <= kurs_ende);";
            	// $query = "SELECT * FROM kurs WHERE benutzername = '".$benutzername."'
              //               AND (CURRENT_DATE <= kurs_ende);";
