@@ -38,9 +38,11 @@
                          ?> 
                </td>
             </tr>
-        <?php } ?>
-        
-        <tr><td>Kursleiter:</td><td><?php echo (User::load($kurs->getBenutzername())->getVorname()); echo" "; echo (User::currentUser()->getNachname());/*$kurs->getBenutzername()*/?></td></tr>
+        <?php } 
+        $user = new User();
+        $load_user = $user->load($leiter);
+        ?>
+        <tr><td>Kursleiter:</td><td><?php echo ($user->getVorname()); echo" "; echo ($user->getNachname());/*$kurs->getBenutzername()*/?></td></tr>
         <tr><td>Teilnehmeranzahl:</td><td><?=$kurs->getTeilnehmerzahl()?></td></tr> 
         <tr><td>Beschreibung:</td><td><?=$kurs->getBeschreibung()?></td></tr>
         </table>
