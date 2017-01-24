@@ -412,8 +412,8 @@ class Kurs {
     	$db = new Db_connection();
     	$mysqli = $db->getConnection();
     	
-    	$kurs_id = $mysqli->real_escape_string($_REQUEST['kurs_id']);
-    	$zertifizierer = $mysqli->real_escape_string($_REQUEST['zertifizierer']); 
+    	$kurs_id = $mysqli->real_escape_string($kurs_id);
+    	$zertifizierer = $mysqli->real_escape_string($zertifizierer); 
     	
     	$query = "SELECT 1 FROM kurs WHERE kurs_id=".$kurs_id." 
     				AND benutzername=".$zertifizierer."
