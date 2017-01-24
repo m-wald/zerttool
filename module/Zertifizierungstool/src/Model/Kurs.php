@@ -416,7 +416,7 @@ class Kurs {
     	$zertifizierer = $mysqli->real_escape_string($zertifizierer); 
     	
     	$query = "SELECT 1 FROM kurs WHERE kurs_id=".$kurs_id." 
-    				AND benutzername=".$zertifizierer."
+    				AND benutzername='".$zertifizierer."'
     			";
     	$result = $db->execute($query);
     	if(mysqli_num_rows($result) > 0){
