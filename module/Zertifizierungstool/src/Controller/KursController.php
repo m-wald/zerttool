@@ -698,7 +698,6 @@ class KursController extends AbstractActionController
         
         return new ViewModel([	'path' 			=> $path,
                                 'alldocuments' 	=> $alldocuments,
-                                'status' 		=> $status,
                                 'kursname' 		=> $name]); 
     }
     
