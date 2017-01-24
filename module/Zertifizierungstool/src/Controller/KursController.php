@@ -931,9 +931,10 @@ class KursController extends AbstractActionController
 				$page1->drawLine(280, 640, 500,640);
 				
 				$page1->setFont($font, 12);
-				$page1->drawText('Geboren am: '.User::currentUser()->getGeburtsdatum(), 280, 600);
+				$geburtstag = date('d. M Y', strtotime(User::currentUser()->getGeburtsdatum()));
+				$page1->drawText('Geboren am: '.$geburtstag, 280, 600);
 				$page1->setFont($font, 14);
-				$page1->drawText('hat erfolgreich folgender Kurs abgeschlossen:', 280, 570);
+				$page1->drawText('hat erfolgreich folgenden Kurs abgeschlossen:', 280, 570);
 				$page1->setFont($font, 25);
 				$page1->drawText($kurs_name, 280, 520); 
 				$page1->setFont($font, 14);
