@@ -4,46 +4,8 @@
     
 use Zertifizierungstool\Model\Kurs;
 use Zertifizierungstool\Model\User;
-
-if ($error == 'unabletoload') {
-    ?>
-    <div class="alert alert-danger" role="alert">
-        <p> <strong>Fehler!</strong> Kursdaten können nicht geladen werden! </p>
-    </div>
-    <?php
-}elseif ($error == 'coursealreadystarted') {
-    ?>
-    <div class="alert alert-danger" role="alert">
-        <p> <strong>Fehler!</strong> Kurszeitraum kann nicht geändert werden, da der Kurs schon begonnen hat! </p>
-    </div>
-    <?php
-}elseif ($error == 'dateerror') {
-    ?>
-    <div class="alert alert-danger" role="alert">
-        <p> <strong>Fehler!</strong> Überprüfen Sie den Start- und Enddatum des Kurses! </p>
-    </div>
-    <?php
-}elseif ($status == 'erfolgreich geändert') {
-    ?>
-    <div class="alert alert-success" role="alert">
-        <p> Kurs konnte <strong>erfolgreich</strong> geändert werden. Sie werden zu Ihren Kursen weitergeleitet. </p>
-    </div>
-    <?php
-    header("refresh:2; url = /kurs/showkurse");	
-    
-}elseif($status == 'erfolgreich übernommen') {
-    ?>
-    <div class="alert alert-success" role="alert">
-        <p> Kurs konnte <strong>erfolgreich</strong> übernommen werden </p>
-        <p> Sie werden zu Ihren Kursen weitergeleitet. </p>
-    </div>
-    <?php
-    header("refresh:2; url = /kurs/showkurse");	
-}
-//else {
-	//unset($status);
 ?>
-	
+
 <h5> Passen Sie die Kursdaten entsprechend an.</h5>
 
 <form accept-charset="utf-8" method="post" action="changedata">
@@ -102,9 +64,46 @@ if ($error == 'unabletoload') {
     <?php } ?>
         
 </form>
-    
+
 <?php
-//}
+if ($error == 'unabletoload') {
+    ?>
+    <div class="alert alert-danger" role="alert">
+        <p> <strong>Fehler!</strong> Kursdaten können nicht geladen werden! </p>
+    </div>
+    <?php
+}elseif ($error == 'coursealreadystarted') {
+    ?>
+    <div class="alert alert-danger" role="alert">
+        <p> <strong>Fehler!</strong> Kurszeitraum kann nicht geändert werden, da der Kurs schon begonnen hat! </p>
+    </div>
+    <?php
+}elseif ($error == 'dateerror') {
+    ?>
+    <div class="alert alert-danger" role="alert">
+        <p> <strong>Fehler!</strong> Überprüfen Sie den Start- und Enddatum des Kurses! </p>
+    </div>
+    <?php
+}elseif ($status == 'erfolgreich geändert') {
+    ?>
+    <div class="alert alert-success" role="alert">
+        <p> Kurs konnte <strong>erfolgreich</strong> geändert werden. Sie werden zu Ihren Kursen weitergeleitet. </p>
+    </div>
+    <?php
+    header("refresh:2; url = /kurs/showkurse");	
+    
+}elseif($status == 'erfolgreich übernommen') {
+    ?>
+    <div class="alert alert-success" role="alert">
+        <p> Kurs konnte <strong>erfolgreich</strong> übernommen werden </p>
+        <p> Sie werden zu Ihren Kursen weitergeleitet. </p>
+    </div>
+    <?php
+    header("refresh:2; url = /kurs/showkurse");	
+}
+//else {
+	//unset($status);
 ?>
+
 
 <a href="<?= $this->url('pruefung', ['action' => 'overview', 'id' => $kurs->getKurs_id()])?>"><button class="btn btn-default" type="button">Zu den Pr&uuml;fungen</button></a>
