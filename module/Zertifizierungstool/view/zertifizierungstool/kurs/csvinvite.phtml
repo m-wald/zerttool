@@ -5,10 +5,10 @@
 
 CSV-Datei ausw&auml;hlen: <input type="file" name="datei" required> <br><br>
 
-<!--  Session-Variable für Kurs wird in kursviewAction() gesetzt -->
+<!--  Session-Variable fï¿½r Kurs wird in kursviewAction() gesetzt -->
 <input type="hidden" value="<?php echo $_SESSION['kurs_id']; ?>" name='kurs_id'>
 
-<!-- wird übergeben, um der csvinviteAction() mitzuteilen, dass von dieser Seite aus zugegriffen wird -->
+<!-- wird ï¿½bergeben, um der csvinviteAction() mitzuteilen, dass von dieser Seite aus zugegriffen wird -->
 <input type="hidden" value="csvinvite" name='site'>
 
 <input type="submit" class="btn btn-default" value="Datei jetzt hochladen!">
@@ -22,21 +22,39 @@ CSV-Datei ausw&auml;hlen: <input type="file" name="datei" required> <br><br>
 <?php 
 
 if($meldung=="datentyp") {
-	echo "<b><font color='red'>Es sind nur CSV-Dateien erlaubt!</font></b>";
+    ?>
+    <div class="alert alert-danger" role="alert">
+        <p> Es sind nur CSV-Dateien erlaubt!</p>
+    </div>
+    <?php
+    //echo "<b><font color='red'>Es sind nur CSV-Dateien erlaubt!</font></b>";
 }
 
 if($meldung=="dateigroesse") {
-	echo "<b><font color='red'>Dateigr&ouml;sse von 2 MB darf nicht &uuml;berschritten werden!</font></b>";
+    ?>
+    <div class="alert alert-danger" role="alert">
+        <p> Dateigr&ouml;sse von 2 MB darf nicht &uuml;berschritten werden!</p>
+    </div>
+    <?php
+    //echo "<b><font color='red'>Dateigr&ouml;sse von 2 MB darf nicht &uuml;berschritten werden!</font></b>";
 }
 
 if($meldung=="erfolgreich") {
-	echo "<h3><font color = 'green'>Upload der Datei war erfolgreich!</font></h3><br>";
-	
-		
-	}
+    ?>
+    <div class="alert alert-success" role="alert">
+        <p> Upload der Datei war erfolgreich!</p>
+    </div>
+    <?php
+    //echo "<h3><font color = 'green'>Upload der Datei war erfolgreich!</font></h3><br>";		
+}
 	
 if(!empty($fehler)) {
-	echo "<b><font color = 'red'>Es wurde keine Einladung an folgende E-Mail-Adressen versendet, da bereits eine Einladung zum angegebenen Kurs existiert: </font></b><br><br>";
+    ?>
+    <div class="alert alert-danger" role="alert">
+        <p> Es wurde keine Einladung an folgende E-Mail-Adressen versendet, da bereits eine Einladung zum angegebenen Kurs existiert: </p>
+    
+    <?php
+    //echo "<b><font color = 'red'>Es wurde keine Einladung an folgende E-Mail-Adressen versendet, da bereits eine Einladung zum angegebenen Kurs existiert: </font></b><br><br>";
 		
 	
 ?>
@@ -50,8 +68,9 @@ if(!empty($fehler)) {
 		<tr><td><?php echo $f[0];?></td></tr>
 		
 	<?php }?>
-	</table>		
-<?php 	
+	</table>
+    </div>
+<?php 	  
 }
 ?>
 <br><br>
@@ -59,7 +78,12 @@ if(!empty($fehler)) {
 
 <?php 
 if(!empty($falsetype)){
-	echo "<b><font color = 'red'>Datensatz in CSV-Datei fehlerhaft bzw. keine E-Mail-Adresse! Es wurde keine E-Mail f&uuml;r folgende Werte generiert:</font></b><br><br>";
+    ?>
+    <div class="alert alert-danger" role="alert">
+        <p> Dateigr&ouml;sse von 2 MB darf nicht &uuml;berschritten werden!</p>
+    
+    <?php
+    //echo "<b><font color = 'red'>Datensatz in CSV-Datei fehlerhaft bzw. keine E-Mail-Adresse! Es wurde keine E-Mail f&uuml;r folgende Werte generiert:</font></b><br><br>";
 	
 	?>
 	<table>
@@ -74,7 +98,8 @@ if(!empty($falsetype)){
 								echo $ft[$i]." ";}?></td></tr>
 			
 		
-		</table>		
+		</table>
+    </div>
 	<?php 	
 }}
 	?>
