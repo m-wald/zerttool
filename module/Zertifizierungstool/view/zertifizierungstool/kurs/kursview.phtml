@@ -40,8 +40,8 @@
             </tr>
         <?php } ?>
         
-        <tr><td>Kursleiter:</td><td><?=$kurs->getBenutzername()?></td></tr>
-        <tr><td>Teilnehmeranzahl:</td><td><?=$kurs->getTeilnehmerzahl()?></td></tr>
+        <tr><td>Kursleiter:</td><td><?php User::currentUser()->getVorname(); echo" "; User::currentUser()->getNachname();/*$kurs->getBenutzername()*/?></td></tr>
+        <tr><td>Teilnehmeranzahl:</td><td><?=$kurs->getTeilnehmerzahl()?></td></tr> 
         <tr><td>Beschreibung:</td><td><?=$kurs->getBeschreibung()?></td></tr>
         </table>
         
