@@ -4,37 +4,60 @@
 <?php 
 
 if($meldung=="erfolgreich"){
-	
-	echo "<b><font color='green'>Sie wurden erfolgreich in den Kurs eingetragen!</font></b>";
-	
-	
+	?>
+        <div class="alert alert-success" role="alert">
+            <p> Sie wurden <strong>erfolgreich</strong> in den Kurs eingetragen! </p>
+        </div>
+        <?php
+	//echo "<b><font color='green'>Sie wurden erfolgreich in den Kurs eingetragen!</font></b>";
+
 	header("refresh:2; url= /kurs/kursview?kurs_id=".$_SESSION['kurs']);
 }
 
 if($meldung=="falseuser"){
-	
-	echo "<b><font color='red'>Falscher Account!! Bitte loggen Sie sich aus und klicken Sie erneut auf den erhaltenen Link!";
+	?>
+        <div class="alert alert-danger" role="alert">
+            <p> <strong>Falscher Account!</strong> Bitte loggen Sie sich aus und klicken Sie erneut auf den erhaltenen Link!</p>
+        </div>
+        <?php
+	//echo "<b><font color='red'>Falscher Account!! Bitte loggen Sie sich aus und klicken Sie erneut auf den erhaltenen Link!";
 }
 
 if($meldung=="datenbankfehler"){
-
-	echo "<b><font color='red'>Daten konnten aufgrund eines Datenbankfehlers nicht eingetragen werden! Bitte versuchen Sie es erneut!";
+        ?>
+        <div class="alert alert-danger" role="alert">
+            <p> Daten konnten aufgrund eines Datenbankfehlers nicht eingetragen werden! Bitte versuchen Sie es erneut!</p>
+        </div>
+        <?php
+	//echo "<b><font color='red'>Daten konnten aufgrund eines Datenbankfehlers nicht eingetragen werden! Bitte versuchen Sie es erneut!";
 }
 
 if($meldung=="alreadyexists"){
-
-	echo "<b><font color='red'>Sie sind bereits im Kurs eingetragen!";
+        ?>
+        <div class="alert alert-danger" role="alert">
+            <p> Sie sind bereits im Kurs eingetragen!</p>
+        </div>
+        <?php
+	//echo "<b><font color='red'>Sie sind bereits im Kurs eingetragen!";
 }
 
 if($meldung=="dateerror") {
-	
-	echo "<b><font color='red'>Kurs ist bereits abgelaufen!";
+	?>
+        <div class="alert alert-danger" role="alert">
+            <p> Kurs ist bereits abgelaufen!</p>
+        </div>
+        <?php
+	//echo "<b><font color='red'>Kurs ist bereits abgelaufen!";
 	header("refresh:2; url = /kurs/showkurse");
 }
 
 if($meldung=="datefuture") {
-
-	echo "<b><font color='red'>Kurs startet in der Zukunft!";
+        ?>
+        <div class="alert alert-danger" role="alert">
+            <p> Kurs startet in der Zukunft!</p>
+        </div>
+        <?php
+	//echo "<b><font color='red'>Kurs startet in der Zukunft!";
 	header("refresh:2; url = /kurs/showkurse");
 }
 
