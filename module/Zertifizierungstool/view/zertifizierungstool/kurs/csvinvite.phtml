@@ -80,7 +80,7 @@ if(!empty($fehler)) {
 if(!empty($falsetype)){
     ?>
     <div class="alert alert-danger" role="alert">
-        <p> Dateigr&ouml;sse von 2 MB darf nicht &uuml;berschritten werden!</p>
+        <p> Datensatz in CSV-Datei fehlerhaft bzw. keine E-Mail-Adresse! Es wurde keine E-Mail f&uuml;r folgende Werte generiert:</p>
     
     <?php
     //echo "<b><font color = 'red'>Datensatz in CSV-Datei fehlerhaft bzw. keine E-Mail-Adresse! Es wurde keine E-Mail f&uuml;r folgende Werte generiert:</font></b><br><br>";
@@ -99,9 +99,12 @@ if(!empty($falsetype)){
 			
 		
 		</table>
-    </div>
+    
 	<?php 	
-}}
+} ?>
+    </div>
+    <?php
+}
 	?>
 	<br><br>
 
