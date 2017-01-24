@@ -41,8 +41,8 @@ if($meldung=="dateigroesse") {
 
 if(!empty($success)) {
     ?>
-    <div style= "height:500px; overflow-y:scroll" class="alert alert-success" role="alert">
-        <p> An folgende E-Mail-Adressen wurde eine Einladung versendet:</p>
+    <div style= "height:100px; overflow-y:auto" class="alert alert-success" role="alert">
+        <p> An folgende E-Mail-Adressen wurde eine Einladung versendet:</p><br>
     
     <?php 
     //echo "<h3><font color = 'green'>Upload der Datei war erfolgreich!</font></h3><br>";	
@@ -66,7 +66,7 @@ if(!empty($success)) {
 if(!empty($fehler)) {
     ?>
     <div class="alert alert-danger" role="alert">
-        <p> Es wurde keine Einladung an folgende E-Mail-Adressen versendet, da bereits eine Einladung zum angegebenen Kurs existiert: </p>
+        <p> Es wurde keine Einladung an folgende E-Mail-Adressen versendet, da bereits eine Einladung zum angegebenen Kurs existiert: </p><br>
     
     <?php
     //echo "<b><font color = 'red'>Es wurde keine Einladung an folgende E-Mail-Adressen versendet, da bereits eine Einladung zum angegebenen Kurs existiert: </font></b><br><br>";
@@ -95,7 +95,7 @@ if(!empty($fehler)) {
 if(!empty($falsetype)){
     ?>
     <div class="alert alert-danger" role="alert">
-        <p> Datensatz in CSV-Datei fehlerhaft bzw. keine E-Mail-Adresse! Es wurde keine E-Mail f&uuml;r folgende Werte generiert:</p>
+        <p> Datensatz in CSV-Datei fehlerhaft bzw. keine E-Mail-Adresse! Es wurde keine E-Mail f&uuml;r folgende Werte generiert:</p><br>
     
     <?php
     //echo "<b><font color = 'red'>Datensatz in CSV-Datei fehlerhaft bzw. keine E-Mail-Adresse! Es wurde keine E-Mail f&uuml;r folgende Werte generiert:</font></b><br><br>";
