@@ -418,8 +418,11 @@ class Kurs {
     				AND benutzername=".$zertifizierer."
     			";
     	$result = $db->execute($query);
-    	
-    	return $result;
+    	if(mysqli_num_rows($result) > 0){
+    		return true;
+    	} else {
+    		return false;
+    	}
     }
     	
    
