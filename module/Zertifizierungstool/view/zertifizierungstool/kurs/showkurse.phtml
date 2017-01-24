@@ -56,7 +56,7 @@
 
                                 
                                 <?php 
-                                //$kurs = new Kurs();
+                               
                                 if(User::currentUser()->istAdmin() || $r->istKursleiter(User::currentUser()->getBenutzername(), $r->getKurs_id())) { ?>
 				<td> <form accept-charset="utf-8" method="POST" action="changedata">
 						<input type="hidden" value="<?=$r->getKurs_id()?>" name="kurs_id">
@@ -65,7 +65,10 @@
                                                 </button>  
                                      </form> 
                                 </td>
-                                <?php } ?>
+                                <?php } 
+                                else ?>
+                                <td></td>
+
 					
                                 <td> <form accept-charset="utf-8" method="POST" action="kursview">
 						<input type="hidden" value="<?=$r->getKurs_id()?>" name="kurs_id">
