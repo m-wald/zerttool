@@ -75,8 +75,8 @@ class UserController extends AbstractActionController
 			//Überprüfung ob Passwort und bestätigtes Passwort übereinstimmen
 			if ($_REQUEST['passwort']==$_REQUEST['passwort2']) {
 				$currentdate = date('Y-m-d');
-				if(strtotime($_REQUEST["geburtsdatum"])!=false && (strtotime($_REQUEST["geburtsdatum"])<=strtotime($currentdate))) {
-					
+				if(strtotime($_REQUEST["geburtsdatum"])!=false) {
+					//&& (strtotime($_REQUEST["geburtsdatum"])<=strtotime($currentdate))
 					
 					//Bei Registrierung über invite, wird ein angepasster Registrierungslink
 					//generiert (Kurs_id wird mit übergeben) 
