@@ -66,8 +66,9 @@
                                      </form> 
                                 </td>
                                 <?php } 
-                                elseif(!$r->istKursleiter(User::currentUser()->getBenutzername(), $r->getKurs_id()))?>
-                                <td></td>
+                                elseif(User::currentUser()->istZertifizierer() && !$r->istKursleiter(User::currentUser()->getBenutzername(), $r->getKurs_id())) {?>
+                                <td> </td>
+                                <?php }?>
 
 					
                                 <td> <form accept-charset="utf-8" method="POST" action="kursview">
