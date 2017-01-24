@@ -39,13 +39,26 @@ if($meldung=="dateigroesse") {
     //echo "<b><font color='red'>Dateigr&ouml;sse von 2 MB darf nicht &uuml;berschritten werden!</font></b>";
 }
 
-if($meldung=="erfolgreich") {
+if(!empty($success)) {
     ?>
-    <div class="alert alert-success" role="alert">
-        <p> Upload der Datei war erfolgreich!</p>
-    </div>
+    <div style= "height:500px; overflow-y:scroll" class="alert alert-success" role="alert">
+        <p> An folgende E-Mail-Adressen wurde eine Einladung versendet:</p>
+    
+    <?php 
+    //echo "<h3><font color = 'green'>Upload der Datei war erfolgreich!</font></h3><br>";	
+    ?>
+    <table>
+    <tr><th width="300"><b>Email</b></th></tr>
     <?php
-    //echo "<h3><font color = 'green'>Upload der Datei war erfolgreich!</font></h3><br>";		
+    
+    foreach($success as $s) {
+    	?>
+    		
+    		<tr><td><?php echo $s[0];?></td></tr>
+    		
+    	<?php }?>
+    	</table>
+    	</div>
 }
 	
 if(!empty($fehler)) {

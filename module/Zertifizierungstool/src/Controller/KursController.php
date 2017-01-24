@@ -414,6 +414,8 @@ class KursController extends AbstractActionController
    			$i=0;
    			$falsetype=array();
    			$j=0;
+   			$success=array();
+   			$k=0;
    			if (($handle = fopen($new_path, "r")) !== FALSE) {
    				while (($data = fgetcsv($handle, 1000,";")) !== FALSE) {
    					
@@ -445,6 +447,8 @@ class KursController extends AbstractActionController
    				   		}
    				   		else {
    				   			$csv->inviteMail($data[0], $_SESSION['kurs_id']);
+   				   			$success[$k]=$data;
+   				   			$k++;
    				   		}
    				   				
    					}
@@ -452,7 +456,7 @@ class KursController extends AbstractActionController
    				fclose($handle);
    			}
    			
-   			return new ViewModel(['meldung' => 'erfolgreich','fehler' =>$nomail, 'falsetype'=>$falsetype]);
+   			return new ViewModel(['success'=>$success, 'fehler' =>$nomail, 'falsetype'=>$falsetype]);
    			}
    			
    	  	elseif(!empty($_SESSION['kurs_id'])){
