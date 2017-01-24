@@ -410,6 +410,7 @@ class Kurs {
     
     function istKursleiter($zertifizierer, $kurs_id){
     	$db = new Db_connection();
+    	$mysqli = $db->getConnection();
     	
     	$kurs_id = $mysqli->real_escape_string($_REQUEST['kurs_id']);
     	$zertifizierer = $mysqli->real_escape_string($_REQUEST['zertifizierer']); 
