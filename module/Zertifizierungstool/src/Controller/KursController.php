@@ -123,7 +123,7 @@ class KursController extends AbstractActionController
          * 		Dann kann er ja theorethisch auch Kurse haben, in denen er Kursleiter ist
          */
         if(User::currentUser()->istZertifizierer()){
-            $kurseladen = $kurs->loadKurse(User::currentUser()->getBenutzername());
+            $kurseladen = $kurs->loadKurse(NULL);//(User::currentUser()->getBenutzername());
         }elseif((User::currentUser()->istTeilnehmer()) || (User::currentUser()->istAdmin())){
             $kurseladen = $kurs->loadKurse(NULL);
         }
