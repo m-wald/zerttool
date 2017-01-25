@@ -352,7 +352,8 @@ class Kurs {
     
     /**
      * Prï¿½ft anhand des aktuellen Datums, ob das Kurs_Ende erreicht wurde.
-     * @return true falls noch aktiv, false falls nicht
+     * @return 2 falls der Kurs erst in der Zukunft anfängt
+     * @return 1 falls der Kurs noch aktiv, false falls nicht
      */
     public function active($kurs_id) {
     	$db = new Db_connection();

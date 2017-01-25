@@ -183,6 +183,27 @@ class SchreibtPruefung {
 		return $row['anzahl'];
 	}
 	
+	/*
+	 * Gibt zurück Datum von der letzten bestandenen Prüfung in einem Kurs
+	 */
+	public function lastExam($benutzername, $kurs_id){
+		$db = new Db_connection();
+		$query = "SELECT zeitpunkt FROM schreibt_pruefung
+					WHERE zeitpunkt IN (SELECT MAX(zeitpunkt) FROM schreibt_pruefung
+					JOIN pruefung USING (pruefung_id)
+					WHERE benutzername = '".$benutzername."' AND kurs_id = ".$kurs_id.")
+				";
+		$result = $db->execute($query);
+		if(!$result || mysqli_num_rows($result) != 1) {
+			// Fehler bei der Datenbankabfrage oder keine Frage mit der Id gefunden
+			return false;
+		}
+		$row = mysqli_fetch_assoc($result);
+		
+		return $row['zeitpunkt'];
+		
+	}
+	
 	public function getId() { return $this->id; }
 	public function getPruefungId() { return $this->pruefung_id; }
 	public function getBenutzername() { return $this->benutzername; }
