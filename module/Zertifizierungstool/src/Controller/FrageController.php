@@ -89,9 +89,9 @@ class FrageController extends AbstractActionController {
 					$key_index = substr($id_key, 10);
 
 					if ($_REQUEST['check' .$key_index]) {
-						$success = Beantwortet::setTrue($schreibt_pruefung_id, $request[$id_key]);
+						$success = Beantwortet::setTrue($schreibt_pruefung_id, $_REQUEST[$id_key]);
 					} else {
-						$success = Beantwortet::setFalse($schreibt_pruefung_id, $request[$id_key]);
+						$success = Beantwortet::setFalse($schreibt_pruefung_id, $_REQUEST[$id_key]);
 					}
 				}
 			}
