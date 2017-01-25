@@ -31,7 +31,7 @@
 	<form>
 	<?php 
 		echo $frage->getText();
-		echo '<br>Punkte: ' .$frage->getPunkte();
+		echo '<br>Punkte: ' .$frage->getPunkte() .'<br>';
 		
 		if ($frage->getTyp() == 'TF') {?>
 			<input type="hidden" name="typ" value="TF" >
@@ -39,15 +39,15 @@
 			<input type="radio"  name="tf" value="true"  <?php if ($antworten[0]['status'] == 1) echo "checked";?>> Wahr<br>
 			<input type="radio"  name="tf" value="false" <?php if ($antworten[0]['status'] == 0) echo "checked";?>> Falsch<br>
 			
-			
-		
 		<?php }else {
 			echo '<table><input type="hidden" name="typ" value="MC">';
-			foreach ($antworten as $antwort) {?>
+			for ($i = 0; $i < count($antworten); $i++) { ?>
 				<tr>
-				<td><br><?php echo $antwort['antwort']->getText();?>
-				<td><input type="checkbox" name="check<?=$antwort['antwort']->getId()?>" <?php if ($antwort['status'] == 1) echo "checked";?>>
+				<td><?php echo $antwort['antwort']->getText();?>
+				<td><input type="checkbox" name="check<?=$antwort[$i]['antwort']->getId()?>" <?php if ($antwort[$i]['status'] == 1) echo "checked";?>>
 				</tr>
+			}
+				
 		<?php	
 			} echo '</table>'; }
 		?>
