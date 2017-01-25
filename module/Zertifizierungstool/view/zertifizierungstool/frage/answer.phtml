@@ -43,8 +43,8 @@
 			echo '<table><input type="hidden" name="typ" value="MC">';
 			for ($i = 0; $i < count($antworten); $i++) { ?>
 				<tr>
-				<td><?php echo $antwort['antwort']->getText();?>
-				<td><input type="checkbox" name="check<?=$antwort[$i]['antwort']->getId()?>" <?php if ($antwort[$i]['status'] == 1) echo "checked";?>>
+				<td><?php echo $antworten[$i]['antwort']->getText();?>
+				<td><input type="checkbox" name="check<?=$antworten[$i]['antwort']->getId()?>" <?php if ($antworten[$i]['status'] == 1) echo "checked";?>>
 				</tr>
 			}
 				
