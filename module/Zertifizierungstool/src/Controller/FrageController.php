@@ -83,11 +83,15 @@ class FrageController extends AbstractActionController {
 				}
 				
 			} else {
-				foreach ($antworten as $antwort) {
-					if ($_REQUEST['check' .$antwort->getId()]) {
-						$success = Beantwortet::setTrue($schreibt_pruefung_id, $antwort->getId());
+				$id_keys  = preg_grep('/^antwort_id[\d]*/',    array_keys($_REQUEST));
+				
+				foreach ($id_keys as $id_key) {
+					$key_index = substr($id_key, 10);
+
+					if ($_REQUEST['check' .$key_index]) {
+						$success = Beantwortet::setTrue($schreibt_pruefung_id, $request["antwort_id" .$key_index]);
 					} else {
-						$success = Beantwortet::setFalse($schreibt_pruefung_id, $antwort->getId());
+						$success = Beantwortet::setFalse($schreibt_pruefung_id, $request["antwort_id" .$key_index]);
 					}
 				}
 			}
@@ -174,9 +178,6 @@ class FrageController extends AbstractActionController {
 					case "MC":
 						// Alle Schlüssel aus dem Request-Array auslesen, die sich auf die Antworten beziehen
 						$text_keys  = preg_grep('/^antwort_text[\d]*/',    array_keys($_REQUEST));
-						
-						
-					
 						
 						foreach ($text_keys as $text_key) {
 							$key_index = substr($text_key, 12);							
