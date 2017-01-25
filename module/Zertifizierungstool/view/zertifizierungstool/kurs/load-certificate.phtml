@@ -1,0 +1,87 @@
+<?php 
+
+if(isset($message)){
+
+if ($message == 'success') {
+	header("refresh:0; url = /kurs/showkurse");
+        exit;
+}
+elseif ($message == 'error') {
+	echo "Ein Fehler ist aufgetretten beim erstellen von PDF Datei!";
+	header("refresh:2; url = /kurs/showkurse");
+        exit;
+}
+
+elseif($message == 'access_error'){
+	echo "Sie haben den Kurs noch nicht absolviert!";
+	header("refresh:2; url = /kurs/kursview");
+        exit;
+}
+}
+
+
+//if(isset($_POST['pdflist'])) {
+	
+	
+	
+	
+
+?>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+
+<form method="post" action="showsignedkurse">
+<input type="submit" value="zur&uuml;ck zu meinen Kursen">
+
+</form>
+
+    <div class="container">
+    	<h3>Erworbene Leistungen: </h3>
+            <table class="table table-hover">
+        
+        <tr>
+        	<th> KursID </th>
+			<th> KursName </th>
+			<th> Zertifikat</th>
+			
+		</tr>
+		
+		<?php
+		if($list == null){
+		?>
+			<tr>
+				<td>Sie haben noch keine Leistungen erworben!</td>
+			</tr>	
+		<?php 
+		}
+		else {
+			foreach($list as $row){ ?>
+			<tr>
+				<td><?=$row->getKurs_id()?></td>
+				<td><?=$row->getKurs_name()?></td>
+				
+                                
+                                					
+			<td> <form accept-charset="utf-8" method="POST" action="loadCertificate">
+						<input type="hidden" value="pdf" name='pdf'>
+						<input type="hidden" value="<?=$row->getKurs_name()?>"name="kurs_name">
+						<input type="hidden" value="<?=$row->getKurs_id()?>"name="kurs_id">
+						<button type="submit" class="btn btn-info">
+                                                        <span class="glyphicon glyphicon-download-alt"></span>
+                                                </button>
+					</form> </td>
+			
+			</tr>
+		<?php 
+			}
+			}
+			?>
+		
+		</table>
+
+    </div>
+</body>
