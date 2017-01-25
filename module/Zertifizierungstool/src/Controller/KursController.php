@@ -954,7 +954,7 @@ class KursController extends AbstractActionController
 							
 				$schreibt_pruefung = new SchreibtPruefung();
 				$page1->setFont($font, 12);
-				$page1->drawText('Passau, den '.date('d. M Y', strtotime($schreibt_pruefung->lastExam())), 280, 350);
+				$page1->drawText('Passau, den '.date('d. M Y', strtotime($schreibt_pruefung->lastExam(User::currentUser()->getBenutzername(), $kurs_id))), 280, 350);
 				$page1->drawLine(280, 340, 420, 340);
 				
 				$image = Image::imageWithPath('data/img/sign.jpg');
