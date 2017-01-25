@@ -26,12 +26,15 @@
 		</tr>
 		
 		<?php 
-			foreach($result as $r){ ?>
+			foreach($result as $r){ 
+		        $user = new User();
+		        $load_user = $user->load($r->getBenutzername());
+		        ?>
 			<tr>
 				<td><?=$r->getKurs_name()?></td>
 				<td><?=$r->getKurs_start()?></td>
 				<td><?=$r->getKurs_ende()?></td>
-                                <td><?=$r->getBenutzername()?></td>
+                                <td><?php echo ($user->getVorname()); echo" "; echo ($user->getNachname());?></td>
                                 <td> <form accept-charset="utf-8" method="POST" action="kursview">
                                         <input type="hidden" value="<?=$r->getKurs_id()?>" name="kurs_id">
                                         <input size="70" maxlength="250" value="anzeigen" type="submit">
