@@ -72,6 +72,11 @@ class FrageController extends AbstractActionController {
 			}
 		}
 		
+		// Test
+		var_dump($fragen_map);
+		echo '<br>Current id = ' .$current_question;
+		echo '<br>next_id = ' .key($fragen_map);
+		
 		
 		// Nachdem Formular angesendet wurde:
 		if ($_REQUEST['speichern']) {
