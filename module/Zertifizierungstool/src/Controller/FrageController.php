@@ -73,12 +73,6 @@ class FrageController extends AbstractActionController {
 			reset($fragen_map);
 		}
 		
-		
-		// Test
-		echo '<br>Current id = ' .$current_question;
-		echo '<br>next_id = ' .key($fragen_map);
-		
-		
 		// Nachdem Formular angesendet wurde:
 		if ($_REQUEST['speichern']) {
 			if ($_REQUEST['typ'] == 'TF') {
@@ -99,7 +93,7 @@ class FrageController extends AbstractActionController {
 			}
 			
 			if ($success) {
-				header ("refresh:0; url = /frage/answer/" .$schreibt_pruefung_id .'?next_id=' .key($fragen_map));
+				//header ("refresh:0; url = /frage/answer/" .$schreibt_pruefung_id .'?next_id=' .key($fragen_map));
 			}
 			
 		}
