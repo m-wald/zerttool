@@ -1,5 +1,7 @@
 <?php
 use Zertifizierungstool\Model\User;
+use Zertifizierungstool\Model\SchreibtPruefung;
+$last_try = new SchreibtPruefung();
 ?>
 <div class="container">
 <table class="table table-hover">
@@ -20,10 +22,17 @@ use Zertifizierungstool\Model\User;
 		<td><a href="<?= $this->url('pruefung', ['action' => 'edit',   'id' => $pruefung->getId()])?>"><button type="button" class="btn btn-warning"><span class="glyphicon glyphicon-edit"></span></button></a></td>
 		<td><a href="<?= $this->url('pruefung', ['action' => 'delete', 'id' => $pruefung->getId()])?>"><button type="button" class="btn btn-warning">Löschen</button></a></td>
 		</tr>
-	<?php }elseif (strtotime($pruefung->getTermin()) <= time() && (User::currentUser()->istAdmin() || User::currentUser()->istTeilnehmer())) {?>
-		<td><a href="<?= $this->url('pruefung', ['action' => 'take', 'id' => $pruefung->getId()])?>"><button type="button">Absolvieren</button></a></td>
-		</tr>
-	<?php }}?>
+			
+	<?php
+	} elseif (User::currentUser()->istAdmin() || User::currentUser()->istTeilnehmer()) {
+	$last_try->loadLastTry($pruefung->getId());
+		if ($last_try->getBestanden()) {
+			echo '<td align="center"><span class="glyphicon glyphicon-ok"></span></td></tr>';
+		} elseif (strtotime($pruefung->getTermin()) <= time()) { ?>
+			<td><a href="<?= $this->url('pruefung', ['action' => 'take', 'id' => $pruefung->getId()])?>"><button type="button">Absolvieren</button></a></td>
+			</tr>
+	<?php 
+		}}}?>
 </table>
 <br>
 
