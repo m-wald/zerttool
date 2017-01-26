@@ -550,6 +550,7 @@ class KursController extends AbstractActionController
    	
    	    	$benutzer_kurs=new Benutzer_Kurs();
    	    	$result = $benutzer_kurs->insert($_REQUEST['benutzername'], $_REQUEST['kurs_id']);
+   	    	$_SESSION['kurs']=$_REQUEST['kurs_id'];
    	    	
    	if($result == 1){
    	    	return new ViewModel(['meldung'=> 'erfolgreich']);
