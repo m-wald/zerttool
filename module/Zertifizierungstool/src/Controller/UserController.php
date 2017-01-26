@@ -16,18 +16,6 @@ use Zertifizierungstool\Model\User;
  */
 class UserController extends AbstractActionController
 {
-	
-	/*public function loginAction() {
-		// Daten aus Request holen
-		$benutzername = "waldma";
-		$passwort	  = "12345"; 
-		
-		
-		$result = Auth::authenticate($benutzername, $passwort); 
-				
-	} */
-	
-	
 	/**
 	 * Author: Michael´s
 	 * Registrierung eines Benutzers. Admin kann Admin, Zertifizierer und Teilnehmer anlegen.

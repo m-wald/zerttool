@@ -198,7 +198,10 @@ class PruefungController extends AbstractActionController {
 					$request["kursid"],
 					$request["cutscore"] / 100 );
 		
-			// TODO Format des Prüfungstermins überprüfen
+			// Format des Prüfungstermins überprüfen
+			if (strtotime($this->pruefung->getTermin())!=false) {
+				array_push($errors, "Ung&uuml;ltiges Datums-Format beim Pr&uuml;fungstermin!");
+			}
 			// Prüfungstermin validieren -> Muss nach Kursbeginn und mind. 4 Tage vor Kursende liegen
 			$kurs = new Kurs();
 		
@@ -245,11 +248,6 @@ class PruefungController extends AbstractActionController {
 	 * @return \Zend\View\Model\ViewModel
 	 */
 	public function createAction() {
-		if (!User::currentUser()->istAdmin() && !User::currentUser()->istZertifizierer()) {
-			header ("refresh:0; url = /");
-			exit;
-		}
-		
 		if (empty($_REQUEST["kursid"])) {
 			$newKursid = $this->params()->fromRoute('id');	
 		}else {
@@ -262,7 +260,7 @@ class PruefungController extends AbstractActionController {
 		$kurs = new Kurs();
 		$kurs->load($this->pruefung->getKursId());
 		
-		if (!$kurs->getBenutzername() == User::currentUser()->getBenutzername()) {
+		if (!User::currentUser()->istAdmin() && !$kurs->getBenutzername() == User::currentUser()->getBenutzername()) {
 			header ("refresh:0; url = /");
 			exit;
 		}
@@ -275,11 +273,6 @@ class PruefungController extends AbstractActionController {
 	 * @return \Zend\View\Model\ViewModel
 	 */
 	public function editAction() {
-		if (!User::currentUser()->istAdmin() && !User::currentUser()->istZertifizierer()) {
-			header ("refresh:0; url = /");
-			exit;
-		}
-		
 		if (empty($_REQUEST["pruefid"])) {
 			$pruefung_id = $this->params()->fromRoute('id');
 		}else {
@@ -292,12 +285,12 @@ class PruefungController extends AbstractActionController {
 		$kurs = new Kurs();
 		$kurs->load($this->pruefung->getKursId());
 		
-		if (!$kurs->getBenutzername() == User::currentUser()->getBenutzername()) {
+		if (!User::currentUser()->istAdmin() && !$kurs->getBenutzername() == User::currentUser()->getBenutzername()) {
 			header ("refresh:0; url = /");
 			exit;
 		}
 		
-		if ($this->pruefung->getTermin() <= time()) {
+		if (strtotime($this->pruefung->getTermin()) <= time()) {
 			header ("refresh:0; url = /");
 		}
 		
@@ -348,11 +341,42 @@ class PruefungController extends AbstractActionController {
 	 */
 	public function overviewAction() {
 		$kursid = $this->params()->fromRoute('id');
-		$pruefungen = Pruefung::loadList($kursid);
 		
-		if ($pruefungen == false) {
-			// Fehler
+		$kurs = new Kurs();
+		$kurs->load($kursid);
+		
+		$benutzer_kurs = new Benutzer_Kurs();
+		// User muss Admin sein
+		// oder Zertifizierer und Kursleiter
+		// oder Teilnehmer und eingetragen im Kurs
+		if (User::currentUser()->istAdmin() || (User::currentUser()->istZertifizierer() && $kurs->getBenutzername() == User::currentUser()->getBenutzername())) {
+			$pruefungen = Pruefung::loadList($kursid);
+			if ($pruefungen == false) {
+				// Fehler oder leer
+			}
+		} elseif (User::currentUser()->istTeilnehmer() && $benutzer_kurs->alreadyexist(User::currentUser()->getBenutzername(), $kursid)) {
+			$pruefungen = Pruefung::loadList($kursid);
+			if ($pruefungen == false) {
+				// Fehler oder leer
+			}
+			
+			$last_try = new SchreibtPruefung();
+			
+			do {
+				$last_try->loadLastTry(current($pruefungen)->getId());
+				if ($last_try->getBestanden()) {
+					unset($pruefungen[key(current($pruefungen))]);
+				}
+				
+			} while (next($pruefungen));
+		} else {
+			// Keine Berechtigung
+			header ("refresh:0; url = /");
 		}
+		
+		
+		
+		
 		
 		return new ViewModel([
 				'pruefungen' => $pruefungen,
