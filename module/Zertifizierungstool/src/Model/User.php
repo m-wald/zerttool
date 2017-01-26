@@ -85,7 +85,7 @@ class User
 		
 		$benutzername = $mysqli->real_escape_string($benutzername);
 		
-		$query = "SELECT * FROM benutzer where benutzername='".$benutzername."';";
+		$query = "SELECT * FROM benutzer where binary benutzername='".$benutzername."';";
 		
 		$result = $db->execute($query);
 		$return_array = array();
