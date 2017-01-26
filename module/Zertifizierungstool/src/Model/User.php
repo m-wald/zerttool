@@ -248,7 +248,7 @@ class User
 	public function alreadyExist() {
 		$db = new Db_connection();
 		
-		$query = "Select * from benutzer where binary benutzername='".$this->benutzername."';";
+		$query = "Select * from benutzer where benutzername='".$this->benutzername."';";
 		$result = $db->execute($query);
 		if (mysqli_num_rows($result) == 0) {
 			return false;
