@@ -235,12 +235,24 @@ class FrageController extends AbstractActionController {
 
 	
 	public function deleteAction() {
-		// TODO Berechtigungsprüfungen
-		// TODO Prüfen ob Prüfungstermin schon erreicht ist
-		// Die Prüfung kann dann nicht mehr bearbeitet werden
 		$frage_id_toDelete = $this->params()->fromRoute('id');
 		$frage = new Frage();
 		$frage->load($frage_id_toDelete);
+		
+		$pruefung = new Pruefung();
+		$pruefung->load($frage->getPruefungId());
+		
+		if ($pruefung->getTermin() <= time()) {
+			header ("refresh:0; url = /");
+		}
+		
+		$kurs = new Kurs();
+		$kurs->load($pruefung->getKursId());
+		
+		if (!$kurs->getBenutzername() == User::currentUser()->getBenutzername()) {
+			header ("refresh:0; url = /");
+			exit;
+		}
 		
 		$antwortenToDelete = Antwort::loadList($frage_id_toDelete);
 		
@@ -259,6 +271,26 @@ class FrageController extends AbstractActionController {
 		$antwort_id = $this->params()->fromRoute('id');
 		$antwort = new Antwort();
 		$antwort->load($antwort_id);
+		
+		$frage = new Frage();
+		$frage->load($antwort->getFrageId());
+		
+		$pruefung = new Pruefung();
+		$pruefung->load($frage->getPruefungId());
+		
+		if ($pruefung->getTermin() <= time()) {
+			header ("refresh:0; url = /");
+		}
+		
+		$kurs = new Kurs();
+		$kurs->load($pruefung->getKursId());
+		
+		if (!$kurs->getBenutzername() == User::currentUser()->getBenutzername()) {
+			header ("refresh:0; url = /");
+			exit;
+		}
+		
+		
 		Antwort::delete($antwort->getId());
 		header ("refresh:0; url = /frage/edit/" .$antwort->getFrageId());
 	}

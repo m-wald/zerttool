@@ -220,7 +220,24 @@ class Pruefung {
 			return $return_array;
 		}
 	
-	
+		public static function delete($id) {
+			$db = new Db_connection();
+			$conn = $db->getConnection();
+		
+			$id = $conn->real_escape_string($id);
+		
+			$query = "DELETE FROM pruefung WHERE pruefung_id = " .$id;
+		
+			$result = mysqli_query($conn, $query);
+		
+			if (is_bool($result) && $result == false) {
+				echo $query;
+				echo '<br>' .mysqli_error($conn);
+				return false;
+			} else {
+				return true;
+			}
+		}
 	
 	
 	

@@ -259,6 +259,14 @@ class PruefungController extends AbstractActionController {
 		$this->pruefung = new Pruefung();
 		$this->pruefung->setKursId($newKursid);
 		
+		$kurs = new Kurs();
+		$kurs->load($this->pruefung->getKursId());
+		
+		if (!$kurs->getBenutzername() == User::currentUser()->getBenutzername()) {
+			header ("refresh:0; url = /");
+			exit;
+		}
+		
 		return $this->handleForm($_REQUEST);
 	}
 	
@@ -289,22 +297,50 @@ class PruefungController extends AbstractActionController {
 			exit;
 		}
 		
-		// Was wenn Fehler? Zurückleiten auf Übersicht?
 		if ($this->pruefung->getTermin() <= time()) {
-			array_push($errors, "Der Pr&uuml;fungszeitraum wurde bereits erreicht. Die Pr&uuml;fung kann nicht mehr bearbeitet werden!");
+			header ("refresh:0; url = /");
 		}
 		
 		return $this->handleForm($_REQUEST, Frage::loadList($this->pruefung->getId()));
 	}
 	
 	
-	
-	//TODO
 	/**
 	 * Löscht eine Prüfung.
 	 */
 	public function deleteAction() {
+		$pruefung_id_toDelete = $this->params()->fromRoute('id');
+		$pruefung = new Pruefung();
+		$pruefung->load($pruefung_id_toDelete);
 		
+		if ($pruefung->getTermin() <= time()) {
+			header ("refresh:0; url = /");
+		}
+		
+		$kurs = new Kurs();
+		$kurs->load($pruefung->getKursId());
+		
+		if (!$kurs->getBenutzername() == User::currentUser()->getBenutzername()) {
+			header ("refresh:0; url = /");
+			exit;
+		}
+		
+		
+		
+		$fragen_to_delete = Frage::loadList($pruefung->getId());
+		
+		foreach ($fragen_to_delete as $frage) {
+			$antworten_to_delete = Antwort::loadList($frage->getId());
+			foreach ($antworten as $antwort) {
+				Antwort::delete($antwort->getId());
+			}
+			
+			Frage::delete($frage->getId());
+		}
+		
+		Pruefung::delete($pruefung->getId());
+		
+		header ("refresh:0; url = /pruefung/overview" .$pruefung->getKursId());
 	}
 	
 	/**
