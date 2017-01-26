@@ -333,7 +333,7 @@ class PruefungController extends AbstractActionController {
 		
 		Pruefung::delete($pruefung->getId());
 		
-		header ("refresh:0; url = /pruefung/overview" .$pruefung->getKursId());
+		header ("refresh:0; url = /pruefung/overview/" .$pruefung->getKursId());
 	}
 	
 	/**
@@ -349,34 +349,17 @@ class PruefungController extends AbstractActionController {
 		// User muss Admin sein
 		// oder Zertifizierer und Kursleiter
 		// oder Teilnehmer und eingetragen im Kurs
-		if (User::currentUser()->istAdmin() || (User::currentUser()->istZertifizierer() && $kurs->getBenutzername() == User::currentUser()->getBenutzername())) {
-			$pruefungen = Pruefung::loadList($kursid);
-			if ($pruefungen == false) {
-				// Fehler oder leer
-			}
-		} elseif (User::currentUser()->istTeilnehmer() && $benutzer_kurs->alreadyexist(User::currentUser()->getBenutzername(), $kursid)) {
-			$pruefungen = Pruefung::loadList($kursid);
-			if ($pruefungen == false) {
-				// Fehler oder leer
-			}
-			
-			$last_try = new SchreibtPruefung();
-			
-			do {
-				$last_try->loadLastTry(current($pruefungen)->getId());
-				if ($last_try->getBestanden()) {
-					unset($pruefungen[key(current($pruefungen))]);
-				}
-				
-			} while (next($pruefungen));
-		} else {
-			// Keine Berechtigung
+		if (!User::currentUser()->istAdmin() && 
+				(!User::currentUser()->istZertifizierer() && $kurs->getBenutzername() == User::currentUser()->getBenutzername()) &&
+				(!User::currentUser()->istTeilnehmer() && $benutzer_kurs->alreadyexist(User::currentUser()->getBenutzername(), $kursid))) {
 			header ("refresh:0; url = /");
 		}
 		
+		$pruefungen = Pruefung::loadList($kursid);
 		
-		
-		
+		if ($pruefungen == false) {
+			// Fehler oder leer
+		}
 		
 		return new ViewModel([
 				'pruefungen' => $pruefungen,
