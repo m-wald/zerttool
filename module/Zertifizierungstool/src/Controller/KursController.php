@@ -38,7 +38,7 @@ class KursController extends AbstractActionController
             $currentdatetimestamp = strtotime($currentdate);
             
             //Pr�fung, ob Kursstartdatum vor -enddatum
-            if($starttimestamp >= $endtimestamp){
+            if($starttimestamp > $endtimestamp){
                 
                 $kurs = new Kurs(
                         NULL,
@@ -53,13 +53,10 @@ class KursController extends AbstractActionController
             }
             
             //Pueft, ob Enddatum in 4 Tage nach dem Kursbeginn liegt
-           /* $days = 4;
-            $fourdays = strtotime("+".$days." days", strtotime($starttimestamp));
-            */
+           
+            $fourdays_afterstart = strtotime(date('Y-m-d', strtotime($start. ' + 4 days')));
             
-            $fourdays = strtotime(date('Y-m-d', strtotime($date. ' + 4 days')));
-            
-            if(($fourdays) > $endtimestamp){
+            if(($fourdays_afterstart) > $endtimestamp){
             
             	$kurs = new Kurs(
             			NULL,
@@ -70,7 +67,7 @@ class KursController extends AbstractActionController
             			User::currentUser()->getBenutzername(),
             			$_REQUEST["beschreibung"]);
             
-            	return new ViewModel(['error' => '4days', 'kurs' => $kurs, 'fourdays' => $fourdays]);
+            	return new ViewModel(['error' => '4days', 'kurs' => $kurs]);
             }
 
             //Prüfung, ob Kursende vor dem heutigem Datum 
@@ -104,7 +101,7 @@ class KursController extends AbstractActionController
                 $createkurs = $kurs->save();
 
                 if(isset($createkurs))
-                    return new ViewModel(['message' => 'erfolgt', 'kurs' => $kurs, 'fourdays' => $fourdays]);
+                    return new ViewModel(['message' => 'erfolgt', 'kurs' => $kurs]);
                 else 
                     return new ViewModel(['error' => 'nichterfolgt', 'kurs' => $kurs]);
             }
@@ -853,8 +850,8 @@ class KursController extends AbstractActionController
                         header("refresh:0; url = /user/login");
                         exit;
                 }
-
-                if(User::currentUser()->istZertifizierer()) {
+                $kurs = new Kurs;
+                if(User::currentUser()->istZertifizierer() || $kurs->istKursleiter(User::currentUser()->getBenutzername(), $kurs->getKurs_id())) {
                         header("refresh:0; url = /");
                         exit;
                 }

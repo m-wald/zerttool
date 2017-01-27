@@ -238,7 +238,21 @@ class User
 	}
 	
 	
-
+	function istKursleiter($kurs_id){
+		$db = new Db_connection();
+		$mysqli = $db->getConnection();
+		 
+		$kurs_id = $mysqli->real_escape_string($kurs_id);
+				 
+		$query = "SELECT 1 FROM kurs WHERE kurs_id=".$kurs_id."
+    				AND benutzername='".$this->benutzername."' ";
+		$result = $db->execute($query);
+		if(mysqli_num_rows($result) > 0){
+			return true;
+		} else {
+			return false;
+		}
+	}
 
 	/**
 	 * Prüft ob ein Benutzer mit dem Nutzernamen dieses Objektes in der Datenbank schon

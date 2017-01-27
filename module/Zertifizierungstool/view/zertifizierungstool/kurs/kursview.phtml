@@ -48,7 +48,7 @@
         </table>
         
 		<?php  } 
-			if(User::currentUser()->istAdmin() || $kurs->istKursleiter(User::currentUser()->getBenutzername(), $kurs->getKurs_id()) || User::currentUser()->istTeilnehmer() && $benutzer_kurs->alreadyexist(User::currentUser()->getBenutzername(), $kurs->getKurs_id())) {
+			if(User::currentUser()->istAdmin() || User::currentUser()->istKursleiter($kurs->getKurs_id()) || User::currentUser()->istTeilnehmer() && $benutzer_kurs->alreadyexist(User::currentUser()->getBenutzername(), $kurs->getKurs_id())) {
 		?>
         
                 <form accept-charset="utf-8" method="POST" action="showdocuments">
