@@ -19,6 +19,12 @@ if ($message == 'erfolgt'){
     <div class="alert alert-danger" role="alert">
         <strong>Fehler!</strong> Kursende wurde vor dem Kursbeginn erfasst.
     </div>
+    <?php 
+}elseif ($error == '4days'){
+    	?>
+        <div class="alert alert-danger" role="alert">
+            <strong>Fehler!</strong> Ein Kurs muss mindestens 4 Tage dauern.
+        </div>
     <?php
 }elseif ($error == 'nichterfolgt'){
     ?>
