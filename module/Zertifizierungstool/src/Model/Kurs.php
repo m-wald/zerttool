@@ -409,7 +409,7 @@ class Kurs {
         }
     }
     
-    function istKursleiter($zertifizierer, $kurs_id){
+   /* function istKursleiter($zertifizierer, $kurs_id){
     	$db = new Db_connection();
     	$mysqli = $db->getConnection();
     	
@@ -427,7 +427,7 @@ class Kurs {
     	}
     }
     	
-   
+   */
 
     function getKurs_id() {
         return $this->kurs_id;
