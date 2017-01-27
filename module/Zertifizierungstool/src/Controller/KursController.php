@@ -53,7 +53,9 @@ class KursController extends AbstractActionController
             }
             
             //Pueft, ob Enddatum in 4 Tage nach dem Kursbeginn liegt
-            if(($starttimestamp+4) > $endtimestamp){
+            $days = 4;
+            $fourdays = strtotime("+".$days." days", strtotime($starttimestamp));
+            if(($starttimestamp) > $endtimestamp){
             
             	$kurs = new Kurs(
             			NULL,
