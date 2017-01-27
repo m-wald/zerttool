@@ -10,6 +10,7 @@
 	border-style: solid;
 	width: 50%;
 	padding: 2em;
+	margin-bottom:20px;
 	}
 
 #Frage {
@@ -20,17 +21,17 @@
 	border-style: solid;
 	width: 50%;
 	padding: 2em;
-	
-		
+	margin-bottom:20px;		
 	}
 </style>
+
 <div id="FragenListe">
 	<h3>Fragen</h3><br>
-	<div style="height:400px; overflow-y:scroll">
-	<table>
+	<div style="height:350px; overflow-y:scroll">
+	<table class="table table-hover">
 	<?php foreach ($fragen as $f) { 
 			$path = '/frage/answer/' .$schreibt_pruefung_id .'?next_id=' .$f->getId(); ?>
-			<tr><td width=70%><?=$f->getText()?></td><td width=30%><a href="<?=$path?>"><button type="button" class="btn btn-default">Beantworten</button></a></td></tr>		
+			<tr><td width=70%><?=$f->getText()?></td><td width=30%><a href="<?=$path?>"><button type="button" class="btn btn-default">beantworten</button></a></td></tr>		
 	<?php } ?>
 	
 	</table>
@@ -40,9 +41,10 @@
 <div id="Frage">
 	<form>
 	<?php 
-		echo $frage->getText();
-		echo '<br>Punkte: ' .$frage->getPunkte() .'<br>';
-		
+		echo "<b>Frage: ".$frage->getText()."</b><br>";
+		echo "<b>Punkte: ".$frage->getPunkte()."</b><br>";?>
+		<div style="text-align: center; vertical-align:middle">
+		<?php 
 		if ($frage->getTyp() == 'TF') {?>
 			<input type="hidden" name="typ" value="TF" >
 			<input type="hidden" name="antwort_id" value="<?=$antworten[0]['antwort']->getId()?>">
@@ -61,11 +63,12 @@
 		<?php	
 			} echo '</table>'; }
 		?>
-		<br>
+		</div>
+		<br><br>
 		<input type="hidden" name="next_id"   value="<?=$next_id?>">
 		<input type="submit" class="btn btn-default" name="speichern" value="Weiter">
 	</form>
 </div>
 
-<br>
+<br><br>
 <a href="<?= $this->url('pruefung', ['action' => 'result', 'id' => $schreibt_pruefung_id]) ?>"><button type="button" class="btn btn-default">Pr&uuml;fung beenden</button></a>
