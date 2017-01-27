@@ -106,4 +106,4 @@ if ($error == 'unabletoload') {
 ?>
 
 
-<a href="<?= $this->url('pruefung', ['action' => 'overview', 'id' => $kurs->getKurs_id().'?kursname='.$kurs->getKurs_name()])?>"><button class="btn btn-default" type="button">Zu den Pr&uuml;fungen</button></a>
+<a href="<?= $this->url('pruefung', ['action' => 'overview', 'id' => $kurs->getKurs_id()]).'?kursname='.$kurs->getKurs_name()?>"><button class="btn btn-default" type="button">Zu den Pr&uuml;fungen</button></a>
