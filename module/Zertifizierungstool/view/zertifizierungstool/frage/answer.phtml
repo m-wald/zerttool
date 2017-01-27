@@ -47,7 +47,6 @@
 				<td><?php echo $antworten[$i]['antwort']->getText();?></td>
 				<td><input type="checkbox" name="check<?=$antworten[$i]['antwort']->getId()?>" <?php if ($antworten[$i]['status'] == 1) echo "checked";?>>
 				</tr>
-			}
 				
 		<?php	
 			} echo '</table>'; }
