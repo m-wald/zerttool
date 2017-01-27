@@ -40,7 +40,7 @@ if ($mode == PruefungController::PRUEFUNG) {
 	border: 5pt;
 	border-color: black;
 	border-style: solid;
-	width: 40%;
+	width: 50%;
 	padding: 2em;
 	}
 
@@ -50,7 +50,7 @@ if ($mode == PruefungController::PRUEFUNG) {
 	border: 5pt;
 	border-color: black;
 	border-style: solid;
-	width: 60%;
+	width: 50%;
 	}
 	
 input[type=number]{
@@ -202,9 +202,10 @@ input[type=number]{
 
 
 <div id="FragenListe" <?=$frageBackground?> class="container">
-	<h3>Angelegte Fragen</h3>
+	<h2>Angelegte Fragen</h2>
+	<div style="height:80%; overflow-y:scroll">
 	<table class="table table-hover">
-		<tr><th>Text<th>Typ<th><th></tr>
+		<tr><th width=80%>Text</th><th width=20%>Typ</th></tr>
 	<?php
 		if (empty($fragen)) {
 			echo "<tr><td>(leer)</tr></td>";
@@ -221,8 +222,9 @@ input[type=number]{
 	?>
 		
 	</table>
+	</div>
 	
-	<a href="<?= $this->url('frage', ['action' => 'create', 'id' => $pruefung->getId()])  ?>"><button class="btn btn-default" <?=$frageDisabled?>>Neue Frage Anlegen</button></a>
+	<a href="<?= $this->url('frage', ['action' => 'create', 'id' => $pruefung->getId()])  ?>"><button class="btn btn-default" <?=$frageDisabled?>>Neue Frage Anlegen</button></a><br>
 	<a href="<?= $this->url('pruefung', ['action' => 'edit', 'id' => $pruefung->getId()]) ?>"><button class="btn btn-default" <?=$frageDisabled?>>Kopfdaten der Pr&uuml;fung bearbeiten</button></a>
 </div>
 
@@ -232,7 +234,7 @@ input[type=number]{
 <?php if ($mode == PruefungController::createFragen) { ?>
 	<h3>Frage anlegen</h3>
 	<button class="btn btn-default" onclick="showFormMC()">Multiple Choice</button>
-	<button class="btn btn-default"" onclick="showFormTF()">True / False   </button>
+	<button class="btn btn-default" onclick="showFormTF()">True / False   </button>
 
 <?php } elseif ($mode == PruefungController::editFragen) { ?>
 	<h3>Frage bearbeiten</h3>
