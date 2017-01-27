@@ -70,7 +70,7 @@
                 <?php 
                     // Prüfen, ob Teilnehmer für den Kurs schon eingetragen ist
                     // Wenn Benutzer im Kurs eingetragen ist, dann kann er austreten
-                    if(User::currentUser()->istAdmin() || User::currentUser()->istTeilnehmer() && $benutzer_kurs->alreadyexist(User::currentUser()->getBenutzername(), $kurs->getKurs_id()) && !User::currentUser()->istKursleiter($kurs->getKurs_id())) {
+                    if(!User::currentUser()->istKursleiter($kurs->getKurs_id()) && User::currentUser()->istAdmin() && $benutzer_kurs->alreadyexist(User::currentUser()->getBenutzername(), $kurs->getKurs_id()) || User::currentUser()->istTeilnehmer() && $benutzer_kurs->alreadyexist(User::currentUser()->getBenutzername(), $kurs->getKurs_id())) {
                         ?>
                         <form accept-charset="utf-8" method="POST" action="signoutkurs">
                             <input type="hidden" value="<?=$kurs->getKurs_id()?>" name="kurs_id">
@@ -81,7 +81,7 @@
                         <?php
                     }
                     
-                    if(User::currentUser()->istAdmin() || User::currentUser()->istTeilnehmer() && !$benutzer_kurs->alreadyexist(User::currentUser()->getBenutzername(), $kurs->getKurs_id()) && !User::currentUser()->istKursleiter($kurs->getKurs_id())) {
+                    if(!User::currentUser()->istKursleiter($kurs->getKurs_id()) && User::currentUser()->istAdmin() && !$benutzer_kurs->alreadyexist(User::currentUser()->getBenutzername(), $kurs->getKurs_id()) || User::currentUser()->istTeilnehmer() && !$benutzer_kurs->alreadyexist(User::currentUser()->getBenutzername(), $kurs->getKurs_id())) {
                     	?>
                                             <form accept-charset="utf-8" method="POST" action="enterkurs">
                                                 <input type="hidden" value="<?=$kurs->getKurs_id()?>" name="kurs_id">
