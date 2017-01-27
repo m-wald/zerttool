@@ -43,6 +43,7 @@ if ($mode == PruefungController::PRUEFUNG) {
 	border-style: solid;
 	width: 50%;
 	padding: 2em;
+	margin-bottom:10px;
 	}
 
 #Frage {
@@ -53,7 +54,7 @@ if ($mode == PruefungController::PRUEFUNG) {
 	border-style: solid;
 	width: 50%;
 	padding: 2em;
-		
+	margin-bottom:10px;		
 	}
 	
 input[type=number]{
@@ -248,7 +249,7 @@ input[type=number]{
 </div>
 
 
-<br><br><br>
+<br><br>
 <a href="<?= $this->url('pruefung', ['action' => 'overview', 'id' => $pruefung->getKursId()])?>"><button type="button" class="btn btn-default">Zur&uuml;ck zur Pr&uuml;fungsliste</button></a>
 
 
