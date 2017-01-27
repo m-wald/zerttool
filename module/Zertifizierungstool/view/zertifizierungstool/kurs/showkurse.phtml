@@ -57,7 +57,7 @@
                                 
                                 <?php 
                                
-                                if(User::currentUser()->istAdmin() || $r->istKursleiter(User::currentUser()->getBenutzername(), $r->getKurs_id())) { ?>
+                                if(User::currentUser()->istAdmin() ||  User::currentUser()->istKursleiter($r->getKurs_id())) { ?>
 				<td> <form accept-charset="utf-8" method="POST" action="changedata">
 						<input type="hidden" value="<?=$r->getKurs_id()?>" name="kurs_id">
                                                 <button type="submit" class="btn btn-warning">
@@ -66,7 +66,7 @@
                                      </form> 
                                 </td>
                                 <?php } 
-                                elseif(User::currentUser()->istZertifizierer() && !$r->istKursleiter(User::currentUser()->getBenutzername(), $r->getKurs_id())) {?>
+                                elseif(User::currentUser()->istZertifizierer() && !User::currentUser()->istKursleiter($r->getKurs_id())) {?>
                                 <td> </td>
                                 <?php }?>
 
