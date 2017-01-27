@@ -1,30 +1,40 @@
+<h1>Pr&uuml;fung</h1><br>
+
+
 <style>
 #FragenListe {
+	height:500px;
 	float:left;
 	border: 5pt;
 	border-color: black;
 	border-style: solid;
-	width: 40%;
+	width: 50%;
 	padding: 2em;
 	}
 
 #Frage {
-	padding: 2em;
-	margin-left: 40%;
+	height:500px;
+	float:right;
 	border: 5pt;
 	border-color: black;
 	border-style: solid;
-	width: 60%;
+	width: 50%;
+	padding: 2em;
+	
+		
 	}
 </style>
 <div id="FragenListe">
-	<h3>Fragen</h3>
+	<h3>Fragen</h3><br>
+	<div style="height:400px; overflow-y:scroll">
 	<table>
 	<?php foreach ($fragen as $f) { 
 			$path = '/frage/answer/' .$schreibt_pruefung_id .'?next_id=' .$f->getId(); ?>
-			<tr><td><?=$f->getText()?></td><td><a href="<?=$path?>"><button type="button">Beantworten</button></a></td></tr>		
+			<tr><td width=70%><?=$f->getText()?></td><td width=30%><a href="<?=$path?>"><button type="button" class="btn btn-default">Beantworten</button></a></td></tr>		
 	<?php } ?>
+	
 	</table>
+	</div>
 </div>
 
 <div id="Frage">
@@ -45,17 +55,17 @@
 				<tr>
 				<td><input type="hidden" name="antwort_id<?=$antworten[$i]['antwort']->getId()?>" value="<?=$antworten[$i]['antwort']->getId()?>"></td>
 				<td><?php echo $antworten[$i]['antwort']->getText();?></td>
-				<td><input type="checkbox" name="check<?=$antworten[$i]['antwort']->getId()?>" <?php if ($antworten[$i]['status'] == 1) echo "checked";?>>
+				<td><input type="checkbox" name="check<?=$antworten[$i]['antwort']->getId()?>" <?php if ($antworten[$i]['status'] == 1) echo "checked";?>></td>
 				</tr>
 				
 		<?php	
 			} echo '</table>'; }
 		?>
-		
+		<br>
 		<input type="hidden" name="next_id"   value="<?=$next_id?>">
-		<input type="submit" name="speichern" value="Weiter">
+		<input type="submit" class="btn btn-default" name="speichern" value="Weiter">
 	</form>
 </div>
 
 <br>
-<a href="<?= $this->url('pruefung', ['action' => 'result', 'id' => $schreibt_pruefung_id]) ?>"><button type="button">Prüfung beenden</button></a>
+<a href="<?= $this->url('pruefung', ['action' => 'result', 'id' => $schreibt_pruefung_id]) ?>"><button type="button" class="btn btn-default">Pr&uuml;fung beenden</button></a>
