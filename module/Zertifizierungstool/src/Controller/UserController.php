@@ -229,20 +229,7 @@ class UserController extends AbstractActionController
 		}
 	}
 	
-	/* leitet nach erfolgreichem Login auf eine benutzerspezifische Startseite weiter 
 	
-	public function homeAction() {
-		
-		if(User::currentUser()->getBenutzername()==NULL){
-			header("refresh:0 url= /user/login");
-			exit;
-		}
-		else{
-		return new ViewModel(['benutzername' => User::currentUser()->getBenutzername()]); 
-		
-		}
-	}
-	*/
 	
 	
 	/** liest aktuelle Benutzerdaten aus und übergibt diese an ein Formular. Darin können die Daten dann geändert werden und in der Datenbank aktualisiert werden. */

@@ -3,12 +3,15 @@ use Zertifizierungstool\Model\User;
 use Zertifizierungstool\Model\SchreibtPruefung;
 $last_try = new SchreibtPruefung();
 ?>
+
+<h1> Pr&uuml;fungen zum Kurs <b><?php echo $kursname;?></b></h1>
+
 <div class="container">
 <table class="table table-hover">
 	<tr>
-	<th width="150">Name</th>
-	<th width="100">Termin</th>
-	<th>Cutscore</th>
+	<th width="250"><font size="3">Name</font></th>
+	<th width="150"><font size="3">Termin</font></th>
+	<th width="50"><font size="3">Cutscore</font></th>
 	</tr>
 
 	<?php 
@@ -37,8 +40,8 @@ $last_try = new SchreibtPruefung();
 <br>
 
 <?php if (User::currentUser()->istAdmin() || User::currentUser()->istZertifizierer()) {?>
-		<a href="<?= $this->url('pruefung', ['action' => 'create', 'id' => $kursid])?>"><button type="button">Neue Pr&uuml;fung anlegen</button></a>
-		<a href="http://132.231.36.205/kurs/changedata?kurs_id=<?=$kursid?>"><button type="button">Zur&uuml;ck zur Bearbeitung der Kursdaten</button></a>
+		<a href="<?= $this->url('pruefung', ['action' => 'create', 'id' => $kursid])?>"><button type="button" class="btn btn-default">Neue Pr&uuml;fung anlegen</button></a>
+		<a href="http://132.231.36.205/kurs/changedata?kurs_id=<?=$kursid?>"><button type="button" class="btn btn-default">Zur&uuml;ck zur Bearbeitung der Kursdaten</button></a>
 <?php }?>
 
 </div>
