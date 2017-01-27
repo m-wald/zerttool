@@ -12,7 +12,7 @@ if (isset($errors)) {
 
 if ($mode == PruefungController::PRUEFUNG) {
 	$pruefSaveButton = "submit";
-	$pruefBackground = 'style="background-color: aqua;"';
+	$pruefBackground = 'style="background-color: PaleGreen;"';
 	$frageBackground = 'style="background-color: gray;"';
 	$frageDisabled   = 'disabled "disabled"';
 	$pruefReadonly	 = '';
@@ -20,7 +20,7 @@ if ($mode == PruefungController::PRUEFUNG) {
 	$pruefReadonly = 'readonly = "readonly" disabled';
 	$pruefSaveButton = "hidden";
 	$pruefBackground = 'style="background-color: gray;"';
-	$frageBackground = 'style="background-color: aqua;"';
+	$frageBackground = 'style="background-color: PaleGreen;"';
 	$frageDisabled	 = '';
 }
 ?>
@@ -103,7 +103,7 @@ input[type=number]{
 				?>
 
 				+ '<p id="antwortenListe"></p>'
-				+ '<br><button type="button" onclick="newAntwort()">Antwortoption hinzufügen</button>';
+				+ '<br><button type="button" class="btn btn-default" onclick="newAntwort()">Antwortoption hinzufügen</button>';
 				
 			break;
 
@@ -171,7 +171,7 @@ input[type=number]{
 
 
 
-<h1>Pr&uuml;fung anlegen/bearbeiten</h1>
+<h1>Pr&uuml;fung anlegen/bearbeiten</h1><br>
 
 
 <div id="KopfdatenPruefung" <?=$pruefBackground?>>
@@ -195,7 +195,7 @@ input[type=number]{
     <input type="hidden" name="pruefid"  readonly="readonly" value="<?=$pruefung->getId()?>" >
 	<input type="hidden" name="kursid"   readonly="readonly" value="<?=$pruefung->getKursId()?>" >
     
-    <input type="submit" name="speichernPruefung" value="Speichern & weiter zu den Fragen">
+    <center><input type="submit" class="btn btn-default" name="speichernPruefung" value="Speichern & weiter zu den Fragen"></center>
 </form>
 </div>
 
@@ -213,8 +213,8 @@ input[type=number]{
 			<tr>
 			<td><?=$frage->getText()?></td>
 			<td><?=$frage->getTyp()?> </td>
-			<td><a href="<?= $this->url('frage', ['action' => 'edit', 'id' => $frage->getId()]) ?>"><button type="button" <?=$frageDisabled?>>Bearbeiten</button></a></td>
-			<td><a href="<?= $this->url('frage', ['action' => 'delete', 'id' => $frage->getId()]) ?>"><button type="button" <?=$frageDisabled?>>L&ouml;schen</button></a></td>
+			<td><a href="<?= $this->url('frage', ['action' => 'edit', 'id' => $frage->getId()]) ?>"><button type="button" class="btn btn-default"<?=$frageDisabled?>>Bearbeiten</button></a></td>
+			<td><a href="<?= $this->url('frage', ['action' => 'delete', 'id' => $frage->getId()]) ?>"><button type="button" class="btn btn-default"<?=$frageDisabled?>>L&ouml;schen</button></a></td>
 			</tr>
 	<?php
 		}}
@@ -244,7 +244,7 @@ input[type=number]{
 
 
 <br>
-<a href="<?= $this->url('pruefung', ['action' => 'overview', 'id' => $pruefung->getKursId()])?>"><button type="button">Zur&uuml;ck zur Pr&uuml;fungsliste</button></a>
+<a href="<?= $this->url('pruefung', ['action' => 'overview', 'id' => $pruefung->getKursId()])?>"><button type="button" class="btn btn-default">Zur&uuml;ck zur Pr&uuml;fungsliste</button></a>
 
 
 
