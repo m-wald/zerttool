@@ -41,7 +41,7 @@
 <div id="Frage">
 	<form>
 	<?php 
-		echo "<b><font size='3'>Frage: ".$frage->getText()."</b></font><br><br>";
+		echo "<b><font size='5'>Frage: ".$frage->getText()."</b></font><br><br>";
 		echo "<b>Punkte: ".$frage->getPunkte()."</b><br>";?>
 		<div style="margin-top:20%">
 		<?php 
@@ -56,7 +56,7 @@
 			for ($i = 0; $i < count($antworten); $i++) { ?>
 				<tr>
 				<td><input type="hidden" name="antwort_id<?=$antworten[$i]['antwort']->getId()?>" value="<?=$antworten[$i]['antwort']->getId()?>"></td>
-				<td><?php echo $antworten[$i]['antwort']->getText();?></td>
+				<td width=10%><?php echo $antworten[$i]['antwort']->getText();?></td>
 				<td><input type="checkbox" name="check<?=$antworten[$i]['antwort']->getId()?>" <?php if ($antworten[$i]['status'] == 1) echo "checked";?>></td>
 				</tr>
 				
