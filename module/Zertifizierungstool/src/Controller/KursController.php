@@ -57,8 +57,7 @@ class KursController extends AbstractActionController
             $fourdays = strtotime("+".$days." days", strtotime($starttimestamp));
             */
             
-            $date = date_create($start);
-            $fourdays = strtotime(date_add($date, date_interval_create_from_date_string('4 days')));
+            $fourdays = strtotime(date('Y-m-d', strtotime($date. ' + 4 days')));
             
             if(($fourdays) > $endtimestamp){
             
