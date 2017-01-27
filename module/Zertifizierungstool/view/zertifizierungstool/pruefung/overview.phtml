@@ -2,9 +2,13 @@
 use Zertifizierungstool\Model\User;
 use Zertifizierungstool\Model\SchreibtPruefung;
 $last_try = new SchreibtPruefung();
+
+if(!isset ($_SESSION['kursname'])){
+	$_SESSION['kursname']=$_GET['kursname'];
+}
 ?>
 
-<h1> Pr&uuml;fungen zum Kurs <b><?php echo $_GET['kursname'];?></b></h1><br><br>
+<h1> Pr&uuml;fungen zum Kurs <b><?php echo $_SESSION['kursname'];?></b></h1><br><br>
 
 <div class="container">
 <table class="table table-hover">
