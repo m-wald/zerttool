@@ -5,6 +5,7 @@
 use Zertifizierungstool\Model\User;
 
 if ($message == 'erfolgt'){
+	echo $fourdays;
     ?>
     <div class="alert alert-success" role="alert">
         <p> Kurs wurde <strong>erfolgreich</strong> angelegt. Sie werden zu Ihren Kursen weitergeleitet </p>
@@ -21,6 +22,7 @@ if ($message == 'erfolgt'){
     </div>
     <?php 
 }elseif ($error == '4days'){
+	echo $fourdays;
     	?>
         <div class="alert alert-danger" role="alert">
             <strong>Fehler!</strong> Ein Kurs muss mindestens 4 Tage dauern.

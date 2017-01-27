@@ -71,7 +71,7 @@ class KursController extends AbstractActionController
             			User::currentUser()->getBenutzername(),
             			$_REQUEST["beschreibung"]);
             
-            	return new ViewModel(['error' => '4days', 'kurs' => $kurs]);
+            	return new ViewModel(['error' => '4days', 'kurs' => $kurs, 'fourdays' => $fourdays]);
             }
 
             //Prüfung, ob Kursende vor dem heutigem Datum 
@@ -105,7 +105,7 @@ class KursController extends AbstractActionController
                 $createkurs = $kurs->save();
 
                 if(isset($createkurs))
-                    return new ViewModel(['message' => 'erfolgt', 'kurs' => $kurs]);
+                    return new ViewModel(['message' => 'erfolgt', 'kurs' => $kurs, 'fourdays' => $fourdays]);
                 else 
                     return new ViewModel(['error' => 'nichterfolgt', 'kurs' => $kurs]);
             }
