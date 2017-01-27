@@ -4,7 +4,7 @@ use Zertifizierungstool\Model\SchreibtPruefung;
 $last_try = new SchreibtPruefung();
 ?>
 
-<h1> Pr&uuml;fungen zum Kurs <b><?php echo $_GET['kursname'];?></b></h1>
+<h1> Pr&uuml;fungen zum Kurs <b><?php echo $_GET['kursname'];?></b></h1><br><br>
 
 <div class="container">
 <table class="table table-hover">
@@ -40,7 +40,7 @@ $last_try = new SchreibtPruefung();
 <br>
 
 <?php if (User::currentUser()->istAdmin() || User::currentUser()->istZertifizierer()) {?>
-		<a href="<?= $this->url('pruefung', ['action' => 'create', 'id' => $kursid])?>"><button type="button" class="btn btn-default">Neue Pr&uuml;fung anlegen</button></a>
+		<a href="<?= $this->url('pruefung', ['action' => 'create', 'id' => $kursid])?>"><button type="button" class="btn btn-default">Neue Pr&uuml;fung anlegen</button></a><br><br>
 		<a href="http://132.231.36.205/kurs/changedata?kurs_id=<?=$kursid?>"><button type="button" class="btn btn-default">Zur&uuml;ck zur Bearbeitung der Kursdaten</button></a>
 <?php }?>
 
