@@ -45,6 +45,7 @@ if ($mode == PruefungController::PRUEFUNG) {
 	}
 
 #Frage {
+	float:right;
 	padding: 2em;
 	margin-left: 40%;
 	border: 5pt;
@@ -175,7 +176,7 @@ input[type=number]{
 
 
 <div id="KopfdatenPruefung" <?=$pruefBackground?>>
-<h2>Kopfdaten</h2>
+<h2>Kopfdaten</h2><br>
 <form class="form-horizontal" method="POST">	
 	<div class="form-group">
         <label for="name"> Pr&uuml;fungsname </label>
@@ -202,8 +203,8 @@ input[type=number]{
 
 
 <div id="FragenListe" <?=$frageBackground?> class="container">
-	<h2>Angelegte Fragen</h2>
-	<div style="height:80%; overflow-y:scroll">
+	<h2>Angelegte Fragen</h2><br>
+	<div style="height:100px; overflow-y:scroll">
 	<table class="table table-hover">
 		<tr><th width=80%>Text</th><th width=20%>Typ</th></tr>
 	<?php
