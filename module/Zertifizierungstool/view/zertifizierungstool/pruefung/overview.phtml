@@ -36,7 +36,7 @@ if(!isset ($_SESSION['kursname'])){
 		if ($last_try->getBestanden()) {
 			echo '<td align="center"><span class="glyphicon glyphicon-ok"></span></td></tr>';
 		} elseif (strtotime($pruefung->getTermin()) <= time()) { ?>
-			<td><a href="<?= $this->url('pruefung', ['action' => 'take', 'id' => $pruefung->getId()])?>"><button type="button">Absolvieren</button></a></td>
+			<td><a href="<?= $this->url('pruefung', ['action' => 'take', 'id' => $pruefung->getId()])?>"><button type="button" class="btn btn-default">Absolvieren</button></a></td>
 			</tr>
 	<?php 
 		}}}?>
