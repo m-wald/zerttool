@@ -154,14 +154,27 @@ if (isset($datum)) {
 
 //R�ckmeldung aus Model, falls Benutzername oder E-Mail bereits vergeben sind
 if(isset($meldung)) {
-    if($meldung != "Daten wurden erfolgreich gespeichert. Sie erhalten in K&uuml;rze eine E-Mail. Bitte folgen Sie dem darin enthaltenen Link, um Ihre Registrierung abzuschlie&szlig;en."){
+    if($meldung == "Daten wurden erfolgreich gespeichert. Sie erhalten in K&uuml;rze eine E-Mail. Bitte folgen Sie dem darin enthaltenen Link, um Ihre Registrierung abzuschlie&szlig;en."){
                 ?>
                 <div class="alert alert-success" role="alert">
                     <?php echo "<center><b>".$meldung."</b></center>"; ?>
                 </div>
                 <?php 
-                echo "<center><b><font color='red'>".$meldung."</font></b></center>";
+                //echo "<center><b><font color='red'>".$meldung."</font></b></center>";
+    }elseif($meldung == "E-Mail-Adresse ist bereits vergeben! Bitte andere E-Mail-Adresse benutzen!") {
+                ?>
+                <div class="alert alert-danger" role="alert">
+                    <?php echo "<center><b>".$meldung."</b></center>"; ?>
+                </div>
+                <?php 
+    }elseif($meldung == "Benutzername ist bereits vergeben! Bitte anderen Namen ausw&auml;hlen!") {
+                ?>
+                <div class="alert alert-danger" role="alert">
+                    <?php echo "<center><b>".$meldung."</b></center>"; ?>
+                </div>
+                <?php 
     }
 }
+
 
 ?>
