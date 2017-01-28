@@ -520,14 +520,17 @@ class User
 		
 		$mysqli = $db->getConnection();
 		$pruefzahl = $mysqli->real_escape_string($pruefzahl);
-		
-		$query = "select * from benutzer where benutzername='".$this->benutzername."' and pruefzahl=".$pruefzahl.";";
-		$result = $db->execute($query);
-		if (mysqli_num_rows($result)<1){
+		if ($pruefzahl==null) {
 			return false;
-		}
-		else {
-			return true;
+		} else {
+			$query = "select * from benutzer where benutzername='".$this->benutzername."' and pruefzahl=".$pruefzahl.";";
+			$result = $db->execute($query);
+			if (mysqli_num_rows($result)<1){
+				return false;
+			}
+			else {
+				return true;
+			}
 		}
 	}
 	
