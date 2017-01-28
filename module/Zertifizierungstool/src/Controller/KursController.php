@@ -319,12 +319,14 @@ class KursController extends AbstractActionController
     	$kurs = new Kurs();
         $benutzer_kurs = new Benutzer_Kurs();
         
-    	if(!$kurs->load($id)) $status="Fehler beim Laden des Kurses!";
+    	if(!$kurs->load($id)) {
+            $status="errorloadingcourse";
+            return new ViewModel(['status' => $status]);
+        }
         
     	$_SESSION['kurs_name']=$kurs->getKurs_name();
         
         return new ViewModel(['kurs' => $kurs,
-        		'status' => $status,
                         'benutzer_kurs' => $benutzer_kurs]);
            
     }
