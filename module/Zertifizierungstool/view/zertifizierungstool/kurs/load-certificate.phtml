@@ -7,13 +7,23 @@ if ($message == 'success') {
         exit;
 }
 elseif ($message == 'error') {
-	echo "Ein Fehler ist beim Erstellen der PDF-Datei aufgetreten!";
+        ?>
+        <div class="alert alert-danger" role="alert">
+            <p> Ein <strong>Fehler</strong> ist beim Erstellen der PDF-Datei aufgetreten! </p>
+        </div>
+        <?php
+	//echo "Ein Fehler ist beim Erstellen der PDF-Datei aufgetreten!";
 	header("refresh:2; url = /kurs/showkurse");
         exit;
 }
 
 elseif($message == 'access_error'){
-	echo "Sie haben den Kurs noch nicht absolviert!";
+        ?>
+        <div class="alert alert-danger" role="alert">
+            <p> Sie haben den Kurs noch nicht absolviert! </p>
+        </div>
+        <?php
+	//echo "Sie haben den Kurs noch nicht absolviert!";
 	header("refresh:2; url = /kurs/kursview");
         exit;
 }
