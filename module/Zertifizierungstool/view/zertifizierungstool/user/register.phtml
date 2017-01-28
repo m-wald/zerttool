@@ -6,7 +6,12 @@ use Zertifizierungstool\Model\User;
 
 
 if ($meldung == "Daten wurden erfolgreich gespeichert. Sie erhalten in K&uuml;rze eine E-Mail. Bitte folgen Sie dem darin enthaltenen Link, um Ihre Registrierung abzuschlie&szlig;en.") {
-		echo "Daten wurden erfolgreich gespeichert. Sie erhalten in K&uuml;rze eine E-Mail. Bitte folgen Sie dem darin enthaltenen Link, um Ihre Registrierung abzuschlie&szlig;en.";
+                ?>
+                <div class="alert alert-danger" role="alert">
+                    <p> Daten wurden erfolgreich gespeichert. Sie erhalten in K&uuml;rze eine E-Mail. Bitte folgen Sie dem darin enthaltenen Link, um Ihre Registrierung abzuschlie&szlig;en. </p>
+                </div>
+                <?php 
+		//echo "Daten wurden erfolgreich gespeichert. Sie erhalten in K&uuml;rze eine E-Mail. Bitte folgen Sie dem darin enthaltenen Link, um Ihre Registrierung abzuschlie&szlig;en.";
 	header("refresh:2; url=/user/login");
 }
 else {
@@ -129,20 +134,33 @@ else {
 }
 
 if (isset($pw_kontrolle)) {
-	
-	echo "<center><b><font color='red'>Das best&auml;tigte Passwort stimmt nicht mit dem vergebenen Passwort &uuml;berein!</font></b></center>";
+	?>
+        <div class="alert alert-danger" role="alert">
+            <center><b>Das best&auml;tigte Passwort stimmt nicht mit dem vergebenen Passwort &uuml;berein!</b></center>
+        </div>
+        <?php 
+	//echo "<center><b><font color='red'>Das best&auml;tigte Passwort stimmt nicht mit dem vergebenen Passwort &uuml;berein!</font></b></center>";
 }
 
 if (isset($datum)) {
-	
-	echo "<center><b><font color='red'>Kein g&uuml;ltiges Datum! Bitte korrigieren!</font></b></center>";
+	?>
+        <div class="alert alert-danger" role="alert">
+            <center><b>Kein g&uuml;ltiges Datum! Bitte korrigieren!</b></center>
+        </div>
+        <?php 
+	//echo "<center><b><font color='red'>Kein g&uuml;ltiges Datum! Bitte korrigieren!</font></b></center>";
 	
 }
 
-//Rückmeldung aus Model, falls Benutzername oder E-Mail bereits vergeben sind
+//Rï¿½ckmeldung aus Model, falls Benutzername oder E-Mail bereits vergeben sind
 
 if($meldung != "Daten wurden erfolgreich gespeichert. Sie erhalten in K&uuml;rze eine E-Mail. Bitte folgen Sie dem darin enthaltenen Link, um Ihre Registrierung abzuschlie&szlig;en."){
-	echo "<center><b><font color='red'>".$meldung."</font></b></center>";
+            ?>
+            <div class="alert alert-danger" role="alert">
+                <?php echo "<center><b>".$meldung."</b></center>"; ?>
+            </div>
+            <?php 
+            echo "<center><b><font color='red'>".$meldung."</font></b></center>";
 }
 
 
