@@ -135,18 +135,22 @@ class UserController extends AbstractActionController
 	 * Setzt den boolschen Wert "bestätigt" des Benutzers von 0 auf 1 
 	 */
 	public function registerbestAction() {
-		$user = new User();
-		$user->load($_GET['benutzer']);
-		$user->registerbest();
-		if (!$user->istBestaetigt()){
-			if (isset($_GET['kurs_id'])) {
-				
-				return new ViewModel(['benutzername'=>$user->getBenutzername(), 'kurs_id'=>$_GET['kurs_id']]);
-				
+		if (isset ($_GET['benutzer'])) {
+			$user = new User();
+			$user->load($_GET['benutzer']);
+			$user->registerbest();
+			if (!$user->istBestaetigt()){
+				if (isset($_GET['kurs_id'])) {
+					
+					return new ViewModel(['benutzername'=>$user->getBenutzername(), 'kurs_id'=>$_GET['kurs_id']]);
+					
+				}
+				return new ViewModel();
+			}else {
+				return new ViewModel(['bestaetigt'=>'']);
 			}
-			return new ViewModel();
-		}else {
-			return new ViewModel(['bestaetigt'=>'']);
+		} else {
+			header("refresh:0; url=/user/login");
 		}
 	}
 	
