@@ -10,9 +10,30 @@ Dokument: <input type='file' name='datei' id='datei'><br>
 </form><br><br>
 <?php 
 if(isset($meldung)){
-	if($meldung=='datentyp') echo "<b>Datentyp ist falsch!</b>";
-	elseif($meldung=='dateigroesse') echo "<b>Datei ist zu gross!</b>";
-	elseif($meldung=='erfolgreich') echo"<b>Datei wurde erfolgreich hochgeladen!</b>";
+	if($meldung=='datentyp') {
+            ?>
+            <div class="alert alert-danger" role="alert">
+                <p> Datentyp ist falsch! </p>
+            </div>
+            <?php
+            //echo "<b>Datentyp ist falsch!</b>";
+        }
+	elseif($meldung=='dateigroesse') {
+            ?>
+            <div class="alert alert-danger" role="alert">
+                <p> Datei ist zu gross! </p>
+            </div>
+            <?php
+            //echo "<b>Datei ist zu gross!</b>";
+        }
+	elseif($meldung=='erfolgreich') {
+            ?>
+            <div class="alert alert-success" role="alert">
+                <p> >Datei wurde erfolgreich hochgeladen! </p>
+            </div>
+            <?php
+            //echo"<b>Datei wurde erfolgreich hochgeladen!</b>";
+        }
 	
 }
 	
