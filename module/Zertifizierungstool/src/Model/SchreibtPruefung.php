@@ -149,7 +149,7 @@ class SchreibtPruefung {
 		$result = $db->execute($query);
 		
 		if(!$result || mysqli_num_rows($result) != 1) {
-			// Fehler bei der Datenbankabfrage oder keine Frage mit der Id gefunden
+			// Fehler bei der Datenbankabfrage oder der User hat die Prüfung noch nicht geschrieben
 			return false;
 		}
 		
@@ -157,8 +157,7 @@ class SchreibtPruefung {
 		
 		$this->load($row['schreibt_pruefung_id']);
 		
-		return true;
-		
+		return true;	
 	}
 	
 	/**

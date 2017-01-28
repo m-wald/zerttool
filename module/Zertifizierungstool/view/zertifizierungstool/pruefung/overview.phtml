@@ -1,7 +1,7 @@
 <?php
 use Zertifizierungstool\Model\User;
 use Zertifizierungstool\Model\SchreibtPruefung;
-$last_try = new SchreibtPruefung();
+
 
 if(!isset ($_SESSION['kursname'])){
 	$_SESSION['kursname']=$_GET['kursname'];
@@ -32,7 +32,8 @@ if(!isset ($_SESSION['kursname'])){
 			
 	<?php
 	} elseif (User::currentUser()->istAdmin() || User::currentUser()->istTeilnehmer()) {
-	$last_try->loadLastTry($pruefung->getId());
+		$last_try = new SchreibtPruefung();
+		$last_try->loadLastTry($pruefung->getId());
 		if ($last_try->getBestanden()) {
 			echo '<td align="center"><span class="glyphicon glyphicon-ok"></span></td></tr>';
 		} elseif (strtotime($pruefung->getTermin()) <= time()) { ?>
