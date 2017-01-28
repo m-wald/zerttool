@@ -151,6 +151,7 @@ class UserController extends AbstractActionController
 			}
 		} else {
 			header("refresh:0; url=/user/login");
+			exit;
 		}
 	}
 	
