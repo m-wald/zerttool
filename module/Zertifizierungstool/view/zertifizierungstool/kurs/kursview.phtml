@@ -3,7 +3,7 @@
     use Zertifizierungstool\Model\User;
     use Zertifizierungstool\Model\Benutzer_Kurs;
     
-    if (isset($status)) {
+    if ($status == "errorloadingcourse") {
         ?>
         <div class="alert alert-danger" role="alert">
             <strong>Fehler!</strong> Kurs konnte nicht geladen werden.
