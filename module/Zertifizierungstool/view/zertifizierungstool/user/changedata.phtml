@@ -3,12 +3,11 @@
 
 <?php 
 if($status == "erfolgreich") { ?>
-	
-<p style="color:green"><b> Benutzerdaten wurden erfolgreich ge&auml;ndert!</b></p>
-
-<?php 
-
-header("refresh:2; url = /");}
+    <div class="alert alert-success" role="alert">
+        <p> Benutzerdaten wurden erfolgreich ge&auml;ndert! </p>
+    </div>
+    <?php 
+    header("refresh:2; url = /");}
 
 
 else {?>
@@ -66,8 +65,12 @@ else {?>
 <?php 
 
 if (isset($status)){
-
-	echo "<b><font color=red>E-Mail-Adresse bereits vorhanden. Bitte andere Mailadresse benutzen!</b></font>";
+        ?>
+        <div class="alert alert-danger" role="alert">
+            <p> E-Mail-Adresse bereits vorhanden. Bitte andere Mailadresse benutzen! </p>
+        </div>
+        <?php 
+	//echo "<b><font color=red>E-Mail-Adresse bereits vorhanden. Bitte andere Mailadresse benutzen!</b></font>";
 
 }
 
