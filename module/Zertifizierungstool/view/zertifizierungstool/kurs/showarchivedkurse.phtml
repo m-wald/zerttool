@@ -21,8 +21,8 @@
 		<th> KursName </th>
                 <th> KursStart </th>
                 <th> KursEnde </th>
-                <th> anzeigen</th>
                 <th> Kursdaten kopieren</th>
+                <th> anzeigen</th>
             </tr>
 		
 		<?php
@@ -32,21 +32,19 @@
 				<td><?=$r->getKurs_name()?></td>
                                 <td><?=$r->getKurs_start()?></td>
                                 <td><?=$r->getKurs_ende()?></td>
-                                <td><form accept-charset="utf-8" method="POST" action="kursview">
-						<input type="hidden" value="<?=$r->getKurs_id()?>" name="kurs_id">
-						<button type="submit" class="btn btn-info">
-                                                        <span class="glyphicon glyphicon-eye-open"></span>
-                                                </button>
-                                    </form> 
-                                </td>
-                                
-                                 
 				<td><form accept-charset="utf-8" method="POST" action="changedata">
 						<input type="hidden" value="<?=$r->getKurs_id()?>"name="kurs_id">
                                                 <input type="hidden" value=1 name="archiv">
 						<button type="submit" class="btn btn-warning">
                                                         <span class="glyphicon glyphicon-duplicate"></span>
                                                 </button> 
+                                    </form> 
+                                </td>
+                                <td><form accept-charset="utf-8" method="POST" action="kursview">
+						<input type="hidden" value="<?=$r->getKurs_id()?>" name="kurs_id">
+						<button type="submit" class="btn btn-info">
+                                                        <span class="glyphicon glyphicon-eye-open"></span>
+                                                </button>
                                     </form> 
                                 </td>
 			</tr>
