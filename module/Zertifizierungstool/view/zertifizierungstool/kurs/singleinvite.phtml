@@ -14,14 +14,22 @@
 
 
 <?php if (isset($erfolgreich)) {
-
-	echo "E-Mail wurde erfolgreich an <b>".$erfolgreich."</b> versandt.";
+        ?>
+        <div class="alert alert-success" role="alert">
+            <p> E-Mail wurde erfolgreich an <b><?php $erfolgreich; ?></b> versandt. </p>
+        </div>
+        <?php
+	//echo "E-Mail wurde erfolgreich an <b>".$erfolgreich."</b> versandt.";
 	
 }?>
 
 <?php if (isset($fehler)) {
-
-	echo "Es liegt bereits eine Einladung f&uuml;r die E-Mail Adresse <b>".$fehler."</b> vor.";
+        ?>
+        <div class="alert alert-success" role="alert">
+            <p> Es liegt bereits eine Einladung f&uuml;r die E-Mail Adresse <b><?php $fehler; ?></b> vor. </p>
+        </div>
+        <?php
+	//echo "Es liegt bereits eine Einladung f&uuml;r die E-Mail Adresse <b>".$fehler."</b> vor.";
 	
 }?>
 
