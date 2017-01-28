@@ -2,11 +2,21 @@
 
 <?php
 if($meldung == "erfolgreich") {
-    echo "<b><font color ='green'>Sie konnten sich erfolgreich aus dem Kurs austragen.</font></b>";
+    ?>
+    <div class="alert alert-success" role="alert">
+        <p> Sie konnten sich erfolgreich aus dem Kurs austragen. </p>
+    </div>
+    <?php
+    //echo "<b><font color ='green'>Sie konnten sich erfolgreich aus dem Kurs austragen.</font></b>";
     header("refresh:2; url = /kurs/showsignedkurse");
 } 
 if($meldung == "fehlerhaft") {
-    echo "Beim Austragen trat ein Fehler auf, versuchen Sie es bitte erneut!";
+    ?>
+    <div class="alert alert-error" role="alert">
+        <p> Beim Austragen trat ein Fehler auf, versuchen Sie es bitte erneut! </p>
+    </div>
+    <?php
+    //echo "Beim Austragen trat ein Fehler auf, versuchen Sie es bitte erneut!";
 	header("refresh:2; url=/kurs/showsignedkurse");
     ?>
     <br><br>
