@@ -199,7 +199,7 @@ class PruefungController extends AbstractActionController {
 					$request["cutscore"] / 100 );
 		
 			// Format des Prüfungstermins überprüfen
-			if (strtotime($this->pruefung->getTermin())!=false) {
+			if (strtotime($this->pruefung->getTermin()) == false) {
 				array_push($errors, "Ung&uuml;ltiges Datums-Format beim Pr&uuml;fungstermin!");
 			}
 			// Prüfungstermin validieren -> Muss nach Kursbeginn und mind. 4 Tage vor Kursende liegen
