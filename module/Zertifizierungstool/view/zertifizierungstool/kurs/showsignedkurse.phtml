@@ -21,9 +21,9 @@
 		<th> KursStart </th>
                 <th> KursEnde </th>
                 <th> KursLeiter </th>
-                <th></th>
-                <th></th>
-		</tr>
+                <th> anzeigen </th>
+                <th> austragen </th>
+	</tr>
 		
 		<?php 
 			foreach($result as $r){ 
@@ -37,12 +37,16 @@
                                 <td><?php echo ($user->getVorname()); echo" "; echo ($user->getNachname());?></td>
                                 <td> <form accept-charset="utf-8" method="POST" action="kursview">
                                         <input type="hidden" value="<?=$r->getKurs_id()?>" name="kurs_id">
-                                        <input size="70" maxlength="250" value="anzeigen" class="btn btn-default" type="submit">
+                                        <button type="submit" class="btn btn-info">
+                                                    <span class="glyphicon glyphicon-eye-open"></span>
+                                        </button>
                                 </form> </td>
                                 <td>
                                     <form accept-charset="utf-8" method="POST" action="signoutkurs">
                                         <input type="hidden" value="<?=$r->getKurs_id()?>" name="kurs_id">
-                                        <input size="70" maxlength="250" value="Aus Veranstaltung austragen" class="btn btn-default" type="submit">
+                                        <button type="submit" class="btn btn-danger">
+                                                    <span class="glyphicon glyphicon-remove"></span>
+                                        </button>
                                     </form>
                                 </td>
 			</tr>
