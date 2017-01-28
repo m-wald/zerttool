@@ -76,7 +76,7 @@ class FrageController extends AbstractActionController {
 		// Nachdem Formular angesendet wurde:
 		if ($_REQUEST['speichern']) {
 			if ($_REQUEST['typ'] == 'TF') {
-				if ($_REQUEST['tf'] == true) {
+				if ($_REQUEST['tf'] == "true") {
 					$success = Beantwortet::setTrue($schreibt_pruefung_id, $_REQUEST['antwort_id']);
 				} else {
 					$success = Beantwortet::setFalse($schreibt_pruefung_id, $_REQUEST['antwort_id']);

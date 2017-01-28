@@ -31,7 +31,7 @@
 	<table class="table table-hover">
 	<?php foreach ($fragen as $f) { 
 			$path = '/frage/answer/' .$schreibt_pruefung_id .'?next_id=' .$f->getId(); ?>
-			<tr><td width=70%><?=$f->getText()?></td><td width=30%><a href="<?=$path?>"><button type="button" class="btn btn-default">beantworten</button></a></td></tr>		
+			<tr><td width=70%><?=$f->getText()?></td><td width=30%><a href="<?=$path?>"><button type="button" class="btn btn-default">beantworten</button></a></td></tr>
 	<?php } ?>
 	
 	</table>
