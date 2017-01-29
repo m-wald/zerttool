@@ -65,7 +65,10 @@ elseif($message == 'access_error'){
 		<?php 
 		}
 		else {
-			foreach($list as $row){ ?>
+			foreach($list as $row){ 
+			if(!User::currentUser()->istKursleiter($row->getKurs_id())) {
+				?>
+			
 			<tr>
 				<td><?=$row->getKurs_id()?></td>
 				<td><?=$row->getKurs_name()?></td>
@@ -85,6 +88,7 @@ elseif($message == 'access_error'){
 		<?php 
 			}
 			}
+		}
 			?>
 		
 		</table>
