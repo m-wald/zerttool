@@ -23,7 +23,7 @@ class Pruefung {
 	private $durchschnitt_versuche;
 	
 	
-	public function __construct($id = "", $name = "", $termin = "", $kursid = "", $cutscore = "", $anzahlmitgeschrieben="", $bestehensquote="", $durchschnitt_versuche="") {
+	public function __construct($id = "", $name = "", $termin = new \DateTime(strftime('%F', time())), $kursid = "", $cutscore = "", $anzahlmitgeschrieben="", $bestehensquote="", $durchschnitt_versuche="") {
 		
 		$db = new Db_connection();
 		$mysqli = $db->getConnection();
@@ -38,7 +38,6 @@ class Pruefung {
 		$this->anzahlmitgeschrieben 	= $mysqli->real_escape_string($anzahlmitgeschrieben);
 		$this->bestehensquote 			= $mysqli->real_escape_string($bestehensquote);
 		$this->durchschnitt_versuche	= $mysqli->real_escape_string($durchschnitt_versuche);
-		
 	}
 	
 	/**
