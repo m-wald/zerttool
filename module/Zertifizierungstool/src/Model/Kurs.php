@@ -254,7 +254,7 @@ class Kurs {
         $benutzername = $mysqli->real_escape_string($benutzername);
         
         
-        if(User::currentUser()->istTeilnehmer()) {
+        if(User::currentUser()->istTeilnehmer() || User::currentUser()->istAdmin()) {
             $query = "SELECT * FROM benutzer_kurs JOIN kurs USING (kurs_id) WHERE benutzer_kurs.benutzername = '".$benutzername."' and (CURRENT_DATE between kurs_start and kurs_ende);";
             $result = $db->execute($query);
         }
