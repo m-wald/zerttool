@@ -66,7 +66,7 @@ class Pruefung {
 		
 		$query = "INSERT INTO pruefung (pruefung_name, pruefung_ab, kurs_id, cutscore) VALUES ('"
 					.$this->name	. "', '"
-					.$this->termin 	. "', "
+					.strftime('%F', strtotime($this->termin)) 	. "', "
 					.$this->kurs_id . ", '"
 					.$this->cutscore . "')" ;
 		
@@ -94,7 +94,7 @@ class Pruefung {
 		
 		$query = "UPDATE pruefung SET"
 					." pruefung_name = '" .$this->name ."'"
-					.", pruefung_ab = '"   .$this->termin ."'"
+					.", pruefung_ab = '"  .strftime('%F', strtotime($this->termin)) ."'"
 					.", cutscore = "      .$this->cutscore
 		
 				." WHERE pruefung_id = " .$this->id;
