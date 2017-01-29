@@ -188,7 +188,7 @@ input[type=number]{
     
     <div class="form-group">
         <label for="termin"> Termin </label>
-        <input name="termin" type="date" class="form-control" value="<?=strftime('%d.%m.%y', strtotime($pruefung->getTermin()))?>" required>
+        <input name="termin" type="date" class="form-control" value="<?=$pruefung->getTermin()?>" required>
     </div>
     
     <div class="form-group">

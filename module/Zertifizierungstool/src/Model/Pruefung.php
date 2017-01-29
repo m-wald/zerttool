@@ -23,7 +23,7 @@ class Pruefung {
 	private $durchschnitt_versuche;
 	
 	
-	public function __construct($id = "", $name = "", $termin = strftime('%F', time()), $kursid = "", $cutscore = "", $anzahlmitgeschrieben="", $bestehensquote="", $durchschnitt_versuche="") {
+	public function __construct($id = "", $name = "", $termin = "", $kursid = "", $cutscore = "", $anzahlmitgeschrieben="", $bestehensquote="", $durchschnitt_versuche="") {
 		
 		$db = new Db_connection();
 		$mysqli = $db->getConnection();
@@ -245,7 +245,13 @@ class Pruefung {
 	// Getter methods
 	public function getId() 	  {return $this->id;}	
 	public function getName() 	  {return $this->name;}
-	public function getTermin()   {return $this->termin;}
+	public function getTermin()   {
+		if ($this->termin == "") {
+			return "";
+		} else {
+			return strftime('%d.%m.%y', strtotime($this->termin));
+		}
+	}
 	public function getKursId()   {return $this->kurs_id;}
 	public function getCutscore() {return $this->cutscore;}
 	public function getAnzahlMitgeschrieben() {return $this->anzahlmitgeschrieben;}
