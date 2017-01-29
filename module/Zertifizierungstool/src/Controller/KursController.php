@@ -188,7 +188,7 @@ class KursController extends AbstractActionController
     	
     	
         $kurs = new Kurs();
-        if(User::currentUser()->istTeilnehmer()) {
+        if(User::currentUser()->istTeilnehmer() || User::currentUser()->istAdmin()) {
             $signedkurse = $kurs->loadsignedkurse(User::currentUser()->getBenutzername());
         }
         return new ViewModel(['result' => $signedkurse]);
