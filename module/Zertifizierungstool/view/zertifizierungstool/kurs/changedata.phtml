@@ -75,6 +75,10 @@ if ($error == 'unabletoload') {
 }elseif ($error == 'coursealreadystarted') {
     ?>
     <div class="alert alert-danger" role="alert">
+        <?php echo $neu;
+                echo $alt;
+                echo $today;
+                ?>
         <p> <strong>Fehler!</strong> Kurszeitraum kann nicht geändert werden, da der Kurs schon begonnen hat! </p>
     </div>
     <?php
