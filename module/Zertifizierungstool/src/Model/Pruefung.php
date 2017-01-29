@@ -23,7 +23,7 @@ class Pruefung {
 	private $durchschnitt_versuche;
 	
 	
-	public function __construct($id = "", $name = "", $termin = new \DateTime(strftime('%F', time())), $kursid = "", $cutscore = "", $anzahlmitgeschrieben="", $bestehensquote="", $durchschnitt_versuche="") {
+	public function __construct($id = "", $name = "", $termin = strftime('%F', time()), $kursid = "", $cutscore = "", $anzahlmitgeschrieben="", $bestehensquote="", $durchschnitt_versuche="") {
 		
 		$db = new Db_connection();
 		$mysqli = $db->getConnection();
