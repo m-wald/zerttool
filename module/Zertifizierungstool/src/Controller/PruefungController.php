@@ -203,17 +203,20 @@ class PruefungController extends AbstractActionController {
 				array_push($errors, "Ung&uuml;ltiges Datums-Format beim Pr&uuml;fungstermin!");
 			}
 			// Prüfungstermin validieren -> Muss nach Kursbeginn und mind. 4 Tage vor Kursende liegen
-			$kurs = new Kurs();
-		
+			$kurs = new Kurs();		
 			if ($kurs->load($this->pruefung->getKursId())) {
-				if ($this->pruefung->getTermin() < $kurs->getKurs_start()) {
+				$start = strtotime($kurs->getKurs_start());
+				$ende  = strtotime($kurs->getKurs_ende());
+				$termin = strtotime($this->pruefung->getTermin());
+				
+				if ($termin < $start) {
 					array_push($errors, "Der Pr&uuml;fungszeitraum kann erst nach Kursbeginn starten!");
 					
 				}else {
 					// Datum ermitteln, zu dem die Prüfung spätestens verfügbar sein muss
-					$latest_date = new \DateTime(strftime('%F', strtotime($kurs->getKurs_ende())));
+					$latest_date = new \DateTime(strftime('%F', $ende));
 					$latest_date->modify('-4 days');
-					if ($this->pruefung->getTermin() > $latest_date->format('Y-m-d')) {
+					if ($termin > strtotime($latest_date->format('Y-m-d'))) {
 						array_push($errors, "Der Pr&uuml;fungszeitraum muss mindestens 4 Tage vor Kursende starten! Also spätestens am " .$latest_date->format('d.m.Y'));
 					}
 				}
