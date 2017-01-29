@@ -246,6 +246,8 @@ class Pruefung {
 	public function getId() 	  {return $this->id;}	
 	public function getName() 	  {return $this->name;}
 	public function getTermin()   {
+		return $this->termin;
+		
 		if ($this->termin == "") {
 			return "";
 		} else {
