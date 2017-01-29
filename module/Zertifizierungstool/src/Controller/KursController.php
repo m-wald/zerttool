@@ -852,8 +852,8 @@ class KursController extends AbstractActionController
                         header("refresh:0; url = /user/login");
                         exit;
                 }
-                $kurs = new Kurs;
-                if(User::currentUser()->istZertifizierer() || User::currentUser()->istKursleiter($kurs->getKurs_id())) {
+               
+                if(User::currentUser()->istZertifizierer()) {
                         header("refresh:0; url = /");
                         exit;
                 }
