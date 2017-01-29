@@ -45,7 +45,7 @@
 		echo "<b>Punkte: ".$frage->getPunkte()."</b><br>";?>
 		<div style="margin-top:20%">
 		<?php 
-		if ($frage->getTyp() == 'TF') { var_dump($antworten);?>
+		if ($frage->getTyp() == 'TF') {?>
 			<input type="hidden" name="typ" value="TF" >
 			<input type="hidden" name="antwort_id" value="<?=$antworten[0]['antwort']->getId()?>">
 			<input type="radio"  name="tf" value="true"  <?php if ($antworten[0]['status'] == 1) echo "checked";?>> Wahr<br>
