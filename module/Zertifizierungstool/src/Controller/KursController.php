@@ -243,7 +243,7 @@ class KursController extends AbstractActionController
             $end    = $_REQUEST["kursende"];
             $starttimestamp = strtotime($start);
             $endtimestamp   = strtotime($end);
-            $today = strtotime(date(d-m-Y));
+            $currentdate = strtotimedate(date('Y-m-d'));
             
             // Enddatum muss größer wie Stardatum sein, Enddatum muss größer wie das heutige Datum sein 
             if($endtimestamp > $starttimestamp && $endtimestamp > $today && $starttimestamp >= $today) {
