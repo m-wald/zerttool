@@ -71,7 +71,7 @@ class KursController extends AbstractActionController
             }
 
             //Prüfung, ob Kursende vor dem heutigem Datum 
-            if($endtimestamp < $currentdatetimestamp){
+            if($endtimestamp <= $currentdatetimestamp){
                 
                 $kurs = new Kurs(
                         NULL,
