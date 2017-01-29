@@ -146,7 +146,7 @@ class Kurs {
     	$kurs_id = $mysqli->real_escape_string($kurs_id);
     	
     	
-    	if((User::currentUser()->istTeilnehmer())){
+    	if(User::currentUser()->istTeilnehmer() || User::currentUser()->istAdmin()){
     		$query = "SELECT bestanden FROM benutzer_kurs WHERE benutzername = '".$benutzername."' 
     					AND kurs_id = ".$kurs_id." ;";
     		$result = $db->execute($query);    		 
@@ -167,7 +167,7 @@ class Kurs {
     	
     	$benutzername = $mysqli->real_escape_string($benutzername);
     	
-    	if((User::currentUser()->istTeilnehmer())){
+    	if(User::currentUser()->istTeilnehmer() || User::currentUser()->istAdmin()){
     		$query = "SELECT benutzer_kurs.kurs_id, kurs.kurs_name FROM benutzer_kurs
     				JOIN kurs ON kurs.kurs_id = benutzer_kurs.kurs_id
     				WHERE benutzer_kurs.benutzername = '".$benutzername."' AND bestanden = 1
