@@ -38,7 +38,6 @@ class Pruefung {
 		$this->anzahlmitgeschrieben 	= $mysqli->real_escape_string($anzahlmitgeschrieben);
 		$this->bestehensquote 			= $mysqli->real_escape_string($bestehensquote);
 		$this->durchschnitt_versuche	= $mysqli->real_escape_string($durchschnitt_versuche);
-		
 	}
 	
 	/**
@@ -66,7 +65,7 @@ class Pruefung {
 		
 		$query = "INSERT INTO pruefung (pruefung_name, pruefung_ab, kurs_id, cutscore) VALUES ('"
 					.$this->name	. "', '"
-					.$this->termin 	. "', "
+					.strftime('%F', strtotime($this->termin)) 	. "', "
 					.$this->kurs_id . ", '"
 					.$this->cutscore . "')" ;
 		
@@ -94,7 +93,7 @@ class Pruefung {
 		
 		$query = "UPDATE pruefung SET"
 					." pruefung_name = '" .$this->name ."'"
-					.", pruefung_ab = '"   .$this->termin ."'"
+					.", pruefung_ab = '"  .strftime('%F', strtotime($this->termin)) ."'"
 					.", cutscore = "      .$this->cutscore
 		
 				." WHERE pruefung_id = " .$this->id;
@@ -246,7 +245,15 @@ class Pruefung {
 	// Getter methods
 	public function getId() 	  {return $this->id;}	
 	public function getName() 	  {return $this->name;}
-	public function getTermin()   {return $this->termin;}
+	public function getTermin()   {
+		return $this->termin;
+		
+		if ($this->termin == "") {
+			return "";
+		} else {
+			return strftime('%d.%m.%y', strtotime($this->termin));
+		}
+	}
 	public function getKursId()   {return $this->kurs_id;}
 	public function getCutscore() {return $this->cutscore;}
 	public function getAnzahlMitgeschrieben() {return $this->anzahlmitgeschrieben;}
