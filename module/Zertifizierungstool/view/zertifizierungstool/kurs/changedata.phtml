@@ -65,6 +65,9 @@ use Zertifizierungstool\Model\User;
         
 </form>
 
+<a href="<?= $this->url('pruefung', ['action' => 'overview', 'id' => $kurs->getKurs_id()]).'?kursname='.$kurs->getKurs_name()?>"><button class="btn btn-default" type="button">Zu den Pr&uuml;fungen</button></a>
+<br><br>
+
 <?php
 if ($error == 'unabletoload') {
     ?>
@@ -79,7 +82,7 @@ if ($error == 'unabletoload') {
         <?php echo $neu; ?>
         <?php echo $currentdate; ?>
                 ?>
-        <p> <strong>Fehler!</strong> Kurszeitraum kann nicht geändert werden, da der Kurs schon begonnen hat! </p>
+        <p> <strong>Fehler!</strong> Kursstart kann nicht geändert werden, wenn der Kurs schon begonnen hat! </p>
     </div>
     <?php
 }elseif ($error == 'dateerror') {
@@ -105,9 +108,7 @@ if ($error == 'unabletoload') {
     <?php
     header("refresh:2; url = /kurs/showkurse");	
 }
-//else {
-	//unset($status);
+
 ?>
 
 
-<a href="<?= $this->url('pruefung', ['action' => 'overview', 'id' => $kurs->getKurs_id()]).'?kursname='.$kurs->getKurs_name()?>"><button class="btn btn-default" type="button">Zu den Pr&uuml;fungen</button></a>
