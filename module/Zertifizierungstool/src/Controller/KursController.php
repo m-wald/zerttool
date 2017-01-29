@@ -251,9 +251,9 @@ class KursController extends AbstractActionController
                 // Prüfung ob Kursstart verändert wurde, Kursstart darf nur geändert werden solange der Kurs noch nicht begonnen hat
                 if($starttimestampalt != $starttimestamp) {
                     //Sobald das neue Datum vor dem alten Kursdatum liegt 
-                    if($starttimestampalt < $currentdate) {
+                    if($starttimestampalt <= $currentdate) {
                         //$status = "Kursdatum nicht änderbar, da Kurs schon begonnen hat!";
-                        return new ViewModel(['error' => 'coursealreadystarted', 'kurs' => $kurs, 'neu' => $starttimestamp, 'alt' => $starttimestampalt, 'currentdate' => $currentdate]);
+                        return new ViewModel(['error' => 'coursealreadystarted', 'kurs' => $kurs]);
                     }
                 }
                 
