@@ -245,8 +245,8 @@ class KursController extends AbstractActionController
             $endtimestamp   = strtotime($end);
             $currentdate = strtotime(date('Y-m-d'));
             
-            // Enddatum muss größer wie Stardatum sein, Enddatum muss größer wie das heutige Datum sein 
-            if($endtimestamp > $starttimestamp && $endtimestamp > $currentdate && $starttimestamp >= $currentdate) {
+            // Enddatum muss größer wie Startdatum sein, Enddatum muss größer wie das heutige Datum sein 
+            if($endtimestamp > $starttimestamp && $endtimestamp > $currentdate) {
                 
                 // Prüfung ob Kursstart verändert wurde, Kursstart darf nur geändert werden solange der Kurs noch nicht begonnen hat
                 if($starttimestampalt != $starttimestamp) {
