@@ -247,7 +247,7 @@ class KursController extends AbstractActionController
             
             if($endtimestamp > $starttimestamp && $endtimestamp > $today && $starttimestamp >= $today) {
             
-                if($starttimestampalt != $starttimestamp) {
+                if($starttimestampalt >= $starttimestamp && $starttimestamp > $currentdatetimestamp) {
                     //$status = "Kursdatum nicht änderbar, da Kurs schon begonnen hat!";
                     return new ViewModel(['error' => 'coursealreadystarted', 'kurs' => $kurs, 'neu' => $starttimestamp, 'alt' => $starttimestampalt]);
                 }
