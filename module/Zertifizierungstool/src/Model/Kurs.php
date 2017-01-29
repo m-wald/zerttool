@@ -303,7 +303,7 @@ class Kurs {
      * @return fÃ¼hrt die Query aus
      */
     
-    public function update($kursid, $kursname, $kursstart, $kursende, $sichtbarkeit, $beschreibung) {
+    public function update($kursid, $kursname, $kursstart, $kursende, $sichtbarkeit, $benutzername ,$beschreibung) {
         $db = new Db_connection();
         
         $mysqli = $db->getConnection();
@@ -313,6 +313,7 @@ class Kurs {
         $kursstart = $mysqli->real_escape_string($kursstart);
         $kursende = $mysqli->real_escape_string($kursende);
         $sichtbarkeit = $mysqli->real_escape_string($sichtbarkeit);
+        $benutzername = $mysqli->real_escape_string($benutzername);
         $beschreibung = $mysqli->real_escape_string($beschreibung);
         
       
@@ -322,6 +323,7 @@ class Kurs {
                     kurs_start = '".$kursstart."',
                     kurs_ende = '".$kursende."',
                     sichtbarkeit = '".$sichtbarkeit."',
+                    benutzername = '".$benutzername."',
                     beschreibung = '".$beschreibung."' where kurs_id = '".$kursid."';";
         $result = $db->execute($query);
         return $result;
@@ -353,7 +355,7 @@ class Kurs {
     
     /**
      * Prï¿½ft anhand des aktuellen Datums, ob das Kurs_Ende erreicht wurde.
-     * @return 2 falls der Kurs erst in der Zukunft anfängt
+     * @return 2 falls der Kurs erst in der Zukunft anfï¿½ngt
      * @return 1 falls der Kurs noch aktiv, false falls nicht
      */
     public function active($kurs_id) {
