@@ -110,15 +110,6 @@ class KursController extends AbstractActionController
         }
     }
     
-    public function anlegentestAction()
-    {
-	$kurs = new Kurs("ITM", "01.12.2016", "31.12.2016", 0, "aaa", "abcdefg");
-		
-	$kurs->save();
-		
-	return new ViewModel();
-    }
-    
     /**
      * Wenn Zertifizierer, dann Kurse des Zertifizierers laden und der View übergeben
      * Wenn Admin oder Teilnehmer, dann entsprechende Kurse laden und der View übergeben
@@ -257,13 +248,14 @@ class KursController extends AbstractActionController
                     }
                 }
                 
-                $kurs->update($_REQUEST["kurs_id"], $_REQUEST["kursname"], $_REQUEST["kursstart"], $_REQUEST["kursende"], $_REQUEST["sichtbarkeit"], $_REQUEST["beschreibung"]);
+                $kurs->update($_REQUEST["kurs_id"], $_REQUEST["kursname"], $_REQUEST["kursstart"], $_REQUEST["kursende"], $_REQUEST["sichtbarkeit"], $_REQUEST["benutzername"], $_REQUEST["beschreibung"]);
                 $kurs = new Kurs(
                         $_REQUEST["kurs_id"],
                         $_REQUEST["kursname"],
                         $_REQUEST["kursstart"],
                         $_REQUEST["kursende"],
                         $_REQUEST["sichtbarkeit"],
+                        $_REQUEST["benutzername"],
                         $_REQUEST["beschreibung"]); 
                 $status = "erfolgreich geändert"; 
             }
@@ -283,13 +275,14 @@ class KursController extends AbstractActionController
             $today = strtotime(date(d-m-Y));
         	
             if($endtimestamp > $starttimestamp && $endtimestamp > $today && $starttimestamp >= $today) {
-            $kurs->insert($_REQUEST["kursname"], $_REQUEST["kursstart"], $_REQUEST["kursende"], $_REQUEST["sichtbarkeit"], User::currentUser()->getBenutzername(), $_REQUEST["beschreibung"]);
+            $kurs->insert($_REQUEST["kursname"], $_REQUEST["kursstart"], $_REQUEST["kursende"], $_REQUEST["sichtbarkeit"], $_REQUEST["benutzername"], $_REQUEST["beschreibung"]);
             $kurs = new Kurs(
                     $_REQUEST["kurs_id"],
                     $_REQUEST["kursname"],
                     $_REQUEST["kursstart"],
                     $_REQUEST["kursende"],
                     $_REQUEST["sichtbarkeit"],
+                    $_REQUEST["benutzername"],
                     $_REQUEST["beschreibung"]); 
             $status = "erfolgreich übernommen"; 
             }
