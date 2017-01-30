@@ -1,4 +1,6 @@
 <?php 
+
+
 if (!empty($errors)) {
 	?>
 	<div class="alert alert-danger" role="alert">
@@ -13,3 +15,5 @@ if (!empty($errors)) {
 	<?php 
 }
 ?>
+
+<a href="<?= $this->url('pruefung', ['action' => 'overview', 'id' => $kursid])?>"><button type="button" class="btn btn-default">zur&uuml;ck zur Pr&uuml;fungs&uuml;bersicht</button></a><br><br>
