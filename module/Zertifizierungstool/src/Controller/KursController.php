@@ -293,6 +293,7 @@ class KursController extends AbstractActionController
                     return new ViewModel(['error' => 'fourdays', 'kurs' => $kurs]);
                 }
                 
+                //Es wird ein neuer Kurs in der Datenbank erzeugt, wobei der alte bestehen bleibt
                 $kurs->insert($_REQUEST["kursname"], $_REQUEST["kursstart"], $_REQUEST["kursende"], $_REQUEST["sichtbarkeit"], $_REQUEST["benutzername"], $_REQUEST["beschreibung"]);
                 $kurs = new Kurs(
                         $_REQUEST["kurs_id"],
