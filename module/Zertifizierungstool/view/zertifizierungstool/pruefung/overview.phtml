@@ -51,8 +51,4 @@ if(!isset ($_SESSION['kursname'])){
 
 </div>
 <br><br>
-<form method="post" action="kursview">
-<input type="hidden" value="pruefung_overview" name="site">
-<input type="hidden" value="<?php echo $_SESSION['kurs_id']?>" name="kurs_id">
-<input type="submit" class="btn btn-default" value="zur&uuml;ck zur Kurs&uuml;bersicht">
-</form>
+<a href="http://132.231.36.205/kurs/kursview?kurs_id=<?=$kursid?>"><button type="button" class="btn btn-default">Zur&uuml;ck zur Kurs&uuml;bersicht</button></a>
