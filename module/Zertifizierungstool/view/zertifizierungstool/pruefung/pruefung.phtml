@@ -4,12 +4,19 @@ use Zertifizierungstool\Model\Antwort;
 use Zertifizierungstool\Model\Pruefung;
 use Zertifizierungstool\Controller\PruefungController;
 
+
+ 
 if (isset($errors)) {
+	?>
+	<div class="alert alert-danger" role="alert">
+	<?php 
 	foreach ($errors as $err) {
 		echo "Fehler: " . $err . "<br>";
 	}
 }
-
+?>
+</div>
+<?php
 if ($mode == PruefungController::PRUEFUNG) {
 	$pruefSaveButton = "submit";
 	$pruefBackground = 'style="background-color: PaleGreen;"';

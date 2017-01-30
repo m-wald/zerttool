@@ -1,9 +1,15 @@
 <?php 
 if (!empty($errors)) {
-	echo 'Sie wollten eine Pr&uuml;fung ablegen. Dabei sind folgende Fehler aufgetreten:';
+	?>
+	<div class="alert alert-danger" role="alert">
+	<?php 
+	echo '<font color="red"><h2><b>Sie wollten eine Pr&uuml;fung ablegen. Dabei sind folgende Fehler aufgetreten:</b></h2></font><br><br>';
 			
 	foreach ($errors as $err) {
 		echo "<br>" . $err;
 	}
+	?>
+	</div>
+	<?php 
 }
 ?>
