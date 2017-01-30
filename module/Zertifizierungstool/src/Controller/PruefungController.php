@@ -67,7 +67,7 @@ class PruefungController extends AbstractActionController {
 			$min_timestamp = strtotime($last_try->getZeitpunkt()) + (60 * 60 * 24);
 			
 			if (time() < $min_timestamp) {
-				array_push($errors, 'Fehler: Sie können die Pr&uuml;fung erst 24 Stunden nach Ihrem letzten Versuch wiederholen.' .strftime('%F %T', $min_timestamp));
+				array_push($errors, 'Fehler: Sie k&ouml;nnen die Pr&uuml;fung erst 24 Stunden nach Ihrem letzten Versuch wiederholen.' .strftime('%F %T', $min_timestamp));
 			}
 		}
 		
@@ -217,7 +217,7 @@ class PruefungController extends AbstractActionController {
 					$latest_date = new \DateTime(strftime('%F', $ende));
 					$latest_date->modify('-4 days');
 					if ($termin > strtotime($latest_date->format('Y-m-d'))) {
-						array_push($errors, "Der Pr&uuml;fungszeitraum muss mindestens 4 Tage vor Kursende starten! Also spätestens am " .$latest_date->format('d.m.Y'));
+						array_push($errors, "Der Pr&uuml;fungszeitraum muss mindestens 4 Tage vor Kursende starten! Also sp&auml;testens am " .$latest_date->format('d.m.Y'));
 					}
 				}
 			}else {
