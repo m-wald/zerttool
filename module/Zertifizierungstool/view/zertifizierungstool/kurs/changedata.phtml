@@ -103,7 +103,7 @@ if ($error == 'unabletoload') {
     </div>
     <?php
     header("refresh:2; url = /kurs/showkurse");	
-}elseif($status == 'fourdays') {
+}elseif($error == 'fourdays') {
     ?>
     <div class="alert alert-danger" role="alert">
         <strong>Fehler!</strong> Ein Kurs muss mindestens 4 Tage dauern.
