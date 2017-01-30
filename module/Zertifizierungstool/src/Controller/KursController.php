@@ -209,7 +209,9 @@ class KursController extends AbstractActionController
         
     	$id = $_REQUEST["kurs_id"];
         
-        //aus showarchivedkurse
+        /*Wenn der Benutzer einen archivierten Kurs in showarchivedkurse auswählt hat 
+         * Überprüfung ob die Variable "archiv" den Wert "1" besitzt
+         */
         if($_REQUEST["archiv"] == 1) {
             $archiviert = "gesetzt";
         } else {
