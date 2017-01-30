@@ -268,7 +268,6 @@ class KursController extends AbstractActionController
                 $status = "erfolgreich geändert"; 
             }
             else {
-                //$status = "�berpr�fen Sie bitte Start- und End-Datum des Kurses!";
                 return new ViewModel(['error' => 'dateerror', 'kurs' => $kurs]);
             }
         }
