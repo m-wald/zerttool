@@ -248,6 +248,14 @@ class KursController extends AbstractActionController
                     }
                 }
                 
+                $fourdays_afterstart = strtotime(date('Y-m-d', strtotime($start. ' + 4 days')));
+                
+                //Prüfung ob der Kurs mindestens vier Tage andauert.
+                if(($fourdays_afterstart) > $endtimestamp){
+
+                    return new ViewModel(['error' => 'fourdays', 'kurs' => $kurs]);
+                }
+                
                 $kurs->update($_REQUEST["kurs_id"], $_REQUEST["kursname"], $_REQUEST["kursstart"], $_REQUEST["kursende"], $_REQUEST["sichtbarkeit"], $_REQUEST["benutzername"], $_REQUEST["beschreibung"]);
                 $kurs = new Kurs(
                         $_REQUEST["kurs_id"],
@@ -272,19 +280,28 @@ class KursController extends AbstractActionController
             $end    = $_REQUEST["kursende"];
             $starttimestamp = strtotime($start);
             $endtimestamp   = strtotime($end);
-            $today = strtotime(date(d-m-Y));
+            $currentdate = strtotime(date('Y-m-d'));
         	
-            if($endtimestamp > $starttimestamp && $endtimestamp > $today && $starttimestamp >= $today) {
-            $kurs->insert($_REQUEST["kursname"], $_REQUEST["kursstart"], $_REQUEST["kursende"], $_REQUEST["sichtbarkeit"], $_REQUEST["benutzername"], $_REQUEST["beschreibung"]);
-            $kurs = new Kurs(
-                    $_REQUEST["kurs_id"],
-                    $_REQUEST["kursname"],
-                    $_REQUEST["kursstart"],
-                    $_REQUEST["kursende"],
-                    $_REQUEST["sichtbarkeit"],
-                    $_REQUEST["benutzername"],
-                    $_REQUEST["beschreibung"]); 
-            $status = "erfolgreich übernommen"; 
+            if($endtimestamp > $starttimestamp && $endtimestamp > $currentdate) {
+                
+                $fourdays_afterstart = strtotime(date('Y-m-d', strtotime($start. ' + 4 days')));
+                
+                //Prüfung ob der Kurs mindestens vier Tage andauert.
+                if(($fourdays_afterstart) > $endtimestamp){
+
+                    return new ViewModel(['error' => 'fourdays', 'kurs' => $kurs]);
+                }
+                
+                $kurs->insert($_REQUEST["kursname"], $_REQUEST["kursstart"], $_REQUEST["kursende"], $_REQUEST["sichtbarkeit"], $_REQUEST["benutzername"], $_REQUEST["beschreibung"]);
+                $kurs = new Kurs(
+                        $_REQUEST["kurs_id"],
+                        $_REQUEST["kursname"],
+                        $_REQUEST["kursstart"],
+                        $_REQUEST["kursende"],
+                        $_REQUEST["sichtbarkeit"],
+                        $_REQUEST["benutzername"],
+                        $_REQUEST["beschreibung"]); 
+                $status = "erfolgreich übernommen"; 
             }
             else {
                 //$status = "�berpr�fen Sie bitte Start- und End-Datum des Kurses!";
