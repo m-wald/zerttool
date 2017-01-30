@@ -231,6 +231,8 @@ class UserController extends AbstractActionController
 					);
 		}
 		session_destroy();
+		
+		return new ViewModel();
 		}
 	}
 	
