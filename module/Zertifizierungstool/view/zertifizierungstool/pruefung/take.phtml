@@ -16,4 +16,4 @@ if (!empty($errors)) {
 }
 ?>
 
-<a href="<?= $this->url('pruefung', ['action' => 'overview', 'id' => $kursid])?>"><button type="button" class="btn btn-default">zur&uuml;ck zur Pr&uuml;fungs&uuml;bersicht</button></a><br><br>
+<a href="<?= $this->url('pruefung', ['action' => 'overview', 'id' => $_SESSION['kurs_id']])?>"><button type="button" class="btn btn-default">zur&uuml;ck zur Pr&uuml;fungs&uuml;bersicht</button></a><br><br>
