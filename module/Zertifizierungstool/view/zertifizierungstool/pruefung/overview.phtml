@@ -50,3 +50,9 @@ if(!isset ($_SESSION['kursname'])){
 <?php }?>
 
 </div>
+<br><br>
+<form method="post" action="kursview">
+<input type="hidden" value="pruefung_overview" name="site">
+<input type="hidden" value="<?php echo $_SESSION['kurs_id']?>" name="kurs_id">
+<input type="submit" class="btn btn-default" value="zur&uuml;ck zur Kurs&uuml;bersicht">
+</form>

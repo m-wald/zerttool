@@ -308,7 +308,7 @@ class KursController extends AbstractActionController
                 exit;
         }
     	
-    	if((isset($_POST["back"]) && !empty($_POST["kurs_id"])) || $_POST['site']=="showstatistic")
+    	if((isset($_POST["back"]) && !empty($_POST["kurs_id"])) || $_POST['site']=="showstatistic" || $_POST['site']=="pruefung_overview")
     		$id = $_POST["kurs_id"];
     	else 
     		$id = $_REQUEST["kurs_id"];
