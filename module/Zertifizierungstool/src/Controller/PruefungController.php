@@ -159,6 +159,7 @@ class PruefungController extends AbstractActionController {
 		if (($punkte / $punkte_gesamt) >= $pruefung->getCutscore()) {
 			$schreibt_pruefung->bestanden();
 		
+			/*
 			// Prüfen ob nun alle Prüfungen zum Kurs bestanden wurden
 			$kurs_bestanden = true;
 			$pruefungen = Pruefung::loadList($pruefung->getKursId());
@@ -174,17 +175,11 @@ class PruefungController extends AbstractActionController {
 			if ($kurs_bestanden) {
 				Benutzer_Kurs::bestanden($pruefung->getKursId());
 			}
+			*/
 		}
-		
-		// Falls der Kurs bestanden ist, wird ein Link zum Download des Zertifikats angeboten. Dazu sind Daten des Kurses nötig
-		$kurs = new Kurs();
-		$kurs->load($pruefung->getKursId());
-		
-		
+	
 		return new ViewModel([
-				'schreibt_pruefung'  => $schreibt_pruefung,
-				'kurs_bestanden' 	 => $kurs_bestanden,
-				'kurs'			 	 => $kurs
+				'schreibt_pruefung'  => $schreibt_pruefung
 		]);
 	}
 	
