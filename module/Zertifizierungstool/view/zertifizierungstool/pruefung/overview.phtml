@@ -2,10 +2,14 @@
 use Zertifizierungstool\Model\User;
 use Zertifizierungstool\Model\SchreibtPruefung;
 
-
-
+if (!empty($error)) {
+	?>
+	<div class="alert alert-danger" role="alert">
+	<?php 
+		echo $error;
+} else {
 ?>
-
+</div>
 <h1> Pr&uuml;fungen zum Kurs <b><?php echo $_SESSION['kurs_name'];?></b></h1><br><br>
 
 <div class="container">
@@ -45,7 +49,7 @@ use Zertifizierungstool\Model\SchreibtPruefung;
 <?php if (User::currentUser()->istAdmin() || User::currentUser()->istZertifizierer()) {?>
 		<a href="<?= $this->url('pruefung', ['action' => 'create', 'id' => $kursid])?>"><button type="button" class="btn btn-default">Neue Pr&uuml;fung anlegen</button></a><br><br>
 		<a href="http://132.231.36.205/kurs/changedata?kurs_id=<?=$kursid?>"><button type="button" class="btn btn-default">Zur&uuml;ck zur Bearbeitung der Kursdaten</button></a>
-<?php }?>
+<?php }}?>
 
 </div>
 <br><br>

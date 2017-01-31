@@ -42,32 +42,42 @@ class PruefungController extends AbstractActionController {
 		$kurs = new Kurs();
 		$kurs->load($pruefung->getKursId());
 		
-		// Prüfen ob Teilnehmer im Kurs eingetragen ist
+		
 		$benutzer_kurs = new Benutzer_Kurs();
 		if (!$benutzer_kurs->alreadyexist(User::currentUser()->getBenutzername(), $pruefung->getKursId())) {
 			array_push($errors, 'Fehler: Sie sind nicht im Kurs eingetragen.');
-		}
-		// Prüfen, ob Kursende schon erreicht
-		if (strtotime($kurs->getKurs_ende()) < strtotime(date())) {
+			
+		} elseif (strtotime($kurs->getKurs_ende()) < strtotime(date())) {
 			array_push($errors, 'Fehler: Der Kurs ist bereits beendet.');
+		} else {
+		
+		// Prüfen, ob eine Prüfung im Kurs bereits 3 mal nicht bestanden wurde und der Kurs damit endgültig nicht bestanden ist
+		$alle_pruefungen = Pruefung::loadList($pruefung->getKursId());
+		
+		if ($pruefungen == false) {
+			// Fehler oder leer
 		}
 		
+		$failed = false;
+		foreach ($alle_pruefungen as $p) {
+			if (SchreibtPruefung::attempts(User::currentUser()->getBenutzername(), $pruefung->getId()) >= 3) {
+				array_push($errors, 'Fehler: Sie haben die Pr&uuml;fung' .$p->getName() .'bereits 3 mal nicht bestanden und sind daher zu keinen Pr&uuml;fungen mehr zugelassen.');
+				$failed = true;
+			}
+		}
+			
 		// Falls der Benutzer die Prüfung schon geschrieben hat
 		$last_try = new SchreibtPruefung();
-		if ($last_try->loadLastTry($pruefung->getId())) {
+		if ($failed == false && $last_try->loadLastTry($pruefung->getId())) {
 			
 			if ($last_try->getBestanden() == 1) {
 				array_push($errors, 'Fehler: Sie haben die Pr&uuml;fung bereits bestanden.');
-			}
-			
-			if (SchreibtPruefung::attempts(User::currentUser()->getBenutzername(), $pruefung->getId()) >= 3) {
-				array_push($errors, 'Fehler: Sie haben die Pr&uuml;fung bereits 3 mal nicht bestanden und sind daher nicht mehr zur Pr&uuml;fung zugelassen.');
-			}
-			
-			$min_timestamp = strtotime($last_try->getZeitpunkt()) + (60 * 60 * 24);
-			
-			if (time() < $min_timestamp) {
-				array_push($errors, 'Fehler: Sie k&ouml;nnen die Pr&uuml;fung erst 24 Stunden nach Ihrem letzten Versuch wiederholen.' .strftime('%F %T', $min_timestamp));
+				
+			} else {
+				$min_timestamp = strtotime($last_try->getZeitpunkt()) + (60 * 60 * 24);
+				if (time() < $min_timestamp) {
+					array_push($errors, 'Fehler: Sie k&ouml;nnen die Pr&uuml;fung erst 24 Stunden nach Ihrem letzten Versuch wiederholen.' .strftime('%d.$m.$y %T', $min_timestamp));
+				}
 			}
 		}
 		
@@ -103,6 +113,7 @@ class PruefungController extends AbstractActionController {
 					continue;
 				}
 			}
+		}
 		}
 		
 		if (empty($errors)) {
@@ -343,6 +354,7 @@ class PruefungController extends AbstractActionController {
 	 * Listet alle Prüfungen auf, die zu einem Kurs gehören
 	 */
 	public function overviewAction() {
+		$error = '';
 		$kursid = $this->params()->fromRoute('id');
 		
 		$kurs = new Kurs();
@@ -356,17 +368,33 @@ class PruefungController extends AbstractActionController {
 				(!User::currentUser()->istZertifizierer() && $kurs->getBenutzername() == User::currentUser()->getBenutzername()) &&
 				(!User::currentUser()->istTeilnehmer() && $benutzer_kurs->alreadyexist(User::currentUser()->getBenutzername(), $kursid))) {
 			header ("refresh:0; url = /");
+		
+		} else {
+		
+		// Prüfen, ob eine Prüfung im Kurs bereits 3 mal nicht bestanden wurde und der Kurs damit endgültig nicht bestanden ist
+		if ($benutzer_kurs->alreadyexist(User::currentUser()->getBenutzername(), $kursid)) {
+			$pruefungen = Pruefung::loadList($kursid);
+			
+			if ($pruefungen == false) {
+				// Fehler oder leer
+			}
+			
+			$failed = false;
+			foreach ($pruefungen as $p) {
+				if (SchreibtPruefung::attempts(User::currentUser()->getBenutzername(), $pruefung->getId()) >= 3) {
+					$error = 'Fehler: Sie haben die Pr&uuml;fung' .$p->getName() .'bereits 3 mal nicht bestanden und sind daher zu keinen Pr&uuml;fungen mehr zugelassen.';
+					$failed = true;
+				}
+			}
 		}
 		
-		$pruefungen = Pruefung::loadList($kursid);
-		
-		if ($pruefungen == false) {
-			// Fehler oder leer
 		}
+		
 		
 		return new ViewModel([
 				'pruefungen' => $pruefungen,
-				'kursid'	 => $kursid
+				'kursid'	 => $kursid,
+				'error'		 => $error
 		]);
 	}
 }
