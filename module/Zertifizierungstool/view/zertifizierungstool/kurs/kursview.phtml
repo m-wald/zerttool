@@ -20,36 +20,10 @@
 </head>
 <body>
 
-    <div class="container">
-        <div class="col-sm-9 text-center">
-    	<h3>Kurs </h3>
-    	
-        <table class="table table-hover">
-    	<tr><td>Kursname:</td><td> 	<?=$kurs->getKurs_name()?>		</td></tr>
-        <tr><td>Kursstart:</td><td> <?=$kurs->getKurs_start()?>	</td></tr>
-        <tr><td>Kursende:</td><td>	<?=$kurs->getKurs_ende()?>		</td></tr>
-        
-        <?php
-        if(User::currentUser()->istAdmin() || User::currentUser()->istZertifizierer()){ ?>
-            <tr><td>Sichtbarkeit:</td>
-                    <td> 
-                         <?php
-                            if($kurs->getSichtbarkeit() == 1)   	echo "öffentlich";
-                            else              						echo "privat";
-                         ?> 
-               </td>
-            </tr>
-        <?php } 
-        $user = new User();
-        $load_user = $user->load($kurs->getBenutzername());
-        ?>
-        <tr><td>Kursleiter:</td><td><?php echo ($user->getVorname()); echo" "; echo ($user->getNachname());/*$kurs->getBenutzername()*/?></td></tr>
-        <tr><td>Teilnehmeranzahl:</td><td><?=$kurs->getTeilnehmerzahl()?></td></tr> 
-        <tr><td>Beschreibung:</td><td><?=$kurs->getBeschreibung()?></td></tr>
-        </table>
-        </div>
-        
-        <div class="col-sm-3 sidenav">   
+    <div class="container-fluid">
+        <div class="row">
+            <div class=".col-xs-6 .col-md-4">
+                 <ul class="nav nav-pills nav-stacked">  
 		<?php  } 
 			if(User::currentUser()->istAdmin() || User::currentUser()->istKursleiter($kurs->getKurs_id()) || User::currentUser()->istTeilnehmer() && $benutzer_kurs->alreadyexist(User::currentUser()->getBenutzername(), $kurs->getKurs_id())) {
 		?>
@@ -145,7 +119,37 @@
                 
                 
                 } ?>
-        </div>      
+        </ul>
+            </div>
+            <div class=".col-xs-12 .col-md-8">
+    	<h3>Kurs </h3>
+    	
+        <table class="table table-hover">
+    	<tr><td>Kursname:</td><td> 	<?=$kurs->getKurs_name()?>		</td></tr>
+        <tr><td>Kursstart:</td><td> <?=$kurs->getKurs_start()?>	</td></tr>
+        <tr><td>Kursende:</td><td>	<?=$kurs->getKurs_ende()?>		</td></tr>
+        
+        <?php
+        if(User::currentUser()->istAdmin() || User::currentUser()->istZertifizierer()){ ?>
+            <tr><td>Sichtbarkeit:</td>
+                    <td> 
+                         <?php
+                            if($kurs->getSichtbarkeit() == 1)   	echo "öffentlich";
+                            else              						echo "privat";
+                         ?> 
+               </td>
+            </tr>
+        <?php } 
+        $user = new User();
+        $load_user = $user->load($kurs->getBenutzername());
+        ?>
+        <tr><td>Kursleiter:</td><td><?php echo ($user->getVorname()); echo" "; echo ($user->getNachname());/*$kurs->getBenutzername()*/?></td></tr>
+        <tr><td>Teilnehmeranzahl:</td><td><?=$kurs->getTeilnehmerzahl()?></td></tr> 
+        <tr><td>Beschreibung:</td><td><?=$kurs->getBeschreibung()?></td></tr>
+        </table>
+        </div>
+        
+       
     </div>
     </body>
     
