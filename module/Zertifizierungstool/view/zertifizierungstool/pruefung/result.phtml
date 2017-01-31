@@ -1,12 +1,24 @@
 <?php 
 if ($schreibt_pruefung->getBestanden()) {
-	echo 'Herzlichen Glückwunsch! Sie haben die Prüfung bestanden.';
+	?>
+	<div class="alert alert-success" role="alert">
+	<?php 
+	echo 'Herzlichen Gl&uuml;ckwunsch! Sie haben die Prüfung bestanden!';
 	
 	if ($kurs_bestanden) {
-		echo '<br>Sie haben nun alle Prüfungen, die zum Bestehen des Kurses nötig sind, erfolgreich absolviert. Über den folgenden Button können Sie Ihr Zertifikat herunterladen: <br>';
-		echo '<a href="http://132.231.36.205/kurs/loadCertificate?pdf=pdf&kurs_name=' .$kurs->getKurs_name() .'&kurs_id=' .$kurs->getKurs_id() .'"><button type="button">Download</button></a>';
+		echo '<br><br>Sie haben nun alle Pr&uuml;fungen, die zum Bestehen des Kurses n&ouml;tig sind, erfolgreich absolviert. &Uuml;ber den folgenden Button k&ouml;nnen Sie Ihr Zertifikat herunterladen: <br>';
+		echo '<a href="http://132.231.36.205/kurs/loadCertificate?pdf=pdf&kurs_name=' .$kurs->getKurs_name() .'&kurs_id=' .$kurs->getKurs_id() .'"><button type="button" class="btn btn-default">Download</button></a>';
+		?>
+	</div>
+	<?php 
 	}
 } else {
-	echo 'Sie haben leider nicht die notwendige Punktzahl erreicht, um die Prüfung zu bestehen.';
+	?>
+	<div class="alert alert-danger" role="alert">
+	<?php 
+	echo 'Sie haben leider nicht die notwendige Punktzahl erreicht, um die Pr&uuml;fung zu bestehen.';
+	?>
+	</div>
+	<?php 
 }
 ?>
