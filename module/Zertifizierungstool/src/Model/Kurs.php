@@ -546,4 +546,75 @@ class Kurs {
     	$beschreibung = $mysqli->real_escape_string($beschreibung);
         $this->beschreibung = $beschreibung;
     }
+    
+    function checkDate($_datum) {
+        /*
+            Test ob es sich um ein Datum handelt. String in 3 Bestandteile zerlegen. Bestandteile aufteilen.
+            Prüfen ob die Bestandteile jeweils die gültige Anzahl an Ziffern besitzen.
+        */
+
+        $_anzahldatumstring = strlen($_datum);
+
+        if($_anzahldatumstring === 10)
+        {
+                //Datum enthält 10 Zeichen
+        }else
+        {
+                return false;
+        }
+
+        //Das Datum in drei Bestandteile aufteilen, wobei der Punkt als Trennelement benutzt wird
+        $delimiters = array(".", "-");
+        $_trenndatum = Kurs::multiexplode($delimiters, $_datum);
+        //$_trenndatum = explode(".", $_datum, 3);
+
+        //Bestandteile in 3 Variablen abspeichern
+        $_tag = $_trenndatum[0]; 
+        $_mon = $_trenndatum[1];
+        $_jahr = $_trenndatum[2];
+
+        //Bestandteile in 3 Variablen abspeichern und diese dann auf die Anzahl der Zeichen überprüfen
+        $_tagzeichen = strlen($_trenndatum[0]);
+        $_monzeichen = strlen($_trenndatum[1]);
+        $_jahrzeichen = strlen($_trenndatum[2]);
+
+        //Schaut nach wie viele Tage der übergebene Monat im übergebenen Jahr hat 
+        $_anzahltageimmonat = cal_days_in_month(CAL_GREGORIAN, $_mon, $_jahr);
+
+        if($_tag < 1 || $_tag > $_anzahltageimmonat)
+        {
+               return false;
+        }
+
+        //Wenn erfasster Monat weniger als 1 oder weniger als 12 ist, dann gib einen Fehler aus.
+        if($_mon <1 || $_mon > 12)
+        {
+                return false;
+        }
+
+        //Prüfe ob das jeweilige Bestandteil des Datums eine ganze Zahl ist
+        //Wenn es eine ganze Zahl ist und die Anzahl an Zeichen korrekt sind, dann ist die einzelne Bedingung wahr
+        //Wenn alle Bedingungen zutreffen ist der ganze Ausdruck wahr
+        if((ctype_digit($_trenndatum[0]) && $_tagzeichen == 2) && (ctype_digit($_trenndatum[1]) && $_monzeichen == 2) && (ctype_digit($_trenndatum[2]) && $_jahrzeichen == 4))
+        {
+                //mache nichts - String ist ein Datum
+        }else
+        {
+                return false;
+        }
+        //Wenn die Methode hier angekommen ist, dann handelt es sich bei dem String um ein Datum
+        return true;
+    }
+    
+    function multiexplode ($delimiters,$string) {
+        $ary = explode($delimiters[0],$string);
+        array_shift($delimiters);
+        if($delimiters != NULL) {
+            foreach($ary as $key => $val) {
+                 $ary[$key] = multiexplode($delimiters, $val);
+            }
+        }
+        return  $ary;
+    }
+    
 }
