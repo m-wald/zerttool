@@ -33,20 +33,25 @@ class KursController extends AbstractActionController
             $currentdate = date('Y-m-d');
             $start  = $_REQUEST["kursstart"];
             
-            echo $start;
-            if($kurs->checkDate($start)) {
-                //mach nix
-            } else {
-                return new ViewModel(['error' => 'invaliddate', 'kurs' => $kurs]);
-            }
+            if (strpos($_SERVER['HTTP_USER_AGENT'], 'Firefox')){
+		if($kurs->checkDate($start)) {
+                    //mach nix
+                } else {
+                    return new ViewModel(['error' => 'invaliddate', 'kurs' => $kurs]);
+                }	
+            }    
+            
             
             $end    = $_REQUEST["kursende"];
             
-            if($kurs->checkDate($end)) {
-                //mach nix
-            } else {
-                return new ViewModel(['error' => 'invaliddate', 'kurs' => $kurs]);
+            if (strpos($_SERVER['HTTP_USER_AGENT'], 'Firefox')){
+		if($kurs->checkDate($end)) {
+                    //mach nix
+                } else {
+                    return new ViewModel(['error' => 'invaliddate', 'kurs' => $kurs]);
+                }	
             }
+            
             
             $starttimestamp = strtotime($start);
             $endtimestamp   = strtotime($end);
