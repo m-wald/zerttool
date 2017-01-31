@@ -48,7 +48,7 @@ class PruefungController extends AbstractActionController {
 			array_push($errors, 'Fehler: Sie sind nicht im Kurs eingetragen.');
 		}
 		// Prüfen, ob Kursende schon erreicht
-		if (strtotime($kurs->getKurs_ende()) < time()) {
+		if (strtotime($kurs->getKurs_ende()) > time()) {
 			array_push($errors, 'Fehler: Der Kurs ist bereits beendet.');
 		}
 		
