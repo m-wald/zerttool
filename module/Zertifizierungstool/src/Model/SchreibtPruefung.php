@@ -119,6 +119,7 @@ class SchreibtPruefung {
 		
 	}
 	
+	/*
 	public function bestanden() {
 		$this->bestanden = 1;
 		$db = new Db_connection();
@@ -134,6 +135,7 @@ class SchreibtPruefung {
 			
 		return true;
 	}
+	*/
 	
 	public function loadLastTry($pruefung_id) {
 		$db = new Db_connection();
