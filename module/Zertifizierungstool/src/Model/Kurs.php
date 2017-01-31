@@ -294,11 +294,11 @@ class Kurs {
         $date_start = new \DateTime($this->kurs_start);
         $date_ende = new \DateTime($this->kurs_ende);
         
-        $kurs_start = $date_start->format('Y-m-d');
-        $kurs_ende = $date_ende->format('Y-m-d');
+        $this->kurs_start = $date_start->format('Y-m-d');
+        $this->kurs_ende = $date_ende->format('Y-m-d');
         
 	$query = "INSERT INTO kurs (kurs_name, kurs_start, kurs_ende, sichtbarkeit, benutzername, beschreibung) VALUES 
-			('".$this->kurs_name."','".$kurs_start."', '".$kurs_ende."', '".$this->sichtbarkeit."', '".$this->benutzername."', '".$this->beschreibung."')";
+			('".$this->kurs_name."','".$this->kurs_start."', '".$this->kurs_ende."', '".$this->sichtbarkeit."', '".$this->benutzername."', '".$this->beschreibung."')";
         
 	$result = $db->execute($query);
         
