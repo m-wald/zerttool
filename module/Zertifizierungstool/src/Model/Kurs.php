@@ -171,7 +171,8 @@ class Kurs {
     		$query = "SELECT benutzer_kurs.kurs_id, kurs.kurs_name FROM benutzer_kurs
     				JOIN kurs ON kurs.kurs_id = benutzer_kurs.kurs_id
     				WHERE benutzer_kurs.benutzername = '".$benutzername."' AND bestanden = 1
-    				;";
+    				AND kurs.kurs_ende <= CURDATE
+    						;";
     		$result = $db->execute($query);
     	
     		/*if (mysqli_num_rows($result) > 0) 	return $result;
