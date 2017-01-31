@@ -32,7 +32,22 @@ class KursController extends AbstractActionController
             
             $currentdate = date('Y-m-d');
             $start  = $_REQUEST["kursstart"];
+            
+            if($kurs->checkDate($start)) {
+                //mach nix
+            } else {
+                return new ViewModel(['error' => 'invaliddate', 'kurs' => $kurs]);
+            }
+            
+            
             $end    = $_REQUEST["kursende"];
+            
+            if($kurs->checkDate($ende)) {
+                //mach nix
+            } else {
+                return new ViewModel(['error' => 'invaliddate', 'kurs' => $kurs]);
+            }
+            
             $starttimestamp = strtotime($start);
             $endtimestamp   = strtotime($end);
             $currentdatetimestamp = strtotime($currentdate);
@@ -1114,7 +1129,7 @@ class KursController extends AbstractActionController
 
 	
 	private function checkCourseResult($kursId) {
-		// Prüfen ob alle Prüfungen zum Kurs bestanden wurden
+		// Prï¿½fen ob alle Prï¿½fungen zum Kurs bestanden wurden
 		$kurs_bestanden = true;
 		$pruefungen = Pruefung::loadList($kursId);
 		
