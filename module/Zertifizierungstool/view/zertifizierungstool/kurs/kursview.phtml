@@ -20,7 +20,8 @@
 </head>
 <body>
 
-    <div class="container-fluid text-center">
+    <div class="container">
+        <div class="col-sm-9 text-center">
     	<h3>Kurs </h3>
     	
         <table class="table table-hover">
@@ -46,6 +47,7 @@
         <tr><td>Teilnehmeranzahl:</td><td><?=$kurs->getTeilnehmerzahl()?></td></tr> 
         <tr><td>Beschreibung:</td><td><?=$kurs->getBeschreibung()?></td></tr>
         </table>
+        </div>
         
         <div class="col-sm-2 sidenav">   
 		<?php  } 
