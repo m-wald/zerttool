@@ -38,11 +38,11 @@ class KursController extends AbstractActionController
             } else {
                 return new ViewModel(['error' => 'invaliddate', 'kurs' => $kurs]);
             }
-            
+            echo $start;
             
             $end    = $_REQUEST["kursende"];
             
-            if($kurs->checkDate($ende)) {
+            if($kurs->checkDate($end)) {
                 //mach nix
             } else {
                 return new ViewModel(['error' => 'invaliddate', 'kurs' => $kurs]);
