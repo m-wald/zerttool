@@ -290,6 +290,13 @@ class Kurs {
     
     public function save(){
         $db = new Db_connection();
+        
+        $date_start = new \DateTime($this->kurs_start);
+        $date_ende = new \DateTime($this->kurs_ende);
+        
+        $this->kurs_start = $date_start->format('Y-m-d');
+        $this->kurs_ende = $date_ende->format('Y-m-d');
+        
 	$query = "INSERT INTO kurs (kurs_name, kurs_start, kurs_ende, sichtbarkeit, benutzername, beschreibung) VALUES 
 			('".$this->kurs_name."','".$this->kurs_start."', '".$this->kurs_ende."', '".$this->sichtbarkeit."', '".$this->benutzername."', '".$this->beschreibung."')";
         
@@ -317,7 +324,11 @@ class Kurs {
         $benutzername = $mysqli->real_escape_string($benutzername);
         $beschreibung = $mysqli->real_escape_string($beschreibung);
         
-      
+        $date_start = new \DateTime($kursstart);
+        $date_ende = new \DateTime($kursende);
+        
+        $kursstart = $date_start->format('Y-m-d');
+        $kursende = $date_ende->format('Y-m-d');
         
         $query = "UPDATE kurs SET 
                     kurs_name = '".$kursname."',
@@ -442,10 +453,18 @@ class Kurs {
     }
 
     function getKurs_start() {
+        if (strpos($_SERVER['HTTP_USER_AGENT'], 'Firefox')){
+			$date = new \DateTime($this->kurs_start);
+			$this->kurs_start=$date->format('d.m.Y');
+        }
         return $this->kurs_start;
     }
 
     function getKurs_ende() {
+        if (strpos($_SERVER['HTTP_USER_AGENT'], 'Firefox')){
+			$date = new \DateTime($this->kurs_ende);
+			$this->kurs_ende=$date->format('d.m.Y');
+        }
         return $this->kurs_ende;
     }
 
