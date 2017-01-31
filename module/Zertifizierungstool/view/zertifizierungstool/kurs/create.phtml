@@ -20,6 +20,12 @@ if ($message == 'erfolgt'){
         <strong>Fehler!</strong> Kursende wurde vor dem Kursbeginn erfasst.
     </div>
     <?php 
+}elseif ($error == 'invalidedate'){
+    ?>
+    <div class="alert alert-danger" role="alert">
+        <strong>Fehler!</strong> Datumsformat oder Datum ungültig.
+    </div>
+    <?php 
 }elseif ($error == '4days'){
     	?>
         <div class="alert alert-danger" role="alert">
