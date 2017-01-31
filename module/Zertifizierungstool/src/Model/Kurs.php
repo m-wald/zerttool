@@ -564,7 +564,7 @@ class Kurs {
         }
 
         //Das Datum in drei Bestandteile aufteilen, wobei der Punkt als Trennelement benutzt wird
-        $delimiters = array(".", "-");
+        $delimiters = array(".","-");
         $_trenndatum = Kurs::multiexplode($delimiters, $_datum);
         //$_trenndatum = explode(".", $_datum, 3);
 
@@ -606,7 +606,7 @@ class Kurs {
         return true;
     }
     
-    function multiexplode ($delimiters,$string) {
+    /*function multiexplode ($delimiters,$string) {
         $ary = explode($delimiters[0],$string);
         array_shift($delimiters);
         if($delimiters != NULL) {
@@ -615,6 +615,13 @@ class Kurs {
             }
         }
         return  $ary;
+    }*/
+    
+    function multiexplode ($delimiters,$string) {
+    
+        $ready = str_replace($delimiters, $delimiters[0], $string);
+        $launch = explode($delimiters[0], $ready);
+        return  $launch;
     }
     
 }
