@@ -33,6 +33,7 @@ class KursController extends AbstractActionController
             $currentdate = date('Y-m-d');
             $start  = $_REQUEST["kursstart"];
             
+            echo $start;
             if($kurs->checkDate($start)) {
                 //mach nix
             } else {
