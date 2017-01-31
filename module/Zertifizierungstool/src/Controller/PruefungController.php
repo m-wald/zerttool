@@ -15,8 +15,8 @@ use Zertifizierungstool\Model\Beantwortet;
 use Zertifizierungstool\Model\Benutzer_Kurs;
 
 /**
- * Controller, der Aufgaben verarbeitet, die sich auf die Entität "Prüfung" beziehen.
- * Beinhaltet Actions zum Anlegen, Bearbeiten, Absolvieren und Löschen von Prüfungen.
+ * Controller, der Aufgaben verarbeitet, die sich auf die Entitï¿½t "Prï¿½fung" beziehen.
+ * Beinhaltet Actions zum Anlegen, Bearbeiten, Absolvieren und Lï¿½schen von Prï¿½fungen.
  * 
  * @author martin
  */
@@ -28,12 +28,12 @@ class PruefungController extends AbstractActionController {
 	const createFragen   = "Fragen anlegen";
 	const editFragen	 = "Fragen bearbeiten";
 	
-	/** Das behandelte Prüfungs-Objekt */
+	/** Das behandelte Prï¿½fungs-Objekt */
 	private $pruefung;
 	
 	public function takeAction() {
 		$errors = array();
-		// Prüfung laden
+		// Prï¿½fung laden
 		$pruefung_id = $this->params()->fromRoute('id');
 		$pruefung = new Pruefung();
 		$pruefung->load($pruefung_id);
@@ -51,7 +51,7 @@ class PruefungController extends AbstractActionController {
 			array_push($errors, 'Fehler: Der Kurs ist bereits beendet.');
 		} else {
 		
-		// Prüfen, ob eine Prüfung im Kurs bereits 3 mal nicht bestanden wurde und der Kurs damit endgültig nicht bestanden ist
+		// Prï¿½fen, ob eine Prï¿½fung im Kurs bereits 3 mal nicht bestanden wurde und der Kurs damit endgï¿½ltig nicht bestanden ist
 		$alle_pruefungen = Pruefung::loadList($pruefung->getKursId());
 		
 		if ($pruefungen == false) {
@@ -66,7 +66,7 @@ class PruefungController extends AbstractActionController {
 			}
 		}
 			
-		// Falls der Benutzer die Prüfung schon geschrieben hat
+		// Falls der Benutzer die Prï¿½fung schon geschrieben hat
 		$last_try = new SchreibtPruefung();
 		if ($failed == false && $last_try->loadLastTry($pruefung->getId())) {
 			
@@ -76,7 +76,7 @@ class PruefungController extends AbstractActionController {
 			} else {
 				$min_timestamp = strtotime($last_try->getZeitpunkt()) + (60 * 60 * 24);
 				if (time() < $min_timestamp) {
-					array_push($errors, 'Fehler: Sie k&ouml;nnen die Pr&uuml;fung erst 24 Stunden nach Ihrem letzten Versuch wiederholen.' .strftime('%d.$m.$y %T', $min_timestamp));
+					array_push($errors, 'Fehler: Sie k&ouml;nnen die Pr&uuml;fung erst 24 Stunden nach Ihrem letzten Versuch wiederholen.' .strftime('%d.%m.%y %T', $min_timestamp));
 				}
 			}
 		}
@@ -91,18 +91,18 @@ class PruefungController extends AbstractActionController {
 			array_push($errors, "Fehler beim Vorbereiten der Pr&uuml;fung!");
 		}
 		
-		// Alle Fragen zur Prüfung laden
+		// Alle Fragen zur Prï¿½fung laden
 		$fragen = Frage::loadList($pruefung_id);
 		if (!$fragen || empty($fragen)) {
 			array_push($errors, "Fehler: Es konnten keine Pr&uuml;fungsfragen geladen werden!");
 		}
 		
-		// Für jede Frage:
+		// Fï¿½r jede Frage:
 		foreach ($fragen as $frage) {
 			// Alle Antworten laden
 			$antworten = Antwort::loadList($frage->getId());
 			
-			// Für jede Antwort:
+			// Fï¿½r jede Antwort:
 			foreach ($antworten as $antwort) {
 				// Objekt von "beantwortet" erzeugen und in Db speichern
 				// extra-Attribut "edited"? (gesetzt sobal User auf "Weiter" oder so geklickt hat)
@@ -125,7 +125,7 @@ class PruefungController extends AbstractActionController {
 	}
 	
 	/**
-	 * Überprüft, ob ein Teilnehmer eine Prüfung und damit ggf. den Kurs bestanden hat
+	 * ï¿½berprï¿½ft, ob ein Teilnehmer eine Prï¿½fung und damit ggf. den Kurs bestanden hat
 	 */
 	public function resultAction() {
 		$punkte_gesamt = 0;
@@ -136,23 +136,23 @@ class PruefungController extends AbstractActionController {
 		$schreibt_pruefung->load($schreibt_pruefung_id);
 		
 		
-		// Alle Fragen zur Prüfung laden
+		// Alle Fragen zur Prï¿½fung laden
 		$fragen = Frage::loadList($schreibt_pruefung->getPruefungId());
 		
 		// Alle Fragen durchgehen
 		foreach ($fragen as $frage) {
-			// Punkte aufsummieren, um mögliche Gesamtpunktzahl zu ermitteln
+			// Punkte aufsummieren, um mï¿½gliche Gesamtpunktzahl zu ermitteln
 			$punkte_gesamt += $frage->getPunkte();
 			
 			
 			
-			// Wurde die Frage komplett richtig beantwortet, können die Punkte addiert werden
+			// Wurde die Frage komplett richtig beantwortet, kï¿½nnen die Punkte addiert werden
 			if (FrageController::check($frage->getId(), $schreibt_pruefung_id)) {
 				$punkte += $frage->getPunkte();
 			}
 		}
 
-		// Punktzahl mit benötigtem Cutscore vergleichen
+		// Punktzahl mit benï¿½tigtem Cutscore vergleichen
 		$pruefung = new Pruefung();
 		$pruefung->load($schreibt_pruefung->getPruefungId());
 		
@@ -160,7 +160,7 @@ class PruefungController extends AbstractActionController {
 			$schreibt_pruefung->bestanden();
 		
 			/*
-			// Prüfen ob nun alle Prüfungen zum Kurs bestanden wurden
+			// Prï¿½fen ob nun alle Prï¿½fungen zum Kurs bestanden wurden
 			$kurs_bestanden = true;
 			$pruefungen = Pruefung::loadList($pruefung->getKursId());
 			foreach ($pruefungen as $p) {
@@ -184,19 +184,19 @@ class PruefungController extends AbstractActionController {
 	}
 	
 	/**
-	 * Verarbeitet das Formular zum Anlegen und Bearbeiten von Prüfungen
+	 * Verarbeitet das Formular zum Anlegen und Bearbeiten von Prï¿½fungen
 	 * @param $request Daten aus Request-Array
 	 * @param array $fragen Evtl. bereits angelegte Fragen
 	 * @return \Zend\View\Model\ViewModel
 	 */
 	private function handleForm($request, $fragen = array()) {
-		// Array, das eventuelle Fehlermeldungen enthält
+		// Array, das eventuelle Fehlermeldungen enthï¿½lt
 		$errors = array();
 		
 		if (isset($request['speichernPruefung'])) {
 		// Der Benutzer hat das Formular abgesendet
 		
-			// Neues Prüfungs-Objekt mit den Daten aus dem Formular erzeugen
+			// Neues Prï¿½fungs-Objekt mit den Daten aus dem Formular erzeugen
 			$this->pruefung = new Pruefung(
 					$request["pruefid"],
 					$request["name"],
@@ -204,11 +204,11 @@ class PruefungController extends AbstractActionController {
 					$request["kursid"],
 					$request["cutscore"] / 100 );
 		
-			// Format des Prüfungstermins überprüfen
+			// Format des Prï¿½fungstermins ï¿½berprï¿½fen
 			if (strtotime($this->pruefung->getTermin()) == false) {
 				array_push($errors, "Ung&uuml;ltiges Datums-Format beim Pr&uuml;fungstermin!");
 			}
-			// Prüfungstermin validieren -> Muss nach Kursbeginn und mind. 4 Tage vor Kursende liegen
+			// Prï¿½fungstermin validieren -> Muss nach Kursbeginn und mind. 4 Tage vor Kursende liegen
 			$kurs = new Kurs();		
 			if ($kurs->load($this->pruefung->getKursId())) {
 				$start = strtotime($kurs->getKurs_start());
@@ -219,7 +219,7 @@ class PruefungController extends AbstractActionController {
 					array_push($errors, "Der Pr&uuml;fungszeitraum kann erst nach Kursbeginn starten!");
 					
 				}else {
-					// Datum ermitteln, zu dem die Prüfung spätestens verfügbar sein muss
+					// Datum ermitteln, zu dem die Prï¿½fung spï¿½testens verfï¿½gbar sein muss
 					$latest_date = new \DateTime(strftime('%F', $ende));
 					$latest_date->modify('-4 days');
 					if ($termin > strtotime($latest_date->format('Y-m-d'))) {
@@ -230,7 +230,7 @@ class PruefungController extends AbstractActionController {
 				array_push($errors, "Der Kurs wurde nicht in der Datenbank gefunden!");
 			}
 			
-			// Falls bisher keine Fehler aufgetreten sind, versuchen die Prüfung zu speichern
+			// Falls bisher keine Fehler aufgetreten sind, versuchen die Prï¿½fung zu speichern
 			if (empty($errors)) {
 				if ($this->pruefung->save()) {
 					header ("refresh:0; url = /frage/create/" .$this->pruefung->getId());
@@ -253,7 +253,7 @@ class PruefungController extends AbstractActionController {
 	}
 	
 	/**
-	 * Legt die Kopfdaten einer neuen Prüfung in der Datenbank an.
+	 * Legt die Kopfdaten einer neuen Prï¿½fung in der Datenbank an.
 	 * @return \Zend\View\Model\ViewModel
 	 */
 	public function createAction() {
@@ -278,7 +278,7 @@ class PruefungController extends AbstractActionController {
 	}
 	
 	/**
-	 * Bearbeitet die Kopfdaten einer Prüfung.
+	 * Bearbeitet die Kopfdaten einer Prï¿½fung.
 	 * @return \Zend\View\Model\ViewModel
 	 */
 	public function editAction() {
@@ -308,7 +308,7 @@ class PruefungController extends AbstractActionController {
 	
 	
 	/**
-	 * Löscht eine Prüfung.
+	 * Lï¿½scht eine Prï¿½fung.
 	 */
 	public function deleteAction() {
 		$pruefung_id_toDelete = $this->params()->fromRoute('id');
@@ -346,7 +346,7 @@ class PruefungController extends AbstractActionController {
 	}
 	
 	/**
-	 * Listet alle Prüfungen auf, die zu einem Kurs gehören
+	 * Listet alle Prï¿½fungen auf, die zu einem Kurs gehï¿½ren
 	 */
 	public function overviewAction() {
 		$error = '';
@@ -366,7 +366,7 @@ class PruefungController extends AbstractActionController {
 		
 		} else {
 		
-		// Prüfen, ob eine Prüfung im Kurs bereits 3 mal nicht bestanden wurde und der Kurs damit endgültig nicht bestanden ist
+		// Prï¿½fen, ob eine Prï¿½fung im Kurs bereits 3 mal nicht bestanden wurde und der Kurs damit endgï¿½ltig nicht bestanden ist
 		if ($benutzer_kurs->alreadyexist(User::currentUser()->getBenutzername(), $kursid)) {
 			$pruefungen = Pruefung::loadList($kursid);
 			
