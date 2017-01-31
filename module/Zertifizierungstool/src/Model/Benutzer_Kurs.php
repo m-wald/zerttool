@@ -109,6 +109,7 @@ class Benutzer_Kurs {
             return false;
         }
         
+        /*
         public static function bestanden($id) {
         	$db = new Db_connection();
         	$mysqli = $db->getConnection();
@@ -126,4 +127,5 @@ class Benutzer_Kurs {
         		
         	return true;
         }
+        */
 }
