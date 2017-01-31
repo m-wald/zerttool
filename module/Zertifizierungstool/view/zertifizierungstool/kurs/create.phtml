@@ -50,11 +50,11 @@ if ($message == 'erfolgt'){
     </div>
     <div class="form-group">
         <label for="kursstart"> Kursstart </label>
-        <input name="kursstart" type="date" class="form-control" placeholder="JJJJ-MM-TT" required>
+        <input name="kursstart" type="date" class="form-control" placeholder="TT-MM-JJJJ" required>
     </div>
     <div class="form-group">
         <label for="kursende"> Kursende </label>
-        <input name="kursende" type="date" class="form-control" placeholder="JJJJ-MM-TT" required>
+        <input name="kursende" type="date" class="form-control" placeholder="TT-MM-JJJJ" required>
     </div>
     
     <?php if($kurs->getSichtbarkeit() == 1) { ?>
