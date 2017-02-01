@@ -385,10 +385,17 @@ class User
 	 * des Benutzernames dieses Objektes erstellt
 	 */
 	public function registerMail () {
+		
+		$db = new Db_connection();
+		
+		$pruefzahl = mt_rand(0,999999999);
+		$query = "update benutzer set pruefzahl =".$pruefzahl." where benutzername='".$this->benutzername."';";
+		$result = $db->execute($query);
+		
 		$empfaenger = $this->email;
 		$betreff = "Registrierung Zertifizierungstool";
 		$from = "user@zerttool.tk";
-		$text = "Hallo ".$this->vorname." ".$this->nachname.",\n\nbitte bestaetigen Sie folgenden Link:\n\n http://132.231.36.205/user/registerbest?benutzer=".$this->benutzername;
+		$text = "Hallo ".$this->vorname." ".$this->nachname.",\n\nbitte bestaetigen Sie folgenden Link:\n\n http://132.231.36.205/user/registerbest?benutzer=".$this->benutzername."&pruefzahl=".$pruefzahl;
 		$text = wordwrap($text, 70);
 		mail ($empfaenger, $betreff, $text); 
 	}
@@ -400,9 +407,15 @@ class User
 	 */
 	public function registerMailInvite() {
 		
+		$db = new Db_connection();
+		
+		$pruefzahl = mt_rand(0,999999999);
+		$query = "update benutzer set pruefzahl =".$pruefzahl." where benutzername='".$this->benutzername."';";
+		$result = $db->execute($query);
+		
 		$empfaenger = $this->email;
 		$betreff = "Registrierung Zertifizierungstool";
-		$text = "Hallo ".$this->vorname." ".$this->nachname.",\n\nbitte bestaetigen Sie folgenden Link:\n\n http://132.231.36.205/user/registerbest?benutzer=".$this->benutzername."&kurs_id=".$_SESSION['kurs'];
+		$text = "Hallo ".$this->vorname." ".$this->nachname.",\n\nbitte bestaetigen Sie folgenden Link:\n\n http://132.231.36.205/user/registerbest?benutzer=".$this->benutzername."&kurs_id=".$_SESSION['kurs']."&pruefzahl=".$pruefzahl;
 		$text = wordwrap($text, 70);
 		mail ($empfaenger, $betreff, $text);
 		

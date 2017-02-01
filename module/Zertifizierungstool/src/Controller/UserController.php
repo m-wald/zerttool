@@ -138,14 +138,19 @@ class UserController extends AbstractActionController
 		if (isset ($_GET['benutzer'])) {
 			$user = new User();
 			$user->load($_GET['benutzer']);
-			$user->registerbest();
 			if (!$user->istBestaetigt()){
-				if (isset($_GET['kurs_id'])) {
-					
-					return new ViewModel(['benutzername'=>$user->getBenutzername(), 'kurs_id'=>$_GET['kurs_id']]);
-					
+				if ($user->check_pruefzahl($_GET['pruefzahl'])){
+					$user->registerbest();
+					if (isset($_GET['kurs_id'])) {
+						
+						return new ViewModel(['benutzername'=>$user->getBenutzername(), 'kurs_id'=>$_GET['kurs_id']]);
+						
+					}
+					return new ViewModel();
 				}
-				return new ViewModel();
+				else {
+					return new ViewModel(['pruefzahl'=>'']);
+				}
 			}else {
 				return new ViewModel(['bestaetigt'=>'']);
 			}

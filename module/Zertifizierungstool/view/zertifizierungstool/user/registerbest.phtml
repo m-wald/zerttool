@@ -5,6 +5,11 @@
         <p>Ihre Registrierung wurde bereits best&auml;tigt! Sie werden jetzt zum Login weitergeleitet.</p>
 </div>
 
+<?php }else if (isset($pruefzahl)) {?>
+<div class="alert alert-danger" role="alert">
+        <p>Registrierung fehlgeschlagen!</p>
+</div>
+
 
 <?php }else { ?>
 <div class="alert alert-success" role="alert">
