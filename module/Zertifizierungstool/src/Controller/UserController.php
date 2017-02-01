@@ -103,7 +103,11 @@ class UserController extends AbstractActionController
 					return new ViewModel(['pw_kontrolle' => 'ungleiche passwoerter','status' => 'admin', 'email'=> $_REQUEST['email'], 'user' => $user]);
 						
 				} else {
-					return new ViewModel(['pw_kontrolle' => 'ungleiche passwoerter', 'email'=> $_REQUEST['email'], 'user' => $user]);
+					if (isset($_REQUEST['invitemail'])) {
+						return new ViewModel(['pw_kontrolle' => 'ungleiche passwoerter', 'email'=> $_REQUEST['email'], 'user' => $user, 'emailinvitation'=> $_REQUEST['inviteuser']]);
+					}else {
+						return new ViewModel(['pw_kontrolle' => 'ungleiche passwoerter', 'email'=> $_REQUEST['email'], 'user' => $user]);
+					}
 				}
 			}
 		}
