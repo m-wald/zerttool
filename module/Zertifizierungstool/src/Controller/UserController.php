@@ -157,7 +157,7 @@ class UserController extends AbstractActionController
 				}
 			}else {
 				if (isset($_GET['kurs_id'])) {
-					return new ViewModel(['benutzername'=>$user->getBenutzername(), 'kurs_id'=>$_GET['kurs_id']]);
+					return new ViewModel(['benutzername'=>$user->getBenutzername(), 'kurs_id'=>$_GET['kurs_id'], 'kursbeitritt' => '']);
 				}else {
 					return new ViewModel(['bestaetigt'=>'']);
 				}

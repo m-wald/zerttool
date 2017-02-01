@@ -1,3 +1,6 @@
+<?php 
+use Zertifizierungstool\Model\User;
+?>
 <h1>Registrierung best&auml;tigen</h1>
 
 <?php if (isset($bestaetigt)) { ?>
@@ -10,7 +13,17 @@
         <p>Registrierung fehlgeschlagen!</p>
 </div>
 
-
+<?php }else if (isset($kursbeitritt)) {
+		if (User::currentUser()->getBenutzername()!=NULL) {
+		
+			header("refresh:2; url=/user/login");?>
+		
+	<?php } else {?>
+	<div class="alert alert-success" role="alert">
+        <p>Bitte loggen Sie sich ein, um zum Kurs beizutreten! Sie werden zum Login weitergeleitet.</p>
+</div>
+	<?php }?>
+	
 <?php }else { ?>
 <div class="alert alert-success" role="alert">
     <p>Registrierung erfolgreich best&auml;tigt! Sie werden jetzt zum Login weitergeleitet.</p>
