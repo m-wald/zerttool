@@ -7,9 +7,14 @@ if (!empty($error)) {
 	<div class="alert alert-danger" role="alert">
 	<?php 
 		echo $error;
-} else {
+	?>
+	</div>
+	<?php 
+} 
+
+else {
 ?>
-</div>
+
 <h1> Pr&uuml;fungen zum Kurs <b><?php echo $_SESSION['kurs_name'];?></b></h1><br><br>
 
 <div class="container">
