@@ -395,7 +395,9 @@ class User
 		$empfaenger = $this->email;
 		$betreff = "Registrierung Zertifizierungstool";
 		$from = "user@zerttool.tk";
-		$text = "Hallo ".$this->vorname." ".$this->nachname.",\n\nbitte bestaetigen Sie folgenden Link:\n\n http://132.231.36.205/user/registerbest?benutzer=".$this->benutzername."&pruefzahl=".$pruefzahl;
+		$text = "Hallo ".$this->vorname." ".$this->nachname.",\n\n"."Sie haben sich bei Zert4Tool erfolgreich registriert.\n".
+		"Um die Registrierung abzuschließen bestätigen Sie bitte folgenden Link:\n\n http://132.231.36.205/user/registerbest?benutzer=".$this->benutzername."&pruefzahl=".$pruefzahl.
+		"\n\nDas Zert4Tool Team wünscht Ihnen viel Erfolg";
 		$text = wordwrap($text, 70);
 		mail ($empfaenger, $betreff, $text); 
 	}
@@ -415,7 +417,9 @@ class User
 		
 		$empfaenger = $this->email;
 		$betreff = "Registrierung Zertifizierungstool";
-		$text = "Hallo ".$this->vorname." ".$this->nachname.",\n\nbitte bestaetigen Sie folgenden Link:\n\n http://132.231.36.205/user/registerbest?benutzer=".$this->benutzername."&kurs_id=".$_SESSION['kurs']."&pruefzahl=".$pruefzahl;
+		$text = "Hallo ".$this->vorname." ".$this->nachname.",\n\n"."Sie haben sich bei Zert4Tool erfolgreich registriert.\n".
+		"Um die Registrierung abzuschließen bestätigen Sie bitte folgenden Link:\n\n http://132.231.36.205/user/registerbest?benutzer=".$this->benutzername."&kurs_id=".$_SESSION['kurs']."&pruefzahl=".$pruefzahl.
+		"\n\nDas Zert4Tool Team wünscht Ihnen viel Erfolg";
 		$text = wordwrap($text, 70);
 		mail ($empfaenger, $betreff, $text);
 		
