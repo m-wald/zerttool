@@ -204,10 +204,24 @@ class UserController extends AbstractActionController
 					return new ViewModel(['anmeldestatus' => true]);
 				}
 				else {
-					return new ViewModel(['anmeldestatus' => false]);
+					if (isset($_POST['inviteuser'])){
+						
+						return new ViewModel(['anmeldestatus' => false, 'inviteuser'=>$_POST['inviteuser']]);
+						
+					}else {
+					
+						return new ViewModel(['anmeldestatus' => false]);
+					}
 				}
 			}else {
-				return new ViewModel(['benutzer_nicht_gefunden' => '']);
+				if (isset($_POST['inviteuser'])){
+				
+					return new ViewModel(['benutzer_nicht_gefunden' => '', 'inviteuser'=>$_POST['inviteuser']]);
+				
+				}else {
+				
+					return new ViewModel(['benutzer_nicht_gefunden' => '']);
+				}
 			}
 		}
 		 
