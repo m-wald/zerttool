@@ -156,7 +156,11 @@ class UserController extends AbstractActionController
 					return new ViewModel(['pruefzahl'=>'']);
 				}
 			}else {
-				return new ViewModel(['bestaetigt'=>'']);
+				if (isset($_GET['kurs_id'])) {
+					return new ViewModel(['benutzername'=>$user->getBenutzername(), 'kurs_id'=>$_GET['kurs_id']]);
+				}else {
+					return new ViewModel(['bestaetigt'=>'']);
+				}
 			}
 		} else {
 			header("refresh:0; url=/user/login");

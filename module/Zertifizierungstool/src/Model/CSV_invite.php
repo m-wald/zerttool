@@ -73,7 +73,7 @@ class CSV_invite {
 					"Sie wurden in den Kurs ".$kurs->getKurs_name()." eigeladen.\n"
 					."Bitte folgen Sie diesem Link um sich einzutragen:\n\n".
 					"http://132.231.36.205/kurs/enterkurs?benutzername=".$user->getBenutzername()."&kurs_id=".$kurs_id.
-					"\n\nDas Zert4Tool Team wünscht Ihnen viel Erfolg";
+					"\n\nDas Zert4Tool Team wünscht Ihnen viel Erfolg!";
 			$text = wordwrap($text, 70);
 			mail ($empfaenger, $betreff, $text);
 		}else {
@@ -85,7 +85,7 @@ class CSV_invite {
 					"Bitte folgen Sie diesem Link um sich zu registrieren:\n\n".
 					".http://132.231.36.205/kurs/enterkurs?email=".$email."&kurs_id=".$kurs_id."
 					\n\n Sie werden nach der Registrierung automatisch in den Kurs eingetragen.".
-					"\n\nDas Zert4Tool Team wünscht Ihnen viel Erfolg";
+					"\n\nDas Zert4Tool Team wünscht Ihnen viel Erfolg!";
 					
 			$text = wordwrap($text, 70);
 			mail ($empfaenger, $betreff, $text);
