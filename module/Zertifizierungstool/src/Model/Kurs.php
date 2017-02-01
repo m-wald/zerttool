@@ -223,8 +223,9 @@ class Kurs {
         }  
        	elseif((User::currentUser()->istAdmin()) && ($benutzername == NULL)){
             $query = "SELECT * FROM kurs WHERE (CURRENT_DATE > kurs_ende);";
-    	$result = $db->execute($query);
        	}
+    	$result = $db->execute($query);
+       	
         
         if (mysqli_num_rows($result) > 0) {
             $return_array = array();
