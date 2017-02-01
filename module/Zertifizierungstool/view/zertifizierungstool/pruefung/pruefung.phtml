@@ -136,7 +136,7 @@ input[type=number]{
 
 		document.getElementById("formular").innerHTML = 
 			type + '-Frage:<br>'
-			+ '<textarea rows="3" cols="50" name="frage_text" form="frageForm" required> <?=$frage->getText()?></textarea>'
+			+ '<textarea style="resize:vertical" rows="3" cols="50" name="frage_text" form="frageForm" required> <?=$frage->getText()?></textarea>'
 			+ '<form method="POST" id="frageForm">'
 			
 			+ 'Punkte: '
