@@ -16,7 +16,7 @@ use Zertifizierungstool\Model\User;
 <?php }else if (isset($kursbeitritt)) {
 		if (User::currentUser()->getBenutzername()!=NULL) {
 		
-			header("refresh:2; url=/user/login");?>
+			header("refresh:0; url=/kurs/enterkurs?benutzername=".$benutzername."&kurs_id=".$kurs_id);?>
 		
 	<?php } else {?>
 	<div class="alert alert-success" role="alert">
