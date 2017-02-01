@@ -81,7 +81,7 @@ class CSV_invite {
 			$empfaenger = $email;
 			$betreff = "Einladung zu Kurs ".$kurs->getKurs_name();
 			$text = "Hallo zukünftiger Teilnehmer bei Zert4Tool,\n\n Sie wurden in den Kurs ".$kurs->getKurs_name()." eigeladen.\n"
-					."Für diese E-Mail-Adresse wurde bisher keine Registrierung festgestellt.".
+					."Für diese E-Mail-Adresse wurde bisher keine Registrierung festgestellt.\n".
 					"Bitte folgen Sie diesem Link um sich zu registrieren:\n\n".
 					".http://132.231.36.205/kurs/enterkurs?email=".$email."&kurs_id=".$kurs_id."
 					\n\n Sie werden nach der Registrierung automatisch in den Kurs eingetragen.".
