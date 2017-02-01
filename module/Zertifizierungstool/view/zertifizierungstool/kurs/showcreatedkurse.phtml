@@ -22,7 +22,7 @@
                 <th> KursEnde </th>
                 <th> anzeigen </th>
                 <th> bearbeiten </th>
-               
+                <th> Kursdaten kopieren</th>
 		</tr>
 		
 		<?php 
@@ -42,7 +42,7 @@
                                         </button>
                                 </form> </td>
                                 
-                                 
+         <?php if($r->getKurs_ende() > date("Y-m-d")) {?>                          
                                 <td><form accept-charset="utf-8" method="POST" action="changedata">
 									<input type="hidden" value="<?=$r->getKurs_id()?>" name="kurs_id">
                                     <button type="submit" class="btn btn-warning">
@@ -51,7 +51,8 @@
                                     </form> 
                                 </td>
                                 
-       
+                                
+        <?php } ?> 
 			</tr>
                         <?php }?>
 		
