@@ -6,7 +6,7 @@ use Zertifizierungstool\Controller\PruefungController;
 
 
  
-if (isset($errors)) {
+if (!empty($errors)) {
 	?>
 	<div class="alert alert-danger" role="alert">
 	<?php 
