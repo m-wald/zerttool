@@ -336,8 +336,13 @@ class UserController extends AbstractActionController
 			
 			$user = new User();
 			$user->load($_POST['benutzername']);
-			$user->passwordForgottenMail();
-			return new ViewModel(['status' => 'mail']);
+			if ($user->istBestaetigt()) {
+				$user->passwordForgottenMail();
+				return new ViewModel(['status' => 'mail']);
+			}
+			else {
+				return new ViewModel(['status' => 'nicht bestaetigt']);
+			}
 			
 		} 
 		
@@ -345,9 +350,13 @@ class UserController extends AbstractActionController
 				
 			$user = new User();
 			$user->load_via_email($_POST['email']);
-			$user->passwordForgottenMail();
-			return new ViewModel(['status' => 'mail']);
-				
+			if ($user->istBestaetigt()) {
+				$user->passwordForgottenMail();
+				return new ViewModel(['status' => 'mail']);
+			}
+			else {
+				return new ViewModel(['status' => 'nicht bestaetigt']);
+			}
 		}
 		
 		else if (isset($_POST['newPasswort1'])) {
