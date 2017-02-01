@@ -1,16 +1,29 @@
 <?php 
+
+use Zertifizierungstool\Model\Pruefung;
+
+$pruefung = new Pruefung();
+
+$pruefung->load($schreibt_pruefung->getPruefungId());
+
+
 if ($schreibt_pruefung->getBestanden()) {
 	?>
-	<div class="alert alert-success" role="alert">
-		Herzlichen Gl&uuml;ckwunsch! Sie haben die Prüfung bestanden!
+	<div class="alert alert-success center-block" style="text-align:center; border-radius: 25px; margin-top:15%"  role="alert">
+		<h2><font color = "green">Herzlichen Gl&uuml;ckwunsch! Sie haben die Pr&uuml;fung bestanden!</font></h2>
 	</div>
+	<br><br>
+	<a href="<?= $this->url('pruefung', ['action' => 'overview', 'id' => $pruefung->getKursId()])?>"><button type="button" class="btn btn-default">Zur&uuml;ck zur Pr&uuml;fungsliste</button></a>
+	
 	<?php 
 	
 } else {
 	?>
-	<div class="alert alert-danger" role="alert">
-		Sie haben leider nicht die notwendige Punktzahl erreicht, um die Pr&uuml;fung zu bestehen.
+	<div class="alert alert-danger center-block" style="text-align:center; border-radius: 25px; margin-top:15%" role="alert">
+		<h2><font color = "red">Sie haben leider nicht die notwendige Punktzahl erreicht, um die Pr&uuml;fung zu bestehen.</font></h2>
 	</div>
+	<br><br>
+	<a href="<?= $this->url('pruefung', ['action' => 'overview', 'id' => $pruefung->getKursId()])?>"><button type="button" class="btn btn-default">Zur&uuml;ck zur Pr&uuml;fungsliste</button></a>
 	<?php 
 }
 ?>

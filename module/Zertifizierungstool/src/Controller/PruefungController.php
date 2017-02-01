@@ -367,8 +367,8 @@ class PruefungController extends AbstractActionController {
 		} else {
 		
 		// Prüfen, ob eine Prüfung im Kurs bereits 3 mal nicht bestanden wurde und der Kurs damit endgültig nicht bestanden ist
-		// bzw. ob der eingeloggte User Kursleiter ist (wegen Liste aller erstellten Prüfungen)
-		if ($benutzer_kurs->alreadyexist(User::currentUser()->getBenutzername(), $kursid) || User::currentUser()->getBenutzername() == $kurs->getBenutzername()) {
+		// bzw. ob der eingeloggte User Kursleiter bzw. Admin ist (wegen Liste aller erstellten Prüfungen)
+		if ($benutzer_kurs->alreadyexist(User::currentUser()->getBenutzername(), $kursid) || User::currentUser()->getBenutzername() == $kurs->getBenutzername() ||User::currentUser()->istAdmin()) {
 			$pruefungen = Pruefung::loadList($kursid);
 			
 			if ($pruefungen == false) {
