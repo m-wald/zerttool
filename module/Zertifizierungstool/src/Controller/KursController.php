@@ -214,6 +214,9 @@ class KursController extends AbstractActionController
     	
     		if(User::currentUser()->istZertifizierer() || User::currentUser()->istAdmin()) {
     			$kurs = new Kurs();
+    			if(!$kurs->loadcreatedkurse(User::currentUser()->getBenutzername()))
+    				return new ViewModel(['error' => 'error']);
+    			else
     			$createdkurse = $kurs->loadcreatedkurse(User::currentUser()->getBenutzername());
     	}
     	return new ViewModel(['result' => $createdkurse]);

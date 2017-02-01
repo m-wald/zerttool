@@ -294,7 +294,7 @@ class Kurs {
     	
     	$benutzername = $mysqli->real_escape_string($benutzername);
     	if(User::currentUser()->istZertifizierer() || User::currentUser()->istAdmin()) {
-    		$query = "SELECT * FROM kurs WHERE benutzername = '".$benutzername."' ;";
+    		$query = "SELECT * FROM kurs WHERE benutzername = '".$benutzername."' AND (CURRENT_DATE < kurs_ende);";
     		$result = $db->execute($query);
     	}
     	if (mysqli_num_rows($result) > 0) {

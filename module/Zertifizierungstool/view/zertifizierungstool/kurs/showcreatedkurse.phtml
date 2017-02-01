@@ -3,7 +3,13 @@
     use Zertifizierungstool\Model\Kurs;
     use Zertifizierungstool\Model\User;
     use Zertifizierungstool\Model\Benutzer_Kurs;
-    
+   
+    if(isset($error)){ ?>
+    	<div class="alert alert-danger" role="alert">
+    	Es gibt keine von Ihnen angelegte Kurse, die gerage laufen. Alle abgelaufene Kurse wurden bereits <strong>archiviert</strong>!
+    	</div>
+    	
+  <?php   }
 ?>
 
 <head>
@@ -29,7 +35,7 @@
 			foreach($result as $r){ 
 		        $user = new User();
 		        $load_user = $user->load($r->getBenutzername());
-		        if($r->getKurs_ende() > date("Y-m-d")) {
+		       
 		        ?>
 			<tr>
 				<td><?=$r->getKurs_name()?></td>
@@ -51,11 +57,9 @@
                                     </button>  
                                     </form> 
                                 </td>
-                                
-                                
-       
+                             
 			</tr>
-             <?php }
+             <?php 
 		        }?>
 		
             </table>
