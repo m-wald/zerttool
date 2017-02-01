@@ -1,0 +1,77 @@
+<h1>Kurs</h1>
+<?php
+    use Zertifizierungstool\Model\Kurs;
+    use Zertifizierungstool\Model\User;
+    use Zertifizierungstool\Model\Benutzer_Kurs;
+    
+?>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+    
+    <div class="container">
+    	<h3>Ihre angelegte Kurse: </h3><br>
+            <table class="table table-hover">
+        
+        <tr>
+        		<th> KursName </th>
+				<th> KursStart </th>
+                <th> KursEnde </th>
+                <th> anzeigen </th>
+                <th> bearbeiten </th>
+                <th> Kursdaten kopieren</th>
+		</tr>
+		
+		<?php 
+			foreach($result as $r){ 
+		        $user = new User();
+		        $load_user = $user->load($r->getBenutzername());
+		        ?>
+			<tr>
+				<td><?=$r->getKurs_name()?></td>
+				<td><?=$r->getKurs_start()?></td>
+				<td><?=$r->getKurs_ende()?></td>
+                               
+                                <td> <form accept-charset="utf-8" method="POST" action="kursview">
+                                        <input type="hidden" value="<?=$r->getKurs_id()?>" name="kurs_id">
+                                        <button type="submit" class="btn btn-info">
+                                           <span class="glyphicon glyphicon-eye-open"></span>
+                                        </button>
+                                </form> </td>
+                                
+         <?php if($r->getKurs_ende() > date(d-m-Y)) {?>                          
+                                <td><form accept-charset="utf-8" method="POST" action="changedata">
+									<input type="hidden" value="<?=$r->getKurs_id()?>" name="kurs_id">
+                                    <button type="submit" class="btn btn-warning">
+                                    	<span class="glyphicon glyphicon-edit"></span>
+                                    </button>  
+                                    </form> 
+                                </td>
+                                
+                                <td> </td>
+        <?php } else {?>                     
+                                <td> </td>
+                                
+                                <td>
+                                    <form accept-charset="utf-8" method="POST" action="changedata">
+									<input type="hidden" value="<?=$r->getKurs_id()?>"name="kurs_id">
+                                                <input type="hidden" value=1 name="archiv">
+									<button type="submit" class="btn btn-warning">
+                                                        <span class="glyphicon glyphicon-duplicate"></span>
+                                                </button> 
+                                    </form> 
+                                </td>
+        <?php }?>
+			</tr>
+                        <?php }?>
+		
+            </table>
+
+    </div>
+    
+    	
+</body>
+

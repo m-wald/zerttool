@@ -217,11 +217,14 @@ class Kurs {
         $benutzername = $mysqli->real_escape_string($benutzername);
         
         
-        if(User::currentUser()->istZertifizierer() || User::currentUser()->istAdmin()){
+        if(User::currentUser()->istZertifizierer()){
             $query = "SELECT * FROM kurs WHERE benutzername = '".$benutzername."'
                             AND (CURRENT_DATE > kurs_ende);";
-        }    	
+        }  
+       	elseif((User::currentUser()->istAdmin()) && ($benutzername == NULL)){
+            $query = "SELECT * FROM kurs WHERE (CURRENT_DATE > kurs_ende);";
     	$result = $db->execute($query);
+       	}
         
         if (mysqli_num_rows($result) > 0) {
             $return_array = array();
@@ -281,6 +284,37 @@ class Kurs {
             //kein Ergebnis gefunden
             return 0;
         }
+    }
+    
+    public function loadcreatedkurse($benutzername){
+    	$db = new Db_connection();
+    	
+    	$mysqli = $db->getConnection();
+    	
+    	$benutzername = $mysqli->real_escape_string($benutzername);
+    	if(User::currentUser()->istZertifizierer() || User::currentUser()->istAdmin()) {
+    		$query = "SELECT * FROM kurs benutzername = '".$benutzername."' ;";
+    		$result = $db->execute($query);
+    	}
+    	if (mysqli_num_rows($result) > 0) {
+    		$return_array = array();
+    		while ($row = mysqli_fetch_assoc($result)) {
+    			$kurse = new Kurs(
+    					$row["kurs_id"],
+    					$row["kurs_name"],
+    					$row["kurs_start"],
+    					$row["kurs_ende"],
+    					$row["sichtbarkeit"],
+    					$row["benutzername"]);
+    	
+    			array_push($return_array, $kurse);
+    		}
+    		return $return_array;
+    	
+    	} else {
+    		//kein Ergebnis gefunden
+    		return 0;
+    	}
     }
     
    

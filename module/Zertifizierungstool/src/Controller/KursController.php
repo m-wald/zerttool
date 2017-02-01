@@ -205,6 +205,20 @@ class KursController extends AbstractActionController
         return new ViewModel(['result' => $signedkurse]);
     }
     
+    
+    public function showcreatedkurseAction(){
+    	if(User::currentUser()->getBenutzername()==NULL){
+    		header("refresh:0; url=/user/login");
+    		exit;
+    	}
+    	
+    		if(User::currentUser()->istZertifizierer() || User::currentUser()->istAdmin()) {
+    			$kurs = new Kurs();
+    			$signedkurse = $kurs->loadcreatedkurse(User::currentUser()->getBenutzername());
+    	}
+    	return new ViewModel(['result' => $createdkurse]);
+    }
+    
     /*
      * Überprüft ob Kursänderungen gespeichert werden sollen und ruft die
      * Query zum Speichern der Kursdaten auf 
