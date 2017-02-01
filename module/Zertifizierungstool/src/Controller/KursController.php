@@ -248,6 +248,9 @@ class KursController extends AbstractActionController
         $starttimestampalt = strtotime($kursstartalt);
         
     	$zertladen = $kurs->loadZertifizierer();
+    	
+    	//Variable nötig, um in der Prüfungsübersicht den Kursnamen anzeigen zu können
+    	$_SESSION['kurs_name']=$kurs->getKurs_name();
         
     	//Zum Ã„ndern der Kursdaten von aktuellen Kursen
         if($_REQUEST["speichern"]) {
