@@ -175,7 +175,10 @@ class KursController extends AbstractActionController
     	}
     	
         $kurs = new Kurs();
-        $kurseladen = $kurs->loadarchivedKurse(User::currentUser()->getBenutzername());
+        if((User::currentUser()->istAdmin()))
+        	$kurseladen = $kurs->loadarchivedKurse(NULL);
+        else
+        	$kurseladen = $kurs->loadarchivedKurse(User::currentUser()->getBenutzername());
         return new ViewModel(['result' => $kurseladen]);
     }
     
