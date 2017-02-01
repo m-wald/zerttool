@@ -19,17 +19,30 @@
             <tr>
         	<th> KursID </th>
 		<th> KursName </th>
+		<?php if(User::currentUser()->istAdmin()) {?>
+                <th> Urheber</th>
+                <?php } ?>
                 <th> KursStart </th>
                 <th> KursEnde </th>
                 <th> Kursdaten kopieren</th>
                 <th> anzeigen</th>
+                
             </tr>
 		
 		<?php
-			foreach($result as $r){ ?>
+			foreach($result as $r){ 
+				$user = new User();
+				$load_user = $user->load($r->getBenutzername());
+				?>
 			<tr>
 				<td><?=$r->getKurs_id()?></td>
 				<td><?=$r->getKurs_name()?></td>
+				
+				<?php if(User::currentUser()->istAdmin()) { ?>
+				<td> <?php echo ($user->getVorname()); echo" "; echo ($user->getNachname()); ?></td>
+				<?php } ?>
+				
+				
                                 <td><?=$r->getKurs_start()?></td>
                                 <td><?=$r->getKurs_ende()?></td>
 				<td><form accept-charset="utf-8" method="POST" action="changedata">
@@ -46,7 +59,8 @@
                                                         <span class="glyphicon glyphicon-eye-open"></span>
                                                 </button>
                                     </form> 
-                                </td>
+                </td>
+                    
 			</tr>
 		<?php }?>
 		
