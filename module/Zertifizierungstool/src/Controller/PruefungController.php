@@ -76,7 +76,7 @@ class PruefungController extends AbstractActionController {
 			} else {
 				$min_timestamp = strtotime($last_try->getZeitpunkt()) + (60 * 60 * 24);
 				if (time() < $min_timestamp) {
-					array_push($errors, 'Fehler: Sie k&ouml;nnen die Pr&uuml;fung erst 24 Stunden nach Ihrem letzten Versuch wiederholen.' .strftime('%d.$m.$y %T', $min_timestamp));
+					array_push($errors, 'Fehler: Sie k&ouml;nnen die Pr&uuml;fung erst 24 Stunden nach Ihrem letzten Versuch wiederholen.' .strftime('%d.%m.%y %T', $min_timestamp));
 				}
 			}
 		}
