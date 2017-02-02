@@ -108,11 +108,12 @@ input[type=number]{
 				+ '<input type="hidden"   name="antwort_id<?=$i?>"   value="<?=$antwort->getId()  ?>" readonly="readonly">'
 				+ '<input type="text"     name="antwort_text<?=$i?>" value="<?=$antwort->getText()?>" required >   '
 				+ '<input type="checkbox" name="antwort_checked<?=$i?>" <?php if ($antwort->getStatus() == 1) echo "checked";?>>   '
-				
-				+ if (AntwortAnzahl>0){'<a href="<?= $this->url('frage', ['action' => 'deleteantwort', 'id' => $antwort->getId()])?>"><button type="button" class="btn btn-default"> - </button></a><br><br>'}
+				<?php 
+				if (count($antworten)>0) {?>
+				+ '<a href="<?= $this->url('frage', ['action' => 'deleteantwort', 'id' => $antwort->getId()])?>"><button type="button" class="btn btn-default"> - </button></a><br><br>'
 				
 				<?php 
-					$i++;
+					}$i++;
 				}
 				?>
 
