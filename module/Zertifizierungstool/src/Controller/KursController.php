@@ -906,7 +906,7 @@ class KursController extends AbstractActionController
      * 
      */
 
-    public function loadCertificateAction(){
+    public function loadcertificateAction(){
 		
                 if(User::currentUser()->getBenutzername()==NULL) {
                         header("refresh:0; url = /user/login");
