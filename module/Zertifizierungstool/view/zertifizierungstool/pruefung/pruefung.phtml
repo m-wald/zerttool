@@ -98,17 +98,18 @@ input[type=number]{
 		var form = '';
 		switch (type) {
 		case 'MC':
+			
 			form =
-				'<input type="hidden" name="frage_typ" readonly="readonly" value="MC">'
+				'<div style= "height:200px; overflow-y:scroll"><input type="hidden" name="frage_typ" readonly="readonly" value="MC">'
 				
 				<?php
 				$i = 1;
 				foreach ($antworten as $antwort) { ?>
 				+ '<input type="hidden"   name="antwort_id<?=$i?>"   value="<?=$antwort->getId()  ?>" readonly="readonly">'
-				+ '<input type="text"     name="antwort_text<?=$i?>" value="<?=$antwort->getText()?>" required >'
-				+ '<input type="checkbox" name="antwort_checked<?=$i?>" <?php if ($antwort->getStatus() == 1) echo "checked";?>>'
+				+ '<input type="text"     name="antwort_text<?=$i?>" value="<?=$antwort->getText()?>" required >   '
+				+ '<input type="checkbox" name="antwort_checked<?=$i?>" <?php if ($antwort->getStatus() == 1) echo "checked";?>>   '
 				
-				+ '<a href="<?= $this->url('frage', ['action' => 'deleteantwort', 'id' => $antwort->getId()])?>"><button type="button" class="btn btn-default"> - </button></a><br><br>'
+				+ '<a href="<?= $this->url('frage', ['action' => 'deleteantwort', 'id' => $antwort->getId()])?>"><button type="button" class="btn btn-default"> - </button></a><br><br></div>'
 
 				
 				<?php 
@@ -155,8 +156,8 @@ input[type=number]{
 		AntwortAnzahl = AntwortAnzahl + 1;
 
 		var neue_antwort	= 
-			  '<input type="text"     name="antwort_text'    + AntwortAnzahl + '" required> '
-			+ '<input type="checkbox" name="antwort_checked' + AntwortAnzahl + '">  '
+			  '<input type="text"     name="antwort_text'    + AntwortAnzahl + '" required>   '
+			+ '<input type="checkbox" name="antwort_checked' + AntwortAnzahl + '">   '
 		
 			+ '<button type="button" class="btn btn-default" onclick="deleteAntwort(' + AntwortAnzahl + ')"> - </button>';
 
