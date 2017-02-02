@@ -215,7 +215,10 @@ class PruefungController extends AbstractActionController {
 				$ende  = strtotime($kurs->getKurs_ende());
 				$termin = strtotime($this->pruefung->getTermin());
 				
-				if ($termin < $start) {
+				if ($termin < time()) {
+					array_push($errors, "Der Pr&uuml;fungszeitraum kann erst in der Zukunft beginnen!");
+				
+				} elseif ($termin < $start) {
 					array_push($errors, "Der Pr&uuml;fungszeitraum kann erst nach Kursbeginn starten!");
 					
 				}else {
