@@ -269,7 +269,7 @@ class KursController extends AbstractActionController
         
     	$zertladen = $kurs->loadZertifizierer();
     	
-    	//Variable nötig, um in der Prüfungsübersicht den Kursnamen anzeigen zu können
+    	//Variable nï¿½tig, um in der Prï¿½fungsï¿½bersicht den Kursnamen anzeigen zu kï¿½nnen
     	$_SESSION['kurs_name']=$kurs->getKurs_name();
         
     	//Zum Ã„ndern der Kursdaten von aktuellen Kursen
@@ -707,7 +707,7 @@ class KursController extends AbstractActionController
 				 
 		//ï¿½berprï¿½fung der Dateigrï¿½ï¿½e
 		 
-		$max_size = 5000000;                                //5 MB (in Byte angegeben)
+		$max_size = 1024*1024*2;                                //2 MB (in Byte angegeben)
 		 
 		if($_FILES['datei']['size'] > $max_size) {
 				
