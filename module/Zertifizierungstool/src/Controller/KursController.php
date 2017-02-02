@@ -711,7 +711,7 @@ class KursController extends AbstractActionController
 		 
 		if($_FILES['datei']['size'] > $max_size) {
 				
-			return new ViewModel(['meldung' =>'dateigroesse']);
+			return new ViewModel(['meldung' => 'dateigroesse']);
 		}		
 				 
 		//Dateipfad
