@@ -1022,6 +1022,7 @@ class KursController extends AbstractActionController
 				$page1->drawText('Kursleiter: ', 280, 470);
 				$page1->setFont($font, 22);
 				
+				$kurs = new Kurs;
 				$load_kurs = $kurs->load($kurs_id);
 				$leiter = $kurs->getBenutzername();
 				$user = new User();
