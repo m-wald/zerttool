@@ -18,7 +18,9 @@ use Zertifizierungstool\Model\Frage;
 use Zertifizierungstool\Model\SchreibtPruefung;
 
 class KursController extends AbstractActionController
-{   
+{   /*
+     * Ein neuer Kurs wird angelegt und das Objekt Kurs an die View übergeben.
+     */
     public function createAction(){
     	
     	if(User::currentUser()->istTeilnehmer() || User::currentUser()->getBenutzername()==NULL){
@@ -33,6 +35,10 @@ class KursController extends AbstractActionController
             $currentdate = date('Y-m-d');
             $start  = $_REQUEST["kursstart"];
             
+            /*
+             * Falls der Benutzer Firefox benutzt, dann soll das Datum überprüft werden und bei einer
+             * fehlerhaften Eingabe einen String an die View übergeben 
+             */
             if (strpos($_SERVER['HTTP_USER_AGENT'], 'Firefox')){
 		if($kurs->checkDate($start)) {
                     //mach nix
@@ -44,6 +50,10 @@ class KursController extends AbstractActionController
             
             $end    = $_REQUEST["kursende"];
             
+            /*
+             * Falls der Benutzer Firefox benutzt, dann soll das Datum überprüft werden und bei einer
+             * fehlerhaften Eingabe einen String an die View übergeben 
+             */
             if (strpos($_SERVER['HTTP_USER_AGENT'], 'Firefox')){
 		if($kurs->checkDate($end)) {
                     //mach nix
@@ -105,7 +115,10 @@ class KursController extends AbstractActionController
                 return new ViewModel(['error' => 'endbeforecurrent', 'kurs' => $kurs]);
             }
             
-            //Wenn Kursende nach dem Currentdate befinden 
+            /* Wenn Kursende nach dem Currentdate befindet, dann soll das Objekt Kurs mit den 
+             * Benutzereingaben befüllt werden und die Methode zum Speichern des Kurses in der Datenbank
+             * soll aufgerufen werden
+             */
             if($endtimestamp > $currentdatetimestamp) {
 
                 $kurs = new Kurs(
@@ -133,7 +146,7 @@ class KursController extends AbstractActionController
     /**
      * Wenn Zertifizierer, dann Kurse des Zertifizierers laden und der View übergeben
      * Wenn Admin oder Teilnehmer, dann entsprechende Kurse laden und der View übergeben
-     * @return Kurse eines Zertifizierers, bzw. je nach Regelung die einsehabren Kurse für Admin und Teilnehmer an die View
+     * @return Kurse eines Zertifizierers, bzw. je nach Regelung die einsehbaren Kurse für Admin und Teilnehmer an die View
      */
     public function showkurseAction(){
     	
@@ -147,9 +160,6 @@ class KursController extends AbstractActionController
          * Wenn Zertifizierer, dann soll er nur seine Kurse angezeigt bekommen.
          * Wenn Admin oder Teilnehmer, dann soll NULL als Parameter übergeben werden,
          * damit in der SQL-Query nicht nach dem Benutzernamen gefiltert wird
-         * 
-         * TODO Admin hat doch auch alle Funktionen eines Zertifizierers oder?
-         * 		Dann kann er ja theorethisch auch Kurse haben, in denen er Kursleiter ist
          */
         if(User::currentUser()->istZertifizierer()){
             $kurseladen = $kurs->loadKurse(User::currentUser()->getBenutzername());
@@ -160,7 +170,7 @@ class KursController extends AbstractActionController
     }
     
     /*
-     * zum Anzeigen von Archivierten Kursen
+     * Zum Anzeigen von Archivierten Kursen. Es wird die entsprechende Methode aufgerufen
      */
     public function showarchivedkurseAction() {
     	
@@ -208,27 +218,34 @@ class KursController extends AbstractActionController
         return new ViewModel(['result' => $signedkurse]);
     }
     
-    
+    /*
+     * Es sollen nur die Kurse an die View zurückgegeben werden, die der Zertifizierer bzw. Admin auch
+     * angelegt hat.
+     */
     public function showcreatedkurseAction(){
     	if(User::currentUser()->getBenutzername()==NULL){
     		header("refresh:0; url=/user/login");
     		exit;
     	}
+        
+        if(User::currentUser()->istTeilnehmer()) {
+                header("refresh:0; url= /");
+    		exit;
+        }
     	
-    		if(User::currentUser()->istZertifizierer() || User::currentUser()->istAdmin()) {
-    			$kurs = new Kurs();
-    			if(!$kurs->loadcreatedkurse(User::currentUser()->getBenutzername()))
-    				return new ViewModel(['error' => 'error']);
-    			else
-    			$createdkurse = $kurs->loadcreatedkurse(User::currentUser()->getBenutzername());
+        if(User::currentUser()->istZertifizierer() || User::currentUser()->istAdmin()) {
+                $kurs = new Kurs();
+                if(!$kurs->loadcreatedkurse(User::currentUser()->getBenutzername()))
+                        return new ViewModel(['error' => 'error']);
+                else
+                $createdkurse = $kurs->loadcreatedkurse(User::currentUser()->getBenutzername());
     	}
     	return new ViewModel(['result' => $createdkurse]);
     }
     
     /*
-     * Überprüft ob Kursänderungen gespeichert werden sollen und ruft die
-     * Query zum Speichern der Kursdaten auf 
-     * @return Status (Fehler/Erfolg) und Kursdaten 
+     * Zum Speichern von geänderten Kursdaten, bzw. zum übernehmen der Daten eines 
+     * archivierten Kurses
      */
     public function changedataAction(){
     	
@@ -249,7 +266,7 @@ class KursController extends AbstractActionController
         
     	$id = $_REQUEST["kurs_id"];
         
-        /*Wenn der Benutzer einen archivierten Kurs in showarchivedkurse auswählt hat 
+        /* Wenn der Benutzer einen archivierten Kurs in showarchivedkurse auswählt hat 
          * Überprüfung ob die Variable "archiv" den Wert "1" besitzt
          */
         if($_REQUEST["archiv"] == 1) {
@@ -259,11 +276,13 @@ class KursController extends AbstractActionController
         }
        
     	$kurs = new Kurs();
+        
+        //Prüfung ob der Kurs geladen werden konnte
         if(!$kurs->load($id)) {
             return new ViewModel(['error' => 'unabletoload', 'kurs' => $kurs]);
-            //$status="Fehler beim Laden des Kurses!";
         }
         
+        //Abspeichern der ursprünglichen Kursstartdaten aus dem Objekt
         $kursstartalt = $kurs->getKurs_start();
         $starttimestampalt = strtotime($kursstartalt);
         
@@ -272,7 +291,9 @@ class KursController extends AbstractActionController
     	//Variable n�tig, um in der Pr�fungs�bersicht den Kursnamen anzeigen zu k�nnen
     	$_SESSION['kurs_name']=$kurs->getKurs_name();
         
-    	//Zum Ändern der Kursdaten von aktuellen Kursen
+    	/*
+         * Zum Ändern der Kursdaten von aktuellen Kursen
+         */
         if($_REQUEST["speichern"]) {
         	
             $start  = $_REQUEST["kursstart"];
@@ -301,6 +322,7 @@ class KursController extends AbstractActionController
                     return new ViewModel(['error' => 'fourdays', 'kurs' => $kurs]);
                 }
                 
+                //Methode update wird aufgerufen und die Kursdaten werden in der Datenbank geändert
                 $kurs->update($_REQUEST["kurs_id"], $_REQUEST["kursname"], $_REQUEST["kursstart"], $_REQUEST["kursende"], $_REQUEST["sichtbarkeit"], $_REQUEST["benutzername"], $_REQUEST["beschreibung"]);
                 $kurs = new Kurs(
                         $_REQUEST["kurs_id"],
@@ -326,6 +348,7 @@ class KursController extends AbstractActionController
             $endtimestamp   = strtotime($end);
             $currentdate = strtotime(date('Y-m-d'));
         	
+            // Enddatum muss größer wie Startdatum sein, Enddatum muss größer wie das heutige Datum sein 
             if($endtimestamp > $starttimestamp && $endtimestamp > $currentdate) {
                 
                 $fourdays_afterstart = strtotime(date('Y-m-d', strtotime($start. ' + 4 days')));
@@ -357,7 +380,9 @@ class KursController extends AbstractActionController
         return new ViewModel(['kurs' => $kurs, 'result' => $zertladen, 'archiv' => $archiviert, 'status' => $status]);    
     }
     
-    
+    /*
+     * Zum Anzeigen der Detailansicht eines Kurses
+     */
     public function kursviewAction(){
     	
     	if(User::currentUser()->getBenutzername()==NULL){
@@ -379,6 +404,7 @@ class KursController extends AbstractActionController
     	$kurs = new Kurs();
         $benutzer_kurs = new Benutzer_Kurs();
         
+        //Wenn der Kurs nicht geladen werden kann, dann soll eine Meldung an die View übergeben werden
     	if(!$kurs->load($id)) {
             $status="errorloadingcourse";
             return new ViewModel(['status' => $status]);
@@ -663,7 +689,9 @@ class KursController extends AbstractActionController
    	
     }
 
-
+    /*
+     * Methode zum hochladen von Kursdaten
+     */
     public function uploadAction(){	
 	
 	
@@ -757,7 +785,9 @@ class KursController extends AbstractActionController
 
     }
   
-  
+    /*
+     * Zum Anzeigen der bisher hochgeladenen Kursdokumente
+     */
     public function showdocumentsAction(){
     	
     	if(User::currentUser()->getBenutzername()==NULL){
@@ -817,7 +847,9 @@ class KursController extends AbstractActionController
     }
     
     
-    
+    /*
+     * Bereits hochgeladene Dokumente sollen von den Benutzern heruntergeladen werden
+     */
     public function docdownloadAction(){
     	if(User::currentUser()->getBenutzername()==NULL) {
     		header("refresh:0; url = /user/login");
@@ -838,16 +870,15 @@ class KursController extends AbstractActionController
     	}
     }
     
-    
+    /*
+     * Benutzer soll sich aus dem Kurs austragen können
+     */
     public function signoutkursAction(){
     	
     	if(User::currentUser()->getBenutzername()==NULL) {
     		header("refresh:0; url = /user/login");
     		exit;
     	}
-    	
-    	
-    	
     	
         if($_SERVER['REQUEST_METHOD'] == 'POST') {
             $benutzer_kurs = new Benutzer_Kurs();
@@ -868,6 +899,21 @@ class KursController extends AbstractActionController
     }
 
 
+/*
+ * Eventuel Löschen 
+ * Eventuel Löschen
+ * Eventuel Löschen
+ * Eventuel Löschen
+ * Eventuel Löschen
+ *          ||||||
+ *          ||||||
+ *          \\  //
+ *           \\//     
+ *            \/
+ */    
+    
+    
+    
 /*public function upload_multAction(){
 	
 	$upload = new Zend_File_Transfer_Adapter_Http();
@@ -1070,91 +1116,91 @@ class KursController extends AbstractActionController
     }
 	
 	
-	/** Anzeige der Kursstatistik mit Auflistung aller Pr�fungen dieses Kurses
-	 * (Pr�fungsname, Anzahl der Pr�flinge, Bestehensquote der jeweiligen Pr�fung)
-	 */ 
+    /** Anzeige der Kursstatistik mit Auflistung aller Pr�fungen dieses Kurses
+     * (Pr�fungsname, Anzahl der Pr�flinge, Bestehensquote der jeweiligen Pr�fung)
+     */ 
+
+    public function showstatisticAction() {
+
+            /** Berechtigungspr�fung: falls nicht eingeloggt, Weiterleitung zum Login
+             * falls Admin bzw. Zertifizierer, dann nur Anzeige der Kursstatistik, falls man in Kursview auf Button
+             * "Kursstatistik" geklickt hat (hier wird Session mit Kurs-ID gesetzt, die f�r richtige Statistik n�tig ist
+             * ansonsten Weiterleitung zur �bersicht aller selbst verwalteten Kurse
+             * falls Teilnehmer, Weiterleitung zur Home-Seite
+             */
+
+            if(User::currentUser()->getBenutzername()==NULL){
+                    header("refresh:0; url= /user/login");
+                    exit;
+            }
+
+            if(User::currentUser()->istTeilnehmer()){
+                    header("refresh:0; url= /");
+                    exit;
+            }
+
+            if((User::currentUser()->istZertifizierer() || User::currentUser()->istAdmin()) && $_POST['site']=='kursview' || $_POST['site']=='statisticlistquestions') {
+
+            $pruefung = new Pruefung();
+
+            $pruefungsliste = $pruefung->loadstatistics($_SESSION['kurs_id']);
+
+
+
+            return new ViewModel(['pruefungsliste' => $pruefungsliste]);
+            }
+
+            else{
+                    header("refresh:0; url= /kurs/showkurse");
+                    exit;
+            }
+
+    }
 	
-	public function showstatisticAction() {
-		
-		/** Berechtigungspr�fung: falls nicht eingeloggt, Weiterleitung zum Login
-		 * falls Admin bzw. Zertifizierer, dann nur Anzeige der Kursstatistik, falls man in Kursview auf Button
-		 * "Kursstatistik" geklickt hat (hier wird Session mit Kurs-ID gesetzt, die f�r richtige Statistik n�tig ist
-		 * ansonsten Weiterleitung zur �bersicht aller selbst verwalteten Kurse
-		 * falls Teilnehmer, Weiterleitung zur Home-Seite
-		 */
-		
-		if(User::currentUser()->getBenutzername()==NULL){
-			header("refresh:0; url= /user/login");
-			exit;
-		}
-		
-		if(User::currentUser()->istTeilnehmer()){
-			header("refresh:0; url= /");
-			exit;
-		}
-		
-		if((User::currentUser()->istZertifizierer() || User::currentUser()->istAdmin()) && $_POST['site']=='kursview' || $_POST['site']=='statisticlistquestions') {
-		
-		$pruefung = new Pruefung();
-		
-		$pruefungsliste = $pruefung->loadstatistics($_SESSION['kurs_id']);
-		
-		
-		
-		return new ViewModel(['pruefungsliste' => $pruefungsliste]);
-		}
-		
-		else{
-			header("refresh:0; url= /kurs/showkurse");
-			exit;
-		}
-		
-	}
-	
-	public function statisticlistquestionsAction() {
-		
-		if(User::currentUser()->getBenutzername()==NULL){
-			header("refresh:0; url= /user/login");
-			exit;
-		}
-		
-		if(User::currentUser()->istTeilnehmer()){
-			header("refresh:0; url= /");
-			exit;
-		}
-		
-		if((User::currentUser()->istZertifizierer() || User::currentUser()->istAdmin()) && $_POST['site']=='showstatistic') {			
-				
-				$fragen = array();
-				$fragen = Frage::loadList($_REQUEST['pruefung_id']);
-				$ergebnis = array();
-				
-				foreach ($fragen as $frage) {
-					
-					$schreibt_pruefung_list = array();
-					$schreibt_pruefung_list = SchreibtPruefung::loadlist($frage->getPruefungId());
-					$richtig = 0;
-					$beantwortet = 0;
-					foreach ($schreibt_pruefung_list as $schreibt_pruefung) {
-						
-						if (FrageController::check($frage->getId(), $schreibt_pruefung->getId())){
-							$richtig++;
-						}
-						$beantwortet++;
-						
-					}
-					$prozentual_richtig = round(($richtig/$beantwortet)*100,2);
-					$inhalt = array($frage->getText(), $beantwortet, $richtig, $prozentual_richtig);
-					array_push($ergebnis, $inhalt);
-				}
-			return new ViewModel(['ergebnis' => $ergebnis, 'pruefung_name' => $_REQUEST['pruefung_name']]);
-		
-		
-		} else{
-			header("refresh:0; url= /kurs/showkurse");
-			exit;
-		}
-	}
+    public function statisticlistquestionsAction() {
+
+            if(User::currentUser()->getBenutzername()==NULL){
+                    header("refresh:0; url= /user/login");
+                    exit;
+            }
+
+            if(User::currentUser()->istTeilnehmer()){
+                    header("refresh:0; url= /");
+                    exit;
+            }
+
+            if((User::currentUser()->istZertifizierer() || User::currentUser()->istAdmin()) && $_POST['site']=='showstatistic') {			
+
+                            $fragen = array();
+                            $fragen = Frage::loadList($_REQUEST['pruefung_id']);
+                            $ergebnis = array();
+
+                            foreach ($fragen as $frage) {
+
+                                    $schreibt_pruefung_list = array();
+                                    $schreibt_pruefung_list = SchreibtPruefung::loadlist($frage->getPruefungId());
+                                    $richtig = 0;
+                                    $beantwortet = 0;
+                                    foreach ($schreibt_pruefung_list as $schreibt_pruefung) {
+
+                                            if (FrageController::check($frage->getId(), $schreibt_pruefung->getId())){
+                                                    $richtig++;
+                                            }
+                                            $beantwortet++;
+
+                                    }
+                                    $prozentual_richtig = round(($richtig/$beantwortet)*100,2);
+                                    $inhalt = array($frage->getText(), $beantwortet, $richtig, $prozentual_richtig);
+                                    array_push($ergebnis, $inhalt);
+                            }
+                    return new ViewModel(['ergebnis' => $ergebnis, 'pruefung_name' => $_REQUEST['pruefung_name']]);
+
+
+            } else{
+                    header("refresh:0; url= /kurs/showkurse");
+                    exit;
+            }
+    }
 }
 
    				
