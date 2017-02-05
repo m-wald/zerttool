@@ -52,15 +52,51 @@
         <?php  } 
 			if(User::currentUser()->istAdmin() || User::currentUser()->istKursleiter($kurs->getKurs_id()) || User::currentUser()->istTeilnehmer() && $benutzer_kurs->alreadyexist(User::currentUser()->getBenutzername(), $kurs->getKurs_id())) {
 		?>
-        
-                <form accept-charset="utf-8" method="POST" action="showdocuments">
+        <table>
+                <tr><td><form accept-charset="utf-8" method="POST" action="showdocuments">
                     <input type="hidden" value="<?=$kurs->getKurs_id()?>" name="kurs_id">
                     <input type="hidden" value="<?=$kurs->getKurs_name()?>" name="kurs_name">
                     <input type="hidden" value="kursview" name="site">
                     <input size="70" maxlength="250" value="Kursdokumente anzeigen" type="submit" class="btn btn-default btn-block">
-                </form> <br>
+                </form></td>
      <?php 
 				}
+								
+			if(User::currentUser()->istAdmin() ||  User::currentUser()->istKursleiter($kurs->getKurs_id())) { ?>
+				                
+				                   <td><form accept-charset="utf-8" method="POST" action="upload">
+				                       <input type="hidden" value="<?php echo $kurs->getKurs_id();?>" name="kurs_id">
+				                       <input size="70" maxlength="250" value="Datei hinzufügen" type="submit" class="btn btn-default btn-block">
+				                   </form></td></tr> 
+				                   </table>
+				 <?php }?>
+				 
+				                    
+				 <!--  author Michael Zillner -->
+				 
+				 
+				 <?php
+				 	
+				 if($kurs->active($_SESSION['kurs_id'])) {
+				 		
+				 	?>
+				 
+				 				<table>
+				                     <tr><td><form accept-charset="utf-8" method="POST" action="csvinvite">
+				                         <input type="hidden" value="<?php echo $kurs->getKurs_id();?>" name="kurs_id">
+				                         <input size="70" maxlength="250" value="Teilnehmer &uuml;ber CSV einladen" type="submit" class="btn btn-default btn-block">
+				                     </form></td>
+				 
+				                     <td><form accept-charset="utf-8" method="POST" action="singleinvite">
+				                            <input type="hidden" value="<?php echo $kurs->getKurs_id();?>" name="kurs_id">
+				                        <input size="70" maxlength="250" value="Einzelnen Teilnehmer einladen" type="submit" class="btn btn-default btn-block">
+				                     </form></td></tr>
+				                 </table>
+				                     <br><br>
+				                     
+				                     
+				 
+		<?php } 
      //loadCertificate sichtbar, wenn alle Pr�fungen bestanden
     /*          
                 <form method="post" action="loadCertificate">
@@ -95,38 +131,9 @@
                                             
                                         
 						<?php
-					} elseif(User::currentUser()->istAdmin() ||  User::currentUser()->istKursleiter($kurs->getKurs_id())) { ?>
-                
-                    <form accept-charset="utf-8" method="POST" action="upload">
-                        <input type="hidden" value="<?php echo $kurs->getKurs_id();?>" name="kurs_id">
-                        <input size="70" maxlength="250" value="Datei hinzufügen" type="submit" class="btn btn-default btn-block">
-                    </form> <br><br>
-                    
+					} 
 
-                    <!--  author Michael Zillner -->
-
-
-					<?php 
-					
-					if($kurs->active($_SESSION['kurs_id'])) {
-					
-					?>
-
-
-                    <form accept-charset="utf-8" method="POST" action="csvinvite">
-                        <input type="hidden" value="<?php echo $kurs->getKurs_id();?>" name="kurs_id">
-                        <input size="70" maxlength="250" value="Teilnehmer &uuml;ber CSV einladen" type="submit" class="btn btn-default btn-block">
-                    </form> <br>
-
-                    <form accept-charset="utf-8" method="POST" action="singleinvite">
-                           <input type="hidden" value="<?php echo $kurs->getKurs_id();?>" name="kurs_id">
-                       <input size="70" maxlength="250" value="Einzelnen Teilnehmer einladen" type="submit" class="btn btn-default btn-block">
-                    </form>
-                    <br><br>
-                    
-                    
-
-                <?php } ?>
+					if(User::currentUser()->istAdmin() ||  User::currentUser()->istKursleiter($kurs->getKurs_id())) { ?>
                 
                 <form accept-charset="utf-8" method="POST" action="showstatistic">
                        <input type="hidden" value="kursview" name="site">    
