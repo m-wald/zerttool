@@ -84,18 +84,20 @@ class PruefungController extends AbstractActionController {
 		if (!empty($errors)) return new ViewModel(['errors' => $errors]);
 		
 
-		// Eintrag in Tabelle schreibt_pruefung
-		$schreibt_pruefung = new SchreibtPruefung("", $pruefung_id);
-		
-		if (!$schreibt_pruefung->saveNew()) {
-			array_push($errors, "Fehler beim Vorbereiten der Pr&uuml;fung!");
-		}
 		
 		// Alle Fragen zur Prüfung laden
 		$fragen = Frage::loadList($pruefung_id);
 		if (!$fragen || empty($fragen)) {
 			array_push($errors, "Fehler: Es konnten keine Pr&uuml;fungsfragen geladen werden!");
-		}
+		
+		} else {
+			// Eintrag in Tabelle schreibt_pruefung
+			$schreibt_pruefung = new SchreibtPruefung("", $pruefung_id);
+			
+			if (!$schreibt_pruefung->saveNew()) {
+				array_push($errors, "Fehler beim Vorbereiten der Pr&uuml;fung!");
+			}
+		
 		
 		// Für jede Frage:
 		foreach ($fragen as $frage) {
@@ -105,7 +107,6 @@ class PruefungController extends AbstractActionController {
 			// Für jede Antwort:
 			foreach ($antworten as $antwort) {
 				// Objekt von "beantwortet" erzeugen und in Db speichern
-				// extra-Attribut "edited"? (gesetzt sobal User auf "Weiter" oder so geklickt hat)
 				$beantwortet = new Beantwortet("", $schreibt_pruefung->getId(), $antwort->getId(), 0);
 				
 				if (!$beantwortet->saveNew()) {
@@ -113,6 +114,7 @@ class PruefungController extends AbstractActionController {
 					continue;
 				}
 			}
+		}
 		}
 		}
 		
@@ -159,7 +161,6 @@ class PruefungController extends AbstractActionController {
 		if (($punkte / $punkte_gesamt) >= $pruefung->getCutscore()) {
 			$schreibt_pruefung->bestanden();
 		
-			/*
 			// Prüfen ob nun alle Prüfungen zum Kurs bestanden wurden
 			$kurs_bestanden = true;
 			$pruefungen = Pruefung::loadList($pruefung->getKursId());
@@ -175,7 +176,6 @@ class PruefungController extends AbstractActionController {
 			if ($kurs_bestanden) {
 				Benutzer_Kurs::bestanden($pruefung->getKursId());
 			}
-			*/
 		}
 	
 		return new ViewModel([

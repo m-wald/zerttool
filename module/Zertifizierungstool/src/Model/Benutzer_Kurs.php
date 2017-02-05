@@ -109,14 +109,15 @@ class Benutzer_Kurs {
             return false;
         }
         
-        /*
+        
         public static function bestanden($id) {
         	$db = new Db_connection();
         	$mysqli = $db->getConnection();
         	
         	$id = $mysqli->real_escape_string($id);
         
-        	$query = "UPDATE benutzer_kurs SET bestanden = 1 WHERE kurs_id = " .$id;
+        	$query = "UPDATE benutzer_kurs SET bestanden = 1 WHERE kurs_id = " .$id
+        				." AND benutzername = " .User::currentUser()->getBenutzername();
         
         	$result = $db->execute($query);
         
@@ -127,5 +128,5 @@ class Benutzer_Kurs {
         		
         	return true;
         }
-        */
+        
 }

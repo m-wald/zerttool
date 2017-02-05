@@ -134,11 +134,10 @@ class Kurs {
     
     
     
-    /*
-     * Pr�ft ob der User den KUrs bestanden hat
+    /**
+     * Pr�ft ob der User den Kurs bestanden hat
      */    
-    /*
-    public function checkCourseResult($benutzername, $kurs_id){
+    public static function checkCourseResult($benutzername, $kurs_id){
     	$db = new Db_connection();
     	
     	$mysqli = $db->getConnection();
@@ -156,7 +155,7 @@ class Kurs {
     		else 								return false;
     	}
     }
-    */
+    
     
     /*
      * List von alle bestandene Kurse vom Benutzer

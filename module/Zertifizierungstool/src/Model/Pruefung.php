@@ -78,6 +78,15 @@ class Pruefung {
 		} else {
 			// Id des eben eingefügten Datensatzes auslesen und im Objekt setzen
 			$this->id = mysqli_insert_id($conn);
+			
+			// Für alle Teilnehmer des Kurses benutzer_kurs auf "nicht bestanden" setzen
+			$query = "UPDATE benutzer_kurs SET bestanden = 1 WHERE kurs_id = " .$this->kurs_id;
+			$result = mysqli_query($conn, $query);
+			if(!$result) {
+				// Fehler bei der Datenbankabfrage
+				return false;
+			}
+			
 			return true;
 		}
 	}

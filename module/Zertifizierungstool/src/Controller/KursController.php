@@ -961,7 +961,7 @@ class KursController extends AbstractActionController
 			else 									$kurs_id = $_SESSION['kurs_id'];
 			
 			
-			if(!$this->checkCourseResult($kurs_id)) {
+			if(!Kurs::checkCourseResult(User::currentUser()->getBenutzername(), $kurs_id)) {
 				return new Viewmodel (['message' => 'access_error']);
 				exit;
 			}
@@ -1155,28 +1155,6 @@ class KursController extends AbstractActionController
 			exit;
 		}
 	}
-
-	
-	private function checkCourseResult($kursId) {
-		// Pr�fen ob alle Pr�fungen zum Kurs bestanden wurden
-		$kurs_bestanden = true;
-		$pruefungen = Pruefung::loadList($kursId);
-		
-		foreach ($pruefungen as $pruefung) {
-			$last_try = new SchreibtPruefung();
-			$last_try->loadLastTry($pruefung->getId());
-			// TODO Fehler
-			if ($last_try->getBestanden() == 0) {
-				$kurs_bestanden = false;
-			}
-		}
-		
-		return $kurs_bestanden;
-	}
-
-
-
-
 }
 
    				
