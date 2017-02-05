@@ -68,8 +68,8 @@
 				                       <input type="hidden" value="<?php echo $kurs->getKurs_id();?>" name="kurs_id">
 				                       <input size="70" maxlength="250" value="Datei hinzufügen" type="submit" class="btn btn-default btn-block">
 				                   </form></td></tr> 
-				                   </table><br><br>
-				 <?php }?>
+				                   </table>
+				 
 				 
 				                    
 				 <!--  author Michael Zillner -->
@@ -80,7 +80,7 @@
 				 if($kurs->active($_SESSION['kurs_id'])) {
 				 		
 				 	?>
-				 
+				 				<br><br>
 				 				<table style="width:100%">
 				                     <tr><td width="50%"><form accept-charset="utf-8" method="POST" action="csvinvite">
 				                         <input type="hidden" value="<?php echo $kurs->getKurs_id();?>" name="kurs_id">
@@ -96,7 +96,7 @@
 				                     
 				                     
 				 
-		<?php } 
+		<?php } }
      //loadCertificate sichtbar, wenn alle Pr�fungen bestanden
     /*          
                 <form method="post" action="loadCertificate">
