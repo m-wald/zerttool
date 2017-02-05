@@ -53,7 +53,7 @@
 			if(User::currentUser()->istAdmin() || User::currentUser()->istKursleiter($kurs->getKurs_id()) || User::currentUser()->istTeilnehmer() && $benutzer_kurs->alreadyexist(User::currentUser()->getBenutzername(), $kurs->getKurs_id())) {
 		?>
         <table style="width:100%">
-                <tr><td width="400px"><form accept-charset="utf-8" method="POST" action="showdocuments">
+                <tr><td><form accept-charset="utf-8" method="POST" action="showdocuments">
                     <input type="hidden" value="<?=$kurs->getKurs_id()?>" name="kurs_id">
                     <input type="hidden" value="<?=$kurs->getKurs_name()?>" name="kurs_name">
                     <input type="hidden" value="kursview" name="site">
@@ -64,7 +64,7 @@
 								
 			if(User::currentUser()->istAdmin() ||  User::currentUser()->istKursleiter($kurs->getKurs_id())) { ?>
 				                
-				                   <td width="400px"><form accept-charset="utf-8" method="POST" action="upload">
+				                   <td><form accept-charset="utf-8" method="POST" action="upload">
 				                       <input type="hidden" value="<?php echo $kurs->getKurs_id();?>" name="kurs_id">
 				                       <input size="70" maxlength="250" value="Datei hinzufügen" type="submit" class="btn btn-default btn-block">
 				                   </form></td></tr> 
