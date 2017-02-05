@@ -306,14 +306,6 @@ class Pruefung {
 		$kursId = $mysqli->real_escape_string($kursId);
 		$this->kurs_id = $kursId;
 	}
-	
-	public function setCutscore($cutscore) {
-		
-		$db = new Db_connection();
-		$mysqli = $db->getConnection();
-		
-		$cutscore = $mysqli->real_escape_string($cutscore);
-		$this->cutscore = $cutscore;
-	}
+
 
 }

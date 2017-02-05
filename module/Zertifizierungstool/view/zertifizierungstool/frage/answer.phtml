@@ -1,5 +1,15 @@
-<h1>Pr&uuml;fung</h1><br>
+<?php
+if (!empty($error)) {
+	?>
+	<div class="alert alert-danger" role="alert">
+	<?php 
 
+		echo $error;
+	} else {	?>
+	</div>
+
+
+<h1>Pr&uuml;fung</h1><br>
 
 <style>
 #FragenListe {
@@ -72,3 +82,6 @@
 
 <br><br>
 <a href="<?= $this->url('pruefung', ['action' => 'result', 'id' => $schreibt_pruefung_id]) ?>"><button type="button" class="btn btn-default">Pr&uuml;fung beenden</button></a>
+
+<?php 
+}?>

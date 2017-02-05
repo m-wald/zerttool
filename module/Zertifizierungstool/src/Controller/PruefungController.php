@@ -31,6 +31,10 @@ class PruefungController extends AbstractActionController {
 	/** Das behandelte Prüfungs-Objekt */
 	private $pruefung;
 	
+	/**
+	 * Startet das Absolvieren einer Prüfung.
+	 * @return \Zend\View\Model\ViewModel
+	 */
 	public function takeAction() {
 		$errors = array();
 		// Prüfung laden
@@ -54,15 +58,13 @@ class PruefungController extends AbstractActionController {
 		// Prüfen, ob eine Prüfung im Kurs bereits 3 mal nicht bestanden wurde und der Kurs damit endgültig nicht bestanden ist
 		$alle_pruefungen = Pruefung::loadList($pruefung->getKursId());
 		
-		if ($pruefungen == false) {
-			// Fehler oder leer
-		}
-		
-		$failed = false;
-		foreach ($alle_pruefungen as $p) {
-			if (SchreibtPruefung::attempts(User::currentUser()->getBenutzername(), $p->getId()) >= 3) {
-				array_push($errors, 'Fehler: Sie haben die Pr&uuml;fung' .$p->getName() .'bereits 3 mal nicht bestanden und sind daher zu keinen Pr&uuml;fungen mehr zugelassen.');
-				$failed = true;
+		if ($alle_pruefungen != false) {
+			$failed = false;
+			foreach ($alle_pruefungen as $p) {
+				if (SchreibtPruefung::attempts(User::currentUser()->getBenutzername(), $p->getId()) >= 3) {
+					array_push($errors, 'Fehler: Sie haben die Pr&uuml;fung' .$p->getName() .'bereits 3 mal nicht bestanden und sind daher zu keinen Pr&uuml;fungen mehr zugelassen.');
+					$failed = true;
+				}
 			}
 		}
 			
@@ -123,6 +125,10 @@ class PruefungController extends AbstractActionController {
 			header("refresh:0; url = /frage/answer/" .$schreibt_pruefung->getId());
 		}
 
+		// Session-Variable setzen, um Beantworten der Prüfung freizuschalten
+		// wird nach Beenden der Prüfung wieder gesperrt, um zu verhindern, dass der Teilnehmer im Browser zurück zu den Fragen navigiert
+		$_SESSION['taking' .$schreibt_pruefung->getId()] = true;
+		
 		return new ViewModel(['errors' => $errors]);
 	}
 	
@@ -167,8 +173,7 @@ class PruefungController extends AbstractActionController {
 			foreach ($pruefungen as $p) {
 				$last_try = new SchreibtPruefung();
 				$last_try->loadLastTry($p->getId());
-				// TODO Fehler
-				if ($last_try->getBestanden() == 0) {
+				if ($last_try != false && $last_try->getBestanden() == 0) {
 					$kurs_bestanden = false;
 				}
 			}
@@ -178,6 +183,9 @@ class PruefungController extends AbstractActionController {
 			}
 		}
 	
+		// Beantwortung der Prüfung sperren
+		$_SESSION['taking' .$schreibt_pruefung_id] = false;
+		
 		return new ViewModel([
 				'schreibt_pruefung'  => $schreibt_pruefung
 		]);

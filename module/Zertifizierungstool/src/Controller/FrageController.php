@@ -22,12 +22,22 @@ use Zertifizierungstool\Model\SchreibtPruefung;
 class FrageController extends AbstractActionController {
 	
 	private $frage;
-	
+
+	/**
+	 * Zeigt das Formular zum Beantworten einer Frage an und verarbeitet die abgegebene Antwort.
+	 * @return \Zend\View\Model\ViewModel
+	 */
 	public function answerAction() {
 		// Alle Fragen zur Prüfung laden
 		$schreibt_pruefung_id = $this->params()->fromRoute('id');
 		$schreibt_pruefung = new SchreibtPruefung();
 		$schreibt_pruefung->load($schreibt_pruefung_id);
+		
+		// Session-Variable prüfen
+		if ($_SESSION['taking' .$schreibt_pruefung_id] == false) {
+			// Die Prüfung wurde schon beendet
+			return new ViewModel([ 'error' => 'Sie haben die Pr&uuml;ung bereits beendet!']);
+		}
 		
 		$fragen = Frage::loadList($schreibt_pruefung->getPruefungId());
 		// TODO wenn leer oder Fehler
@@ -94,12 +104,7 @@ class FrageController extends AbstractActionController {
 						$success = Beantwortet::setFalse($schreibt_pruefung_id, $_REQUEST[$id_key]);
 					}
 				}
-			}
-			
-			if ($success) {
-				//header ("refresh:0; url = /frage/answer/" .$schreibt_pruefung_id .'?next_id=' .key($fragen_map));
-			}
-			
+			}			
 		}
 			
 		return new ViewModel([
@@ -110,6 +115,13 @@ class FrageController extends AbstractActionController {
 				'next_id'	=> key($fragen_map)
 		]);
 	}
+	
+	/**
+	 * Verarbeitet das Formular zum Anlegen und Bearbeiten von Fragen.
+	 * @param $request Daten aus Request-Array
+	 * @param $mode Modus (Anlegen oder Bearbeiten einer Frage)
+	 * @return \Zend\View\Model\ViewModel
+	 */
 	private function handleForm($request, $mode) {
 		// Array, das mit eventuellen Fehlermeldungen gefüllt wird
 		$errors = array();
@@ -215,6 +227,10 @@ class FrageController extends AbstractActionController {
 		return $viewModel;
 	}
 	
+	/**
+	 * Legt eine neue Frage in der Datenbank an.
+	 * @return \Zend\View\Model\ViewModel
+	 */
 	public function createAction() {
 		// Berechtigungsprüfung
 		if (!User::currentUser()->istAdmin() && !User::currentUser()->istZertifizierer()) {
@@ -224,6 +240,10 @@ class FrageController extends AbstractActionController {
 		return $this->handleForm($_REQUEST, PruefungController::createFragen);
 	}
 	
+	/**
+	 * Aktualisiert eine Frage in der Datenbank.
+	 * @return \Zend\View\Model\ViewModel
+	 */
 	public function editAction() {
 		// Berechtigungsprüfung
 		if (!User::currentUser()->istAdmin() && !User::currentUser()->istZertifizierer()) {
@@ -233,7 +253,10 @@ class FrageController extends AbstractActionController {
 		return $this->handleForm($_REQUEST, PruefungController::editFragen);
 	}
 
-	
+	/**
+	 * Löscht eine Frage aus der Datenbank.
+	 * @return \Zend\View\Model\ViewModel
+	 */
 	public function deleteAction() {
 		$frage_id_toDelete = $this->params()->fromRoute('id');
 		$frage = new Frage();
@@ -242,20 +265,21 @@ class FrageController extends AbstractActionController {
 		$pruefung = new Pruefung();
 		$pruefung->load($frage->getPruefungId());
 		
+		// Prüfen, ob der Prüfungszeitraum bereits begonnen hat.
 		if ($pruefung->getTermin() <= time()) {
 			header ("refresh:0; url = /");
 		}
 		
+		// Prüfen, ob der angemeldete Benutzer der Leiter des Kurses ist
 		$kurs = new Kurs();
 		$kurs->load($pruefung->getKursId());
-		
 		if (!$kurs->getBenutzername() == User::currentUser()->getBenutzername()) {
 			header ("refresh:0; url = /");
 			exit;
 		}
 		
+		// Alle Antworten zur Frage löschen
 		$antwortenToDelete = Antwort::loadList($frage_id_toDelete);
-		
 		foreach ($antwortenToDelete as $antwort) {
 			Antwort::delete($antwort->getId());
 			// TODO Fehler abfangen
@@ -267,6 +291,10 @@ class FrageController extends AbstractActionController {
 		header ("refresh:0; url = /frage/create/" .$frage->getPruefungId());
 	}
 	
+	/**
+	 * Löscht eine Frage aus der Datenbank.
+	 * @return \Zend\View\Model\ViewModel
+	 */
 	public function deleteantwortAction() {
 		$antwort_id = $this->params()->fromRoute('id');
 		$antwort = new Antwort();
