@@ -100,17 +100,18 @@ input[type=number]{
 		case 'MC':
 			
 			form =
-				'<div style= "height:170px; overflow-y:scroll"><input type="hidden" name="frage_typ" readonly="readonly" value="MC">'
-				
+				'<br><div style= "height:170px; overflow-y:scroll"><input type="hidden" name="frage_typ" readonly="readonly" value="MC">'
+				'<table>
+				'<tr><th>Antworttext</th><th>Richtig</th><th>L&ouml;schen</th></tr>'
 				<?php
 				$i = 1;
 				foreach ($antworten as $antwort) { ?>
 				+ '<input type="hidden"   name="antwort_id<?=$i?>"   value="<?=$antwort->getId()  ?>" readonly="readonly">'
-				+ '<input min-width="150px" type="text"     name="antwort_text<?=$i?>" value="<?=$antwort->getText()?>" required >   '
-				+ '<input type="checkbox" name="antwort_checked<?=$i?>" <?php if ($antwort->getStatus() == 1) echo "checked";?>>   '
+				+ '<tr><td><input min-width="150px" type="text"     name="antwort_text<?=$i?>" value="<?=$antwort->getText()?>" required ></td>   '
+				+ '<td><input type="checkbox" name="antwort_checked<?=$i?>" <?php if ($antwort->getStatus() == 1) echo "checked";?>> </td>  '
 				<?php 
 				if ($i>1) {?>
-				+ '<a href="<?= $this->url('frage', ['action' => 'deleteantwort', 'id' => $antwort->getId()])?>"><button type="button" class="btn btn-default"> - </button></a><br><br>'
+				+ '<td><a href="<?= $this->url('frage', ['action' => 'deleteantwort', 'id' => $antwort->getId()])?>"><button type="button" class="btn btn-default"> - </button></a></td></tr><br><br>'
 				
 				<?php 
 					}$i++;
@@ -156,10 +157,10 @@ input[type=number]{
 		AntwortAnzahl = AntwortAnzahl + 1;
 
 		var neue_antwort	= 
-			  '<input type="text"     name="antwort_text'    + AntwortAnzahl + '" required>   '
-			+ '<input type="checkbox" name="antwort_checked' + AntwortAnzahl + '">   '
+			  '<tr><td><input type="text"     name="antwort_text'    + AntwortAnzahl + '" required></td>   '
+			+ '<td><input type="checkbox" name="antwort_checked' + AntwortAnzahl + '"></td>  '
 		
-			+ '<button type="button" class="btn btn-default" onclick="deleteAntwort(' + AntwortAnzahl + ')"> - </button>';
+			+ '<td><button type="button" class="btn btn-default" onclick="deleteAntwort(' + AntwortAnzahl + ')"> - </button></td></tr>';
 
 			
 		var new_para = document.createElement("p"); 
