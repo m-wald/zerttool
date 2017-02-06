@@ -118,7 +118,7 @@ input[type=number]{
 				}
 				?>
 
-				+ '<p id="antwortenListe"></p></div>'
+				+ '<p id="antwortenListe"></p></table></div>'
 				+ '<br><button type="button" class="btn btn-default" onclick="newAntwort()">Antwortoption hinzuf&uuml;gen</button>';
 				
 			break;
@@ -160,7 +160,7 @@ input[type=number]{
 			  '<tr><td><input type="text"     name="antwort_text'    + AntwortAnzahl + '" required></td>   '
 			+ '<td><input type="checkbox" name="antwort_checked' + AntwortAnzahl + '"></td>  '
 		
-			+ '<td><button type="button" class="btn btn-default" onclick="deleteAntwort(' + AntwortAnzahl + ')"> - </button></td></tr></table>';
+			+ '<td><button type="button" class="btn btn-default" onclick="deleteAntwort(' + AntwortAnzahl + ')"> - </button></td></tr>';
 
 			
 		var new_para = document.createElement("p"); 
