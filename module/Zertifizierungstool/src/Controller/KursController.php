@@ -913,7 +913,7 @@ class KursController extends AbstractActionController
     		exit;
     	}
     	
-    	return new ViewModel();
+    	return new ViewModel(['site'=>$_POST['site']]);
     		
     	}
     	
