@@ -2,12 +2,12 @@
 
 <form method="post" action="signoutkurs">
 <input type="hidden" value="checksignoutkurs" name="site">
-<input type="hidden" value=<?php $_SESSION['kurs_id'];?> name="kurs_id">
+<input type="hidden" value=<?php echo $_SESSION['kurs_id'];?> name="kurs_id">
 <input type="submit" class="btn btn-default" value="Ja">
 </form><br><br>
 
 <form method="post" action="kursview">
-<input type="hidden" value=<?php $_SESSION['kurs_id'];?> name="kurs_id">
+<input type="hidden" value=<?php echo $_SESSION['kurs_id'];?> name="kurs_id">
 <input type="submit" class="btn btn-default" value="Nein">
 </form>
 
