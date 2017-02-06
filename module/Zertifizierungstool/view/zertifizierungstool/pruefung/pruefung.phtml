@@ -100,27 +100,25 @@ input[type=number]{
 		case 'MC':
 			
 			form =
-				 '<table>'
-				+'<tr><th width="160px">Antworttext</th><th width="50px">Richtig</th><th width="50px">L&ouml;schen</th></tr>'
-				+ '</table>'
-				+'<div style= "height:120px; overflow-y:scroll"><input type="hidden" name="frage_typ" readonly="readonly" value="MC">'
-				+ '<table>'
+				 
+				'<br><div style= "height:120px; overflow-y:scroll"><input type="hidden" name="frage_typ" readonly="readonly" value="MC">'
+				
 				<?php
 				$i = 1;
 				foreach ($antworten as $antwort) { ?>
 				+ '<input type="hidden"   name="antwort_id<?=$i?>"   value="<?=$antwort->getId()  ?>" readonly="readonly">'
-				+ '<tr><td width="160px"><input min-width="150px" type="text"     name="antwort_text<?=$i?>" value="<?=$antwort->getText()?>" required ></td>   '
-				+ '<td width="50px"><input type="checkbox" name="antwort_checked<?=$i?>" <?php if ($antwort->getStatus() == 1) echo "checked";?>> </td>  '
+				+ '<input min-width="150px" type="text"     name="antwort_text<?=$i?>" value="<?=$antwort->getText()?>" required >   '
+				+ '<input type="checkbox" name="antwort_checked<?=$i?>" <?php if ($antwort->getStatus() == 1) echo "checked";?>> '
 				<?php 
 				if ($i>1) {?>
-				+ '<td width="50px"><a href="<?= $this->url('frage', ['action' => 'deleteantwort', 'id' => $antwort->getId()])?>"><button type="button" class="btn btn-default"> - </button></a></td></tr><br><br>'
+				+ '<a href="<?= $this->url('frage', ['action' => 'deleteantwort', 'id' => $antwort->getId()])?>"><button type="button" class="btn btn-default"> - </button></a><br><br>'
 				
 				<?php 
 					}$i++;
 				}
 				?>
 
-				+ '<p id="antwortenListe"></p></table></div>'
+				+ '<p id="antwortenListe"></p></div>'
 				+ '<br><button type="button" class="btn btn-default" onclick="newAntwort()">Antwortoption hinzuf&uuml;gen</button>';
 				
 			break;
@@ -159,10 +157,10 @@ input[type=number]{
 		AntwortAnzahl = AntwortAnzahl + 1;
 
 		var neue_antwort	= 
-			  '<tr><td width="160px"><input type="text"     name="antwort_text'    + AntwortAnzahl + '" required></td>   '
-			+ '<td width="50px"><input type="checkbox" name="antwort_checked' + AntwortAnzahl + '"></td>  '
+			  '<input type="text"     name="antwort_text'    + AntwortAnzahl + '" required>   '
+			+ '<input type="checkbox" name="antwort_checked' + AntwortAnzahl + '"> '
 		
-			+ '<td width="50px"><button type="button" class="btn btn-default" onclick="deleteAntwort(' + AntwortAnzahl + ')"> - </button></td></tr>';
+			+ '<button type="button" class="btn btn-default" onclick="deleteAntwort(' + AntwortAnzahl + ')"> - </button>';
 
 			
 		var new_para = document.createElement("p"); 
