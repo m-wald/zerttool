@@ -908,7 +908,7 @@ class KursController extends AbstractActionController
     		exit;
     	}
     	
-    	if(!$_POST['site']=="kursview"){
+    	if(!$_POST['site']=="kursview" && !$_POST['site']=="showsignedkurse"){
     		header("refresh: 0; url= /");
     		exit;
     	}
