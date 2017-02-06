@@ -101,34 +101,33 @@ class PruefungController extends AbstractActionController {
 			}
 		
 		
-		// Für jede Frage:
-		foreach ($fragen as $frage) {
-			// Alle Antworten laden
-			$antworten = Antwort::loadList($frage->getId());
+			// Für jede Frage:
+			foreach ($fragen as $frage) {
+				// Alle Antworten laden
+				$antworten = Antwort::loadList($frage->getId());
 			
-			// Für jede Antwort:
-			foreach ($antworten as $antwort) {
-				// Objekt von "beantwortet" erzeugen und in Db speichern
-				$beantwortet = new Beantwortet("", $schreibt_pruefung->getId(), $antwort->getId(), 0);
+				// Für jede Antwort:
+				foreach ($antworten as $antwort) {
+					// Objekt von "beantwortet" erzeugen und in Db speichern
+					$beantwortet = new Beantwortet("", $schreibt_pruefung->getId(), $antwort->getId(), 0);
 				
-				if (!$beantwortet->saveNew()) {
-					array_push($errors, "Fehler beim Vorbereiten der Pr&uuml;fungsfragen!");
-					continue;
+					if (!$beantwortet->saveNew()) {
+						array_push($errors, "Fehler beim Vorbereiten der Pr&uuml;fungsfragen!");
+						continue;
+					}
 				}
+			}
+		
+			if (empty($errors)) {
+				// Session-Variable setzen, um Beantworten der Prüfung freizuschalten
+				// wird nach Beenden der Prüfung wieder gesperrt, um zu verhindern, dass der Teilnehmer im Browser zurück zu den Fragen navigiert
+				$_SESSION['taking' .$schreibt_pruefung->getId()] = true;
+			
+				// Weiterleiten an FrageController Action answer
+				header("refresh:0; url = /frage/answer/" .$schreibt_pruefung->getId());
 			}
 		}
 		}
-		}
-		
-		if (empty($errors)) {
-			// Weiterleiten an FrageController Action answer
-			header("refresh:0; url = /frage/answer/" .$schreibt_pruefung->getId());
-		}
-
-		// Session-Variable setzen, um Beantworten der Prüfung freizuschalten
-		// wird nach Beenden der Prüfung wieder gesperrt, um zu verhindern, dass der Teilnehmer im Browser zurück zu den Fragen navigiert
-		$_SESSION['taking' .$schreibt_pruefung->getId()] = true;
-		
 		return new ViewModel(['errors' => $errors]);
 	}
 	
