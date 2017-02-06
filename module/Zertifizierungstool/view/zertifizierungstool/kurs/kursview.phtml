@@ -105,7 +105,7 @@
                 
         }
     
-        if(/*!User::currentUser()->istKursleiter($kurs->getKurs_id()) && */User::currentUser()->istAdmin() && !$benutzer_kurs->alreadyexist(User::currentUser()->getBenutzername(), $kurs->getKurs_id()) || User::currentUser()->istTeilnehmer() && !$benutzer_kurs->alreadyexist(User::currentUser()->getBenutzername(), $kurs->getKurs_id())) { ?>			
+        if(/*!User::currentUser()->istKursleiter($kurs->getKurs_id()) && */User::currentUser()->istAdmin() && !$benutzer_kurs->alreadyexist(User::currentUser()->getBenutzername(), $kurs->getKurs_id()) && $kurs->active($kurs->getKurs_id()) || User::currentUser()->istTeilnehmer() && !$benutzer_kurs->alreadyexist(User::currentUser()->getBenutzername(), $kurs->getKurs_id())) { ?>			
             <br><br>
             <table style="width:100%">
                 <tr>
