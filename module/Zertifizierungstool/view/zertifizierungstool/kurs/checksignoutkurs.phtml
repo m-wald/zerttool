@@ -1,0 +1,13 @@
+<h1 style="color:red">Wollen Sie sich sicher aus dem Kurs <b><?php echo $_SESSION['kurs_name'];?></b> austragen?</h1><br><br>
+
+<form method="post" action="signoutkurs">
+<input type="hidden" value="checksignoutkurs" name="site">
+<input type="hidden" value=<?php $_SESSION['kurs_id'];?> name="kurs_id">
+<input type="submit" class="btn btn-default" name="Ja">
+</form><br><br>
+
+<form method="post" action="kursview">
+<input type="hidden" value=<?php $_SESSION['kurs_id'];?> name="kurs_id">
+<input type="submit" class="btn btn-default" name="Nein">
+</form>
+

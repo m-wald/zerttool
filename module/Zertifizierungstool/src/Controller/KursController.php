@@ -880,7 +880,7 @@ class KursController extends AbstractActionController
     		exit;
     	}
     	
-        if($_SERVER['REQUEST_METHOD'] == 'POST') {
+        if($_POST['site'] == 'checksignoutkurs') {
             $benutzer_kurs = new Benutzer_Kurs();
             $id = $_REQUEST['kurs_id'];
             $signout = $benutzer_kurs->signindelete($id, User::currentUser()->getBenutzername());
@@ -897,6 +897,27 @@ class KursController extends AbstractActionController
         header("refresh:0; url = /");
         exit;
     }
+    
+    
+    //Abfrage, ob sich Benutzer auch sicher austragen will!!
+    
+    public function checksignoutkursAction(){
+    	
+    	if(User::currentUser()->getBenutzername()==NULL){
+    		header("refresh: 0; url= /user/login");
+    		exit;
+    	}
+    	
+    	if(!$_POST['site']=="kursview"){
+    		header("refresh: 0; url= /");
+    		exit;
+    	}
+    	
+    	return new ViewModel();
+    		
+    	}
+    	
+    
 
 
 /*
