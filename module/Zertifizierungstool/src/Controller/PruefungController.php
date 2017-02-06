@@ -389,7 +389,7 @@ class PruefungController extends AbstractActionController {
 			$failed = false;
 			foreach ($pruefungen as $p) {
 				if (SchreibtPruefung::attempts(User::currentUser()->getBenutzername(), $p->getId()) >= 3) {
-					$error = 'Fehler: Sie haben die Pr&uuml;fung' .$p->getName() .'bereits 3 mal nicht bestanden und sind daher zu keinen Pr&uuml;fungen mehr zugelassen.';
+					$error = 'Fehler: Sie haben die Pr&uuml;fung <b>' .$p->getName() .'</b> bereits dreimal nicht bestanden und sind daher zu keinen Pr&uuml;fungen mehr zugelassen!';
 					$failed = true;
 				}
 			}
