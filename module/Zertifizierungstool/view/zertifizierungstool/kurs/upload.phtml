@@ -13,7 +13,7 @@ if(isset($meldung)){
 	if($meldung=='datentyp') {
             ?>
             <div class="alert alert-danger" role="alert">
-                <p> Datentyp ist falsch! </p>
+                <p> Datentyp ist falsch. Es können nur folgende Dateitypen hochgeladen werden: PDF, JPEG, PNG, Word, Excel </p>
             </div>
             <?php
             //echo "<b>Datentyp ist falsch!</b>";
@@ -34,6 +34,14 @@ if(isset($meldung)){
             <?php
             //echo"<b>Datei wurde erfolgreich hochgeladen!</b>";
         }
+        elseif($meldung=='uploadfehlerhaft') {
+            ?>
+            <div class="alert alert-danger" role="alert">
+                <p> Fehler bei der Übermittlung aufgetreten. Versuchen Sie es bitte nochmal. </p>
+            </div>
+            <?php
+        }  
+        
 	
 }
 	
