@@ -1,6 +1,7 @@
 <?php 
 
 use Zertifizierungstool\Model\User;
+use Zertifizierungstool\Model\Kurs;
 
 if(User::currentUser()->getBenutzername()!=NULL){
 
@@ -36,7 +37,21 @@ if(User::currentUser()->getBenutzername()!=NULL){
 
 
 	
-	
+	<?php if (Kurs::validateDate("2017-02-28")) {
+			echo "1. richtig<br>";
+	}
+			else {
+				echo "1. Falsch<br>";
+			}
+			
+			if (Kurs::validateDate("2017-02-30")) {
+				echo "2. richtig";
+			}
+			else {
+				echo "2. Falsch";
+			}
+			
+	?>
 
 
 
