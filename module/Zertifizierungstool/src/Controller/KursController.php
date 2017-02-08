@@ -768,7 +768,9 @@ class KursController extends AbstractActionController
 				{
 			
 				return new ViewModel(['meldung' => 'erfolgreich']);
-				}
+                                }else{
+                                    return new ViewModel(['meldung' => 'uploadfehlerhaft']);
+                                }
 			}
 		 
 		//Alles okay, verschiebe Datei an neuen Pfad
