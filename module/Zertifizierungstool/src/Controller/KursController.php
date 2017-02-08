@@ -735,11 +735,11 @@ class KursController extends AbstractActionController
 				 
 		//�berpr�fung der Dateigr��e
 		 
-		//$max_size = 1024*1024*2;                                //2 MB (in Byte angegeben)
-                $max_size = 10289;  
+		$max_size = 1024*1024*2;                                //2 MB (in Byte angegeben)
+                //$max_size = 10289;  
                 
-                echo $max_size;
-                echo $_FILES['datei']['size'];
+                //echo $max_size;
+                //echo $_FILES['datei']['size'];
 		 
                 if($_FILES['datei']['size'] > $max_size) {
 				
@@ -751,7 +751,7 @@ class KursController extends AbstractActionController
 		$new_path = $path_new.$filename.'.'.$extension;
 				 
 		//Neuer Dateiname falls die Datei bereits existiert
-		 
+		/*
 		if(file_exists($new_path)) { //Falls Datei existiert, h�nge eine Zahl an den Dateinamen
 			$id = 1;
 			do {
@@ -775,7 +775,32 @@ class KursController extends AbstractActionController
                                 }else{
                                     return new ViewModel(['meldung' => 'uploadfehlerhaft']);
                                 }
-			}
+                }*/
+                
+                //Neuer Dateiname falls die Datei bereits existiert
+                if(file_exists($new_path))
+                {
+                        //Falls Datei existiert, hänge eine Zahl an den Dateinamen
+                        $id = 1;
+                        do
+                        {
+                                $new_path = $path_new.$filename.'_'.$id.'.'.$extension;
+                                $id++;
+                        }while(file_exists($new_path));
+                }
+                //Alles okay, verschiebe Datei an neuen Pfad
+                $sent = move_uploaded_file($_FILES['datei']['tmp_name'], $new_path);
+
+                if($sent)
+                {
+                        if(!is_uploaded_file($_FILES['datei']['tmp_name']))
+                        {
+                                return new ViewModel(['meldung' => 'erfolgreich']);
+                        }else
+                        {
+                                return new ViewModel(['meldung' => 'uploadfehlerhaft']);
+                        }
+                }
 		 
 		//Alles okay, verschiebe Datei an neuen Pfad
 		 		 
