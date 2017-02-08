@@ -736,7 +736,8 @@ class KursController extends AbstractActionController
 		//�berpr�fung der Dateigr��e
 		 
 		$max_size = 1024*1024*2;                                //2 MB (in Byte angegeben)
-                echo $max_size + "<br>" + $_FILES['datei']['size'];
+                echo $max_size;
+                echo $_FILES['datei']['size'];
 		 
 		if($_FILES['datei']['size'] > $max_size) {
 				
