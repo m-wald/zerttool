@@ -741,7 +741,7 @@ class KursController extends AbstractActionController
                 echo $max_size;
                 echo $_FILES['datei']['size'];
 		 
-                if($_FILES['datei']['size'] < $max_size) {
+                if($_FILES['datei']['size'] > $max_size) {
 				
 			return new ViewModel(['meldung' => 'dateigroesse']);
 		}		
