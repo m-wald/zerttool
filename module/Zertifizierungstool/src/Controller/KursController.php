@@ -780,8 +780,10 @@ class KursController extends AbstractActionController
 		return new ViewModel();
 	}
 	//falls direkt auf diese Action zugegriffen wurde, ohne dass ein Kurs ausgew�hlt wurde!
-	else header("refresh:0; url = /kurs/showkurse");
-	exit;
+	else {
+            header("refresh:0; url = /kurs/showkurse");
+            exit;
+        }
 
     }
   
