@@ -793,16 +793,11 @@ class KursController extends AbstractActionController
 
                 if($sent)
                 {
-                        if(!is_uploaded_file($_FILES['datei']['tmp_name']))
-                        {
-                                return new ViewModel(['meldung' => 'erfolgreich']);
-                        }else
-                        {
-                                return new ViewModel(['meldung' => 'uploadfehlerhaft']);
-                        }
+                    return new ViewModel(['meldung' => 'erfolgreich']);
+                }else{
+                    return new ViewModel(['meldung' => 'uploadfehlerhaft']);
                 }
-		 
-		//Alles okay, verschiebe Datei an neuen Pfad
+                //Alles okay, verschiebe Datei an neuen Pfad
 		 		 
 	}	 
 
