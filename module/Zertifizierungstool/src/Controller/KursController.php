@@ -411,6 +411,10 @@ class KursController extends AbstractActionController
             // Enddatum muss größer wie Startdatum sein, Enddatum muss größer wie das heutige Datum sein 
             if($endtimestamp > $starttimestamp && $endtimestamp > $currentdate) {
                 
+                if($currentdate > $starttimestamp) {
+                    return new ViewModel(['error' => 'startinpast', 'kurs' => $kurs]);
+                }
+                
                 $fourdays_afterstart = strtotime(date('Y-m-d', strtotime($start. ' + 4 days')));
                 
                 //Prüfung ob der Kurs mindestens vier Tage andauert.
