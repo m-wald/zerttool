@@ -441,7 +441,7 @@ class KursController extends AbstractActionController
             }
         }
         
-        return new ViewModel(['kurs' => $kurs, 'result' => $zertladen, 'status' => $status]);    
+        return new ViewModel(['kurs' => $kurs, 'result' => $zertladen, 'archiv' => $archiviert, 'status' => $status]);    
     }
     
     /*
