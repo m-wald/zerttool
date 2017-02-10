@@ -441,6 +441,7 @@ class KursController extends AbstractActionController
             }
         }
         
+        //Nur wenn der Nutzer von showarchivedkurse auf die Seite kommt, dann wird auch archiv mit archiviert beschrieben
         return new ViewModel(['kurs' => $kurs, 'result' => $zertladen, 'archiv' => $archiviert, 'status' => $status]);    
     }
     
