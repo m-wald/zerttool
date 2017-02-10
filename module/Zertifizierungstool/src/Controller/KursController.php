@@ -347,6 +347,10 @@ class KursController extends AbstractActionController
             // Enddatum muss größer wie Startdatum sein, Enddatum muss größer wie das heutige Datum sein 
             if($endtimestamp > $starttimestamp && $endtimestamp > $currentdate) {
                 
+                if($currentdate > $starttimestamp) {
+                    return new ViewModel(['error' => 'startinpast', 'kurs' => $kurs]);
+                }
+                
                 if($starttimestamp != $starttimestampalt) {
                     // Kursstart darf nur geändert werden solange der Kurs noch nicht begonnen hat
                     if($starttimestampalt <= $currentdate) {
