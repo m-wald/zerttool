@@ -110,7 +110,14 @@ if ($error == 'unabletoload') {
         <strong>Fehler!</strong> Ein Kurs muss mindestens 4 Tage dauern.
     </div>
     <?php
+}elseif($error == 'invaliddate') {
+    ?>
+    <div class="alert alert-danger" role="alert">
+        <strong>Fehler!</strong> Datumsformat oder Datum ungültig.
+    </div>
+    <?php
 }
+
 
 ?>
 
