@@ -277,22 +277,27 @@ class UserController extends AbstractActionController
 		
 		
 		else {
-		if($_SERVER['REQUEST_METHOD'] == 'POST') {
-			
-			$result = User::currentUser()->update($_REQUEST["vorname"], $_REQUEST["nachname"], $_REQUEST["geburtsdatum"], $_REQUEST["strasse"], $_REQUEST["plz"], $_REQUEST["ort"], $_REQUEST["email"]);
-			if ($result){
-				User::currentUser()->load(User::currentUser()->getBenutzername());
-				$_SESSION["currentUser"] = serialize(User::currentUser());			
-				return new ViewModel(['status' => "erfolgreich"]);
-			}else {
+			if($_SERVER['REQUEST_METHOD'] == 'POST') {
+				$currentdate = date('Y-m-d');
+				if ((Kurs::validateDate($_REQUEST["geburtsdatum"], 'Y-m-d') || (Kurs::validateDate($_REQUEST["geburtsdatum"], 'd.m.Y'))) && (strtotime($_REQUEST["geburtsdatum"])<=strtotime($currentdate))) {
 				
-				return new ViewModel(['benutzerdaten' => array(User::currentUser()->getBenutzername(),User::currentUser()->getVorname(), User::currentUser()->getNachname(), User::currentUser()->getGeburtsdatum(), User::currentUser()->getStrasse(), User::currentUser()->getPLZ(), User::currentUser()->getOrt(), User::currentUser()->getEmail()), 'status' => 'email']);
-				
+					$result = User::currentUser()->update($_REQUEST["vorname"], $_REQUEST["nachname"], $_REQUEST["geburtsdatum"], $_REQUEST["strasse"], $_REQUEST["plz"], $_REQUEST["ort"], $_REQUEST["email"]);
+					if ($result){
+						User::currentUser()->load(User::currentUser()->getBenutzername());
+						$_SESSION["currentUser"] = serialize(User::currentUser());			
+						return new ViewModel(['status' => "erfolgreich"]);
+					}else {
+						
+						return new ViewModel(['benutzerdaten' => array(User::currentUser()->getBenutzername(),User::currentUser()->getVorname(), User::currentUser()->getNachname(), User::currentUser()->getGeburtsdatum(), User::currentUser()->getStrasse(), User::currentUser()->getPLZ(), User::currentUser()->getOrt(), User::currentUser()->getEmail()), 'status' => 'email']);
+						
+					}
+				} else {
+					return new ViewModel(['benutzerdaten' => array(User::currentUser()->getBenutzername(),User::currentUser()->getVorname(), User::currentUser()->getNachname(), User::currentUser()->getGeburtsdatum(), User::currentUser()->getStrasse(), User::currentUser()->getPLZ(), User::currentUser()->getOrt(), User::currentUser()->getEmail()), 'status' => 'invaliddate']);
+				}
+			}	
+			else {
+					return new ViewModel(['benutzerdaten' => array(User::currentUser()->getBenutzername(),User::currentUser()->getVorname(), User::currentUser()->getNachname(), User::currentUser()->getGeburtsdatum(), User::currentUser()->getStrasse(), User::currentUser()->getPLZ(), User::currentUser()->getOrt(), User::currentUser()->getEmail())]);
 			}
-		}
-		else {
-				return new ViewModel(['benutzerdaten' => array(User::currentUser()->getBenutzername(),User::currentUser()->getVorname(), User::currentUser()->getNachname(), User::currentUser()->getGeburtsdatum(), User::currentUser()->getStrasse(), User::currentUser()->getPLZ(), User::currentUser()->getOrt(), User::currentUser()->getEmail())]);
-		}
 		}
 	
 	}
