@@ -39,28 +39,38 @@ class KursController extends AbstractActionController
              * Falls der Benutzer Firefox benutzt, dann soll das Datum überprüft werden und bei einer
              * fehlerhaften Eingabe einen String an die View übergeben 
              */
-            if (strpos($_SERVER['HTTP_USER_AGENT'], 'Firefox')){
+            /*if (strpos($_SERVER['HTTP_USER_AGENT'], 'Firefox')){
 		if($kurs->checkDate($start)) {
                     //mach nix
                 } else {
                     return new ViewModel(['error' => 'invaliddate', 'kurs' => $kurs]);
                 }	
-            }    
-            
+            }*/    
+            if($kurs->validateDate($start, 'Y-m-d') || $kurs->validateDate($start, 'd.m.Y')) {
+                    //mach nix
+            }else{
+                return new ViewModel(['error' => 'invaliddate', 'kurs' => $kurs]);
+            }
             
             $end    = $_REQUEST["kursende"];
+            
+            if($kurs->validateDate($end, 'Y-m-d') || $kurs->validateDate($end, 'd.m.Y')) {
+                    //mach nix
+            }else{
+                return new ViewModel(['error' => 'invaliddate', 'kurs' => $kurs]);
+            }
             
             /*
              * Falls der Benutzer Firefox benutzt, dann soll das Datum überprüft werden und bei einer
              * fehlerhaften Eingabe einen String an die View übergeben 
              */
-            if (strpos($_SERVER['HTTP_USER_AGENT'], 'Firefox')){
+            /*if (strpos($_SERVER['HTTP_USER_AGENT'], 'Firefox')){
 		if($kurs->checkDate($end)) {
                     //mach nix
                 } else {
                     return new ViewModel(['error' => 'invaliddate', 'kurs' => $kurs]);
                 }	
-            }
+            }*/
             
             
             $starttimestamp = strtotime($start);
