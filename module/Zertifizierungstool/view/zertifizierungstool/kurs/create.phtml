@@ -44,6 +44,12 @@ if ($message == 'erfolgt'){
         <strong>Fehler!</strong> Kursende liegt vor dem aktuellem Datum oder entspricht dem heutigen Datum.
     </div>
     <?php
+}elseif ($error == 'startinpast'){
+    ?>
+    <div class="alert alert-danger" role="alert">
+        <strong>Fehler!</strong> Kursstart liegt in der Vergangenheit.
+    </div>
+    <?php 
 }
 		
 ?>
