@@ -46,6 +46,8 @@ class KursController extends AbstractActionController
                     return new ViewModel(['error' => 'invaliddate', 'kurs' => $kurs]);
                 }	
             }*/    
+            
+            //Überprüfung des Datumsformats, sowie der Korrektheit dessen
             if($kurs->validateDate($start, 'Y-m-d') || $kurs->validateDate($start, 'd.m.Y')) {
                     //mach nix
             }else{
@@ -54,6 +56,7 @@ class KursController extends AbstractActionController
             
             $end    = $_REQUEST["kursende"];
             
+            //Überprüfung des Datumsformats, sowie der Korrektheit dessen
             if($kurs->validateDate($end, 'Y-m-d') || $kurs->validateDate($end, 'd.m.Y')) {
                     //mach nix
             }else{
@@ -96,7 +99,7 @@ class KursController extends AbstractActionController
            
             $fourdays_afterstart = strtotime(date('Y-m-d', strtotime($start. ' + 4 days')));
             
-            if(($fourdays_afterstart) > $endtimestamp){
+            if(($fourdays_afterstart) > $endtimestamp && ($fourdays_afterstart) > $currentdatetimestamp){
             
             	$kurs = new Kurs(
             			NULL,
@@ -312,6 +315,20 @@ class KursController extends AbstractActionController
             $endtimestamp   = strtotime($end);
             $currentdate = strtotime(date('Y-m-d'));
             
+            //Überprüfung des Datumsformats, sowie der Korrektheit dessen
+            if($kurs->validateDate($start, 'Y-m-d') || $kurs->validateDate($start, 'd.m.Y')) {
+                    //mach nix
+            }else{
+                return new ViewModel(['error' => 'invaliddate', 'kurs' => $kurs]);
+            }
+            
+            //Überprüfung des Datumsformats, sowie der Korrektheit dessen
+            if($kurs->validateDate($end, 'Y-m-d') || $kurs->validateDate($end, 'd.m.Y')) {
+                    //mach nix
+            }else{
+                return new ViewModel(['error' => 'invaliddate', 'kurs' => $kurs]);
+            }
+            
             // Enddatum muss größer wie Startdatum sein, Enddatum muss größer wie das heutige Datum sein 
             if($endtimestamp > $starttimestamp && $endtimestamp > $currentdate) {
                 
@@ -357,7 +374,21 @@ class KursController extends AbstractActionController
             $starttimestamp = strtotime($start);
             $endtimestamp   = strtotime($end);
             $currentdate = strtotime(date('Y-m-d'));
-        	
+            
+            //Überprüfung des Datumsformats, sowie der Korrektheit dessen
+            if($kurs->validateDate($start, 'Y-m-d') || $kurs->validateDate($start, 'd.m.Y')) {
+                    //mach nix
+            }else{
+                return new ViewModel(['error' => 'invaliddate', 'kurs' => $kurs]);
+            }
+            
+            //Überprüfung des Datumsformats, sowie der Korrektheit dessen
+            if($kurs->validateDate($end, 'Y-m-d') || $kurs->validateDate($end, 'd.m.Y')) {
+                    //mach nix
+            }else{
+                return new ViewModel(['error' => 'invaliddate', 'kurs' => $kurs]);
+            }
+            
             // Enddatum muss größer wie Startdatum sein, Enddatum muss größer wie das heutige Datum sein 
             if($endtimestamp > $starttimestamp && $endtimestamp > $currentdate) {
                 
