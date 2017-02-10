@@ -81,7 +81,7 @@ class KursController extends AbstractActionController
             $currentdatetimestamp = strtotime($currentdate);
             
             //Pr�fung, ob Kursstartdatum vor -enddatum
-            if($starttimestamp > $endtimestamp){
+            if($starttimestamp > $endtimestamp && $currentdatetimestamp > $starttimestamp){
                 
                 $kurs = new Kurs(
                         NULL,
@@ -95,11 +95,26 @@ class KursController extends AbstractActionController
                 return new ViewModel(['error' => 'falsedate', 'kurs' => $kurs]);
             }
             
+            //Prüfung, ob Kursstart in der Vergangenheit liegt
+            if($currentdatetimestamp > $starttimestamp){
+                
+                $kurs = new Kurs(
+                        NULL,
+                        $_REQUEST["kursname"], 
+                        NULL, 
+                        NULL, 
+                        $_REQUEST["sichtbarkeit"],
+                        User::currentUser()->getBenutzername(),
+                        $_REQUEST["beschreibung"]);
+                
+                return new ViewModel(['error' => 'startinpast', 'kurs' => $kurs]);
+            }
+            
             //Pueft, ob Enddatum in 4 Tage nach dem Kursbeginn liegt
            
             $fourdays_afterstart = strtotime(date('Y-m-d', strtotime($start. ' + 4 days')));
             
-            if(($fourdays_afterstart) > $endtimestamp && ($fourdays_afterstart) > $currentdatetimestamp){
+            if(($fourdays_afterstart) > $endtimestamp){
             
             	$kurs = new Kurs(
             			NULL,
