@@ -386,8 +386,8 @@ class KursController extends AbstractActionController
         }
         
         //Zum Ändern der Kursdaten von archivierten Kursen
-        if($_REQUEST["übernehmen"]) {
-        	
+        if($_REQUEST["übernehmen"]) {	
+            
             $start  = $_REQUEST["kursstart"];
             $end    = $_REQUEST["kursende"];
             $starttimestamp = strtotime($start);
@@ -398,21 +398,21 @@ class KursController extends AbstractActionController
             if($kurs->validateDate($start, 'Y-m-d') || $kurs->validateDate($start, 'd.m.Y')) {
                     //mach nix
             }else{
-                return new ViewModel(['error' => 'invaliddate', 'kurs' => $kurs]);
+                return new ViewModel(['error' => 'invaliddate', 'archiv' => 'archiviert', 'kurs' => $kurs]);
             }
             
             //Überprüfung des Datumsformats, sowie der Korrektheit dessen
             if($kurs->validateDate($end, 'Y-m-d') || $kurs->validateDate($end, 'd.m.Y')) {
                     //mach nix
             }else{
-                return new ViewModel(['error' => 'invaliddate', 'kurs' => $kurs]);
+                return new ViewModel(['error' => 'invaliddate', 'archiv' => 'archiviert', 'kurs' => $kurs]);
             }
             
             // Enddatum muss größer wie Startdatum sein, Enddatum muss größer wie das heutige Datum sein 
             if($endtimestamp > $starttimestamp && $endtimestamp > $currentdate) {
                 
                 if($currentdate > $starttimestamp) {
-                    return new ViewModel(['error' => 'startinpast', 'kurs' => $kurs]);
+                    return new ViewModel(['error' => 'startinpast', 'archiv' => 'archiviert', 'kurs' => $kurs]);
                 }
                 
                 $fourdays_afterstart = strtotime(date('Y-m-d', strtotime($start. ' + 4 days')));
@@ -420,7 +420,7 @@ class KursController extends AbstractActionController
                 //Prüfung ob der Kurs mindestens vier Tage andauert.
                 if(($fourdays_afterstart) > $endtimestamp){
 
-                    return new ViewModel(['error' => 'fourdays', 'kurs' => $kurs]);
+                    return new ViewModel(['error' => 'fourdays', 'archiv' => 'archiviert', 'kurs' => $kurs]);
                 }
                 
                 //Es wird ein neuer Kurs in der Datenbank erzeugt, wobei der alte bestehen bleibt
@@ -437,7 +437,7 @@ class KursController extends AbstractActionController
             }
             else {
                 //$status = "�berpr�fen Sie bitte Start- und End-Datum des Kurses!";
-                return new ViewModel(['error' => 'dateerror', 'kurs' => $kurs]);
+                return new ViewModel(['error' => 'dateerror', 'archiv' => 'archiviert', 'kurs' => $kurs]);
             }
         }
         
