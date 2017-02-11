@@ -1119,23 +1119,24 @@ class KursController extends AbstractActionController
 				// Draw text
 				$page1->drawText('Zertifikat', 350, 770);
 				
-				
+				//Name und Vorname des Teilnehmers
 				$page1->setFont($font, 25);
 				$page1->drawText($vorname.' '.$nachname, 80, 650);
+				// Draw line
+				$page1->drawLine(80, 640, 320,640);
 				
-				$page1->drawLine(280, 640, 550,640);
-				
+				//Info über Teilnehmer und Kurs: Geburtsdatum, Kursbezeichnung, Kursleiter
 				$page1->setFont($font, 12);
 				$geburtstag = date('d. M Y', strtotime(User::currentUser()->getGeburtsdatum()));
-				$page1->drawText('Geboren am: '.$geburtstag, 280, 600);
+				$page1->drawText('Geboren am: '.$geburtstag, 80, 600);
 				$page1->setFont($font, 14);
-				$page1->drawText('hat erfolgreich folgenden Kurs abgeschlossen:', 280, 570);
+				$page1->drawText('hat erfolgreich folgenden Kurs abgeschlossen:', 80, 570);
 				$page1->setFont($font, 25);
-				$page1->drawText($kurs_name, 280, 520); 
+				$page1->drawText($kurs_name, 80, 520); 
 				$page1->setFont($font, 14);
-				$page1->drawText('Kursleiter: ', 280, 470);
+				$page1->drawText('Kursleiter: ', 80, 470);
 				$page1->setFont($font, 22);
-				
+				//Kursleiter wird definiert
 				$kurs = new Kurs;
 				$load_kurs = $kurs->load($kurs_id);
 				$leiter = $kurs->getBenutzername();
@@ -1145,12 +1146,13 @@ class KursController extends AbstractActionController
 				$nachname = $user->getNachname();
 				$leiter_name = $vorname.' '.$nachname;
 				
-				$page1->drawText($leiter_name, 280, 430);
-				
+				$page1->drawText($leiter_name, 80, 430);
+				//Ort, Datum
 				$page1->setFont($font, 12);
-				$page1->drawText('Passau, den '.date('d. M Y', strtotime($kurs->getKurs_ende())), 280, 350);
-				$page1->drawLine(280, 340, 420, 340);
+				$page1->drawText('Passau, den '.date('d. M Y', strtotime($kurs->getKurs_ende())), 80, 350);
+				$page1->drawLine(80, 340, 220, 340);
 				
+				//Unterschrift
 				$image = Image::imageWithPath('data/img/sign.jpg');
 				//Draw Image
 				$left = 450;
