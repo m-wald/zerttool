@@ -1101,27 +1101,29 @@ class KursController extends AbstractActionController
 				$right = 10;
 				$top = 750;
 				
-				//$page1->rotate(0, 0, M_PI/12);
+				
 				$page1->drawImage($image, $left, $bottom, $right, $top);
 				
-								
+				/*				
 				$image = Image::imageWithPath('data/img/justdoit.jpg');
 				//Draw Image
 				$left = 5;
 				$bottom = 323;
 				$right = 269;
 				$top = 700;
+				
 			
 				$page1->drawImage($image, $left, $bottom, $right, $top);
+				*/
 				
 				// Draw text
 				$page1->drawText('Zertifikat', 350, 770);
 				
 				
 				$page1->setFont($font, 25);
-				$page1->drawText($vorname.' '.$nachname, 280, 650);
+				$page1->drawText($vorname.' '.$nachname, 80, 650);
 				
-				$page1->drawLine(280, 640, 500,640);
+				$page1->drawLine(280, 640, 550,640);
 				
 				$page1->setFont($font, 12);
 				$geburtstag = date('d. M Y', strtotime(User::currentUser()->getGeburtsdatum()));
