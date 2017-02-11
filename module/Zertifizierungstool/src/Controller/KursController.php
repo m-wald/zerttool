@@ -1011,54 +1011,7 @@ class KursController extends AbstractActionController
     	
     
 
-
-/*
- * Eventuel Löschen 
- * Eventuel Löschen
- * Eventuel Löschen
- * Eventuel Löschen
- * Eventuel Löschen
- *          ||||||
- *          ||||||
- *          \\  //
- *           \\//     
- *            \/
- */    
-    
-    
-    
-/*public function upload_multAction(){
-	
-	$upload = new Zend_File_Transfer_Adapter_Http();
-	$files  = $upload->getFileInfo();
-	$names = $upload->getFileName();
-	$size = $upload->getFileSize();
-	$type = $upload->getMimeType();
-	
-	
-	
-	foreach($files as $file => $fileInfo) {
-		if ($upload->isUploaded($file)) {
-			if ($upload->isValid($file)) {
-				if ($upload->receive($file)) {
-					$info = $upload->getFileInfo($file);
-					$tmp  = $info[$file]['tmp_name'];
-	
-	
-		
-	// Gibt die Dateinamen aller Dateien zur�ck
-	$names = $upload->getFileName();
-	
-	// Gibt die Gr��en aller Dateien als Array zur�ck
-	// wenn mehr als eine Datei hochgeladen wurde
-	$size = $upload->getFileSize();
-	
-	
-	
-	
-}*/
-
-    
+   
     /*
      * Erstellt einen PDF Zertifikat
      * 
