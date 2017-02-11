@@ -1155,9 +1155,9 @@ class KursController extends AbstractActionController
 				//Unterschrift
 				$image = Image::imageWithPath('data/img/sign.jpg');
 				//Draw Image
-				$left = 450;
+				$left = 350;
 				$bottom = 325;
-				$right = 620;
+				$right = 120;
 				$top = 400;
 					
 				$page1->drawImage($image, $left, $bottom, $right, $top);
