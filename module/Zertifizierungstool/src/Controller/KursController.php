@@ -1157,7 +1157,7 @@ class KursController extends AbstractActionController
 				//Draw Image
 				$left = 350;
 				$bottom = 325;
-				$right = 120;
+				$right = 520;
 				$top = 400;
 					
 				$page1->drawImage($image, $left, $bottom, $right, $top);
