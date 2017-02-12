@@ -30,8 +30,8 @@ class Db_connection
 		$result = mysqli_query($conn, $query);
 		
 		if (!empty(mysqli_error($conn))) {
-			echo mysqli_error($conn);
-			echo "<br>" . $query;
+			
+			
 			
 			return false;
 		}
@@ -56,8 +56,8 @@ class Db_connection
 		mysqli_query($conn, $query);
 		
 		if (!empty(mysqli_error($conn))) {
-			echo mysqli_error($conn);
-			echo "<br>" . $query;
+			
+			
 				
 			return false;
 		}
