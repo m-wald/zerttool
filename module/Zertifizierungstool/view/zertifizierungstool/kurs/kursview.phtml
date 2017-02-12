@@ -69,7 +69,7 @@
      		}
 	}
 	
-        //if(User::currentUser()->istAdmin() &&  User::currentUser()->istKursleiter($kurs->getKurs_id()))
+       
 	if(User::currentUser()->istAdmin() ||  User::currentUser()->istKursleiter($kurs->getKurs_id())) { ?>
 				                
             <td width="50%"><form accept-charset="utf-8" method="POST" action="upload">
@@ -105,7 +105,7 @@
                 
         }
     
-        if(/*!User::currentUser()->istKursleiter($kurs->getKurs_id()) && */User::currentUser()->istAdmin() && !$benutzer_kurs->alreadyexist(User::currentUser()->getBenutzername(), $kurs->getKurs_id()) && $kurs->active($kurs->getKurs_id()) || User::currentUser()->istTeilnehmer() && !$benutzer_kurs->alreadyexist(User::currentUser()->getBenutzername(), $kurs->getKurs_id())) { ?>			
+        if(User::currentUser()->istAdmin() && !$benutzer_kurs->alreadyexist(User::currentUser()->getBenutzername(), $kurs->getKurs_id()) && $kurs->active($kurs->getKurs_id()) || User::currentUser()->istTeilnehmer() && !$benutzer_kurs->alreadyexist(User::currentUser()->getBenutzername(), $kurs->getKurs_id())) { ?>			
             <br><br>
             <table style="width:100%">
                 <tr>
@@ -142,7 +142,7 @@
 
         // Prüfen, ob Teilnehmer für den Kurs schon eingetragen ist
         // Wenn Benutzer im Kurs eingetragen ist, dann kann er austreten
-        if(/*!User::currentUser()->istKursleiter($kurs->getKurs_id()) && */User::currentUser()->istAdmin() && $benutzer_kurs->alreadyexist(User::currentUser()->getBenutzername(), $kurs->getKurs_id()) || User::currentUser()->istTeilnehmer() && $benutzer_kurs->alreadyexist(User::currentUser()->getBenutzername(), $kurs->getKurs_id())) { ?>
+        if(User::currentUser()->istAdmin() && $benutzer_kurs->alreadyexist(User::currentUser()->getBenutzername(), $kurs->getKurs_id()) || User::currentUser()->istTeilnehmer() && $benutzer_kurs->alreadyexist(User::currentUser()->getBenutzername(), $kurs->getKurs_id())) { ?>
             <br><br>
             <table style="width:100%">
                 <tr>
