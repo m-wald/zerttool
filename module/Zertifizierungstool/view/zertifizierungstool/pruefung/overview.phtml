@@ -14,7 +14,7 @@ if(!empty($error) && $error == 'Es konnten keine Pr&uuml;fungen geladen werden!'
 }
 else
 	
-if (!empty($error)) {
+if (!empty($error) && !$error == 'Es konnten keine Pr&uuml;fungen geladen werden!' ) {
 	?>
 	<div class="alert alert-danger" role="alert">
 	<?php 
