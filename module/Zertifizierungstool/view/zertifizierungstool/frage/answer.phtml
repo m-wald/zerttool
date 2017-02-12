@@ -62,19 +62,19 @@ if (!empty($error)) {
 			<input type="radio"  name="tf" value="false" <?php if ($antworten[0]['status'] == 0) echo "checked";?>> Falsch<br>
 			
 		<?php }else {
-			echo '<table><input type="hidden" name="typ" value="MC">';
+			echo '<table class="table table-hover"><input type="hidden" name="typ" value="MC">';
 			for ($i = 0; $i < count($antworten); $i++) { ?>
 				<tr>
 				<td><input type="hidden" name="antwort_id<?=$antworten[$i]['antwort']->getId()?>" value="<?=$antworten[$i]['antwort']->getId()?>"></td>
 				<td><?php echo $antworten[$i]['antwort']->getText();?></td>
-				<td width=30%><input type="checkbox" name="check<?=$antworten[$i]['antwort']->getId()?>" <?php if ($antworten[$i]['status'] == 1) echo "checked";?>></td>
+				<td width=35%><input type="checkbox" name="check<?=$antworten[$i]['antwort']->getId()?>" <?php if ($antworten[$i]['status'] == 1) echo "checked";?>></td>
 				</tr>
 				
 		<?php	
 			} echo '</table>'; }
 		?>
 		</div>
-		<br><br><br>
+		<br><br>
 		<input type="hidden" name="next_id"   value="<?=$next_id?>">
 		<input type="submit" class="btn btn-default" name="speichern" value="Weiter">
 	</form>
