@@ -117,7 +117,7 @@ class Benutzer_Kurs {
         	$id = $mysqli->real_escape_string($id);
         
         	$query = "UPDATE benutzer_kurs SET bestanden = 1 WHERE kurs_id = " .$id
-        				." AND benutzername = " .User::currentUser()->getBenutzername();
+        				." AND benutzername = '" .User::currentUser()->getBenutzername() ."'";
         
         	$result = $db->execute($query);
         

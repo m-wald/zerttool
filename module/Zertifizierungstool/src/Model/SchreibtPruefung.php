@@ -48,8 +48,6 @@ class SchreibtPruefung {
 	
 		if(!empty(mysqli_error($conn))) {
 			// Fehler bei der Datenbankabfrage
-			echo mysqli_error($conn);
-			echo "<br>" . $query;
 			return false;
 					
 		} else {

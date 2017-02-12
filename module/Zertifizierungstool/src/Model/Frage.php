@@ -45,8 +45,6 @@ class Frage {
 		$result = mysqli_query($conn, $query);
 		
 		if(!$result) {
-			echo $query;
-			echo '<br>' .mysqli_error($conn);
 			return false;
 				
 		} else {
@@ -71,8 +69,6 @@ class Frage {
 		$result = mysqli_query($conn, $query);
 		
 		if (is_bool($result) && $result == false) {
-			echo $query;
-			echo '<br>' .mysqli_error($conn);
 			return false;
 		} else {
 			return true;
@@ -141,8 +137,6 @@ class Frage {
 		$result = mysqli_query($conn, $query);
 		
 		if (is_bool($result) && $result == false) {
-			echo $query;
-			echo '<br>' .mysqli_error($conn);
 			return false;
 		} else {
 			return true;

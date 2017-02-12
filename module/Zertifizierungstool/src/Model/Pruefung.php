@@ -110,8 +110,6 @@ class Pruefung {
 		$result = mysqli_query($conn, $query);
 		
 		if (is_bool($result) && $result == false) {
-			echo $query;
-			echo '<br>' .mysqli_error($conn);
 			return false;
 		} else {
 			return true;
@@ -239,8 +237,6 @@ class Pruefung {
 			$result = mysqli_query($conn, $query);
 		
 			if (is_bool($result) && $result == false) {
-				echo $query;
-				echo '<br>' .mysqli_error($conn);
 				return false;
 			} else {
 				return true;

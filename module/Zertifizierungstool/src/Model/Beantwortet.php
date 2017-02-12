@@ -44,8 +44,6 @@ class Beantwortet {
 		
 		if(!empty(mysqli_error($conn))) {
 			// Fehler bei der Datenbankabfrage
-			echo mysqli_error($conn);
-			echo "<br>" . $query;
 			return false;
 										
 		} else {
@@ -102,8 +100,6 @@ class Beantwortet {
 		$result = mysqli_query($conn, $query);
 			
 		if (is_bool($result) && $result == false) {
-			echo $query;
-			echo '<br>' .mysqli_error($conn);
 			return false;
 		} else {
 			return true;
@@ -127,8 +123,6 @@ class Beantwortet {
 		$result = mysqli_query($conn, $query);
 									
 		if (is_bool($result) && $result == false) {
-			echo $query;
-			echo '<br>' .mysqli_error($conn);
 			return false;
 		} else {
 			return true;
