@@ -2,6 +2,18 @@
 use Zertifizierungstool\Model\User;
 use Zertifizierungstool\Model\SchreibtPruefung;
 
+if(!empty($error) && $error == 'Es konnten keine Pr&uuml;fungen geladen werden!' && User::currentUser()->istTeilnehmer()) {
+	?>
+		<div class="alert alert-danger" role="alert">
+		<?php 
+			echo $error;
+		?>
+		</div>
+		<?php 
+	
+}
+else
+	
 if (!empty($error)) {
 	?>
 	<div class="alert alert-danger" role="alert">
