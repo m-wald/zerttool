@@ -78,10 +78,12 @@ if (!empty($error)) {
 		<input type="hidden" name="next_id"   value="<?=$next_id?>">
 		<input type="submit" class="btn btn-default" name="speichern" value="Weiter">
 	</form>
+	
+	<a href="<?= $this->url('pruefung', ['action' => 'result', 'id' => $schreibt_pruefung_id]) ?>"><button type="button" class="btn btn-default">Pr&uuml;fung beenden</button></a>
+	
 </div>
 
 <br><br>
-<a href="<?= $this->url('pruefung', ['action' => 'result', 'id' => $schreibt_pruefung_id]) ?>"><button type="button" class="btn btn-default">Pr&uuml;fung beenden</button></a>
 
 <?php 
 }?>
