@@ -40,7 +40,6 @@ class FrageController extends AbstractActionController {
 		}
 		
 		$fragen = Frage::loadList($schreibt_pruefung->getPruefungId());
-		// TODO wenn leer oder Fehler
 		
 		// Fragen sortieren und in einem Array speichern mit der Frage-Id als Schlüssel
 		$fragen_map = array();
@@ -282,11 +281,9 @@ class FrageController extends AbstractActionController {
 		$antwortenToDelete = Antwort::loadList($frage_id_toDelete);
 		foreach ($antwortenToDelete as $antwort) {
 			Antwort::delete($antwort->getId());
-			// TODO Fehler abfangen
 		}
 		
 		Frage::delete($frage_id_toDelete);
-		// TODO Fehler abfangen
 		
 		header ("refresh:0; url = /frage/create/" .$frage->getPruefungId());
 	}

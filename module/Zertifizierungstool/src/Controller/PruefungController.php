@@ -382,7 +382,7 @@ class PruefungController extends AbstractActionController {
 			$pruefungen = Pruefung::loadList($kursid);
 			
 			if ($pruefungen == false) {
-				// Fehler oder leer
+				$error = 'Es konnten keine Prüfungen geladen werden!';
 			}
 			
 			$failed = false;

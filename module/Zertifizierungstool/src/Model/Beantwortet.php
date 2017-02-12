@@ -82,7 +82,6 @@ class Beantwortet {
 		return true;
 	}
 	
-	//TODO zusammenfassen
 	/**
 	 * Setzt in der DB "True" als abgebene Antwort
 	 */
