@@ -73,24 +73,24 @@ if ($message == 'erfolgt'){
             <div class="form-group">
                 <label for="sichtbarkeit"> Sichtbarkeit </label>
                 <select name="sichtbarkeit" class="form-control">
-                                <option value= 1 selected>sichtbar</option>
-                                <option value= 0 >nicht sichtbar</option>
+                                <option value= 1 selected>&ouml;ffentlich</option>
+                                <option value= 0 >privat</option>
                 </select>
             </div>
         <?php }elseif($kurs->getSichtbarkeit() == 0) { ?>
             <div class="form-group">
                 <label for="sichtbarkeit"> Sichtbarkeit </label>
                 <select name="sichtbarkeit" class="form-control">
-                                <option value= 1 >sichtbar</option>
-                                <option value= 0 selected>nicht sichtbar</option>
+                                <option value= 1 >&ouml;ffentlich</option>
+                                <option value= 0 selected>privat</option>
                 </select>
             </div>
         <?php }else { ?>
             <div class="form-group">
                     <label for="sichtbarkeit"> Sichtbarkeit </label>
                     <select name="sichtbarkeit" class="form-control">
-                                <option value= 1 >sichtbar</option>
-                                <option value= 0 selected>nicht sichtbar</option>
+                                <option value= 1 >&ouml;ffentlich</option>
+                                <option value= 0 selected>privat</option>
                     </select>
             </div>
     <?php } ?>
