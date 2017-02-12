@@ -15,16 +15,6 @@ class Kurs {
     private $benutzername;
     private $teilnehmerzahl;
     
-    /*
-    public function __construct($kurs_name, $kurs_start, $kurs_ende, $sichtbarkeit, $benutzername, $beschreibung) {
-        $this->kurs_id = "";
-        $this->kurs_name = $kurs_name;
-        $this->kurs_start = $kurs_start;
-        $this->kurs_ende = $kurs_ende;
-        $this->sichtbarkeit = $sichtbarkeit;
-        $this->benutzername = $benutzername;
-        $this->beschreibung = $beschreibung;
-    }*/
     
     public function __construct($kurs_id, $kurs_name, $kurs_start, $kurs_ende, $sichtbarkeit, $benutzername, $beschreibung, $teilnehmeranzahl) {
 		
@@ -176,11 +166,7 @@ class Kurs {
     						;";
     		$result = $db->execute($query);
     	
-    		/*if (mysqli_num_rows($result) > 0) 	return $result;
-    		else 								return 0;
-                 * 
-                 */
-                
+    		
                 if (mysqli_num_rows($result) > 0) {
                     $return_array = array();
                     while ($row = mysqli_fetch_assoc($result)) {
@@ -377,7 +363,7 @@ class Kurs {
     }
     
     /*
-     *  TODO:::::::Archivierter Kurs soll in die Datenbank eingepflegt werden
+     *  Archivierter Kurs soll in die Datenbank eingepflegt werden
      */
     public function insert($kursname, $kursstart, $kursende, $sichtbarkeit, $benutzername, $beschreibung) {
         $db = new Db_connection();
@@ -458,26 +444,7 @@ class Kurs {
             return 0;
         }
     }
-    
-   /* function istKursleiter($zertifizierer, $kurs_id){
-    	$db = new Db_connection();
-    	$mysqli = $db->getConnection();
-    	
-    	$kurs_id = $mysqli->real_escape_string($kurs_id);
-    	$zertifizierer = $mysqli->real_escape_string($zertifizierer); 
-    	
-    	$query = "SELECT 1 FROM kurs WHERE kurs_id=".$kurs_id." 
-    				AND benutzername='".$zertifizierer."'
-    			";
-    	$result = $db->execute($query);
-    	if(mysqli_num_rows($result) > 0){
-    		return true;
-    	} else {
-    		return false;
-    	}
-    }
-    	
-   */
+
 
     function getKurs_id() {
         return $this->kurs_id;
@@ -601,7 +568,7 @@ class Kurs {
         //Das Datum in drei Bestandteile aufteilen, wobei der Punkt als Trennelement benutzt wird
         $delimiters = array(".","-");
         $_trenndatum = Kurs::multiexplode($delimiters, $_datum);
-        //$_trenndatum = explode(".", $_datum, 3);
+        
 
         //Bestandteile in 3 Variablen abspeichern
         $_tag = $_trenndatum[0]; 
@@ -641,17 +608,7 @@ class Kurs {
         return true;
     }
     
-    /*function multiexplode ($delimiters,$string) {
-        $ary = explode($delimiters[0],$string);
-        array_shift($delimiters);
-        if($delimiters != NULL) {
-            foreach($ary as $key => $val) {
-                 $ary[$key] = multiexplode($delimiters, $val);
-            }
-        }
-        return  $ary;
-    }*/
-    
+   
     function multiexplode ($delimiters,$string) {
     
         $ready = str_replace($delimiters, $delimiters[0], $string);

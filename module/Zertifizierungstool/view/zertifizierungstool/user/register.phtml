@@ -11,8 +11,7 @@ if ($meldung == "Daten wurden erfolgreich gespeichert. Sie erhalten in K&uuml;rz
                     <p> Daten wurden erfolgreich gespeichert. Sie erhalten in K&uuml;rze eine E-Mail. Bitte folgen Sie dem darin enthaltenen Link, um Ihre Registrierung abzuschlie&szlig;en. </p>
                 </div>
                 <?php 
-		//echo "Daten wurden erfolgreich gespeichert. Sie erhalten in K&uuml;rze eine E-Mail. Bitte folgen Sie dem darin enthaltenen Link, um Ihre Registrierung abzuschlie&szlig;en.";
-	header("refresh:2; url=/user/login");
+		header("refresh:2; url=/user/login");
 }
 else {
 		
@@ -139,7 +138,6 @@ if (isset($pw_kontrolle)) {
             <center><b>Das best&auml;tigte Passwort stimmt nicht mit dem vergebenen Passwort &uuml;berein!</b></center>
         </div>
         <?php 
-	//echo "<center><b><font color='red'>Das best&auml;tigte Passwort stimmt nicht mit dem vergebenen Passwort &uuml;berein!</font></b></center>";
 }
 
 if (isset($datum)) {
@@ -148,7 +146,6 @@ if (isset($datum)) {
             <center><b>Kein g&uuml;ltiges Datum! Bitte korrigieren!</b></center>
         </div>
         <?php 
-	//echo "<center><b><font color='red'>Kein g&uuml;ltiges Datum! Bitte korrigieren!</font></b></center>";
 	
 }
 

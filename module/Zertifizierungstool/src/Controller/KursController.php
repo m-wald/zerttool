@@ -39,13 +39,7 @@ class KursController extends AbstractActionController
              * Falls der Benutzer Firefox benutzt, dann soll das Datum überprüft werden und bei einer
              * fehlerhaften Eingabe einen String an die View übergeben 
              */
-            /*if (strpos($_SERVER['HTTP_USER_AGENT'], 'Firefox')){
-		if($kurs->checkDate($start)) {
-                    //mach nix
-                } else {
-                    return new ViewModel(['error' => 'invaliddate', 'kurs' => $kurs]);
-                }	
-            }*/    
+             
             
             //Überprüfung des Datumsformats, sowie der Korrektheit dessen
             if($kurs->validateDate($start, 'Y-m-d') || $kurs->validateDate($start, 'd.m.Y')) {
@@ -67,14 +61,7 @@ class KursController extends AbstractActionController
              * Falls der Benutzer Firefox benutzt, dann soll das Datum überprüft werden und bei einer
              * fehlerhaften Eingabe einen String an die View übergeben 
              */
-            /*if (strpos($_SERVER['HTTP_USER_AGENT'], 'Firefox')){
-		if($kurs->checkDate($end)) {
-                    //mach nix
-                } else {
-                    return new ViewModel(['error' => 'invaliddate', 'kurs' => $kurs]);
-                }	
-            }*/
-            
+                        
             
             $starttimestamp = strtotime($start);
             $endtimestamp   = strtotime($end);
@@ -436,7 +423,7 @@ class KursController extends AbstractActionController
                 $status = "erfolgreich übernommen"; 
             }
             else {
-                //$status = "�berpr�fen Sie bitte Start- und End-Datum des Kurses!";
+                
                 return new ViewModel(['error' => 'dateerror', 'archiv' => 'gesetzt', 'kurs' => $kurs]);
             }
         }
@@ -801,11 +788,7 @@ class KursController extends AbstractActionController
 		//�berpr�fung der Dateigr��e
 		 
 		$max_size = 1024*1024*2;                                //2 MB (in Byte angegeben)
-                //$max_size = 10289;  
-                
-                //echo $max_size;
-                //echo $_FILES['datei']['size'];
-		 
+               		 
                 if($_FILES['datei']['size'] > $max_size) {
 				
 			return new ViewModel(['meldung' => 'dateigroesse']);
@@ -816,33 +799,7 @@ class KursController extends AbstractActionController
 		$new_path = $path_new.$filename.'.'.$extension;
 				 
 		//Neuer Dateiname falls die Datei bereits existiert
-		/*
-		if(file_exists($new_path)) { //Falls Datei existiert, h�nge eine Zahl an den Dateinamen
-			$id = 1;
-			do {
-				//$kurs_id = $_REQUEST["kurs_id"];
-				if(move_uploaded_file($_FILES['datei']['tmp_name'], $path_new.$filename.'_'.$id.'.'.$extension)) {
-						
-					return new ViewModel(['meldung' => 'erfolgreich']);
-				}
-				
-				//$new_path = $upload_folder.$filename.'_'.$id.'.'.$extension;
-				$id++;
-			} while(file_exists($new_path));
-		}
 		
-		else {
-			//$kurs_id = $_REQUEST["kurs_id"];
-			if(move_uploaded_file($_FILES['datei']['tmp_name'], $path_new.$filename.'.'.$extension))
-				{
-			
-				return new ViewModel(['meldung' => 'erfolgreich']);
-                                }else{
-                                    return new ViewModel(['meldung' => 'uploadfehlerhaft']);
-                                }
-                }*/
-                
-                //Neuer Dateiname falls die Datei bereits existiert
                 if(file_exists($new_path))
                 {
                         //Falls Datei existiert, hänge eine Zahl an den Dateinamen
@@ -958,7 +915,7 @@ class KursController extends AbstractActionController
     			header("Content-Disposition: attachment; filename=\"$document\"");
     			readfile($path."/".$document);
     		}
-    //TODO else return VieModule (error) 
+    
     	}
     }
     
@@ -1057,7 +1014,7 @@ class KursController extends AbstractActionController
 		/*
 		 * Button "Zertifikat" erstellt einen PDF Zertifikat
 		 */
-		//if($_SERVER['REQUEST_METHOD'] == 'POST' && $_POST['pdf']) {
+		
 			 
 			// Zugriff auf Action ist nur erlaubt, falls Zertifizierer oder Admin und Zugang �ber Button in kursview
 			if(User::currentUser()->getBenutzername()==null) {
@@ -1093,30 +1050,18 @@ class KursController extends AbstractActionController
 				$font = Font::fontWithName(Font::FONT_HELVETICA);
 				$page1->setFont($font, 40);		
 					 
-				//Load Image
+				//Load Uni Logo
 				$image = Image::imageWithPath('data/img/logo.png');
 				//Draw Image
 				$left = 262;
 				$bottom = 817;
 				$right = 10;
-				$top = 750;
-				
+				$top = 750;				
 				
 				$page1->drawImage($image, $left, $bottom, $right, $top);
 				
-				/*				
-				$image = Image::imageWithPath('data/img/justdoit.jpg');
-				//Draw Image
-				$left = 5;
-				$bottom = 323;
-				$right = 269;
-				$top = 700;
-				
-			
-				$page1->drawImage($image, $left, $bottom, $right, $top);
-				*/
-				
-				// Draw text
+						
+				// Draw text Zertifikat
 				$page1->drawText('Zertifikat', 350, 770);
 				
 				//Name und Vorname des Teilnehmers
@@ -1161,7 +1106,7 @@ class KursController extends AbstractActionController
 				$top = 400;
 					
 				$page1->drawImage($image, $left, $bottom, $right, $top);
-				// Save document as a new file or rewrite existing document
+				// Save document as a new file
 				//$pdf->save($path.$fileName.$extansion);
 		
 				header("Content-Disposition: inline; filename=$fileName.pdf");
@@ -1175,10 +1120,7 @@ class KursController extends AbstractActionController
 				return new Viewmodel (['message' => 'error']);
 			}
 		}
-			/* 
-			else header("refresh:0; url = /kurs/showkurse");
-			exit;
-		*/
+			
 		
 	
     }

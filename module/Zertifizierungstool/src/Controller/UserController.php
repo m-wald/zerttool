@@ -63,7 +63,7 @@ class UserController extends AbstractActionController
 			//Überprüfung ob Passwort und bestätigtes Passwort übereinstimmen
 			if ($_REQUEST['passwort']==$_REQUEST['passwort2']) {
 				$currentdate = date('Y-m-d');
-				if/*strtotime($_REQUEST["geburtsdatum"])!=false*/ ((Kurs::validateDate($_REQUEST["geburtsdatum"], 'Y-m-d') || (Kurs::validateDate($_REQUEST["geburtsdatum"], 'd.m.Y'))) && (strtotime($_REQUEST["geburtsdatum"])<=strtotime($currentdate))) {
+				if((Kurs::validateDate($_REQUEST["geburtsdatum"], 'Y-m-d') || (Kurs::validateDate($_REQUEST["geburtsdatum"], 'd.m.Y'))) && (strtotime($_REQUEST["geburtsdatum"])<=strtotime($currentdate))) {
 					
 					
 					//Bei Registrierung über invite, wird ein angepasster Registrierungslink
