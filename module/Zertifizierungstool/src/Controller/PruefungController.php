@@ -343,7 +343,7 @@ class PruefungController extends AbstractActionController {
 		
 		foreach ($fragen_to_delete as $frage) {
 			$antworten_to_delete = Antwort::loadList($frage->getId());
-			foreach ($antworten as $antwort) {
+			foreach ($antworten_to_delete as $antwort) {
 				Antwort::delete($antwort->getId());
 			}
 			
