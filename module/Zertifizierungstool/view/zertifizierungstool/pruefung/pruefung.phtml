@@ -111,11 +111,14 @@ input[type=number]{
 				+ '<input type="checkbox" name="antwort_checked<?=$i?>" <?php if ($antwort->getStatus() == 1) echo "checked";?>>'
 				<?php 
 				if ($i>1) {?>
-				+ '<a href="<?= $this->url('frage', ['action' => 'deleteantwort', 'id' => $antwort->getId()])?>"><button type="button" class="btn btn-default"> - </button></a><br><br>'
+				+ '<a href="<?= $this->url('frage', ['action' => 'deleteantwort', 'id' => $antwort->getId()])?>"><button type="button" class="btn btn-default"> - </button></a>'
 				
 				<?php 
 					}$i++;
-				}
+					?>
+				+ '<br><br>'
+				<?php
+					}
 				?>
 
 				+ '<p id="antwortenListe"></p></div>'
